@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -18,13 +23,20 @@ import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.compo
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
 import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RegisterComponent } from './pages/company/register/register.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
-import { LivelinessComponent } from './pages/employee/liveliness/liveliness.component';
-import { ImageComponent } from './pages/employee/image/image.component';
-import { DocumentsComponent } from './pages/employee/documents/documents.component';
-import { DetailsComponent } from './pages/employee/details/details.component';
-import { ReviewComponent } from './pages/employee/review/review.component';
+import { KycComponent } from './pages/employee/kyc/kyc.component';
+import { RegisterComponent } from './pages/company/register/register.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DetailsComponent } from './components/details/details.component';
+import { DocumentsComponent } from './components/documents/documents.component';
+import { SelfieComponent } from './components/selfie/selfie.component';
+import { LivelinessComponent } from './components/liveliness/liveliness.component';
+import { ReviewComponent } from './components/review/review.component';
+
 
 @NgModule({
   declarations: [
@@ -43,18 +55,27 @@ import { ReviewComponent } from './pages/employee/review/review.component';
     AcceptedKycComponent,
     RejectedKycComponent,
     HomeComponent,
-    RegisterComponent,
     EmployeesComponent,
-    LivelinessComponent,
-    ImageComponent,
-    DocumentsComponent,
+    KycComponent,
+    RegisterComponent,
     DetailsComponent,
+    DocumentsComponent,
+    SelfieComponent,
+    LivelinessComponent,
     ReviewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

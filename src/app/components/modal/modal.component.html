@@ -1,1 +1,19 @@
-<p>modal works!</p>
+<div class="modal">
+
+<div class="modal-header">
+  <span class="close-modal-button" (click)="onClose()"> &times;</span>
+</div>
+
+<br/>
+
+<div class="modal-body">
+  <div *ngIf="data.type === 'SIGNUP'">
+    <app-signup></app-signup>
+  </div>
+
+  <div *ngIf="data.type === 'LOGIN'">
+    <app-login></app-login>
+  </div>
+</div>
+
+</div>

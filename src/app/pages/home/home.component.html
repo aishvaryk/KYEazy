@@ -1,1 +1,53 @@
-<p>home works!</p>
+<div class="home" fxLayout="row" fxLayoutAlign="center center">
+
+  <!-- left view -->
+  <div class="left" fxFlex="50">
+
+    <!-- heading -->
+    <div class="heading">
+      Verifying employees <br />
+      for great companies.
+    </div> <br />
+    <!-- heading ends -->
+
+    <div [fxLayout]="flexDirection" fxLayoutAlign="space-between">
+
+      <!-- for companies -->
+      <div class="companies-and-employees">
+        <div class="sub-heading">For Companies</div><br/>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis,
+          adipisci!
+        </p>
+        <div>
+          <button mat-stroked-button (click)="showSignupModal()" class="signup"color="primary">Sign Up</button>
+          <button mat-raised-button (click)="showLoginModal()" class="login" color="primary">Log In</button>
+        </div>
+      </div>
+      <!-- for companies ends -->
+
+      <!-- for employees -->
+      <div class="companies-and-employees">
+        <div class="sub-heading">For Employees</div><br/>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis,
+          adipisci!
+        </p>
+        <div>
+          <button mat-raised-button (click)="showLoginModal()" class="login" color="primary">Log In</button>
+        </div>
+      </div>
+      <!-- for employee ends -->
+
+    </div>
+
+  </div>
+  <!-- left view ends -->
+
+  <!-- right view -->
+  <div class="right" fxFlex="40" *ngIf="!isSmall">
+    <img src="/assets/images/homepage.png" alt="homepage" />
+  </div>
+  <!-- right view ends -->
+
+</div>
