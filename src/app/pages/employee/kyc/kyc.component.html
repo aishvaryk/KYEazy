@@ -1,26 +1,26 @@
 <mat-stepper [orientation]="orientation" #stepper>
   <mat-step label="Personal Details">
     <app-details></app-details>
-    <button mat-raised-button matStepperNext>Next</button>
+    <button mat-raised-button matStepperNext  style="float:right" color="primary">Next</button>
   </mat-step>
   <mat-step label="Documents">
     <app-documents></app-documents>
-    <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-    <button mat-raised-button matStepperNext>Next</button>
+    <button mat-raised-button  matStepperPrevious>Back</button>
+    <button mat-raised-button  matStepperNext style="float:right" color="primary">Next</button>
   </mat-step>
   <mat-step label="Picture">
     <app-selfie></app-selfie>
     <button mat-raised-button matStepperPrevious>Back</button>
-    <button mat-raised-button matStepperNext>Next</button>
+    <button mat-raised-button matStepperNext style="float:right" color="primary" >Next</button>
   </mat-step>
   <mat-step label="Liveliness">
     <app-liveliness></app-liveliness>
     <button mat-raised-button matStepperPrevious>Back</button>
-    <button mat-raised-button matStepperNext>Next</button>
+    <button mat-raised-button matStepperNext style="float:right" color="primary">Next</button>
   </mat-step>
   <mat-step label="Review">
     <app-review></app-review>
     <button mat-raised-button matStepperPrevious>Back</button>
-    <button mat-raised-button>Submit</button>
+    <button mat-raised-button style="float:right" color="primary">Submit</button>
   </mat-step>
 </mat-stepper>

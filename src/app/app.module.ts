@@ -7,6 +7,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -76,6 +77,7 @@ import { ReviewComponent } from './components/review/review.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
