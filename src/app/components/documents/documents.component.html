@@ -1,1 +1,36 @@
-<p>documents works!</p>
+
+  <form fxLayout="column" fxLayoutAlign="center start">
+
+    <mat-form-field fxflex>
+      <mat-label>Document Type</mat-label>
+      <mat-select>
+        <mat-option>
+          Adhar Card
+        </mat-option>
+        <mat-option>
+          Pan Card
+        </mat-option>
+        <mat-option>
+          Driving Licence
+        </mat-option>
+        <mat-option>
+          Passport
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxflex>
+      <mat-label>Document Number</mat-label>
+      <input
+        matInput
+      />
+    </mat-form-field>
+
+    <div style="width: 100%;">
+      <input #input hidden="true" type="file" (change)="onChange($event)" />
+      <button mat-raised-button color="primary" (click)="input.click()"> Upload Document </button>
+      <br/>
+      <img [height]='300' [width]="300" [src]="src" />
+    </div>
+
+  </form>

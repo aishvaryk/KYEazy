@@ -1,0 +1,33 @@
+.snap-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.video {
+  height: 100%;
+  width: 100%;
+}
+
+.list-unstyled {
+  list-style: none;
+}
+
+.list-unstyled li {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mat-raised-button {
+  display: block;
+  width: 100%;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}

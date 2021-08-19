@@ -1,1 +1,94 @@
-<p>register works!</p>
+<h1>Form to add employee by company</h1>
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  style="width: 100%;"
+>
+
+<form
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  style="width: 50%"
+  [formGroup]="employeeForm"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+>
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input
+      matInput
+      placeholder="Eg. Amit"
+      type="text"
+      name="first-name"
+      formControlName="firstName"
+      required
+    />
+    <mat-error *ngIf="errorHandling('firstName', 'required')">
+      You must give <strong>first name</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input
+      matInput
+      placeholder="Eg. Gupta"
+      type="text"
+      name="last-name"
+      formControlName="lastName"
+      required
+    />
+    <mat-error *ngIf="errorHandling('lastName', 'required')">
+      You must give <strong>last name</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      formControlName="email"
+      required
+    />
+    <mat-error
+      *ngIf="
+        employeeForm.controls['email'].hasError('email') ||
+        employeeForm.controls['email'].hasError('required')
+      "
+      >{{ getErrorMessage() }}</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Enter your contact No</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      formControlName="contactNumber"
+      required
+    />
+    <mat-error *ngIf="errorHandling('contactNumber', 'required')">
+      You must give <strong>last name</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <br />
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    (click)="isSubmitted = true"
+  >
+    Submit
+  </button>
+
+  <br />
+  <span
+    *ngIf="!employeeForm.valid && employeeForm.touched && isSubmitted"
+    class="submit-error"
+  >
+    Please Enter correct details
+  </span>
+</form>
+</div>
