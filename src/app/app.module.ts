@@ -50,6 +50,9 @@ import { CompanyDashboardComponent } from './pages/company/company-dashboard/com
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CompanyComponent } from './pages/company/company.component';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './redux/reducers/counter.reducer';
+import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,10 @@ import { CompanyComponent } from './pages/company/company.component';
     EmployeesComponent
   ],
   imports: [
+    StoreModule.forRoot({
+      count: counterReducer,
+      breakpoint: breakpointReducer,
+    }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

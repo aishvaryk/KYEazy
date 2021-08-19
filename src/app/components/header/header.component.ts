@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +10,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() deviceXs: any;
+  deviceXs: any;
+
   isHamOpen: boolean =  false;
 
-  constructor() {
+  breakpoint$: Observable<Breakpoint>;
+
+  constructor(public store: Store<{breakpoint: Breakpoint}>) {
+    this.breakpoint$ = store.select('breakpoint');
+    this.breakpoint$.subscribe((breakpoint) => this.deviceXs=breakpoint.isXs);
   }
 
   ngOnInit(): void {
