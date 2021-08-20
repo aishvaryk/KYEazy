@@ -10,7 +10,7 @@ export interface Employee {
   documentType:string;
   documentNumber:string;
   emailID:string;
-  capturedImage:any;
+  //capturedImage:any;
   status:string;
   dateTimeofApplication:Date;
   dateTimeofVerification:Date;
