@@ -1,43 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit,ErrorStateMatcher {
+export class LoginComponent implements OnInit {
 
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  @Input()
+  public type: any;
+
+  @Input()
+  public dialog: any;
+  public form;
+
+  constructor(public store: Store<{loggedin: boolean}>) {
+
+    this.form = new FormGroup({
+      username: new FormControl('', [
+        Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+      ])
+    });
   }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  ngOnInit(): void {
 
-  signuppasswordFormControl = new FormControl('', [
-    Validators.required
-  ]);
+  }
 
-  loginpasswordFormControl = new FormControl('', [
-    Validators.required
-  ]);
+  onSubmit(): void
+  {
+    if(this.form.status === 'INVALID') return;
 
-  nameFormControl = new FormControl('', [
-    Validators.required
-  ]);
+    if(this.type == "EMPLOYEE_LOGIN") {
+      localStorage.setItem('userType',"EMPLOYEE")
+    }
 
-  loginemailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+    if(this.type = "COMPANY_LOGIN") {
+      localStorage.setItem('userType',"COMPANY")
+    }
 
-  constructor() { }
+    this.dialog.close();
+  }
 
-  ngOnInit(): void { }
 
 }

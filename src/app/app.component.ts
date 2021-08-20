@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Breakpoint } from './models/breakpoint.model';
 import { update } from './redux/actions/breakpoint.action';
-import { increment, decrement, reset } from './redux/actions/counter.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   mediaSubscriber: any;
 
@@ -82,6 +81,10 @@ export class AppComponent implements OnInit {
 
         this.store.dispatch(update(breakpoint));
       });
+  }
+
+  ngOnDestroy(): void {
+    this.mediaSubscriber.unsubscribe();
   }
 
 }

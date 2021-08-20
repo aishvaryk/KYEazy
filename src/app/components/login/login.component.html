@@ -1,25 +1,35 @@
-
 <div fxLayout="row" fxLayoutAlign="center center">
-    <form #signupform="ngForm">
-      <div fxLayout="column" fxLayoutAlign="center center" >
-    <mat-form-field>
-      <mat-label>Email or Username</mat-label>
-      <input matInput placeholder="" [formControl]="loginemailFormControl">
-      <mat-error *ngIf="loginemailFormControl.hasError('email') && !loginemailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="loginemailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input matInput placeholder="should be 8 characters long" type="password" [formControl]="loginpasswordFormControl">
-      <mat-error *ngIf="loginpasswordFormControl.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <button routerLink="/employee/kyc" mat-raised-button color="primary" type="submit">Login</button>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div fxLayout="column" fxLayoutAlign="center center">
+
+      <mat-form-field>
+        <mat-label>Email or Username</mat-label>
+        <input
+        matInput
+        placeholder=""
+        formControlName="username"
+        />
+        <mat-error *ngIf="!form.get('username')?.valid && form.get('username')?.touched">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          placeholder="should be 8 characters long"
+          type="password"
+          formControlName="password"
+        />
+        <mat-error *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Login</button>
     </div>
-    </form>
-  </div>
+
+  </form>
+</div>

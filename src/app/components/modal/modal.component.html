@@ -1,19 +1,19 @@
 <div class="modal">
 
 <div class="modal-header">
+  <div *ngIf="data.type === 'EMPLOYEE_LOGIN'">
+    EMPLOYEE
+  </div>
+  <div *ngIf="data.type === 'COMPANY_LOGIN'">
+    COMPANY
+  </div>
   <span class="close-modal-button" (click)="onClose()"> &times;</span>
 </div>
 
 <br/>
 
 <div class="modal-body">
-  <div *ngIf="data.type === 'SIGNUP'">
-    <app-signup></app-signup>
-  </div>
-
-  <div *ngIf="data.type === 'LOGIN'">
-    <app-login></app-login>
-  </div>
+    <app-login [type]="data.type" [dialog]="dialog" ></app-login>
 </div>
 
 </div>

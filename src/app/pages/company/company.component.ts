@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
+  public user: any;
+  public user$: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
