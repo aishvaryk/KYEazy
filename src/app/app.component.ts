@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { ActionDTO } from './models/action.model';
+import { Company } from './models/company.model';
 import { Employee } from './models/employee.model';
 import { AdminService } from './services/admin/admin.service';
 import { CompanyService } from './services/company/company.service';
@@ -14,35 +16,26 @@ import { EmployeeService } from './services/employee/employee.service';
 
 export class AppComponent implements OnInit{
 
-  employees:Employee[]
-  //companyObservable: Observable<Employee>;
-  companyService: CompanyService;
-  adminService: AdminService;
-  employeeService :EmployeeService;
 
-  constructor(companyService:CompanyService,employeeService:EmployeeService,adminService:AdminService){
 
-    this.companyService=companyService;
-    this.employeeService=employeeService;
-    this.adminService=adminService;
-    this.employees=[];
+
+
+  constructor(){
+
 
 }
   ngOnInit(){
 
 
-    this.companyService.getEmployees();
-    this.companyService.employeesChanged.subscribe((employees)=>{
-    this.employees=employees;
-  })
-  console.log(this.employees);
-  /*
-  this.companyService.getAllEmployees().subscribe((employees:Employee[])=>{
-    console.log(employees);
-  })*/
+   /* this.companyService.register(this.newCompany);
+    this.companyService.registeredCompany.subscribe((company)=>{
+      this.companyResponse=company;
+      console.log(this.companyResponse);
+      })
+  }*/
 
+  }
 
   }
 
 
-}

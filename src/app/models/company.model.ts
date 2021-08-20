@@ -8,6 +8,5 @@ export interface Company{
   name:string;
   companyDescription:string;
   cinNumber: string;
-  employees:Array<Employee>;
   address:Address;
 }
