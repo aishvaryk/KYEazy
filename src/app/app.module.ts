@@ -18,6 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
+import { MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -110,6 +111,7 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     MatExpansionModule,
     MatCardModule,
     MatListModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,89 @@
+.employee-container {
+  margin-top: 2%;
+}
+
+.employee-container-mobile {
+  margin-top: 2%;
+}
+
+.employee-card {
+  width: 90%;
+  margin-bottom: 16px;
+}
+
+.employee-card-mobile {
+  width: 45%;
+
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+
+.employee-header-image {
+  background-size: cover;
+}
+
+.employee-buttons{
+}
+
+.employee-buttons-mobile {
+  margin-top: 15px;
+}
+
+.employee-buttons{
+  padding: 0;
+  margin-top: 0;
+}
+
+.status-container {
+  margin-bottom: 0;
+  .verification-done {
+    color:green;
+  }
+  .verification-failed {
+    color:red;
+  }
+  .verification-pending {
+    color: yellowgreen;
+  }
+}
+
+.status-container-mobile {
+  margin-bottom: 0;
+  width: 100%;
+  margin-top: 10px;
+  .verification-done {
+    color:green;
+  }
+  .verification-failed {
+    color:red;
+  }
+  .verification-pending {
+    color: yellowgreen;
+  }
+}
+.employee-email{
+  margin-bottom: 0;
+
+}
+
+
+.employee-card-header-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .employee-name{
+    margin-bottom: 0;
+  }
+}
+
+.employee-email-mobile {
+  font-size: 14px;
+  color: rgba(0,0,0,.54);
+  width: 100%;
+  margin-top: 20px;
+}
+
+.employee-paginator {
+  background-color: rgba(0,0,0,0);
+}
