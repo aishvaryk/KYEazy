@@ -2,8 +2,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" [opened]=sidenavOpen class="sidenav" fixedInViewport="false" >
     <mat-nav-list>
-      <a mat-list-item>Dashboard</a>
-      <a mat-list-item>Employees</a>
+      <a mat-list-item routerLink="/company/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="/company/employees">Employees</a>
     </mat-nav-list>
     <mat-expansion-panel  class="mat-elevation-z0 sidenav-expansion">
       <mat-expansion-panel-header>
@@ -19,7 +19,8 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-register></app-register>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
+
 
 </mat-sidenav-container>

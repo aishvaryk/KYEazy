@@ -1,1 +1,84 @@
-<p>employees works!</p>
+<div class="employee-display-options"  fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Filter Status</mat-label>
+    <mat-select>
+      <mat-option value="all" >All Employees</mat-option>
+      <mat-option value="all">X</mat-option>
+      <mat-option value="all">X</mat-option>
+      <mat-option value="all">X</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Sort By</mat-label>
+    <mat-select>
+      <mat-option value="all" >All Employees</mat-option>
+      <mat-option value="all">X</mat-option>
+      <mat-option value="all">X</mat-option>
+      <mat-option value="all">X</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="search-employees" fxLayout="row">
+    <form class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Search</mat-label>
+        <input type="text" matInput [formControl]="emailFormControl"
+              placeholder="Search by Employee Name, Role or email">
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary"><mat-icon aria-label="i">search</mat-icon></button>
+  </div>
+</div>
+
+<div [ngClass]="{'employee-container-mobile': isSmall,'employee-container':!isSmall }" fxLayout="row wrap"
+fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
+
+  <mat-card [ngClass]="{'employee-card-mobile': isSmall,'employee-card':!isSmall }"
+            fxLayout="row" fxLayout.xs="column"
+            fxLayoutAlign="space-between center" fxLayoutAlign.xs= "space-between start"
+            *ngFor="let n of numSequence(6)">
+
+    <mat-card-header fxFlex="60" [ngClass]="{'employee-card-header-mobile': isSmall}"  >
+      <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+      <mat-card-title class="employee-name">Employee 1</mat-card-title>
+      <mat-card-subtitle class="employee-email" *ngIf="!isSmall">abc@xyz.com</mat-card-subtitle>
+    </mat-card-header>
+    <div class="employee-email-mobile" *ngIf="isSmall">abc@xyz.com</div>
+    <mat-card-content [ngClass]="{'status-container-mobile': isSmall,'status-container':!isSmall }" fxLayout="row"
+    fxLayout.xs="column" fxLayoutAlign="space-between enter" fxFlex="40">
+        <div class="verification-done" *ngIf="verificationStatus==='verified'" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon aria-label="i">check_circle_outline</mat-icon>
+          &nbsp;
+          <div class="verification-text" >Employee Verified</div>
+        </div>
+
+        <div class="verification-failed" *ngIf="verificationStatus==='rejected'" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon aria-label="i">cancel</mat-icon>
+          <div class="verification-text">Employee Verified</div>
+        </div>
+
+        <div class="verification-pending"*ngIf="verificationStatus==='pending'" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon aria-label="i">pending</mat-icon>
+          <div class="verification-text">Employee Verification Pending</div>
+        </div>
+
+        <button
+        mat-raised-button color="primary"
+        [ngClass]="{'employee-buttons-mobile': isSmall,'employee-buttons':!isSmall }">
+          LIKE
+        </button>
+
+    </mat-card-content>
+
+
+  </mat-card>
+  <div class="employee-paginator">
+    <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page"
+                (page)="OnPageChange($event)">
+    </mat-paginator>
+  </div>
+</div>
