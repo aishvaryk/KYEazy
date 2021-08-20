@@ -39,10 +39,12 @@ export class SignupComponent implements OnInit {
 
   public errorHandling = (control: string, error: string) => {
     return this.companyForm.controls[control].hasError(error);
+    // return this.companyForm.controls[control].errors?.required;
+
   }
 
   getErrorMessage() {
-    if (this.companyForm.controls['email'].hasError('required')) {
+    if (this.companyForm.controls['email'].errors('required')) {
       return 'You must enter a value';
     }
     return this.companyForm.controls['email'].hasError('errors') ?  '' : 'Not a valid email';
