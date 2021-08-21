@@ -22,7 +22,7 @@ export class CompanyService {
 
 
   getEmployees(): void{
-    this.httpClient.get("http://localhost:8085/company/employees/1").pipe(map((response) => response as Employee[]))
+    this.httpClient.get("http://localhost:8085/company/employees/1?pageSize=2&pageNumber=2").pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
      // this.employees=results;
         console.log(results);
