@@ -15,8 +15,8 @@ export class SidebarComponent implements OnInit {
   private observable: any;
   public isSmall: boolean;
   public sidenavOpen: boolean;
-
   verificationStatus:String;
+
   constructor(public observer: MediaObserver) {
     this.verificationStatus = "verified";
     this.sidenavOpen = true;

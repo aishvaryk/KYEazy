@@ -4,6 +4,7 @@ import { CompanyDashboardComponent } from './pages/company/company-dashboard/com
 import { CompanyComponent } from './pages/company/company.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
 import { RegisterComponent } from './pages/company/register/register.component';
+import { SignupComponent } from './pages/company/signup/signup.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -28,6 +29,10 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent
       },
+      {
+        path: 'signup',
+        component: SignupComponent
+      }
     ]
   },
   {

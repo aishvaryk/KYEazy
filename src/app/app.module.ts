@@ -26,8 +26,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { SearchComponent } from './components/search/search.component';
+import { SignupComponent } from './pages/company/signup/signup.component';
 import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
@@ -64,7 +63,6 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    SearchComponent,
     ProfileComponent,
     PendingKycComponent,
     AcceptedKycComponent,
