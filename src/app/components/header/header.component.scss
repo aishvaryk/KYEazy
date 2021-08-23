@@ -1,0 +1,25 @@
+.row {
+  .logo {
+    width: 150px;
+    height: 48px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .buttons {
+    font-size: 2rem;
+  }
+
+}
+
+.mat-toolbar {
+  box-shadow: 2px 1px 1px teal ;
+}
+
+.header {
+  height: 10%;
+}
