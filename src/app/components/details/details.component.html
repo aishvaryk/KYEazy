@@ -1,13 +1,10 @@
 <div fxLayout="column" fxLayoutAlign="center center">
 
-  <form [formGroup]="form" fxLayout="column" fxLayoutAlign="center center" style='width: 100%;'>
+  <form [formGroup]="form" fxLayout="column" [ngStyle.lt-md]="{'width': '100%'}" [ngStyle.gt-md]="{'width': '50%'}" fxLayoutAlign.gt-md="center center">
 
     <mat-form-field fxflex>
       <mat-label>First Name</mat-label>
       <input formControlName="firstName" matInput required />
-      <!-- <mat-error *ngIf="errorHandling('firstName', 'required')">
-        You must give <strong>first name</strong>
-      </mat-error> -->
       <mat-error *ngIf="!form.get('firstName').valid && form.get('firstName').touched">
         You must give <strong>first name</strong>
       </mat-error>

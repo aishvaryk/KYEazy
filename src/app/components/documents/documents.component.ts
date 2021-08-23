@@ -9,7 +9,7 @@ export class DocumentsComponent implements OnInit {
 
   public src: any;
   constructor() { }
-
+  docNumber: string = "";
   ngOnInit(): void {
   }
 
