@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { LoginComponent } from 'src/app/components/login/login.component';
+import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 
 @Component({
   selector: 'app-home',
@@ -13,42 +12,47 @@ import { ModalComponent } from 'src/app/components/modal/modal.component';
 })
 export class HomeComponent implements OnInit,OnDestroy {
 
-  private observable: any;
-  public isSmall: boolean;
-  public flexDirection: String;
+  public isSmall: any;
+  public flexDirection: any;
+  public user: any;
 
-  constructor(public observer: MediaObserver, public dialog: MatDialog) {
-    this.flexDirection = "row";
-    this.isSmall = false;
-  }
+  constructor(
+    public observer: MediaObserver,
+    public dialog: MatDialog,
+    public store: Store<{ breakpoint: Breakpoint }>
+    ) {
 
-  ngOnInit(): void {
-    this.observable = this.observer.asObservable().pipe(
-      filter((changes: MediaChange[]) => changes.length > 0),
-      map((changes: MediaChange[]) => changes[0])
-    ).subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+    this.store.select('breakpoint').subscribe((breakpoint) => {
+      if(breakpoint.isXs || breakpoint.isSm) {
         this.isSmall = true;
         this.flexDirection = "column";
-      } else {
+      }
+      else {
         this.isSmall = false;
         this.flexDirection = "row";
       }
-    });
+    })
+
   }
 
-  showLoginModal(): void {
+  ngOnInit(): void {
+    console.log(localStorage);
+  }
+
+
+  showEmployeeLoginModal(): void {
     this.dialog.open(ModalComponent,{
       data: {
-        type: "LOGIN"
+        type: "EMPLOYEE_LOGIN"
       }
     });
+
   }
 
-  showSignupModal(): void {
+  showCompanyLoginModal(): void {
     this.dialog.open(ModalComponent,{
       data: {
-        type: "SIGNUP"
+        type: "COMPANY_LOGIN"
       }
     });
   }

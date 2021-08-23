@@ -18,6 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
+import { MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -25,8 +26,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { SearchComponent } from './components/search/search.component';
+import { SignupComponent } from './pages/company/signup/signup.component';
 import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
@@ -50,6 +50,9 @@ import { CompanyDashboardComponent } from './pages/company/company-dashboard/com
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CompanyComponent } from './pages/company/company.component';
+import { StoreModule } from '@ngrx/store';
+
+import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,6 @@ import { CompanyComponent } from './pages/company/company.component';
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    SearchComponent,
     ProfileComponent,
     PendingKycComponent,
     AcceptedKycComponent,
@@ -82,6 +84,9 @@ import { CompanyComponent } from './pages/company/company.component';
     EmployeesComponent
   ],
   imports: [
+    StoreModule.forRoot({
+      breakpoint: breakpointReducer,
+    }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -104,6 +109,7 @@ import { CompanyComponent } from './pages/company/company.component';
     MatExpansionModule,
     MatCardModule,
     MatListModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,24 +1,31 @@
-<header>
-  <mat-toolbar>
-    <mat-toolbar-row fxLayoutAlign="space-between center" class="row-1">
-      <div class="logo">
-        <img src="/assets/images/logo.png" />
-      </div>
-      <div class="buttons">
-        <div class="btns" *ngIf="((deviceXs && isHamOpen) || (!deviceXs && !isHamOpen))">
-          <button mat-button> Contact Us </button>
-          <button mat-button> About </button>
-        </div>
-        <button *ngIf="deviceXs && isHamOpen" (click)="isHamOpen = true;">
-          <mat-icon class="hamburger">menu</mat-icon>
-        </button>
+<div class="header">
 
-        <button *ngIf="deviceXs && !isHamOpen" (click)="isHamOpen = false;">
-          <mat-icon>close</mat-icon>
-        </button>
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center" class="row">
+
+    <div class="logo">
+      <img src="/assets/images/logo.png" />
+    </div>
+
+    <div class="buttons">
+
+      <div class="btns" *ngIf="!deviceXs">
+        <button mat-button> Contact Us </button>
+        <button mat-button> About </button>
       </div>
+
+      <button *ngIf="deviceXs">
+        <mat-icon class="hamburger">menu</mat-icon>
+      </button>
+
+      <button *ngIf="deviceXs">
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </div>
 
     </mat-toolbar-row>
 
-  </mat-toolbar>
-</header>
+</mat-toolbar>
+
+</div>

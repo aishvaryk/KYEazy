@@ -20,8 +20,8 @@
           adipisci!
         </p>
         <div>
-          <button mat-stroked-button (click)="showSignupModal()" class="signup"color="primary">Sign Up</button>
-          <button mat-raised-button (click)="showLoginModal()" class="login" color="primary">Log In</button>
+          <button mat-stroked-button routerLink="/company/signup" class="signup"color="primary">Sign Up</button>
+          <button mat-raised-button (click)="showCompanyLoginModal()" class="login" color="primary">Log In</button>
         </div>
       </div>
       <!-- for companies ends -->
@@ -34,7 +34,7 @@
           adipisci!
         </p>
         <div>
-          <button mat-raised-button (click)="showLoginModal()" class="login" color="primary">Log In</button>
+          <button mat-raised-button (click)="showEmployeeLoginModal()" class="login" color="primary">Log In</button>
         </div>
       </div>
       <!-- for employee ends -->
