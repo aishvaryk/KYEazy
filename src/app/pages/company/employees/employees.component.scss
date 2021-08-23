@@ -1,9 +1,9 @@
 .employee-container {
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 .employee-container-mobile {
-  margin-top: 2%;
+  margin-top: 1%;
 }
 
 .employee-card {
@@ -24,6 +24,7 @@
 }
 
 .employee-buttons{
+  width:100px;
 }
 
 .employee-buttons-mobile {
@@ -33,6 +34,7 @@
 .employee-buttons{
   padding: 0;
   margin-top: 0;
+
 }
 
 .status-container {
@@ -84,6 +86,62 @@
   margin-top: 20px;
 }
 
-.employee-paginator {
+.mat-paginator {
+
   background-color: rgba(0,0,0,0);
 }
+
+.employee-display-options {
+  width: 90%;
+}
+
+.employee-display-options-mobile {
+  width: 95%;
+}
+
+.filter-sort-employees {
+  width: 45%;
+  font-size: 12px;
+  mat-form-field {
+    background-color:rgba(0,0,0,0);
+    padding-bottom: 0;
+    width: 45%;
+  }
+}
+
+.filter-sort-employees-mobile {
+  width: 100%;
+  font-size: 12px;
+  mat-form-field {
+    background-color:rgba(0,0,0,0);
+    padding-bottom: 0;
+    width: 47.5%;
+  }
+}
+
+.search-employees {
+  font-size: 12px;
+  width: 100%;
+  .search-form-field {
+    width: 50%;
+  }
+  .search-button {
+    margin-top: 0.2em;
+    height: 43px;
+  }
+}
+
+.search-employees-mobile {
+  font-size: 12px;
+  width: 100%;
+  .search-form-field-mobile{
+    width: 100%;
+    min-width: none;
+  }
+  .search-button {
+    margin-top: 0.2em;
+    height: 43px;
+  }
+}
+
+
