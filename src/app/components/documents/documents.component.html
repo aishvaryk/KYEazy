@@ -3,17 +3,17 @@
 
     <mat-form-field fxflex>
       <mat-label>Document Type</mat-label>
-      <mat-select>
-        <mat-option>
-          Adhar Card
+      <mat-select required>
+        <mat-option value="aadhar" name="documentType">
+          Aadhar Card
         </mat-option>
-        <mat-option>
+        <mat-option value="pan" name="documentType">
           Pan Card
         </mat-option>
-        <mat-option>
+        <mat-option value="driving" name="documentType">
           Driving Licence
         </mat-option>
-        <mat-option>
+        <mat-option value="passport" name="documentType">
           Passport
         </mat-option>
       </mat-select>
@@ -22,7 +22,7 @@
     <mat-form-field fxflex>
       <mat-label>Document Number</mat-label>
       <input
-        matInput
+        matInput [(ngModel)] = "docNumber" required name="documentNumber"
       />
     </mat-form-field>
 

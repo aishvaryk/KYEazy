@@ -12,9 +12,6 @@ import { update } from './redux/actions/breakpoint.action';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-
-
-
 export class AppComponent implements OnInit, OnDestroy {
 
   mediaSubscriber: any;
@@ -92,18 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 }
-   /*   ngOnInit(){
-
-
-      this.companyService.register(this.newCompany);
-      this.companyService.registeredCompany.subscribe((company)=>{
-      this.companyResponse=company;
-      console.log(this.companyResponse);
-      })
-  }*/
-
-
-
 
 
 

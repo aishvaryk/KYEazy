@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -18,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
+import { MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -25,8 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { SearchComponent } from './components/search/search.component';
+import { SignupComponent } from './pages/company/signup/signup.component';
 import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
@@ -43,6 +45,7 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { SelfieComponent } from './components/selfie/selfie.component';
 import { LivelinessComponent } from './components/liveliness/liveliness.component';
 import { ReviewComponent } from './components/review/review.component';
+
 import { WebcamModule } from 'ngx-webcam';
 import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
@@ -62,7 +65,6 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    SearchComponent,
     ProfileComponent,
     PendingKycComponent,
     AcceptedKycComponent,
@@ -91,6 +93,7 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     AppRoutingModule,
     BrowserAnimationsModule,
      FlexLayoutModule,
+    HttpClientModule,
     MatStepperModule,
     MatButtonModule,
     MatDialogModule,
@@ -100,7 +103,6 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
-    WebcamModule,
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
@@ -109,7 +111,9 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     MatExpansionModule,
     MatCardModule,
     MatListModule,
-],
+
+    MatPaginatorModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -12,7 +12,6 @@ export class HeaderComponent implements OnInit {
 
   deviceXs: any;
 
-  isHamOpen: boolean =  false;
 
   breakpoint$: Observable<Breakpoint>;
 
