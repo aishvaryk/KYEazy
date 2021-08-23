@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { map } from 'rxjs/operators';
-import { EmployeeComponent } from 'src/app/components/employee/employee.component';
+
 import { ActionDTO } from 'src/app/models/action.model';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
@@ -25,7 +25,7 @@ export class CompanyService {
   constructor(private httpClient :HttpClient) {
     //this.employees
     this.employees=[];
-    this.registrationStatus={"id":0,"message":"","success":false}
+    this.registrationStatus={} as ActionDTO;
     this.employee={ } as Employee;
     this.employeesSubject=new Subject();
     this.employeeSubject=new Subject();
@@ -43,8 +43,8 @@ export class CompanyService {
         this.registrationStatus=results;
         this.actionDTOSubject.next(results);
 
-});
-  }
+  });
+}
 
   getEmployees(id:number,pageSize:number,pageNumber:number): void{
     this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
