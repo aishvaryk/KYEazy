@@ -1,6 +1,6 @@
 <h1>Form to signup company</h1>
 
-<form fxLayout="column" fxLayoutAlign="center center" [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+<form fxLayout="column" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <mat-form-field>
     <mat-label>Company Name</mat-label>
@@ -12,7 +12,7 @@
       formControlName="companyName"
       required
     />
-    <mat-error *ngIf="errorHandling('companyName', 'required')">
+    <mat-error *ngIf="!form.get('companyName')?.valid && form.get('companyName')?.touched">
       You must provide <strong>company name</strong>
     </mat-error>
   </mat-form-field>
@@ -29,8 +29,7 @@
       formControlName="userName"
       required
     />
-    <!-- <mat-hint>Hint: can contain alphanumeric letters and period</mat-hint> -->
-    <mat-error *ngIf="errorHandling('userName', 'required')">
+    <mat-error *ngIf="!form.get('userName')?.valid && form.get('userName')?.touched">
       You must provide <strong>username</strong>
     </mat-error>
   </mat-form-field>
@@ -52,7 +51,7 @@
     >
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
-    <mat-error *ngIf="errorHandling('password', 'required')">
+    <mat-error *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
       To login company must provide <strong>password</strong>
     </mat-error>
   </mat-form-field>
@@ -65,7 +64,7 @@
       formControlName="companyDescription"
       required
     ></textarea>
-    <mat-error *ngIf="errorHandling('companyDescription', 'required')">
+    <mat-error *ngIf="!form.get('companyDescription')?.valid && form.get('companyDescription')?.touched">
       Company must have some <strong>description</strong>
     </mat-error>
   </mat-form-field>
@@ -79,8 +78,8 @@
       formControlName="cin"
       required
     />
-    <mat-error *ngIf="errorHandling('cin', 'required')">
-      Company must have <strong>CIN Number</strong>
+    <mat-error *ngIf="!form.get('cin')?.valid && form.get('cin')?.touched">
+      Company must have <strong> CIN Number </strong>
     </mat-error>
   </mat-form-field>
 
@@ -92,31 +91,27 @@
       formControlName="email"
       required
     />
-    <mat-error
-      *ngIf="
-        companyForm.controls['email'].hasError('email') ||
-        companyForm.controls['email'].hasError('required')
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
+    <mat-error *ngIf="!form.get('email')?.valid && form.get('email')?.touched">
+      Invalid
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Address Line 1</mat-label>
-    <textarea
+    <input
       matInput
       placeholder="Ex. 100 Main St"
       formControlName="address"
       required
-    ></textarea>
-    <mat-error *ngIf="errorHandling('address', 'required')">
+    />
+    <mat-error *ngIf="form.get('address1')?.valid && form.get('address1')?.touched">
       Company must prvoide <strong>address</strong>
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Address Line 2</mat-label>
-    <textarea matInput formControlName="address2"></textarea>
+    <input matInput formControlName="address2" />
   </mat-form-field>
 
   <mat-form-field>
@@ -127,7 +122,7 @@
       formControlName="city"
       required
     />
-    <mat-error *ngIf="errorHandling('city', 'required')">
+    <mat-error *ngIf="form.get('city')?.valid && form.get('city')?.touched">
       Company must give its <strong>city name</strong>
     </mat-error>
   </mat-form-field>
@@ -140,7 +135,7 @@
       formControlName="state"
       required
     />
-    <mat-error *ngIf="errorHandling('state', 'required')">
+    <mat-error *ngIf="form.get('state')?.valid && form.get('state')?.touched">
       Company must give its <strong>state name</strong>
     </mat-error>
   </mat-form-field>
@@ -149,13 +144,12 @@
     <mat-label>Postal Code</mat-label>
     <input
       matInput
-      #postalCode
       maxlength="5"
       placeholder="Ex. 94105"
       formControlName="postalCode"
       required
     />
-    <mat-error *ngIf="errorHandling('postalCode', 'required')">
+    <mat-error *ngIf="form.get('postalCode')?.valid && form.get('postalCode')?.touched">
       Company must give its <strong>city postal code</strong>
     </mat-error>
   </mat-form-field>
@@ -168,7 +162,7 @@
       formControlName="country"
       required
     />
-    <mat-error *ngIf="errorHandling('country', 'required')">
+    <mat-error *ngIf="form.get('country')?.valid && form.get('country')?.touched">
       Company must give its <strong>country name</strong>
     </mat-error>
   </mat-form-field>
@@ -178,14 +172,14 @@
     mat-flat-button
     color="primary"
     type="submit"
-    (click)="isSubmitted = true"
+    (click)="onSubmit"
   >
     Submit
   </button>
 
   <br />
   <span
-    *ngIf="!companyForm.valid && companyForm.touched && isSubmitted"
+    *ngIf="!form.valid && form.touched && isSubmitted"
     class="submit-error"
   >
     Please Enter correct details

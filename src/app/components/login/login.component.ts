@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userType',"COMPANY")
     }
 
+    console.log(this.form.value);
+    console.log(this.form.value['username']);
+    console.log(this.form.value.username);
+
     this.dialog.close();
   }
 
