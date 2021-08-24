@@ -55,6 +55,8 @@ import { CompanyComponent } from './pages/company/company.component';
 import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
 import { detailsReducer } from './redux/reducers/details.reducer';
 import { documentsReducer } from './redux/reducers/documents.reducer';
+import { routeReducer } from './redux/reducers/route.reducer';
+import { menuReducer } from './redux/reducers/menu.reducer';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
       breakpoint: breakpointReducer,
       details: detailsReducer,
       documents: documentsReducer,
+      route: routeReducer,
+      menu: menuReducer
     }),
     BrowserModule,
     AppRoutingModule,

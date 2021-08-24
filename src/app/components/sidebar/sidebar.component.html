@@ -1,15 +1,26 @@
 
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" [opened]=sidenavOpen class="sidenav" fixedInViewport="false" >
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="hasBackdrop" >
+  <mat-sidenav [mode]="sidenavMode" [opened]=sidenavOpen
+    disableClose="true"
+   [ngClass.gt-sm]="'sidenav-large'"
+   [ngClass.sm]="'sidenav-medium'"
+   [ngClass.xs]="'sidenav-mobile'"
+
+   fixedInViewport="false" >
     <mat-nav-list>
-      <a mat-list-item routerLink="/company/dashboard">Dashboard</a>
-      <a mat-list-item routerLink="/company/employees">Employees</a>
+      <a mat-list-item routerLink="/company/dashboard" *ngIf="currentRoute.substring(1,4)==='com'">Dashboard</a>
+
+      <a mat-list-item routerLink="/admin/dashboard"  *ngIf="currentRoute.substring(1,4)==='adm'">Ad Dashboard</a>
+
+      <a mat-list-item routerLink="/company/employees"  *ngIf="currentRoute.substring(1,4)==='com'">Employees</a>
+
+      <a mat-list-item routerLink="/admin/employees"  *ngIf="currentRoute.substring(1,4)==='adm'">Ad Employees</a>
     </mat-nav-list>
     <mat-expansion-panel  class="mat-elevation-z0 sidenav-expansion">
-      <mat-expansion-panel-header>
-      <mat-panel-title>
-      Register Employees
-      </mat-panel-title>
+      <mat-expansion-panel-header class="sidenav-expansion-header">
+        <mat-panel-title>
+        Register Employees
+        </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-nav-list>
         <a mat-list-item>Single Employee</a>
