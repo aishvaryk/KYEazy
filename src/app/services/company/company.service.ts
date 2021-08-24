@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { map } from 'rxjs/operators';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 
 import { ActionDTO } from 'src/app/models/action.model';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
+import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +24,9 @@ export class CompanyService {
   public companySubject:Subject<Company>;
   public actionDTOSubject:Subject<ActionDTO>;
   public registrationStatus:ActionDTO;
+  public APIResponse: ActionDTO | exceptionDTO;
 
-  constructor(private httpClient :HttpClient) {
+  constructor(private httpClient :HttpClient,public dialog: MatDialog) {
     //this.employees
     this.employees=[];
     this.registrationStatus={} as ActionDTO;
@@ -32,18 +36,32 @@ export class CompanyService {
     this.actionDTOSubject=new Subject();
     this.companySubject=new Subject();
     this.company={ } as Company;
-
+    this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
 
   register(newCompany:Company): void{
-    this.httpClient.post<ActionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO))
-    .subscribe((results: ActionDTO) => {
-     // this.employees=results;
-        console.log(results);
-        this.registrationStatus=results;
-        this.actionDTOSubject.next(results);
+    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
+      data => console.log('success', data),
+      error =>{console.log(error.message)
+        this.dialog.open(ModalComponent,{
+            data: {
+              type: "COMPANY_REGISTER"
+            }
+          });
+        }
+    );
 
-  });
+
+        // console.log(results);
+        // if(!results.success)
+        // {
+        //   this.dialog.open(ModalComponent,{
+        //     data: {
+        //       type: "COMPANY_REGISTER"
+        //     }
+        //   });
+        // }
+
 }
 
   getEmployees(id:number,pageSize:number,pageNumber:number): void{

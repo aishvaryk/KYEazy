@@ -81,7 +81,7 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     AdminDashboardComponent,
     AdminComponent,
     CompanyComponent,
-    EmployeesComponent
+    EmployeesComponent,
   ],
   imports: [
     StoreModule.forRoot({

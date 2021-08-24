@@ -1,4 +1,4 @@
-<h1>Form to signup company</h1>
+<h1 class="signupHeading">Sign up your Company</h1>
 
 <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -34,7 +34,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field class="pwdField">
     <mat-label>Password</mat-label>
     <input
       matInput
@@ -59,6 +59,7 @@
   <mat-form-field>
     <mat-label>Company Description</mat-label>
     <textarea
+    draggable="false"
       matInput
       placeholder="Write About Company"
       formControlName="companyDescription"
