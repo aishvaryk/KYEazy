@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,6 +46,7 @@ import { SelfieComponent } from './components/selfie/selfie.component';
 import { LivelinessComponent } from './components/liveliness/liveliness.component';
 import { ReviewComponent } from './components/review/review.component';
 
+import { WebcamModule } from 'ngx-webcam';
 import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
@@ -90,8 +92,8 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+     FlexLayoutModule,
     HttpClientModule,
-    FlexLayoutModule,
     MatStepperModule,
     MatButtonModule,
     MatDialogModule,
@@ -109,6 +111,7 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     MatExpansionModule,
     MatCardModule,
     MatListModule,
+
     MatPaginatorModule
   ],
   providers: [],

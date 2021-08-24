@@ -1,3 +1,4 @@
+import { Byte } from "@angular/compiler/src/util";
 import { Address } from "./address.model";
 
 export interface Employee {
@@ -10,7 +11,7 @@ export interface Employee {
   documentType:string;
   documentNumber:string;
   emailID:string;
-  //capturedImage:any;
+  capturedImage: Byte[]
   status:string;
   dateTimeofApplication:Date;
   dateTimeofVerification:Date;

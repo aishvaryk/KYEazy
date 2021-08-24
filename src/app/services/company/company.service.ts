@@ -65,10 +65,11 @@ export class CompanyService {
 }
 
   getEmployees(id:number,pageSize:number,pageNumber:number): void{
+
     this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
-     // this.employees=results;
-        console.log(results);
+
+
         this.employees=results;
         this.employeesSubject.next(this.employees);
 

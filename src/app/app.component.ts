@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
@@ -88,14 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-   /* this.companyService.register(this.newCompany);
-    this.companyService.registeredCompany.subscribe((company)=>{
-      this.companyResponse=company;
-      console.log(this.companyResponse);
-      })
-  }*/
 
 
 
