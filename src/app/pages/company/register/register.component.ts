@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Employee } from 'src/app/models/employee.model';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-register',
@@ -12,19 +14,30 @@ export class RegisterComponent implements OnInit {
   lastName: string = '';
   isSubmitted: boolean = false;
   employeeForm: any;
+  newEmployee:Employee;
+  companyService:CompanyService;
 
-  constructor() { }
+  constructor(companyService:CompanyService) {
+    this.newEmployee={} as Employee;
+    this.companyService=companyService;
+   }
 
   ngOnInit(): void {
     this.employeeForm = new FormGroup({
-      'firstName': new FormControl(null, Validators.required),
-      'lastName': new FormControl(null, Validators.required),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
-      'contactNumber': new FormControl(null, [Validators.required])
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      contactNumber: new FormControl(null, [Validators.required])
     });
   }
 
   onSubmit() {
+    if(this.employeeForm.status === "INVALID") return;
+    this.newEmployee.contactNumber=this.employeeForm.value.contactNumber;
+    this.newEmployee.firstName=this.employeeForm.value.firstName;
+    this.newEmployee.lastName=this.employeeForm.value.lastName;
+    this.newEmployee.emailID=this.employeeForm.value.email;
+    this.companyService.registerEmployee(this.newEmployee,1);
     console.log(this.employeeForm);
   }
 
