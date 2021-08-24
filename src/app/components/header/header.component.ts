@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu(){
     this.store.dispatch(updateMenu(!this.isOpen))
-    console.log(this.isOpen)
   }
 
 }
