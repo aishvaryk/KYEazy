@@ -46,7 +46,6 @@ import { SelfieComponent } from './components/selfie/selfie.component';
 import { LivelinessComponent } from './components/liveliness/liveliness.component';
 import { ReviewComponent } from './components/review/review.component';
 
-import { WebcamModule } from 'ngx-webcam';
 import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';

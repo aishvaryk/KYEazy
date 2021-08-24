@@ -130,10 +130,59 @@ export class EmployeesComponent implements OnInit {
   OnSortSelect(event: any) {
     console.log(event.value);
     this.sortBy = event.value;
+    if(this.sortBy==="name"){
+    this.companyService.getEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+    this.companyService.employeesSubject.subscribe((employees)=>{
+      this.employees=employees;
+      console.log(employees);
+    }
+    );}
+
+    if(this.sortBy==="date-registration"){
+      this.companyService.getEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.companyService.employeesSubject.subscribe((employees)=>{
+        this.employees=employees;
+        console.log(employees);
+      }
+      );}
+
   }
 
   OnFilterSelect(event: any) {
     console.log(event.value);
     this.filter = event.value;
+
+    if(this.filter==="vefication-failed"){
+      this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.companyService.employeesSubject.subscribe((employees)=>{
+        this.employees=employees;
+        console.log(employees);
+      }
+      );}
+
+      if(this.filter==="verification-completed"){
+        this.companyService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        this.companyService.employeesSubject.subscribe((employees)=>{
+          this.employees=employees;
+          console.log(employees);
+        }
+        );}
+
+        if(this.filter==="verification-pending"){
+          this.companyService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+          this.companyService.employeesSubject.subscribe((employees)=>{
+            this.employees=employees;
+            console.log(employees);
+          }
+          );}
+
+          if(this.filter==="all"){
+            this.companyService.getEmployeesByStatus(1,"Registered",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+            this.companyService.employeesSubject.subscribe((employees)=>{
+              this.employees=employees;
+              console.log(employees);
+            }
+            );}
+
   }
 }

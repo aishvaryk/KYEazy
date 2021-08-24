@@ -94,6 +94,8 @@ getEmployeeByName(id:number,name:string): void{
 
 });}
 
+
+
 getEmployeesWithPendingKYC(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`http://localhost:8085/company/get-employees-with-pending-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
@@ -141,6 +143,15 @@ getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:n
 
 getEmployeesSortedByName(pageSize:number,pageNumber:number): void{
   this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-name?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  .subscribe((results: Employee[]) => {
+      console.log(results);
+      this.employees=results;
+      this.employeesSubject.next(this.employees);
+
+});}
+
+getEmployeesSortedByDate(pageSize:number,pageNumber:number): void{
+  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-date?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
