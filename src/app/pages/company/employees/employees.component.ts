@@ -68,7 +68,7 @@ export class EmployeesComponent implements OnInit {
           this.isSmall = false;
         }
       });
-      this.companyService.getEmployees(1,5,1);
+      this.companyService.getEmployees(1,10,1);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
 
@@ -93,6 +93,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   OnPageChange(event: any) {
+
 
    if(event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
@@ -131,7 +132,7 @@ export class EmployeesComponent implements OnInit {
     console.log(event.value);
     this.sortBy = event.value;
     if(this.sortBy==="name"){
-    this.companyService.getEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+    this.companyService.getEmployeesSortedByName(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);
@@ -139,7 +140,7 @@ export class EmployeesComponent implements OnInit {
     );}
 
     if(this.sortBy==="date-registration"){
-      this.companyService.getEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.companyService.getEmployeesSortedByDate(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);

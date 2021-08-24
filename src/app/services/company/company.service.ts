@@ -123,8 +123,8 @@ getEmployeesWithRejectedKYC(id:number,pageSize:number,pageNumber:number): void{
 
 });}
 
-getEmployeesByDateOfApplication(date:string,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-by-date-of-application/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+getEmployeesByDateOfApplication(id:number,date:string,pageSize:number,pageNumber:number): void{
+  this.httpClient.get(`http://localhost:8085/company/get-employees-by-date-of-application/${id}/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -141,8 +141,8 @@ getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:n
 
 });}
 
-getEmployeesSortedByName(pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-name?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+getEmployeesSortedByName(id:number,pageSize:number,pageNumber:number): void{
+  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-name/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -150,8 +150,8 @@ getEmployeesSortedByName(pageSize:number,pageNumber:number): void{
 
 });}
 
-getEmployeesSortedByDate(pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-date?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+getEmployeesSortedByDate(id:number,pageSize:number,pageNumber:number): void{
+  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
