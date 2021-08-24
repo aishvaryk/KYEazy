@@ -35,10 +35,12 @@ export class EmployeesComponent implements OnInit {
   public sortBy: string;
   public search: string;
   public employees:Employee[];
-  verificationStatus: String;
+  //verificationStatus: String;
+  searchText:string;
   constructor(public observer: MediaObserver,companyService:CompanyService) {
-    this.verificationStatus = 'verified';
+    //this.verificationStatus = 'verified';
     this.isSmall = false;
+    this.searchText='';
     this.paginator = {
       length: 100,
       currentPageSize: 10,
@@ -109,6 +111,20 @@ export class EmployeesComponent implements OnInit {
       }
       );
 
+  }
+
+  onSearchText(event:any)
+  {
+
+    this.searchText=event.target.value;
+
+  }
+  OnSearchSelect() {
+    console.log(this.searchText);
+    this.companyService.getEmployeeByName(1,this.searchText);
+
+
+//    this.sortBy = event.value;
   }
 
   OnSortSelect(event: any) {

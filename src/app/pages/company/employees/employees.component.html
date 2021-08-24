@@ -18,6 +18,7 @@
         <mat-option value="verification-completed" style="color: green">Verification Completed</mat-option>
         <mat-option value="vefication-failed" style="color: red">Verification Failed</mat-option>
         <mat-option value="verification-pending" style="color: yellowgreen">Verification Pending</mat-option>
+
       </mat-select>
     </mat-form-field>
 
@@ -40,11 +41,11 @@
       }" appearance="outline">
       <mat-label class="search-form-label">Search</mat-label>
       <input type="text" matInput [formControl]="emailFormControl"
-        placeholder="Search by Employee Name" class="search-form-input" />
+        placeholder="Search by Employee Name" (input)="onSearchText($event)" class="search-form-input" />
     </mat-form-field>&nbsp;
 
-    <button mat-raised-button color="primary" class="search-button">
-      <mat-icon aria-label="i">search</mat-icon>
+    <button mat-raised-button color="primary"  (click)="OnSearchSelect()" class="search-button">
+      <mat-icon aria-label="i" >search</mat-icon>
     </button>
   </div>
 </div>
@@ -106,4 +107,5 @@
     [pageSizeOptions]="paginator.pageSizeOptions" (page)="OnPageChange($event)" [hidePageSize]="isSmall">
   </mat-paginator>
 </div>
+
 </div>
