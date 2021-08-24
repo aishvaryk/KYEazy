@@ -7,30 +7,37 @@
   right: 0;
 }
 
-.sidenav {
+.sidenav-large{
   display: flex;
   align-items: center;
   justify-content: center;
   width: 15%;
-  background: rgba(231, 231, 231, 0.5);
+  background: #afc9c5;
 }
 
-.example-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+.sidenav-medium{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  background: #afc9c5;
 }
 
-.example-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.sidenav-mobile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  background: #afc9c5;
 }
+
 
 .sidenav-expansion {
-  background-color: rgba(231, 231, 231, 0.5);
+  background-color: rgba(167, 57, 57, 0);
+  .sidenav-expansion-header {
+    font-size: 16px;
+    padding-left: 16px;
+  }
 }
 
 .a {

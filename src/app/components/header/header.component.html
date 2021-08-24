@@ -2,26 +2,29 @@
 
 <mat-toolbar>
   <mat-toolbar-row fxLayoutAlign="space-between center" class="row">
+    <div class="menu-logo" fxLayout="row">
+      <button mat-icon-button color="primary"
+        (click)="toggleMenu()"
+        *ngIf="deviceSmall && !isOpen">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button mat-icon-button color="primary"
+        (click)="toggleMenu()"
+        *ngIf="deviceSmall && isOpen">
+        <mat-icon>clear</mat-icon>
+      </button>
 
-    <div class="logo">
-      <img src="/assets/images/logo.png" />
+      <div class="logo">
+        <img src="/assets/images/logo.png" />
+      </div>
     </div>
 
     <div class="buttons">
 
-      <div class="btns" *ngIf="!deviceXs">
+      <div class="btns">
         <button mat-button> Contact Us </button>
         <button mat-button> About </button>
       </div>
-
-      <button *ngIf="deviceXs">
-        <mat-icon class="hamburger">menu</mat-icon>
-      </button>
-
-      <button *ngIf="deviceXs">
-        <mat-icon>close</mat-icon>
-      </button>
-
     </div>
 
     </mat-toolbar-row>

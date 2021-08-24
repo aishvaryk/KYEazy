@@ -53,6 +53,8 @@ import { CompanyComponent } from './pages/company/company.component';
 import { StoreModule } from '@ngrx/store';
 
 import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
+import { routeReducer } from './redux/reducers/route.reducer';
+import { menuReducer } from './redux/reducers/menu.reducer';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
   imports: [
     StoreModule.forRoot({
       breakpoint: breakpointReducer,
+      route: routeReducer,
+      menu: menuReducer
     }),
     BrowserModule,
     AppRoutingModule,
