@@ -13,14 +13,7 @@ export class CompanyDashboardComponent implements OnInit {
     responsive: true,
   };
   public pieChartLabels: Label[] = [['Pending Employees'], ['Accepted Employees'], 'Rejected Employees'];
-  public pieChartData: SingleDataSet = [30, 50, 20];         
-//   public pieChartData =  {
-//     datasets: [{
-//         data: [30, 50, 20],
-
-//     }],
-//     labels: ['Red', 'Blue', 'Purple']
-// };
+  public pieChartData: SingleDataSet = [30, 50, 20];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];

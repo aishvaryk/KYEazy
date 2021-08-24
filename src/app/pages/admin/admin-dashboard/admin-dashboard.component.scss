@@ -1,0 +1,41 @@
+.company-container {
+  .company-display-options {
+  }
+
+  .search-companys {
+    font-size: 12px;
+    width: 100%;
+    // position: absolute;
+    // right: 1rem;
+    .search-form-field {
+      width: 50%;
+    }
+  }
+}
+
+.company-container-mobile {
+  font-size: 12px;
+  width: 100%;
+  .search-form-field-mobile{
+    width: 100%;
+    min-width: none;
+  }
+}
+
+.search-button {
+  margin-top: 0.2em;
+  height: 43px;
+}
+
+// .company-card {
+//   // margin-left: 1rem;
+//   // width: 90%;
+// }
+
+.company-container-card {
+  width: 100%;
+
+  .company-card {
+    width: 90%;
+  }
+}

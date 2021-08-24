@@ -1,3 +1,5 @@
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
@@ -32,6 +34,16 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent
+      }
+    ]
+  },
+  {
+    path:'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent
       }
     ]
   },
