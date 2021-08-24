@@ -89,13 +89,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
 }
 
-
-   /* this.companyService.register(this.newCompany);
-    this.companyService.registeredCompany.subscribe((company)=>{
-      this.companyResponse=company;
-      console.log(this.companyResponse);
-      })
-  }*/
+   /*this.companyService.register(this.newCompany);
+   this.companyService.registeredCompany.subscribe((company)=>{
+   this.companyResponse=company;
+   console.log(this.companyResponse);
+   })*/
 
 
 

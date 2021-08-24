@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 import {​​​MatToolbarModule}​​​ from'@angular/material/toolbar';
 import {​​​MatIconModule}​​​ from'@angular/material/icon';
@@ -13,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -22,11 +25,18 @@ import { MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
+
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LoginComponent } from './components/login/login.component';
+import { SelfieComponent } from './components/selfie/selfie.component';
+import { LivelinessComponent } from './components/liveliness/liveliness.component';
+import { ReviewComponent } from './components/review/review.component';
+import { DetailsComponent } from './components/details/details.component';
+import { DocumentsComponent } from './components/documents/documents.component';
+
 import { SignupComponent } from './pages/company/signup/signup.component';
 import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
@@ -36,23 +46,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { RegisterComponent } from './pages/company/register/register.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DetailsComponent } from './components/details/details.component';
-import { DocumentsComponent } from './components/documents/documents.component';
-import { SelfieComponent } from './components/selfie/selfie.component';
-import { LivelinessComponent } from './components/liveliness/liveliness.component';
-import { ReviewComponent } from './components/review/review.component';
-
 import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CompanyComponent } from './pages/company/company.component';
-import { StoreModule } from '@ngrx/store';
 
 import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
+import { detailsReducer } from './redux/reducers/details.reducer';
+import { documentsReducer } from './redux/reducers/documents.reducer';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
   imports: [
     StoreModule.forRoot({
       breakpoint: breakpointReducer,
+      details: detailsReducer,
+      documents: documentsReducer,
     }),
     BrowserModule,
     AppRoutingModule,
@@ -111,7 +115,12 @@ import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
     MatListModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'primary' },
+     }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
