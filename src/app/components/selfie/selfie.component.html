@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="center center">
   <div
-    fxFlex
+    fxLayout="column"
     [ngStyle.xs]="{ width: '100%' }"
     [ngStyle.sm]="{ width: '70%' }"
     [ngStyle.md]="{ width: '50%' }"
@@ -8,20 +8,28 @@
     [ngStyle.xl]="{ width: '40%' }"
   >
 
-  <video
-    #video
+  <div fxFlex>
+    <video
+      #video
+      [width]="300"
+      [height]="300"
+      autoplay
+    ></video>
+    <canvas
+    #canvas
     [width]="300"
     [height]="300"
-    autoplay
-  ></video>
+    ></canvas>
+  </div>
 
+  <div>
   <button mat-raised-button (click)="startCamera()" color="primary">
     Show Camera
   </button>
-
-  <button mat-raised-button (click)="stopCamera()" color="primary">
-    Stop Camera
+  <button mat-raised-button (click)="capture()" color="primary">
+    Capture
   </button>
+  </div>
 
   </div>
 </div>
