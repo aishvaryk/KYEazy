@@ -1,36 +1,27 @@
-<div class="video-container" *ngIf="!error">
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div
+    fxFlex
+    [ngStyle.xs]="{ width: '100%' }"
+    [ngStyle.sm]="{ width: '70%' }"
+    [ngStyle.md]="{ width: '50%' }"
+    [ngStyle.lg]="{ width: '40%' }"
+    [ngStyle.xl]="{ width: '40%' }"
+  >
+
   <video
-    class="video"
-    [class.show]="!isCaptured"
-    [class.hide]="isCaptured"
     #video
-    id="video"
     [width]="300"
     [height]="300"
     autoplay
   ></video>
 
-  <canvas
-    [class.show]="isCaptured"
-    [class.hide]="!isCaptured"
-    #canvas
-    id="canvas"
-    [width]="300"
-    [height]="300"
-  ></canvas>
-</div>
-
-<div class="snap-container">
-  <button mat-raised-button color="primary" *ngIf="!isCaptured" (click)="capture()">
-    Snap Photo
+  <button mat-raised-button (click)="startCamera()" color="primary">
+    Show Camera
   </button>
-  <button mat-raised-button *ngIf="isCaptured" (click)="removeCurrent()">
-    Take Another
-  </button>
-</div>
 
-<ul class="list-unstyled">
-  <li *ngFor="let src of captures; let idx = index" (click)="setPhoto(idx)">
-    <img [src]="src" height="50" />
-  </li>
-</ul>
+  <button mat-raised-button (click)="stopCamera()" color="primary">
+    Stop Camera
+  </button>
+
+  </div>
+</div>

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-
-import { filter, map } from 'rxjs/operators';
-
-import { Subscription } from 'rxjs';
+import { Observable} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -12,31 +9,39 @@ import { Subscription } from 'rxjs';
 })
 export class SidebarComponent implements OnInit {
 
-  private observable: any;
-  public isSmall: boolean;
-  public sidenavOpen: boolean;
+  sidenavOpen: any;
   verificationStatus:String;
+  hasBackdrop:any;
+  sidenavMode:any;
+  breakpoint$: Observable<Breakpoint>;
+  companyPage: any;
+  adminPage:any;
+  employeePage:any;
+  companyRegisterPage:any;
+  currentRoute:any
+  constructor(public store: Store<{breakpoint: Breakpoint, route: string, menu:boolean}>) {
+    this.breakpoint$ = store.select('breakpoint');
+    this.breakpoint$.subscribe((breakpoint) => {
+      if (breakpoint.isSm||breakpoint.isXs ) {
+        this.hasBackdrop = true;
+        this.sidenavMode = "over";
+      } else {
+        this.hasBackdrop = false;
+        this.sidenavMode = "side"
+      }
+    })
 
-  constructor(public observer: MediaObserver) {
+    this.store.select('route').subscribe((route)=> {
+      this.currentRoute=route;
+    })
+
+    this.store.select('menu').subscribe((menu)=> this.sidenavOpen=menu);
+
     this.verificationStatus = "verified";
-    this.sidenavOpen = true;
-    this.isSmall = false;
+  }
 
-   }
 
   ngOnInit(): void {
-    this.observable = this.observer.asObservable().pipe(
-      filter((changes: MediaChange[]) => changes.length > 0),
-      map((changes: MediaChange[]) => changes[0])
-    ).subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'xs'|| change.mqAlias === 'sm' ) {
-        this.isSmall = true;
-        this.sidenavOpen = false;
-      } else {
-        this.isSmall = false;
-        this.sidenavOpen = true;
-      }
-    });
   }
 
 }

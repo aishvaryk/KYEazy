@@ -1,16 +1,18 @@
-<div [ngClass]="{
-  'employee-container-mobile': isSmall,
-  'employee-container': !isSmall
-}" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
-<div [ngClass]="{
-    'employee-display-options-mobile': isSmall,
-    'employee-display-options': !isSmall
-  }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-  <div [ngClass]="{
-      'filter-sort-employees-mobile': isSmall,
-      'filter-sort-employees': !isSmall
-    }" fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="row"
+<div
+  [ngClass.gt-xs] = "'employee-container'"
+  [ngClass.lt-sm] = "'employee-container-mobile'"
+  fxLayout="row wrap" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
+<div
+  [ngClass.gt-xs] = "'employee-display-options'"
+  [ngClass.lt-sm] = "'employee-display-options-mobile'"
+  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+
+  <div
+    [ngClass.gt-xs] = "'filter-sort-employees'"
+    [ngClass.lt-sm] = "'filter-sort-employees-mobile'"
+    fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="row"
     fxLayoutAlign.xs="space-between center">
+
     <mat-form-field appearance="outline">
       <mat-label>Filter Status</mat-label>
       <mat-select (selectionChange)="OnFilterSelect($event)">
@@ -31,14 +33,15 @@
     </mat-form-field>
   </div>
 
-  <div [ngClass]="{
-      'search-employees-mobile': isSmall,
-      'search-employees': !isSmall
-    }" fxLayout="row" fxLayoutAlign="end">
-    <mat-form-field [ngClass]="{
-        'search-form-field-mobile': isSmall,
-        'search-form-field': !isSmall
-      }" appearance="outline">
+  <div
+    [ngClass.gt-xs] = "'search-employees'"
+    [ngClass.lt-sm] = "'search-employees-mobile'"
+    fxLayout="row" fxLayoutAlign="end">
+    <mat-form-field
+      [ngClass.gt-xs] = "'search-form-field'"
+      [ngClass.lt-sm] = "'search-form-field-mobile'"
+      appearance="outline">
+
       <mat-label class="search-form-label">Search</mat-label>
       <input type="text" matInput [formControl]="emailFormControl"
         placeholder="Search by Employee Name" (input)="onSearchText($event)" class="search-form-input" />

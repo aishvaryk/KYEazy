@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Documents } from 'src/app/models/documents.model';
+import { setDocuments } from 'src/app/redux/actions/documents.actions';
 
 @Component({
   selector: 'app-documents',
@@ -7,23 +11,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentsComponent implements OnInit {
 
-  public src: any;
-  constructor() { }
-  docNumber: string = "";
+  form: any;
+
+  constructor(public store: Store<{ documents: Documents }>) {
+
+    this.form = new FormGroup({
+      documentType: new FormControl('', [Validators.required]),
+      documentNumber: new FormControl('',[Validators.required]),
+      document: new FormControl('', [Validators.required])
+    })
+
+  }
+
   ngOnInit(): void {
   }
 
-  toBase64(file: any) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+  onChange(event: any) {
+    let file = event.target.files[0];
+    this.form.patchValue({
+      document: file,
     });
   }
 
-  async onChange(event: any) {
-    this.src = await this.toBase64(event.target.files[0]);
+  onSave() {
+    if(this.form.status === "INVALID") {
+      return;
+    }
+    let documents = {} as Documents;
+    documents.document = this.form.value.document;
+    documents.documentNumber = this.form.value.documentNumber;
+    documents.documentType = this.form.value.documentType;
+    this.store.dispatch(setDocuments(documents));
+    // const formData =  new FormData();
+    // formData.append('document',this.form.get('document').value);
   }
 
 }

@@ -5,16 +5,15 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
   templateUrl: './selfie.component.html',
   styleUrls: ['./selfie.component.scss']
 })
-export class SelfieComponent implements AfterViewInit {
+export class SelfieComponent
+{
 
   @ViewChild('video')
   public video: any;
   @ViewChild('canvas')
   public canvas: any;
 
-  public error: any;
-  public captures: any = [];
-  public isCaptured: any;
+  public stream: any;
 
   constructor() {
   }
@@ -22,50 +21,28 @@ export class SelfieComponent implements AfterViewInit {
   ngOnInit(): void {
   }
 
-  async ngAfterViewInit() {
+  async startCamera() {
     await this.setupDevices();
+  }
+
+  async stopCamera() {
+    this.video.nativeElement.pause();
+    this.stream.getTracks()[0].stop();
+    console.log(this.stream.getTracks());
   }
 
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        this.stream = await navigator.mediaDevices.getUserMedia({
           video: true
         });
-        if (stream) {
-          this.video.nativeElement.srcObject = stream;
-          this.video.nativeElement.play();
-          this.error = null;
-        } else {
-          this.error = 'You have no output video device';
-        }
+        this.video.nativeElement.srcObject = this.stream;
+        this.video.nativeElement.play();
       } catch (e) {
-        this.error = e;
+        console.error(e);
       }
     }
-  }
-
-  capture() {
-    this.drawImageToCanvas(this.video.nativeElement);
-    this.captures.push(this.canvas.nativeElement.toDataURL('image/png'));
-    this.isCaptured = true;
-  }
-
-  drawImageToCanvas(image: any) {
-    this.canvas.nativeElement
-      .getContext('2d')
-      .drawImage(image, 0, 0, 300, 300);
-  }
-
-  removeCurrent() {
-    this.isCaptured = false;
-  }
-
-  setPhoto(idx: number) {
-    this.isCaptured = true;
-    var image = new Image();
-    image.src = this.captures[idx];
-    this.drawImageToCanvas(image);
   }
 
 }
