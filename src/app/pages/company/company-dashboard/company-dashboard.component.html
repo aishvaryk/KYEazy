@@ -1,1 +1,19 @@
-<p>company-dashboard works!</p>
+<div class="chart-wrapper">
+  <canvas baseChart
+  [data]="pieChartData"
+  [labels]="pieChartLabels"
+  [chartType]="pieChartType"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [legend]="pieChartLegend" width="400" height="100">
+</canvas>
+
+<canvas baseChart
+[data]="pieChartData"
+[labels]="pieChartLabels"
+[chartType]="pieChartType"
+[options]="pieChartOptions"
+[plugins]="pieChartPlugins"
+[legend]="pieChartLegend" width="400" height="100">
+</canvas>
+</div>

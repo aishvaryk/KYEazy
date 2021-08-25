@@ -58,6 +58,8 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +119,8 @@ import { menuReducer } from './redux/reducers/menu.reducer';
     MatExpansionModule,
     MatCardModule,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ChartsModule
   ],
   providers: [
     {

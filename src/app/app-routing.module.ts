@@ -1,8 +1,8 @@
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
-import { AdminComponent } from './pages/admin/admin.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'admin',
+    path:'admin',
     component: AdminComponent,
     children: [
       {
