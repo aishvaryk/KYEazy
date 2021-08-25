@@ -9,7 +9,8 @@
     [ngStyle.lg]="{ width: '40%' }"
     [ngStyle.xl]="{ width: '40%' }"
   >
-    <mat-form-field fxflex>
+
+    <mat-form-field appearance="fill" fxflex>
       <mat-label>First Name</mat-label>
       <input formControlName="firstName" matInput />
       <mat-error *ngIf="!form.get('firstName').valid && form.get('firstName').touched">
@@ -17,7 +18,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field appearance="outline" fxflex>
       <mat-label>Last Name</mat-label>
       <input formControlName="lastName" matInput />
       <mat-error *ngIf="!form.get('lastName').valid && form.get('lastName').touched">

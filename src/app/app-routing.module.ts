@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
+import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
+import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
@@ -32,6 +37,28 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent
+      }
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent
+      },
+      {
+        path: 'accepted-kyc',
+        component: AcceptedKycComponent
+      },
+      {
+        path: 'pending-kyc',
+        component: PendingKycComponent
+      },
+      {
+        path: 'rejected-kyc',
+        component: RejectedKycComponent
       }
     ]
   },

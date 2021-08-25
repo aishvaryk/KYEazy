@@ -26,7 +26,9 @@ export class SelfieComponent
   }
 
   async stopCamera() {
-    this.stream.pause();
+    this.video.nativeElement.pause();
+    this.stream.getTracks()[0].stop();
+    console.log(this.stream.getTracks());
   }
 
   async setupDevices() {
