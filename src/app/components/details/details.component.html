@@ -2,6 +2,7 @@
   <form
     [formGroup]="form"
     fxLayout="column"
+    (ngSubmit)="onSave()"
     [ngStyle.xs]="{ width: '100%' }"
     [ngStyle.sm]="{ width: '70%' }"
     [ngStyle.md]="{ width: '50%' }"
@@ -10,69 +11,64 @@
   >
     <mat-form-field fxflex>
       <mat-label>First Name</mat-label>
-      <input formControlName="firstName" matInput required />
-      <mat-error
-        *ngIf="!form.get('firstName').valid && form.get('firstName').touched"
-      >
+      <input formControlName="firstName" matInput />
+      <mat-error *ngIf="!form.get('firstName').valid && form.get('firstName').touched">
         You must give <strong>first name</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxflex>
       <mat-label>Last Name</mat-label>
-      <input formControlName="lastName" matInput required />
-      <mat-error
-        *ngIf="!form.get('lastName').valid && form.get('lastName').touched"
-      >
-        You must give <strong>Last name</strong>
+      <input formControlName="lastName" matInput />
+      <mat-error *ngIf="!form.get('lastName').valid && form.get('lastName').touched">
+        You must give <strong>last name</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxflex>
       <mat-label>Email</mat-label>
-      <input formControlName="email" matInput required />
-      <mat-error
-        *ngIf="
-          form.controls['email'].hasError('email') ||
-          form.controls['email'].hasError('required')
-        "
-        >{{ getErrorMessage() }}</mat-error
-      >
+      <input formControlName="email" matInput />
+      <mat-error *ngIf="!form.get('email').valid && form.get('email').touched">
+        You must give <strong>email</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field fxflex>
       <mat-label>Contact Number</mat-label>
-      <input formControlName="contact" matInput required />
-      <mat-error
-        *ngIf="!form.get('contact').valid && form.get('contact').touched"
-      >
+      <input formControlName="contact" matInput />
+      <mat-error *ngIf="!form.get('contact').valid && form.get('contact').touched">
         You must give <strong>contact</strong>
       </mat-error>
     </mat-form-field>
 
-    <div style="width: 100%">
-      <label> Gender : </label>
-      <mat-radio-group formControlName="gender">
-        <mat-radio-button value="m" required>Male</mat-radio-button>&nbsp;
-        <mat-radio-button value="f" required>Female</mat-radio-button>
-        <!-- <mat-error *ngIf="!form.get('gender').valid && form.get('gender').touched">
-          You must give <strong>your gender</strong>
-        </mat-error> -->
+    <!-- radio button for selecting gender -->
+    <div style="margin-top: 2%;padding-bottom: 5px;">
+      <label
+        style="width: 30%;color: grey;"
+      >
+        Gender*
+        <!-- <span style="border-bottom: 1.5px solid grey;padding-bottom: 1px;">Gender*</span> -->
+      </label>
+      <mat-radio-group
+        fxFlex
+        fxLayout="row"
+        fxFlexAlign="space-around center"
+        formControlName="gender"
+      >
+        <mat-radio-button value="m" fxFlex >Male</mat-radio-button>&nbsp;
+        <mat-radio-button value="f" fxFlex >Female</mat-radio-button>
       </mat-radio-group>
-      <mat-error *ngIf="form.controls['gender'].hasError('required')">
-        You must give <strong>your gender</strong>
-      </mat-error>
     </div>
 
     <mat-form-field fxflex>
       <mat-label>Address Line 1</mat-label>
-      <input formControlName="addressLine1" matInput required />
+      <input formControlName="addressLine1" matInput  />
       <mat-error
         *ngIf="
           !form.get('addressLine1').valid && form.get('addressLine1').touched
         "
       >
-        You must provide your <strong> address</strong>
+        You must give <strong>address</strong>
       </mat-error>
     </mat-form-field>
 
@@ -83,15 +79,15 @@
 
     <mat-form-field fxflex>
       <mat-label>City</mat-label>
-      <input formControlName="city" matInput required />
+      <input formControlName="city" matInput />
       <mat-error *ngIf="!form.get('city').valid && form.get('city').touched">
-        You must give <strong>city name</strong>
+        You must give <strong>city</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxflex>
       <mat-label>State</mat-label>
-      <input formControlName="state" matInput required />
+      <input formControlName="state" matInput />
       <mat-error *ngIf="!form.get('state').valid && form.get('state').touched">
         You must give its <strong>state name</strong>
       </mat-error>
@@ -99,12 +95,14 @@
 
     <mat-form-field fxflex>
       <mat-label>Country</mat-label>
-      <input formControlName="country" matInput required />
+      <input formControlName="country" matInput />
       <mat-error
         *ngIf="!form.get('country').valid && form.get('country').touched"
       >
         Company must give its <strong>country name</strong>
       </mat-error>
     </mat-form-field>
+
+    <button type="submit"> Save </button>
   </form>
 </div>

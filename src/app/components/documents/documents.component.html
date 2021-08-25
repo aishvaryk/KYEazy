@@ -1,9 +1,13 @@
-
-  <form fxLayout="column" fxLayoutAlign="center start">
+  <form
+    fxLayout="column"
+    (ngSubmit)="onSave()"
+    [formGroup]="form"
+    fxLayoutAlign="center start"
+  >
 
     <mat-form-field fxflex>
       <mat-label>Document Type</mat-label>
-      <mat-select required>
+      <mat-select formControlName="documentType">
         <mat-option value="aadhar" name="documentType">
           Aadhar Card
         </mat-option>
@@ -21,16 +25,16 @@
 
     <mat-form-field fxflex>
       <mat-label>Document Number</mat-label>
-      <input
-        matInput [(ngModel)] = "docNumber" required name="documentNumber"
-      />
+      <input matInput formControlName="documentNumber" name="documentNumber" />
     </mat-form-field>
 
-    <div style="width: 100%;">
-      <input #input hidden="true" type="file" (change)="onChange($event)" />
+    <div fxFlex>
+      <input #input  type="file" (change)="onChange($event)" />
       <button mat-raised-button color="primary" (click)="input.click()"> Upload Document </button>
-      <br/>
-      <img [height]='300' [width]="300" [src]="src" />
     </div>
+
+    <button type="submit">
+      onSave
+    </button>
 
   </form>

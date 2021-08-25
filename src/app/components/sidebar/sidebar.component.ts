@@ -14,7 +14,11 @@ export class SidebarComponent implements OnInit {
   hasBackdrop:any;
   sidenavMode:any;
   breakpoint$: Observable<Breakpoint>;
-
+  companyPage: any;
+  adminPage:any;
+  employeePage:any;
+  companyRegisterPage:any;
+  currentRoute:any
   constructor(public store: Store<{breakpoint: Breakpoint, route: string, menu:boolean}>) {
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
@@ -28,7 +32,7 @@ export class SidebarComponent implements OnInit {
     })
 
     this.store.select('route').subscribe((route)=> {
-      console.log(route);
+      this.currentRoute=route;
     })
 
     this.store.select('menu').subscribe((menu)=> this.sidenavOpen=menu);
