@@ -8,4 +8,5 @@ export interface Company{
   companyDescription:string;
   cinNumber: string;
   address:Address;
+  numberOfPendingEmployees:number;
 }

@@ -29,7 +29,7 @@
   <!-- Company details start -->
   <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px"
     [ngClass]="{ 'company-card-container-mobile': isSmall, 'company-container-card': !isSmall }"
-    fxLayout.lt-sm="row wrap" *ngFor="let company of companies">
+    fxLayout.lt-sm="row wrap" *ngFor="let company of companies" >
     <!-- mat card starts -->
     <mat-card [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }" fxLayout="row"
       fxLayout.xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign.xs="space-between start" fxLayoutGap="10%" >
@@ -49,7 +49,7 @@
             Pending
           </p>
           <p>
-            {{numOfPendingEmployees}}
+            {{company.numberOfPendingEmployees}}
           </p>
         </div>
 
@@ -87,7 +87,7 @@
             'status-container': !isSmall
           }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter">
 
-        <button mat-raised-button color="primary" [ngClass]="{
+        <button mat-raised-button color="primary" (click)="onViewEmployees()" [ngClass]="{
               'company-buttons-mobile': isSmall,
               'company-buttons': !isSmall
             }">

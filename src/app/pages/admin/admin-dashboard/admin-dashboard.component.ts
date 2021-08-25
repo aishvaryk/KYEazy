@@ -44,7 +44,7 @@ export class AdminDashboardComponent implements OnInit {
   public employees:Employee[];
   public numOfPendingEmployees:number=0;
   public numOfAcceptedEmployees:number=0;
-  // public companyId:number=0;
+  public companyId:number=0;
 
   constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
