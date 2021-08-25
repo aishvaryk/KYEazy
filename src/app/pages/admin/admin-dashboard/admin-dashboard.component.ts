@@ -19,6 +19,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { CompanyService } from 'src/app/services/company/company.service';
+import { Employee } from 'src/app/models/employee.model';
 
 
 export interface paginator {
@@ -38,8 +40,13 @@ export class AdminDashboardComponent implements OnInit {
   public isSmall: any;
   public companies:Company[];
   public adminService:AdminService;
+  public companyService:CompanyService;
+  public employees:Employee[];
+  public numOfPendingEmployees:number=0;
+  public numOfAcceptedEmployees:number=0;
+  // public companyId:number=0;
 
-  constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService ) {
+  constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs || breakpoint.isSm) {
         this.isSmall = true;
@@ -49,6 +56,8 @@ export class AdminDashboardComponent implements OnInit {
     })
     this.companies=[{}] as Company[];
     this.adminService=adminService;
+    this.companyService=companyService;
+    this.employees={} as Employee[];
   }
 
   ngOnInit(): void {
@@ -59,10 +68,18 @@ export class AdminDashboardComponent implements OnInit {
       this.companies=companies;
       console.log(this.companies);
     });
-  }
 
-  numSequence(n: number): Array<number> {
-    return Array(n);
-  }
+    this.companyService.getEmployeesByStatus(1,"Pending",3,1);
+    this.companyService.employeesSubject.subscribe((employees)=>{
+      this.employees=employees;
+      this.numOfPendingEmployees=this.employees.length;
+  });
+
+  // numSequence(n: number): Array<number> {
+  //   return Array(n);
+  // }
+
+}
+
 
 }
