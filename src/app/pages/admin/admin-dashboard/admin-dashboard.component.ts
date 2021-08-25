@@ -21,6 +21,7 @@ import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 export interface paginator {
@@ -47,7 +48,8 @@ export class AdminDashboardComponent implements OnInit {
   public companyId:number=0;
   public companyRoute:any;
 
-  constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
+
+  constructor(public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs || breakpoint.isSm) {
         this.isSmall = true;
@@ -55,6 +57,7 @@ export class AdminDashboardComponent implements OnInit {
         this.isSmall = false;
       }
     })
+
     this.companies=[{}] as Company[];
     this.adminService=adminService;
     this.companyService=companyService;
@@ -80,6 +83,8 @@ export class AdminDashboardComponent implements OnInit {
       this.employees=employees;
       this.numOfPendingEmployees=this.employees.length;
   });
+
+
 
 }
 

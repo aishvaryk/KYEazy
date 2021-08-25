@@ -2,6 +2,7 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Breakpoint } from './../../../models/breakpoint.model';
+import { ActivatedRoute } from '@angular/router';
 
 export interface paginator {
   length: number;
@@ -27,7 +28,7 @@ export class ViewEmployessComponent implements OnInit {
   public search: string;
 
   verificationStatus: String;
-  constructor(public store: Store<{ breakpoint: Breakpoint }>) {
+  constructor(private activatedRoute : ActivatedRoute ,public store: Store<{ breakpoint: Breakpoint }>) {
     this.verificationStatus = 'verified';
 
     this.paginator = {
@@ -49,7 +50,11 @@ export class ViewEmployessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.activatedRoute.params.subscribe(
+      (params) => {
+        console.log(params.companyId);
+      }
+    );
   }
 
   numSequence(n: number): Array<number> {
