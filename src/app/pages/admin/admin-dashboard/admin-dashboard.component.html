@@ -58,7 +58,7 @@
             Accepted
           </p>
           <p>
-            200
+            {{company.numberOfAcceptedEmployees}}
           </p>
         </div>
         <div class="rejected">
@@ -66,7 +66,7 @@
             Rejected
           </p>
           <p>
-            500
+            {{company.numberOfRejectedEmployees}}
           </p>
         </div>
         <div class="total">
@@ -74,7 +74,7 @@
             Total
           </p>
           <p>
-            1000
+            {{company.numberOfTotalEmployees}}
           </p>
         </div>
 
@@ -87,7 +87,7 @@
             'status-container': !isSmall
           }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter">
 
-        <button mat-raised-button color="primary" (click)="onViewEmployees()" [ngClass]="{
+        <button mat-raised-button color="primary" [ngClass]="{
               'company-buttons-mobile': isSmall,
               'company-buttons': !isSmall
             }">

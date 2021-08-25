@@ -69,11 +69,6 @@ export class AdminDashboardComponent implements OnInit {
       console.log(this.companies);
     });
 
-    this.companyService.getEmployeesByStatus(1,"Pending",3,1);
-    this.companyService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
-      this.numOfPendingEmployees=this.employees.length;
-  });
 
   // numSequence(n: number): Array<number> {
   //   return Array(n);
