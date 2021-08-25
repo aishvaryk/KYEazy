@@ -29,7 +29,7 @@
   <!-- Company details start -->
   <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px"
     [ngClass]="{ 'company-card-container-mobile': isSmall, 'company-container-card': !isSmall }"
-    fxLayout.lt-sm="row wrap" *ngFor="let n of numSequence(6)">
+    fxLayout.lt-sm="row wrap" *ngFor="let company of companies">
 
     <!-- mat card starts -->
     <mat-card [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }" fxLayout="row"
@@ -37,8 +37,8 @@
 
       <mat-card-header fxFlex="60" [ngClass]="{ 'company-card-header-mobile': isSmall }">
         <img mat-card-avatar src="../../../../assets/Company logos/google_PNG3.png" />
-        <mat-card-title class="company-name">Google</mat-card-title>
-        <mat-card-subtitle class="company-email">abc@google.com</mat-card-subtitle>
+        <mat-card-title class="company-name">{{company.name}}</mat-card-title>
+        <mat-card-subtitle class="company-email">{{company.cinNumber}}</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content [ngClass]="{
