@@ -162,7 +162,7 @@ export class EmployeesComponent implements OnInit {
       );}
 
       if(this.filter==="verification-completed"){
-        this.companyService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        this.companyService.getEmployeesByStatus(1,"Verified",this.paginator.currentPageSize,this.paginator.currentPageIndex);
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
           console.log(employees);
@@ -178,7 +178,7 @@ export class EmployeesComponent implements OnInit {
           );}
 
           if(this.filter==="all"){
-            this.companyService.getEmployeesByStatus(1,"Registered",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+            this.companyService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
             this.companyService.employeesSubject.subscribe((employees)=>{
               this.employees=employees;
               console.log(employees);
