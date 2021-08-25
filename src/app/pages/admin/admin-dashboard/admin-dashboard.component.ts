@@ -18,7 +18,6 @@ import { Breakpoint } from './../../../models/breakpoint.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-
 export interface paginator {
   length: number;
   currentPageIndex: number;
@@ -34,6 +33,7 @@ export interface paginator {
 export class AdminDashboardComponent implements OnInit {
 
   public isSmall: any;
+  public paginator: paginator;
 
   constructor( public store: Store<{ breakpoint: Breakpoint }> ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
@@ -43,6 +43,13 @@ export class AdminDashboardComponent implements OnInit {
         this.isSmall = false;
       }
     })
+
+    this.paginator = {
+      length: 100,
+      currentPageSize: 10,
+      pageSizeOptions: [5, 10, 25, 100],
+      currentPageIndex: 0,
+    };
   }
 
   ngOnInit(): void {
@@ -53,4 +60,10 @@ export class AdminDashboardComponent implements OnInit {
     return Array(n);
   }
 
+
+  OnPageChange(event: any) {
+    this.paginator.currentPageIndex = event.pageIndex;
+    this.paginator.currentPageSize = event.pageSize;
+    console.log(this.paginator);
+  }
 }
