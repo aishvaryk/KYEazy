@@ -59,7 +59,7 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
-import { ChartsModule } from 'ng2-charts';
+import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +89,7 @@ import { ChartsModule } from 'ng2-charts';
     AdminComponent,
     CompanyComponent,
     EmployeesComponent,
+    ViewEmployessComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -121,7 +122,7 @@ import { ChartsModule } from 'ng2-charts';
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    ChartsModule,
+
   ],
   providers: [
     {

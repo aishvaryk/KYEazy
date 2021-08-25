@@ -87,12 +87,13 @@
             'status-container': !isSmall
           }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter">
 
-        <button mat-raised-button color="primary" [ngClass]="{
+           <button mat-raised-button color="primary" routerLink="/admin/employees/{{company.companyId}}"  [ngClass]="{
               'company-buttons-mobile': isSmall,
               'company-buttons': !isSmall
             }">
           View Employees
         </button>
+
       </mat-card-content>
     </mat-card>
 

@@ -45,6 +45,7 @@ export class AdminDashboardComponent implements OnInit {
   public numOfPendingEmployees:number=0;
   public numOfAcceptedEmployees:number=0;
   public companyId:number=0;
+  public companyRoute:any;
 
   constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
@@ -60,6 +61,11 @@ export class AdminDashboardComponent implements OnInit {
     this.employees={} as Employee[];
   }
 
+  onViewEmployees(companyId:number)
+  {
+    console.log(companyId);
+    this.companyRoute="/admin/employees/"+companyId;
+  }
   ngOnInit(): void {
     console.log(this.isSmall);
 
@@ -69,10 +75,6 @@ export class AdminDashboardComponent implements OnInit {
       console.log(this.companies);
     });
 
-
-  // numSequence(n: number): Array<number> {
-  //   return Array(n);
-  // }
 
 }
 
