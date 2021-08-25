@@ -58,7 +58,7 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -120,7 +120,7 @@ import { ChartsModule } from 'ng2-charts';
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    ChartsModule
+    // ChartsModule
   ],
   providers: [
     {
