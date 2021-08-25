@@ -1,3 +1,4 @@
+import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NgModule } from '@angular/core';
@@ -59,6 +60,10 @@ const routes: Routes = [
       {
         path: 'rejected-kyc',
         component: RejectedKycComponent
+      },
+      {
+        path: 'employees',
+        component: ViewEmployessComponent
       }
     ]
   },
