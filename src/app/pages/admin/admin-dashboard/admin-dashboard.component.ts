@@ -49,4 +49,8 @@ export class AdminDashboardComponent implements OnInit {
     console.log(this.isSmall);
   }
 
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  }
+
 }
