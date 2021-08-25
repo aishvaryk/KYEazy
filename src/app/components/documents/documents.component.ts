@@ -1,4 +1,4 @@
- import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Documents } from 'src/app/models/documents.model';
@@ -10,6 +10,9 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
   styleUrls: ['./documents.component.scss']
 })
 export class DocumentsComponent implements OnInit {
+
+  @ViewChild('a')
+  public a: any;
 
   form: any;
 
@@ -28,6 +31,11 @@ export class DocumentsComponent implements OnInit {
 
   onChange(event: any) {
     let file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    this.a.nativeElement.href = url;
+    this.a.nativeElement.download = "doc.png"
+    this.a.nativeElement.click();
+
     this.form.patchValue({
       document: file,
     });

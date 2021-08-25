@@ -8,28 +8,42 @@
     [ngStyle.xl]="{ width: '40%' }"
   >
 
-  <div fxFlex>
-    <video
-      #video
-      [width]="300"
-      [height]="300"
-      autoplay
-    ></video>
-    <canvas
-    #canvas
-    [width]="300"
-    [height]="300"
-    ></canvas>
-  </div>
+    <div [class.show]="!camera" [class.hide]="camera" fxFlex>
+      <img
+        (click)="startCamera()"
+        style="border-radius: 10px"
+        height="200"
+        width="200"
+        src="/assets/images/camera-icon.jpg"
+      />
+    </div>
 
-  <div>
-  <button mat-raised-button (click)="startCamera()" color="primary">
-    Show Camera
-  </button>
-  <button mat-raised-button (click)="capture()" color="primary">
-    Capture
-  </button>
-  </div>
+    <div [class.show]="camera" [class.hide]="!camera" fxFlex>
+      <video
+        #video
+        [class.show]="!captured"
+        [class.hide]="captured"
+        [width]="300"
+        [height]="300"
+        autoplay
+      ></video>
+      <canvas
+        #canvas
+        [class.show]="captured"
+        [class.hide]="!captured"
+        [width]="300"
+        [height]="300"
+      ></canvas>
+      <div [class.show]="!captured" [class.hide]="captured">
+        <button (click)="capture()">Capture</button>
+        <button (click)="stopCamera()">Stop</button>
+      </div>
+      <div [class.show]="captured" [class.hide]="!captured">
+        <button (click)="retry()">retry</button>
+        <button (click)="save()">Sabe</button>
+        <a #a></a>
+      </div>
+    </div>
 
   </div>
 </div>
