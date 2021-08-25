@@ -7,6 +7,6 @@ RUN npm run build
 
 # production stage
 FROM nginx:stable as production-stage
-COPY --from=build-stage /app/dist /var/www
+COPY --from=build-stage /app/dist/kyeazy-frontend /var/www
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
