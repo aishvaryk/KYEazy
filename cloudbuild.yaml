@@ -4,5 +4,5 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'asia.gcr.io/$PROJECT_ID/$TAG_NAME']
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ['run', 'deploy', 'kycfront','--max-instances', '3', '--memory', '256Mi', '--image', 'asia.gcr.io/$PROJECT_ID/$TAG_NAME', '--region', 'asia-southeast1', '--platform', 'managed', '--allow-unauthenticated']
+  args: ['run', 'deploy', 'kycfront','--max-instances', '3', '--memory', '512Mi', '--image', 'asia.gcr.io/$PROJECT_ID/$TAG_NAME', '--region', 'asia-southeast1', '--platform', 'managed', '--allow-unauthenticated']
 logsBucket: 'gs://hu18-groupb-java_cloudbuild'
