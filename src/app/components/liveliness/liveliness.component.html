@@ -1,6 +1,59 @@
-<!-- <div>
-<video controls muted #toCapture></video>
-<video controls #toPlay></video> <br/>
-<button mat-raised-button (click)="start()" color="primary">Start</button><br/>
-<button mat-raised-button (click)="stop()">Stop</button><br/>
-<div> -->
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div
+    fxLayout="column"
+    [ngStyle.xs]="{ width: '100%' }"
+    [ngStyle.sm]="{ width: '70%' }"
+    [ngStyle.md]="{ width: '50%' }"
+    [ngStyle.lg]="{ width: '40%' }"
+    [ngStyle.xl]="{ width: '40%' }"
+  >
+
+  <!-- icon conainer -->
+    <div [class.show]="!camera" [class.hide]="camera" fxFlex>
+      <img
+        (click)="startCamera()"
+        style="border-radius: 10px"
+        height="200"
+        width="200"
+        src="/assets/images/video-camera.png"
+      />
+    </div>
+
+    <!-- video container -->
+    <div [class.show]="camera" [class.hide]="!camera" fxFlex>
+
+      <!-- to capture video -->
+      <p *ngIf="timeleft > 0">Timeleft: {{timeleft}}</p>
+      <video
+        #toCapture
+        [class.show]="!captured"
+        [class.hide]="captured"
+        [width]="300"
+        [height]="300"
+        autoplay
+      ></video>
+
+      <!-- to play video -->
+      <video
+        #toPlay
+        [class.show]="captured"
+        [class.hide]="!captured"
+        controls
+        [width]="300"
+        [height]="300"
+      ></video>
+
+      <!-- while recording the video -->
+      <div [class.show]="!captured" [class.hide]="captured">
+        <button (click)="stopCamera()">Stop Recording</button>
+      </div>
+
+      <!-- after recording the video -->
+      <div [class.show]="captured" [class.hide]="!captured">
+        <button (click)="retry()">Retry</button>
+        <button (click)="save()">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

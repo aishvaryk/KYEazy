@@ -12,8 +12,6 @@ export class SelfieComponent
   public video: any;
   @ViewChild('canvas')
   public canvas: any;
-  @ViewChild('a')
-  public a: any;
 
   public stream: any;
   public captured: boolean;
@@ -34,36 +32,27 @@ export class SelfieComponent
     await this.setupDevices();
   }
 
-  async stopCamera() {
-    this.camera = false;
-    this.video.nativeElement.pause();
-    this.stream.getTracks()[0].stop();
-  }
-
-  async capture() {
+  capture() {
     this.captured = true;
     this.draw(this.video.nativeElement);
-    this.video.nativeElement.pause();
-    this.stream.getTracks()[0].stop();
+    for (let track of this.stream.getTracks()) {
+      track.stop()
+    }
   }
 
-  async retry() {
-    this.startCamera();
+  retry() {
     this.captured = false;
     this.camera = true;
+    this.startCamera();
   }
 
   async save() {
-    const res = await fetch(this.image);
-    const blob =  await res.blob();
+    const response = await fetch(this.image);
+    const blob =  await response.blob();
     const imageFile = new File([blob], 'name.png', { type: 'image/png' });
-    const url = URL.createObjectURL(imageFile);
-    this.a.nativeElement.href = url;
-    this.a.nativeElement.download = "name.png"
-    this.a.nativeElement.click();
   }
 
-  async draw(image: any) {
+  draw(image: any) {
     this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, 300, 300);
     this.image = this.canvas.nativeElement.toDataURL('image/png');
   }

@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 declare var MediaRecorder: any;
 
@@ -6,26 +7,38 @@ declare var MediaRecorder: any;
   templateUrl: './liveliness.component.html',
   styleUrls: ['./liveliness.component.scss']
 })
-export class LivelinessComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LivelinessComponent implements OnInit {
+
   @ViewChild('toCapture')
   public toCapture: any;
-
   @ViewChild('toPlay')
   public toPlay: any;
 
-  public constraints: any;
-  public error: any;
-  public mediaRecorder: any;
+  public camera: boolean;
+  public captured: boolean;
+  public timeleft: number;
   public chunks: any;
+  public audioConstraints: any;
+  public videoConstraints: any;
+  public mediaRecorder: any;
+  public stream: any;
+  public blob: any;
 
   constructor() {
+    this.camera = false;
+    this.captured = false;
     this.chunks = [];
-    this.constraints = {
-      audio: true,
+    this.timeleft = 10;
+    this.videoConstraints = {
       video: {
         facingMode: "user",
       }
     };
+    this.audioConstraints = {
+      audio: {
+        echoCancellation: true
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -34,54 +47,64 @@ export class LivelinessComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
   }
 
-  async ngAfterViewInit() {
+  async startCamera() {
+    this.camera = true;
     await this.setupDevices();
+    this.mediaRecorder.start();
+    setTimeout(() => this.stopCamera(), 1000 * 10);
+    this.timeleft = 10;
+    let timer = setInterval(() => {
+      if (this.timeleft <= 0) {
+        clearInterval(timer);
+      }
+      this.timeleft -= 1;
+    }, 1000);
+  }
+
+  stopCamera() {
+    if (this.mediaRecorder.state === "inactive") return;
+    this.captured = true;
+    this.timeleft = 0;
+    this.mediaRecorder.stop();
+    for (let track of this.stream.getTracks()) {
+      track.stop()
+    }
+  }
+
+  save() {
+    const videoFile = new File([this.blob], 'answer.mp4', { type: 'video/mp4' });
+    console.log(videoFile);
+  }
+
+  retry() {
+    this.captured = false;
+    this.camera = true;
+    this.startCamera();
   }
 
   async setupDevices() {
-    // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    //   try {
-    //     const stream = await navigator.mediaDevices.getUserMedia(this.constraints);
-    //     if (stream) {
-    //       this.toCapture.nativeElement.srcObject = stream;
-    //       this.toCapture.nativeElement.play();
-    //       this.error = null;
-    //       this.mediaRecorder = new MediaRecorder(stream);
-    //       let THIS = this;
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const videoStream = await navigator.mediaDevices.getUserMedia(this.videoConstraints);
+        const audioStream = await navigator.mediaDevices.getUserMedia(this.audioConstraints);
+        this.stream = new MediaStream([...videoStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
+        this.toCapture.nativeElement.srcObject = this.stream;
+        this.toCapture.nativeElement.muted = true;
+        this.toCapture.nativeElement.play();
+        this.mediaRecorder = new MediaRecorder(this.stream);
+        this.mediaRecorder.ondataavailable = (ev: any) => {
+          this.chunks.push(ev.data);
+        }
+        this.mediaRecorder.onstop = (ev: any) => {
+          this.blob = new Blob(this.chunks, { 'type': 'video/mp4;' });
+          let videoURL = window.URL.createObjectURL(this.blob);
+          this.toPlay.nativeElement.src = videoURL;
+          this.chunks = [];
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
-    //       this.mediaRecorder.ondataavailable = function(ev: any) {
-    //         console.log(ev.data);
-    //         console.log(THIS.chunks);
-    //         THIS.chunks.push(ev.data);
-    //       }
-
-    //       this.mediaRecorder.onstop = function(ev: any) {
-    //         let blob = new Blob(THIS.chunks, { 'type' : 'video/mp4;' });
-    //         THIS.chunks = [];
-    //         let videoURL = window.URL.createObjectURL(blob);
-    //         THIS.toPlay.nativeElement.src = videoURL;
-    //         THIS.toPlay.nativeElement.play();
-    //       }
-
-    //     } else {
-    //       this.error = 'You have no output video device';
-    //     }
-    //   } catch (e) {
-    //     this.error = e;
-    //   }
-    // }
   }
-
-
-
-  start(): void {
-    this.mediaRecorder.start();
-    alert('Start');
-  }
-
-  stop(): void {
-    this.mediaRecorder.stop();
-    alert('Stop');
-  }
-
 }

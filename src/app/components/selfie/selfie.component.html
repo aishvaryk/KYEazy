@@ -7,7 +7,6 @@
     [ngStyle.lg]="{ width: '40%' }"
     [ngStyle.xl]="{ width: '40%' }"
   >
-
     <div [class.show]="!camera" [class.hide]="camera" fxFlex>
       <img
         (click)="startCamera()"
@@ -17,7 +16,6 @@
         src="/assets/images/camera-icon.jpg"
       />
     </div>
-
     <div [class.show]="camera" [class.hide]="!camera" fxFlex>
       <video
         #video
@@ -36,14 +34,11 @@
       ></canvas>
       <div [class.show]="!captured" [class.hide]="captured">
         <button (click)="capture()">Capture</button>
-        <button (click)="stopCamera()">Stop</button>
       </div>
       <div [class.show]="captured" [class.hide]="!captured">
-        <button (click)="retry()">retry</button>
-        <button (click)="save()">Sabe</button>
-        <a #a></a>
+        <button (click)="retry()">Retry</button>
+        <button (click)="save()">Save</button>
       </div>
     </div>
-
   </div>
 </div>
