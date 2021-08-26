@@ -58,6 +58,7 @@ import { detailsReducer } from './redux/reducers/details.reducer';
 import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
@@ -125,6 +126,8 @@ import { RegisterEmployeesComponent } from './pages/company/register-employees/r
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
+    NgxChartsModule
+
 
   ],
   providers: [
