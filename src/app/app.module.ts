@@ -61,7 +61,7 @@ import { menuReducer } from './redux/reducers/menu.reducer';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
-
+import { RegisterEmployeesComponent } from './pages/company/register-employees/register-employees.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +91,8 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
     CompanyComponent,
     EmployeesComponent,
     ViewEmployessComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterEmployeesComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -124,7 +125,8 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    NgxChartsModule,
+    NgxChartsModule
+
 
   ],
   providers: [

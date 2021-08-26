@@ -2,6 +2,7 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Breakpoint } from './../../../models/breakpoint.model';
+import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
@@ -31,10 +32,12 @@ export class ViewEmployessComponent implements OnInit {
   public search: string;
   public companyService: CompanyService;
   public employees:Employee[];
+  private companyId:number;
   // verificationStatus: String;
   searchText:string;
-  constructor(public observer: MediaObserver,public store: Store<{ breakpoint: Breakpoint }>,companyService:CompanyService) {
+  constructor(private activatedRoute:ActivatedRoute,  public observer: MediaObserver,public store: Store<{ breakpoint: Breakpoint }>,companyService:CompanyService) {
     this.searchText='';
+    this.companyId=0;
     this.paginator = {
       length: 100,
       currentPageSize: 10,
@@ -56,6 +59,14 @@ export class ViewEmployessComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(
+      (params) => {
+
+        console.log(params.companyId);
+        this.companyId=params.companyId;
+      }
+
+    );
     this.observable = this.observer
     .asObservable()
     .pipe(
@@ -69,7 +80,7 @@ export class ViewEmployessComponent implements OnInit {
         this.isSmall = false;
       }
     });
-    this.companyService.getEmployees(1,10,1);
+    this.companyService.getEmployees(this.companyId,10,1);
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
 

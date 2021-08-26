@@ -85,6 +85,17 @@ registerEmployee(newEmployee:Employee,companyId:number): void{
 });
 }
 
+
+registerEmployees(newEmployee:FormData,companyId:number): void{
+  this.httpClient.post<ActionDTO>(`http://localhost:8085/company/register-employees/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
+  .subscribe((results: ActionDTO) => {
+      console.log(results);
+      this.registrationStatus=results;
+      this.actionDTOSubject.next(results);
+
+});
+}
+
 getEmployeeByName(id:number,name:string): void{
   this.httpClient.get(`http://localhost:8085/company/get-employees-by-name/${id}/${name}`).pipe(map((response) => response as Employee))
   .subscribe((results: Employee) => {
