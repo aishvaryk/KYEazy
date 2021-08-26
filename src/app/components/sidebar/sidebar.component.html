@@ -29,7 +29,7 @@
         All Companies</a>
 
       <a mat-list-item routerLink="/admin/employees"  *ngIf="currentRoute.substring(1,4)==='adm'">Ad Employees</a>
-      <a mat-list-item routerLink="/company/register"  *ngIf="currentRoute.substring(1,4)==='com'">Register Employees</a>
+      <a mat-list-item routerLink="/company/register" class="sidenav-list-item"  *ngIf="currentRoute.substring(1,4)==='com'">Register Employees</a>
 
 
     </mat-nav-list>

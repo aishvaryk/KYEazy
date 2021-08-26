@@ -10,6 +10,10 @@
 
   <!-- icon conainer -->
     <div [ngClass]="{'show':!camera, 'hide': camera}">
+        <p fxLayout="column" fxLayoutAlign="center center">
+          <span style="text-align: center;">{{question}}</span>
+          <button style="width: 35%;" mat-raised-button color="primary" (click)="getQuestion()"> new </button>
+        </p>
         <img
         class="video-camera-icon"
         (click)="startCamera()"
@@ -22,8 +26,9 @@
     <!-- video container -->
     <div [class.show]="camera" [class.hide]="!camera" fxFlex>
 
-      <!-- to capture video -->
+      <p>{{question}}</p>
       <p *ngIf="timeleft > 0">Timeleft: {{timeleft}}</p>
+      <!-- to capture video -->
       <video
         #toCapture
         [class.show]="!captured"

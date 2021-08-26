@@ -62,6 +62,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { RegisterEmployeesComponent } from './pages/company/register-employees/register-employees.component';
+import { selfieReducer } from './redux/reducers/selfie.reducer';
+import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { RegisterEmployeesComponent } from './pages/company/register-employees/r
       details: detailsReducer,
       documents: documentsReducer,
       route: routeReducer,
-      menu: menuReducer
+      menu: menuReducer,
+      selfie: selfieReducer,
+      liveliness: livelinessReducer
     }),
     BrowserModule,
     AppRoutingModule,

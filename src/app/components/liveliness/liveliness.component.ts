@@ -1,5 +1,8 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Liveliness } from 'src/app/models/liveliness.model';
+import { setLiveliness } from 'src/app/redux/actions/liveliness.actions';
 declare var MediaRecorder: any;
 
 @Component({
@@ -25,13 +28,15 @@ export class LivelinessComponent implements OnInit {
   public blob: any;
   public interval: any;
   public timeout: any;
+  public question: string;
 
 
-  constructor() {
+  constructor(public store: Store<{ documents: Liveliness }>) {
     this.camera = false;
     this.captured = false;
     this.chunks = [];
     this.timeleft = 10;
+    this.question = ""
     this.videoConstraints = {
       video: {
         facingMode: "user",
@@ -42,6 +47,7 @@ export class LivelinessComponent implements OnInit {
         echoCancellation: true
       }
     }
+    this.getQuestion();
   }
 
   ngOnInit(): void {
@@ -77,6 +83,11 @@ export class LivelinessComponent implements OnInit {
   save() {
     const videoFile = new File([this.blob], 'answer.mp4', { type: 'video/mp4' });
     console.log(videoFile);
+    let liveliness = {} as Liveliness;
+    liveliness.video = videoFile;
+    liveliness.question = this.question;
+    this.store.dispatch(setLiveliness(liveliness));
+
   }
 
   retry() {
@@ -108,6 +119,18 @@ export class LivelinessComponent implements OnInit {
         console.log(e);
       }
     }
-
   }
+
+  getQuestion(){
+    let operations = ['+','*'];
+    let firstOperand = this.getRandomNumber(1,5);
+    let secondOperand = this.getRandomNumber(1,5);
+    let operator = operations[this.getRandomNumber(1,1000) % 2];
+    this.question = "what is "+ firstOperand + operator + secondOperand + " ?"
+  }
+
+  getRandomNumber(min:number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 }
