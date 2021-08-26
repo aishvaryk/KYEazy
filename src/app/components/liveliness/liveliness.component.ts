@@ -23,6 +23,9 @@ export class LivelinessComponent implements OnInit {
   public mediaRecorder: any;
   public stream: any;
   public blob: any;
+  public interval: any;
+  public timeout: any;
+
 
   constructor() {
     this.camera = false;
@@ -51,12 +54,12 @@ export class LivelinessComponent implements OnInit {
     this.camera = true;
     await this.setupDevices();
     this.mediaRecorder.start();
-    setTimeout(() => this.stopCamera(), 1000 * 10);
     this.timeleft = 10;
-    let timer = setInterval(() => {
-      if (this.timeleft <= 0) {
-        clearInterval(timer);
-      }
+    if(this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => this.stopCamera(), 1000 * 10);
+    if(this.interval) clearInterval(this.interval);
+    this.interval = setInterval(() => {
+      if (this.timeleft <= 0) clearInterval(this.interval);
       this.timeleft -= 1;
     }, 1000);
   }

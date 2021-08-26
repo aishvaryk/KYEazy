@@ -53,7 +53,7 @@ export class SelfieComponent
   }
 
   draw(image: any) {
-    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, 300, 300);
+    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, 500, 300);
     this.image = this.canvas.nativeElement.toDataURL('image/png');
   }
 
