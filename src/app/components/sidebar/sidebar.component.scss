@@ -12,15 +12,15 @@
   align-items: center;
   justify-content: center;
   width: 15%;
-  background: #afc9c5;
+  background: teal;
 }
 
 .sidenav-medium{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
-  background: #afc9c5;
+  width: 35%;
+  background: teal;
 }
 
 .sidenav-mobile{
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   width: 50%;
-  background: #afc9c5;
+  background: rgb(0, 160, 160);
 }
 
 
@@ -42,4 +42,13 @@
 
 .a {
   background-color: rgba(231, 231, 231, 0.5);
+}
+
+.sidenav-list-item {
+  color: white;
+}
+
+
+::ng-deep .sidenav-expansion-header > .mat-expansion-indicator:after {
+  color: white;
 }
