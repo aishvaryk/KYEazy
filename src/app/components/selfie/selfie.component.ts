@@ -1,4 +1,7 @@
-  import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+  import { AfterViewInit, Component, ElementRef, OnInit, Self, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Selfie } from 'src/app/models/selfie.model';
+import { setSelfie } from 'src/app/redux/actions/selfie.actions';
 
 @Component({
   selector: 'app-selfie',
@@ -18,7 +21,7 @@ export class SelfieComponent
   public camera: boolean;
   public image: string;
 
-  constructor() {
+  constructor(public store: Store<{ documents: Selfie }>) {
     this.captured = false;
     this.camera = false;
     this.image = "";
@@ -50,6 +53,9 @@ export class SelfieComponent
     const response = await fetch(this.image);
     const blob =  await response.blob();
     const imageFile = new File([blob], 'name.png', { type: 'image/png' });
+    let selfie = {} as Selfie;
+    selfie.image = imageFile;
+    this.store.dispatch(setSelfie(selfie));
   }
 
   draw(image: any) {

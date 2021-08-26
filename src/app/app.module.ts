@@ -61,6 +61,8 @@ import { menuReducer } from './redux/reducers/menu.reducer';
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { selfieReducer } from './redux/reducers/selfie.reducer';
+import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
       details: detailsReducer,
       documents: documentsReducer,
       route: routeReducer,
-      menu: menuReducer
+      menu: menuReducer,
+      selfie: selfieReducer,
+      liveliness: livelinessReducer
     }),
     BrowserModule,
     AppRoutingModule,
