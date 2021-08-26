@@ -36,9 +36,9 @@ import { LivelinessComponent } from './components/liveliness/liveliness.componen
 import { ReviewComponent } from './components/review/review.component';
 import { DetailsComponent } from './components/details/details.component';
 import { DocumentsComponent } from './components/documents/documents.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { SignupComponent } from './pages/company/signup/signup.component';
-import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
 import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
@@ -58,7 +58,8 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
-import { ChartsModule } from 'ng2-charts';
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,6 @@ import { ChartsModule } from 'ng2-charts';
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent,
     PendingKycComponent,
     AcceptedKycComponent,
     RejectedKycComponent,
@@ -87,7 +87,8 @@ import { ChartsModule } from 'ng2-charts';
     AdminDashboardComponent,
     AdminComponent,
     CompanyComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    ProfileComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -120,7 +121,7 @@ import { ChartsModule } from 'ng2-charts';
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    ChartsModule
+    NgxChartsModule
   ],
   providers: [
     {
