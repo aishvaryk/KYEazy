@@ -1,94 +1,76 @@
-<h1>Form to add employee by company</h1>
-<div
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  style="width: 100%;"
->
 
-<form
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  style="width: 50%"
-  [formGroup]="employeeForm"
-  (ngSubmit)="onSubmit()"
-  class="form-container"
->
-  <mat-form-field appearance="outline">
-    <mat-label>First Name</mat-label>
-    <input
-      matInput
-      placeholder="Eg. Amit"
-      type="text"
-      name="first-name"
-      formControlName="firstName"
-      required
-    />
-    <mat-error *ngIf="errorHandling('firstName', 'required')">
-      You must give <strong>first name</strong>
-    </mat-error>
-  </mat-form-field>
+<div fxLayout="column" fxLayoutAlign="start center" class="employee-form-container">
+  <mat-card  style="width: 95%;">
+  <div fxLayout="column" fxLayoutAlign="center center" style="width: 100%;">
+  <h3 class="single-employee-heading" fxLayout="row">Register Single Employee</h3>
+  <form fxLayout="column" fxLayoutAlign="center center" style="width: 50%" [formGroup]="employeeForm"
+    (ngSubmit)="onSubmit()" class="form-container">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Eg. Amit" type="text" name="first-name" formControlName="firstName" required />
+      <mat-error *ngIf="errorHandling('firstName', 'required')">
+        You must give <strong>first name</strong>
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Last Name</mat-label>
-    <input
-      matInput
-      placeholder="Eg. Gupta"
-      type="text"
-      name="last-name"
-      formControlName="lastName"
-      required
-    />
-    <mat-error *ngIf="errorHandling('lastName', 'required')">
-      You must give <strong>last name</strong>
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Eg. Gupta" type="text" name="last-name" formControlName="lastName" required />
+      <mat-error *ngIf="errorHandling('lastName', 'required')">
+        You must give <strong>last name</strong>
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Enter your email</mat-label>
-    <input
-      matInput
-      placeholder="pat@example.com"
-      formControlName="email"
-      required
-    />
-    <mat-error
-      *ngIf="
+    <mat-form-field>
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="email" required />
+      <mat-error *ngIf="
         employeeForm.controls['email'].hasError('email') ||
         employeeForm.controls['email'].hasError('required')
-      "
-      >{{ getErrorMessage() }}</mat-error
-    >
-  </mat-form-field>
+      ">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Enter your contact No</mat-label>
-    <input
-      matInput
-      placeholder="pat@example.com"
-      formControlName="contactNumber"
-      required
-    />
-    <mat-error *ngIf="errorHandling('contactNumber', 'required')">
-      You must give <strong>contact</strong>
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter your contact No</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="contactNumber" required />
+      <mat-error *ngIf="errorHandling('contactNumber', 'required')">
+        You must give <strong>contact</strong>
+      </mat-error>
+    </mat-form-field>
 
-  <br />
-  <button
-    mat-flat-button
-    color="primary"
-    type="submit"
-    (click)="isSubmitted = true"
-  >
-    Submit
-  </button>
+    <br />
+    <div fxLayout="row" fxLayoutAlign="end" style="width: 100%;">
+    <button mat-flat-button color="primary" type="submit" (click)="isSubmitted = true">
+      Submit
+    </button>
+  </div>
 
-  <br />
-  <span
-    *ngIf="!employeeForm.valid && employeeForm.touched && isSubmitted"
-    class="submit-error"
-  >
-    Please Enter correct details
-  </span>
-</form>
+    <br />
+    <span *ngIf="!employeeForm.valid && employeeForm.touched && isSubmitted" class="submit-error">
+      Please Enter correct details
+    </span>
+  </form>
+
+</div>
+</mat-card>
+<mat-card style="margin-top: 2%; width: 95%;" fxLayout="row" fxLayoutAlign="center">
+<div class="multiple-employee-form-container" fxLayout="column" fxLayoutAlign="start">
+<h3>Register Multiple Employees</h3>
+
+
+  <form  style="width:100%;" (ngSubmit)="onSave()" [formGroup]="form" >
+
+    <div fxLayout="row" style="width: 100%;" fxLayoutAlign="space-between">
+    <div>
+      <input #input hidden type="file" (change)="onChange($event)" />
+      <button  mat-stroked-button  (click)="input.click()"> Upload Registration Document </button>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">
+      Submit
+    </button>
+</div>
+  </form>
+</div>
+</mat-card>
 </div>
