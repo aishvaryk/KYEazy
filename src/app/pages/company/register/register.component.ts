@@ -16,10 +16,14 @@ export class RegisterComponent implements OnInit {
   employeeForm: any;
   newEmployee:Employee;
   companyService:CompanyService;
+  form:any
 
   constructor(companyService:CompanyService) {
     this.newEmployee={} as Employee;
     this.companyService=companyService;
+    this.form = new FormGroup({
+      document: new FormControl('', [Validators.required])
+    })
    }
 
   ngOnInit(): void {
@@ -52,5 +56,27 @@ export class RegisterComponent implements OnInit {
 
     return this.employeeForm.controls['email'].hasError('errors') ?  '' : 'Not a valid email';
   }
+  onChange(event: any) {
+    let file = event.target.files[0];
+    this.form.patchValue({
+      document: file,
+    });
+  }
+
+  onSave() {
+    if(this.form.status === "INVALID") {
+      console.log('if m');
+      return;
+    }
+    console.log(this.form.get('document').value);
+
+     const formData =  new FormData()
+formData.append('employeeCSV',this.form.get('document').value);
+
+    this.companyService.registerEmployees(formData,1);
+
+  }
+
+
 
 }

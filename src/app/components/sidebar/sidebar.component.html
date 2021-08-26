@@ -15,8 +15,11 @@
       <a mat-list-item routerLink="/company/employees"  *ngIf="currentRoute.substring(1,4)==='com'">Employees</a>
 
       <a mat-list-item routerLink="/admin/employees"  *ngIf="currentRoute.substring(1,4)==='adm'">Ad Employees</a>
+      <a mat-list-item routerLink="/company/register"  *ngIf="currentRoute.substring(1,4)==='com'">Register Employees</a>
+
+
     </mat-nav-list>
-    <mat-expansion-panel  class="mat-elevation-z0 sidenav-expansion">
+    <!-- <mat-expansion-panel  class="mat-elevation-z0 sidenav-expansion">
       <mat-expansion-panel-header class="sidenav-expansion-header">
         <mat-panel-title>
         Register Employees
@@ -26,7 +29,8 @@
         <a mat-list-item>Single Employee</a>
         <a mat-list-item>Multiple Employees</a>
       </mat-nav-list>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
+
   </mat-sidenav>
 
   <mat-sidenav-content>
