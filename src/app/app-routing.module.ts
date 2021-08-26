@@ -14,6 +14,7 @@ import { SignupComponent } from './pages/company/signup/signup.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterEmployeesComponent } from './pages/company/register-employees/register-employees.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'register-employees',
+        component: RegisterEmployeesComponent
       },
       {
         path: 'signup',
@@ -67,7 +72,7 @@ const routes: Routes = [
         component: RejectedKycComponent
       },
       {
-        path: 'employees',
+        path: 'employees/:companyId',
         component: ViewEmployessComponent
       },
       {

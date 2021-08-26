@@ -1,4 +1,4 @@
-<h1>Form to signup company</h1>
+<h1 class="signupHeading">Sign up your Company</h1>
 
 <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -16,8 +16,6 @@
       You must provide <strong>company name</strong>
     </mat-error>
   </mat-form-field>
-
-  <br />
 
   <mat-form-field appearance = "outline">
     <mat-label>Username</mat-label>
@@ -59,6 +57,7 @@
   <mat-form-field appearance = "outline">
     <mat-label>Company Description</mat-label>
     <textarea
+    draggable="false"
       matInput
       placeholder="Write About Company"
       formControlName="companyDescription"
@@ -185,4 +184,3 @@
     Please Enter correct details
   </span>
 
-</form>

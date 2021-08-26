@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -57,12 +58,11 @@ import { detailsReducer } from './redux/reducers/details.reducer';
 import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
-
-import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
-
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
+import { RegisterEmployeesComponent } from './pages/company/register-employees/register-employees.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +92,8 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     CompanyComponent,
     EmployeesComponent,
     ViewEmployessComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterEmployeesComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -107,8 +108,8 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+     FlexLayoutModule,
     HttpClientModule,
-    FlexLayoutModule,
     MatStepperModule,
     MatButtonModule,
     MatDialogModule,
@@ -128,6 +129,8 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     MatListModule,
     MatPaginatorModule,
     NgxChartsModule
+
+
   ],
   providers: [
     {

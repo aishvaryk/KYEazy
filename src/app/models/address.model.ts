@@ -6,5 +6,4 @@ export interface Address {
   pincode:string;
   state:string;
   country:string;
-  type:string;
 }

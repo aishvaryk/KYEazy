@@ -17,6 +17,11 @@
 import { Breakpoint } from './../../../models/breakpoint.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Company } from 'src/app/models/company.model';
+import { AdminService } from 'src/app/services/admin/admin.service';
+import { CompanyService } from 'src/app/services/company/company.service';
+import { Employee } from 'src/app/models/employee.model';
+import { ActivatedRoute } from '@angular/router';
 
 export interface paginator {
   length: number;
@@ -33,9 +38,18 @@ export interface paginator {
 export class AdminDashboardComponent implements OnInit {
 
   public isSmall: any;
+  public companies:Company[];
+  public adminService:AdminService;
+  public companyService:CompanyService;
+  public employees:Employee[];
+  public numOfPendingEmployees:number=0;
+  public numOfAcceptedEmployees:number=0;
+  public companyId:number=0;
+  public companyRoute:any;
   public paginator: paginator;
 
-  constructor( public store: Store<{ breakpoint: Breakpoint }> ) {
+
+  constructor(public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs || breakpoint.isSm) {
         this.isSmall = true;
@@ -43,6 +57,11 @@ export class AdminDashboardComponent implements OnInit {
         this.isSmall = false;
       }
     })
+
+    this.companies=[{}] as Company[];
+    this.adminService=adminService;
+    this.companyService=companyService;
+    this.employees={} as Employee[];
 
     this.paginator = {
       length: 100,
@@ -52,13 +71,25 @@ export class AdminDashboardComponent implements OnInit {
     };
   }
 
+  onViewEmployees(companyId:number)
+  {
+    console.log(companyId);
+    this.companyRoute="/admin/employees/"+companyId;
+  }
   ngOnInit(): void {
     console.log(this.isSmall);
-  }
 
-  numSequence(n: number): Array<number> {
-    return Array(n);
-  }
+    this.adminService.getCompanies(5,1);
+    this.adminService.companiesSubject.subscribe((companies)=>{
+      this.companies=companies;
+      console.log(this.companies);
+    });
+
+
+
+
+}
+
 
 
   OnPageChange(event: any) {

@@ -37,99 +37,78 @@
   </div>
   <!-- search input ends -->
 
-  <div>
-    <!-- Company details start -->
-    <div
-      fxLayout="column"
-      fxLayoutAlign="space-around center"
-      fxLayoutGap="10px"
-      [ngClass]="{
-        'company-card-container-mobile': isSmall,
-        'company-container-card': !isSmall
-      }"
-      fxLayout.lt-sm="row wrap"
-      *ngFor="let n of numSequence(40)"
-    >
-      <!-- mat card starts -->
-      <mat-card
-        [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }"
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutAlign="space-evenly center"
-        fxLayoutAlign.xs="space-between start"
-        fxLayoutGap="10%"
-      >
-        <mat-card-header
-          fxFlex="60"
-          [ngClass]="{ 'company-card-header-mobile': isSmall }"
-        >
-          <img
-            mat-card-avatar
-            src="../../../../assets/Company logos/google_PNG3.png"
-          />
-          <mat-card-title class="company-name">Google</mat-card-title>
-          <mat-card-subtitle class="company-email"
-            >abc@google.com</mat-card-subtitle
-          >
-        </mat-card-header>
 
-        <mat-card-content
-          [ngClass]="{
+  <!-- Company details start -->
+  <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px"
+    [ngClass]="{ 'company-card-container-mobile': isSmall, 'company-container-card': !isSmall }"
+    fxLayout.lt-sm="row wrap" *ngFor="let company of companies" >
+    <!-- mat card starts -->
+    <mat-card [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }" fxLayout="row"
+      fxLayout.xs="column" fxLayoutAlign="space-evenly center" fxLayoutAlign.xs="space-between start" fxLayoutGap="10%" >
+
+      <mat-card-header fxFlex="60" [ngClass]="{ 'company-card-header-mobile': isSmall }">
+        <img mat-card-avatar src="../../../../assets/Company logos/google_PNG3.png" />
+        <mat-card-title class="company-name">{{company.name}}</mat-card-title>
+        <mat-card-subtitle class="company-email">{{company.cinNumber}}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content [ngClass]="{
+        'status-container-mobile': isSmall,
+        'status-container': !isSmall
+      }" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between enter" fxFlex="40">
+        <div class="pending">
+          <p>
+            Pending
+          </p>
+          <p>
+            {{company.numberOfPendingEmployees}}
+          </p>
+        </div>
+
+        <div class="accepted">
+          <p>
+            Accepted
+          </p>
+          <p>
+            {{company.numberOfAcceptedEmployees}}
+          </p>
+        </div>
+        <div class="rejected">
+          <p>
+            Rejected
+          </p>
+          <p>
+            {{company.numberOfRejectedEmployees}}
+          </p>
+        </div>
+        <div class="total">
+          <p>
+            Total
+          </p>
+          <p>
+            {{company.numberOfTotalEmployees}}
+          </p>
+        </div>
+
+      </mat-card-content>
+
+
+      <!-- <div class="company-email-mobile" *ngIf="isSmall">abc@google.com</div> -->
+      <mat-card-content [ngClass]="{
             'status-container-mobile': isSmall,
             'status-container': !isSmall
-          }"
-          fxLayout="row wrap"
-          fxLayout.xs="column"
-          fxLayoutAlign="space-between enter"
-          fxFlex="40"
-        >
-          <div class="pending">
-            <p>Pending</p>
-            <p>300</p>
-          </div>
+          }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter">
 
-          <div class="accepted">
-            <p>Accepted</p>
-            <p>200</p>
-          </div>
-          <div class="rejected">
-            <p>Rejected</p>
-            <p>500</p>
-          </div>
-          <div class="total">
-            <p>Total</p>
-            <p>1000</p>
-          </div>
-        </mat-card-content>
-
-        <!-- <div class="company-email-mobile" *ngIf="isSmall">abc@google.com</div> -->
-        <mat-card-content
-          [ngClass]="{
-            'status-container-mobile': isSmall,
-            'status-container': !isSmall
-          }"
-          fxLayout="row"
-          fxLayout.xs="column"
-          fxLayoutAlign="space-between enter"
-        >
-          <button
-            mat-raised-button
-            color="primary"
-            [ngClass]="{
+           <button mat-raised-button color="primary" routerLink="/admin/employees/{{company.companyId}}"  [ngClass]="{
               'company-buttons-mobile': isSmall,
               'company-buttons': !isSmall
-            }"
-          >
-            View Employees
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </div>
+            }">
+          View Employees
+        </button>
 
-    <div class="employee-paginator">
-      <mat-paginator [length]="paginator.length" [pageSize]="paginator.currentPageSize"
-        [pageSizeOptions]="paginator.pageSizeOptions" (page)="OnPageChange($event)" [hidePageSize]="isSmall">
-      </mat-paginator>
-    </div>
+      </mat-card-content>
+    </mat-card>
+
+
   </div>
 </div>

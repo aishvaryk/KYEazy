@@ -1,5 +1,4 @@
 import { Address } from "./address.model";
-import { Employee } from "./employee.model";
 
 export interface Company{
   companyId :number;
@@ -9,4 +8,8 @@ export interface Company{
   companyDescription:string;
   cinNumber: string;
   address:Address;
+  numberOfPendingEmployees:number;
+  numberOfRejectedEmployees:number;
+  numberOfAcceptedEmployees:number;
+  numberOfTotalEmployees:number;
 }

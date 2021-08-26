@@ -14,8 +14,6 @@ export class DocumentsComponent implements OnInit {
 
   constructor(public store: Store<{ documents: Documents }>) {
     this.form = new FormGroup({
-      documentType: new FormControl('', [Validators.required]),
-      documentNumber: new FormControl('',[Validators.required]),
       document: new FormControl('', [Validators.required])
     })
 

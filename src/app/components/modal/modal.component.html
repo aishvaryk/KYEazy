@@ -1,11 +1,14 @@
-<div class="modal">
+<div class="modal" *ngIf="data.type === 'COMPANY_REGISTER'">
+  COMPANY ALREADY EXISTS
+</div>
+
+
+<div class="modal" *ngIf="data.type !== 'COMPANY_REGISTER'">
 
 <div class="modal-header">
   <div *ngIf="data.type === 'EMPLOYEE_LOGIN'">
-    EMPLOYEE
   </div>
   <div *ngIf="data.type === 'COMPANY_LOGIN'">
-    COMPANY
   </div>
   <span class="close-modal-button" (click)="onClose()"> &times;</span>
 </div>
