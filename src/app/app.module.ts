@@ -37,9 +37,9 @@ import { LivelinessComponent } from './components/liveliness/liveliness.componen
 import { ReviewComponent } from './components/review/review.component';
 import { DetailsComponent } from './components/details/details.component';
 import { DocumentsComponent } from './components/documents/documents.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { SignupComponent } from './pages/company/signup/signup.component';
-import { ProfileComponent } from './pages/company/profile/profile.component';
 import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
 import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
 import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
@@ -62,6 +62,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,6 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    ProfileComponent,
     PendingKycComponent,
     AcceptedKycComponent,
     RejectedKycComponent,
@@ -91,6 +91,7 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
     CompanyComponent,
     EmployeesComponent,
     ViewEmployessComponent,
+    ProfileComponent
   ],
   imports: [
     StoreModule.forRoot({

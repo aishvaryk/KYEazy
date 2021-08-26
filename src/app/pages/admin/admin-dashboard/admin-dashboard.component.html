@@ -1,27 +1,39 @@
-<div [ngClass]="{
-  'company-container-mobile': isSmall,
-  'company-container': !isSmall
-}" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
-
-  <div [ngClass]="{
-  'search-companys-mobile': isSmall,
-  'search-companys': !isSmall
-}" fxLayout="row" fxLayoutAlign="end">
-
-    <mat-form-field [ngClass]="{
-    'search-form-field-mobile': isSmall,
-    'search-form-field': !isSmall
-      }" appearance="outline">
-
+<div
+  [ngClass]="{
+    'company-container-mobile': isSmall,
+    'company-container': !isSmall
+  }"
+  fxLayout="column"
+  fxLayoutAlign="center"
+  fxLayoutAlign.xs="space-around center"
+>
+  <div
+    [ngClass]="{
+      'search-companys-mobile': isSmall,
+      'search-companys': !isSmall
+    }"
+    fxLayout="row"
+    fxLayoutAlign="end"
+  >
+    <mat-form-field
+      [ngClass]="{
+        'search-form-field-mobile': isSmall,
+        'search-form-field': !isSmall
+      }"
+      appearance="outline"
+    >
       <mat-label class="search-form-label">Search</mat-label>
-      <input type="text" matInput placeholder="Search by Company Name" class="search-form-input" />
-
-    </mat-form-field>&nbsp;
+      <input
+        type="text"
+        matInput
+        placeholder="Search by Company Name"
+        class="search-form-input"
+      /> </mat-form-field
+    >&nbsp;
 
     <button mat-raised-button color="primary" class="search-button">
       <mat-icon aria-label="i">search</mat-icon>
     </button>
-
   </div>
   <!-- search input ends -->
 
@@ -99,3 +111,4 @@
 
 
   </div>
+</div>

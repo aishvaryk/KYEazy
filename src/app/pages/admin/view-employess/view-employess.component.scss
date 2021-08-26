@@ -1,9 +1,22 @@
 .employee-container {
   margin-top: 1%;
+  // background-color: grey;
+
+
 }
 
 .employee-container-mobile {
   margin-top: 1%;
+}
+
+.mat-card-class {
+  background: red;
+  box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .employee-card {
@@ -18,32 +31,30 @@
   padding-bottom: 10px;
 }
 
-
 .employee-header-image {
   background-size: cover;
 }
 
-.employee-buttons{
-  width:100px;
+.employee-buttons {
+  width: 100px;
 }
 
 .employee-buttons-mobile {
   margin-top: 15px;
 }
 
-.employee-buttons{
+.employee-buttons {
   padding: 0;
   margin-top: 0;
-
 }
 
 .status-container {
   margin-bottom: 0;
   .verification-done {
-    color:green;
+    color: green;
   }
   .verification-failed {
-    color:red;
+    color: red;
   }
   .verification-pending {
     color: yellowgreen;
@@ -55,40 +66,37 @@
   width: 100%;
   margin-top: 10px;
   .verification-done {
-    color:green;
+    color: green;
   }
   .verification-failed {
-    color:red;
+    color: red;
   }
   .verification-pending {
     color: yellowgreen;
   }
 }
-.employee-email{
+.employee-email {
   margin-bottom: 0;
-
 }
-
 
 .employee-card-header-mobile {
   display: flex;
   flex-direction: row;
   align-items: center;
-  .employee-name{
+  .employee-name {
     margin-bottom: 0;
   }
 }
 
 .employee-email-mobile {
   font-size: 14px;
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
   width: 100%;
   margin-top: 20px;
 }
 
 .mat-paginator {
-
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .employee-display-options {
@@ -103,7 +111,7 @@
   width: 45%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 45%;
   }
@@ -113,7 +121,7 @@
   width: 100%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 47.5%;
   }
@@ -134,7 +142,7 @@
 .search-employees-mobile {
   font-size: 12px;
   width: 100%;
-  .search-form-field-mobile{
+  .search-form-field-mobile {
     width: 100%;
     min-width: none;
   }
@@ -143,5 +151,3 @@
     height: 43px;
   }
 }
-
-

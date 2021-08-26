@@ -22,7 +22,6 @@ import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
 
-
 export interface paginator {
   length: number;
   currentPageIndex: number;
@@ -46,6 +45,7 @@ export class AdminDashboardComponent implements OnInit {
   public numOfAcceptedEmployees:number=0;
   public companyId:number=0;
   public companyRoute:any;
+  public paginator: paginator;
 
   constructor( public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
@@ -59,6 +59,13 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService=adminService;
     this.companyService=companyService;
     this.employees={} as Employee[];
+
+    this.paginator = {
+      length: 100,
+      currentPageSize: 10,
+      pageSizeOptions: [5, 10, 25, 100],
+      currentPageIndex: 0,
+    };
   }
 
   onViewEmployees(companyId:number)
@@ -79,4 +86,10 @@ export class AdminDashboardComponent implements OnInit {
 }
 
 
+
+  OnPageChange(event: any) {
+    this.paginator.currentPageIndex = event.pageIndex;
+    this.paginator.currentPageSize = event.pageSize;
+    console.log(this.paginator);
+  }
 }

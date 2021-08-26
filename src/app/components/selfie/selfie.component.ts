@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+  import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-selfie',
@@ -14,21 +14,47 @@ export class SelfieComponent
   public canvas: any;
 
   public stream: any;
+  public captured: boolean;
+  public camera: boolean;
+  public image: string;
 
   constructor() {
+    this.captured = false;
+    this.camera = false;
+    this.image = "";
   }
 
   ngOnInit(): void {
   }
 
   async startCamera() {
+    this.camera = true;
     await this.setupDevices();
   }
 
-  async capture() {
-    this.video.nativeElement.pause();
-    this.stream.getTracks()[0].stop();
-    console.log(this.stream.getTracks());
+  capture() {
+    this.captured = true;
+    this.draw(this.video.nativeElement);
+    for (let track of this.stream.getTracks()) {
+      track.stop()
+    }
+  }
+
+  retry() {
+    this.captured = false;
+    this.camera = true;
+    this.startCamera();
+  }
+
+  async save() {
+    const response = await fetch(this.image);
+    const blob =  await response.blob();
+    const imageFile = new File([blob], 'name.png', { type: 'image/png' });
+  }
+
+  draw(image: any) {
+    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, 500, 300);
+    this.image = this.canvas.nativeElement.toDataURL('image/png');
   }
 
   async setupDevices() {

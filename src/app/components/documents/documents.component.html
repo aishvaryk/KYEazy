@@ -1,11 +1,17 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+
   <form
     fxLayout="column"
     (ngSubmit)="onSave()"
     [formGroup]="form"
-    fxLayoutAlign="center start"
+    [ngStyle.xs]="{ width: '100%' }"
+    [ngStyle.sm]="{ width: '70%' }"
+    [ngStyle.md]="{ width: '50%' }"
+    [ngStyle.lg]="{ width: '40%' }"
+    [ngStyle.xl]="{ width: '40%' }"
   >
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Document Type</mat-label>
       <mat-select formControlName="documentType">
         <mat-option value="aadhar" name="documentType">
@@ -23,18 +29,16 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Document Number</mat-label>
       <input matInput formControlName="documentNumber" name="documentNumber" />
     </mat-form-field>
 
     <div fxFlex>
-      <input #input  type="file" (change)="onChange($event)" />
-      <button mat-raised-button color="primary" (click)="input.click()"> Upload Document </button>
+      <input #input  type="file" hidden (change)="onChange($event)" />
+      <button mat-stroked-button color="primary" (click)="input.click()"> Upload Document </button>
     </div>
 
-    <button type="submit">
-      onSave
-    </button>
+    <button mat-raised-button color="primary" type="submit"> Save </button>
 
   </form>

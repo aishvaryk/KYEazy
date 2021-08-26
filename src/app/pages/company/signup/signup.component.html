@@ -2,7 +2,7 @@
 
 <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Company Name</mat-label>
     <input
       matInput
@@ -19,7 +19,7 @@
 
   <br />
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Username</mat-label>
     <input
       matInput
@@ -34,7 +34,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="pwdField">
+  <mat-form-field appearance = "outline">
     <mat-label>Password</mat-label>
     <input
       matInput
@@ -56,7 +56,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Company Description</mat-label>
     <textarea
     draggable="false"
@@ -70,7 +70,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>CIN Number</mat-label>
     <input
       matInput
@@ -84,7 +84,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Enter your email</mat-label>
     <input
       matInput
@@ -97,7 +97,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Address Line 1</mat-label>
     <input
       matInput
@@ -110,12 +110,12 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Address Line 2</mat-label>
     <input matInput formControlName="address2" />
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>City</mat-label>
     <input
       matInput
@@ -128,7 +128,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>State</mat-label>
     <input
       matInput
@@ -141,7 +141,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Postal Code</mat-label>
     <input
       matInput
@@ -155,7 +155,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance = "outline">
     <mat-label>Country</mat-label>
     <input
       matInput
@@ -186,4 +186,3 @@
     Please Enter correct details
   </span>
 
-</form>

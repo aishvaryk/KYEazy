@@ -10,7 +10,7 @@
     [ngStyle.xl]="{ width: '40%' }"
   >
 
-    <mat-form-field appearance="fill" fxflex>
+    <mat-form-field appearance="outline" fxflex>
       <mat-label>First Name</mat-label>
       <input formControlName="firstName" matInput />
       <mat-error *ngIf="!form.get('firstName').valid && form.get('firstName').touched">
@@ -26,7 +26,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Email</mat-label>
       <input formControlName="email" matInput />
       <mat-error *ngIf="!form.get('email').valid && form.get('email').touched">
@@ -34,7 +34,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Contact Number</mat-label>
       <input formControlName="contact" matInput />
       <mat-error *ngIf="!form.get('contact').valid && form.get('contact').touched">
@@ -61,7 +61,7 @@
       </mat-radio-group>
     </div>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Address Line 1</mat-label>
       <input formControlName="addressLine1" matInput  />
       <mat-error
@@ -73,12 +73,12 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Address Line 2</mat-label>
       <input formControlName="addressLine2" matInput />
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>City</mat-label>
       <input formControlName="city" matInput />
       <mat-error *ngIf="!form.get('city').valid && form.get('city').touched">
@@ -86,7 +86,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>State</mat-label>
       <input formControlName="state" matInput />
       <mat-error *ngIf="!form.get('state').valid && form.get('state').touched">
@@ -94,7 +94,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxflex>
+    <mat-form-field fxflex appearance="outline">
       <mat-label>Country</mat-label>
       <input formControlName="country" matInput />
       <mat-error
@@ -104,6 +104,6 @@
       </mat-error>
     </mat-form-field>
 
-    <button type="submit"> Save </button>
+    <button mat-stroked-button color="primary" type="submit"> Save </button>
   </form>
 </div>
