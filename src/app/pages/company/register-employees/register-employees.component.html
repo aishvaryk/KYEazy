@@ -1,0 +1,22 @@
+<h1 class="">Register Employees</h1>
+<div class="kyc">
+
+<form
+fxLayout="column"
+(ngSubmit)="onSave()"
+[formGroup]="form"
+fxLayoutAlign="center start"
+>
+
+
+<div >
+  <input #input hidden  type="file" (change)="onChange($event)" />
+  <button mat-raised-button color="primary" (click)="input.click()"> Upload Registration Document </button>
+</div>
+
+<button type="submit">
+  onSave
+</button>
+
+</form>
+</div>

@@ -9,4 +9,7 @@ export interface Company{
   cinNumber: string;
   address:Address;
   numberOfPendingEmployees:number;
+  numberOfRejectedEmployees:number;
+  numberOfAcceptedEmployees:number;
+  numberOfTotalEmployees:number;
 }

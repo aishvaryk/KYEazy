@@ -61,6 +61,8 @@ import { menuReducer } from './redux/reducers/menu.reducer';
 
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
+import { RegisterEmployeesComponent } from './pages/company/register-employees/register-employees.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +91,8 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
     AdminComponent,
     CompanyComponent,
     EmployeesComponent,
-    ViewEmployessComponent
+    ViewEmployessComponent,
+    RegisterEmployeesComponent
   ],
   imports: [
     StoreModule.forRoot({
