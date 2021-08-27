@@ -117,7 +117,7 @@
       <div class="verification-text">Verification Pending</div>
     </div>
 
-    <button mat-raised-button color="primary" [ngClass]="{
+    <button mat-raised-button color="primary" routerLink="/company/employee/profile/{{employee.employeeId}}" [ngClass]="{
         'employee-buttons-mobile': isSmall,
         'employee-buttons': !isSmall
       }">
