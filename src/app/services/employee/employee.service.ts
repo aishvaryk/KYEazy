@@ -32,8 +32,8 @@ export class EmployeeService {
   });
   }
 
-    viewProfile(employeeId:number,pageSize:number,pageNumber:number): void{
-    this.httpClient.get(`http://localhost:8085/employee/view-profile/${employeeId}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee))
+    viewProfile(employeeId:number): void{
+    this.httpClient.get(`http://localhost:8085/employee/view-profile/${employeeId}`).pipe(map((response) => response as Employee))
     .subscribe((results: Employee) => {
         console.log(results);
         this.employee=results;
