@@ -1,0 +1,114 @@
+<div
+  [ngClass.gt-xs] = "'employee-container'"
+  [ngClass.lt-sm] = "'employee-container-mobile'"
+  fxLayout="row wrap" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
+<div
+  [ngClass.gt-xs] = "'employee-display-options'"
+  [ngClass.lt-sm] = "'employee-display-options-mobile'"
+  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+
+  <div
+    [ngClass.gt-xs] = "'filter-sort-employees'"
+    [ngClass.lt-sm] = "'filter-sort-employees-mobile'"
+    fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="row"
+    fxLayoutAlign.xs="space-between center">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter Status</mat-label>
+      <mat-select (selectionChange)="OnFilterSelect($event)">
+        <mat-option value="all">All Employees</mat-option>
+        <mat-option value="verification-completed" style="color: green">Verification Completed</mat-option>
+        <mat-option value="vefication-failed" style="color: red">Verification Failed</mat-option>
+        <mat-option value="verification-pending" style="color: yellowgreen">Verification Pending</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sort By</mat-label>
+      <mat-select (selectionChange)="OnSortSelect($event)">
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="date-registration">Date of Registration</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    [ngClass.gt-xs] = "'search-employees'"
+    [ngClass.lt-sm] = "'search-employees-mobile'"
+    fxLayout="row" fxLayoutAlign="end">
+    <mat-form-field
+      [ngClass.gt-xs] = "'search-form-field'"
+      [ngClass.lt-sm] = "'search-form-field-mobile'"
+      appearance="outline">
+
+      <mat-label class="search-form-label">Search</mat-label>
+      <input type="text" matInput [formControl]="emailFormControl"
+        placeholder="Search by Employee Name" (input)="onSearchText($event)" class="search-form-input" />
+    </mat-form-field>&nbsp;
+
+    <button mat-raised-button color="primary"  (click)="OnSearchSelect()" class="search-button">
+      <mat-icon aria-label="i" >search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-card [ngClass]="{ 'employee-card-mobile': isSmall, 'employee-card': !isSmall }" fxLayout="row"
+  fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="space-between start"
+  *ngFor="let employee of employees">
+
+  <mat-card-header fxFlex="60" [ngClass]="{ 'employee-card-header-mobile': isSmall }">
+    <!-- <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" /> -->
+    <img mat-card-avatar [src]=formatImage(employee.capturedImage) />
+
+    <mat-card-title class="employee-name">{{employee.firstName}} {{employee.lastName}}</mat-card-title>
+    <mat-card-subtitle class="employee-email" *ngIf="!isSmall">{{employee.emailID}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="employee-email-mobile" *ngIf="isSmall">{{employee.emailID}}</div>
+  <mat-card-content [ngClass]="{
+      'status-container-mobile': isSmall,
+      'status-container': !isSmall
+    }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter" fxFlex="40">
+    <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">check_circle_outline</mat-icon>
+      &nbsp;
+      <div class="verification-text">Employee Verified</div>
+    </div>
+
+    <div class="verification-failed" *ngIf=" employee.status === 'Rejected'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">cancel</mat-icon>
+      <div class="verification-text">Employee Rejected</div>
+    </div>
+
+    <div class="verification-pending" *ngIf=" employee.status === 'Registered'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">cancel</mat-icon>
+      <div class="verification-text">Employee Registered</div>
+    </div>
+
+    <div class="verification-pending" *ngIf="employee.status === 'Pending'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">pending</mat-icon>
+      <div class="verification-text">Verification Pending</div>
+    </div>
+
+    <button mat-raised-button color="primary" [ngClass]="{
+        'employee-buttons-mobile': isSmall,
+        'employee-buttons': !isSmall
+      }">
+      View Profile
+    </button>
+  </mat-card-content>
+
+</mat-card>
+
+<div fxLayout="row" fxLayoutAlign="end" class="employee-paginator">
+  <mat-paginator [length]="paginator.length" [pageSize]="paginator.currentPageSize"
+    [pageSizeOptions]="paginator.pageSizeOptions" (page)="OnPageChange($event)" [hidePageSize]="isSmall">
+  </mat-paginator>
+</div>
+
+</div>

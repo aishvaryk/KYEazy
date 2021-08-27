@@ -1,0 +1,153 @@
+.employee-container {
+  margin-top: 1%;
+  // background-color: grey;
+
+
+}
+
+.employee-container-mobile {
+  margin-top: 1%;
+}
+
+.mat-card-class {
+  background: red;
+  box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.employee-card {
+  width: 90%;
+  margin-bottom: 16px;
+}
+
+.employee-card-mobile {
+  width: 45%;
+
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+.employee-header-image {
+  background-size: cover;
+}
+
+.employee-buttons {
+  width: 100px;
+}
+
+.employee-buttons-mobile {
+  margin-top: 15px;
+}
+
+.employee-buttons {
+  padding: 0;
+  margin-top: 0;
+}
+
+.status-container {
+  margin-bottom: 0;
+  .verification-done {
+    color: green;
+  }
+  .verification-failed {
+    color: red;
+  }
+  .verification-pending {
+    color: yellowgreen;
+  }
+}
+
+.status-container-mobile {
+  margin-bottom: 0;
+  width: 100%;
+  margin-top: 10px;
+  .verification-done {
+    color: green;
+  }
+  .verification-failed {
+    color: red;
+  }
+  .verification-pending {
+    color: yellowgreen;
+  }
+}
+.employee-email {
+  margin-bottom: 0;
+}
+
+.employee-card-header-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .employee-name {
+    margin-bottom: 0;
+  }
+}
+
+.employee-email-mobile {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-paginator {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.employee-display-options {
+  width: 90%;
+}
+
+.employee-display-options-mobile {
+  width: 95%;
+}
+
+.filter-sort-employees {
+  width: 45%;
+  font-size: 12px;
+  mat-form-field {
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 0;
+    width: 45%;
+  }
+}
+
+.filter-sort-employees-mobile {
+  width: 100%;
+  font-size: 12px;
+  mat-form-field {
+    background-color: rgba(0, 0, 0, 0);
+    padding-bottom: 0;
+    width: 47.5%;
+  }
+}
+
+.search-employees {
+  font-size: 12px;
+  width: 100%;
+  .search-form-field {
+    width: 50%;
+  }
+  .search-button {
+    margin-top: 0.2em;
+    height: 43px;
+  }
+}
+
+.search-employees-mobile {
+  font-size: 12px;
+  width: 100%;
+  .search-form-field-mobile {
+    width: 100%;
+    min-width: none;
+  }
+  .search-button {
+    margin-top: 0.2em;
+    height: 43px;
+  }
+}
