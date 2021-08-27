@@ -15,9 +15,9 @@ import { pieChartData } from 'src/app/models/pieChartData.model';
   styleUrls: ['./company-dashboard.component.scss']
 })
 export class CompanyDashboardComponent implements OnInit {
-  public companyService: CompanyService;
-  public employees:Employee[];
-  public company:Company;
+  // public companyService: CompanyService;
+  // public employees:Employee[];
+  // public company:Company;
   view: any = [800, 500];
   pieChartData:any;
 
@@ -32,19 +32,26 @@ export class CompanyDashboardComponent implements OnInit {
   };
 
   constructor(companyService:CompanyService) {
-    this.companyService=companyService;
-    this.employees=[{}] as Employee[];
-    this.company={} as Company;
-    console.log(pieChartData);
-    this.companyService.getCompanyDetails(1);
-    this.companyService.companySubject.subscribe((company)=>{
-      this.company=company;
-      pieChartData[0].value=this.company.numberOfAcceptedEmployees;
-      pieChartData[1].value=this.company.numberOfRejectedEmployees;
-      pieChartData[2].value=this.company.numberOfPendingEmployees;
-      Object.assign(this, {pieChartData} );
-    }
-    );
+    pieChartData[0].value=3;
+      pieChartData[1].value=4;
+      pieChartData[2].value=6;
+    // this.companyService=companyService;
+    // this.employees=[{}] as Employee[];
+    // this.company={} as Company;
+    // console.log(pieChartData);
+    // this.companyService.getCompanyDetails(1);
+    // this.companyService.companySubject.subscribe((company)=>{
+    //   this.company=company;
+    //   pieChartData[0].value=this.company.numberOfAcceptedEmployees;
+    //   pieChartData[1].value=this.company.numberOfRejectedEmployees;
+    //   pieChartData[2].value=this.company.numberOfPendingEmployees;
+
+
+      // Object.assign(this, {pieChartData} );
+    // }
+    // );
+
+    Object.assign(this, {pieChartData} );
     console.log(pieChartData);
 
   }
