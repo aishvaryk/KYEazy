@@ -1,41 +1,102 @@
 .company-container {
-  margin-top: 10px;
+  margin-top: 1%;
 
-  .company-display-options {
-  }
-
-  .search-companys {
-    // margin-right: 10px;
+  .search-comapny {
+    width: 90%;
     font-size: 12px;
-    width: 100%;
-    // position: absolute;
-    // right: 1rem;
+    display: block;
+
     .search-form-field {
       width: 50%;
     }
+    .search-button {
+      margin-top: 0.2em;
+      height: 43px;
+    }
+  }
+
+  .company-card {
+    width: 90%;
+    margin-bottom: 16px;
   }
 }
 
 .company-container-mobile {
-  margin-top: 10px;
-  font-size: 12px;
-  width: 100%;
-  .search-form-field-mobile{
-    width: 100%;
-    min-width: none;
-  }
-}
+  margin-top: 1%;
 
-.search-button {
-  margin-top: 0.2em;
-  height: 43px;
-}
-
-.company-container-card {
-  width: 100%;
-
-  .company-card {
+  .search-comapny-mobile {
     width: 90%;
-    margin-bottom: 1rem;
+    font-size: 12px;
+
+    .search-form-field-mobile {
+      width: 50%;
+      width: 90%;
+    }
+    .search-button-mobile {
+      margin-top: 0.2em;
+      height: 43px;
+    }
+  }
+
+  .company-card-mobile {
+    margin-bottom: 16px;
   }
 }
+
+.card {
+  background: white;
+  box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  min-height: 100%;
+}
+
+// .company-container {
+//   margin-top: 10px;
+//   // width: 90%;
+
+//   .company-display-options {
+//   }
+
+//   .search-companys {
+//     // margin-right: 10px;
+//     font-size: 12px;
+//     width: 100%;
+//     // position: absolute;
+//     // right: 1rem;
+//     .search-form-field {
+//       width: 50%;
+//     }
+//   }
+// }
+
+// .company-container-mobile {
+//   margin-top: 10px;
+//   font-size: 12px;
+//   width: 100%;
+//   .search-form-field-mobile{
+//     width: 100%;
+//     min-width: none;
+//   }
+// }
+
+// .search-button {
+//   margin-top: 0.2em;
+//   height: 43px;
+// }
+
+// .company-container-card {
+//   width: 100%;
+
+//   .company-card {
+//     width: 90%;
+//     margin-bottom: 1rem;
+//   }
+// }

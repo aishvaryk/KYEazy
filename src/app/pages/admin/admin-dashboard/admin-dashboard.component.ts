@@ -51,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
-      if (breakpoint.isXs || breakpoint.isSm) {
+      if (breakpoint.isXs ) {
         this.isSmall = true;
       } else {
         this.isSmall = false;
@@ -95,5 +95,9 @@ export class AdminDashboardComponent implements OnInit {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
     console.log(this.paginator);
+  }
+
+  OnSearchSelect() {
+
   }
 }
