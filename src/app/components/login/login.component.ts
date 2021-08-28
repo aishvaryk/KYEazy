@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
   public form;
   credentials={
     username:"",
-    password:""
+    password:"",
+    role:""
   }
 
   constructor(public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService) {
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
     if(this.form.status === 'INVALID') return;
 
     if(this.type == "EMPLOYEE_LOGIN") {
+      this.credentials.role="EMPLOYEE";
       localStorage.setItem('userType',"EMPLOYEE")
       this.employeeService.login(this.credentials).subscribe(
         (response:any)=>{
@@ -68,6 +70,7 @@ export class LoginComponent implements OnInit {
     }
 
     if(this.type == "COMPANY_LOGIN") {
+      this.credentials.role="COMPANY";
       localStorage.setItem('userType',"COMPANY")
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
@@ -77,6 +80,7 @@ export class LoginComponent implements OnInit {
         },
         (error:any)=>{
           console.log(error)
+          this.router.navigate(['/'])
 
         })
     }

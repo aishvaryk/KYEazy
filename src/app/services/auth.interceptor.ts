@@ -15,7 +15,10 @@ export class AuthInterceptor implements HttpInterceptor
     //console.log("INTERCEPTOR"+token)
     if(token!=null)
     {
-     newReq= newReq.clone({setHeaders:{Authorization:`Bearer ${token}`}})
+      if(localStorage.getItem("userType")==="COMPANY") newReq= newReq.clone({setHeaders:{Authorization:`Bearer C${token}`}})
+      if(localStorage.getItem("userType")==="EMPLOYEE") newReq= newReq.clone({setHeaders:{Authorization:`Bearer E${token}`}})
+      if(localStorage.getItem("userType")==="ADMIN") newReq= newReq.clone({setHeaders:{Authorization:`Bearer A${token}`}})
+
       console.log(newReq)
     }
     return next.handle(newReq)
