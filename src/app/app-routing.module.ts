@@ -55,7 +55,8 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: AdminDashboardComponent
+        component: AdminDashboardComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'accepted-kyc',

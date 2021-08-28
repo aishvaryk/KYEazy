@@ -39,21 +39,11 @@ export class CompanyService {
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
 
-  login(credentials:any):void
+  login(credentials:any):any
   {
 
     console.log("Company")
-    this.loginService.doLogin(credentials).subscribe(
-      (response:any)=>{
-       console.log(response.token)
-       this.loginService.loginUser(response.token)
-
-      }
-      ,
-      error=>{
-        console.log(error)
-
-      })
+    return this.loginService.doLogin(credentials);
 
   }
   register(newCompany:Company): void{

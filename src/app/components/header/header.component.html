@@ -19,7 +19,15 @@
         <img src="/assets/images/logo.png" />
       </div>
 
-
+      <button
+      mat-raised-button
+      (click) = "doLogout()"
+      class="logout"
+      color="warn"
+      *ngIf="loginService.isLoggedIn()"
+    >
+      Log Out
+    </button>
     </div>
 
     <!-- <div class="buttons">

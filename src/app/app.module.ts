@@ -135,7 +135,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
   ],
   providers: [
     LoginService,
-    AuthGuard,
+   // AuthGuard,
      [{
        provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
      }],

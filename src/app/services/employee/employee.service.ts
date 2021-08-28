@@ -4,6 +4,7 @@ import { Employee } from 'src/app/models/employee.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LoginService } from '../Login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +15,20 @@ export class EmployeeService {
   public actionDTOSubject:Subject<ActionDTO>;
   public employeeSubject:Subject<Employee>;
 
-  constructor(private httpClient :HttpClient) {
+  constructor(private loginService: LoginService,private httpClient :HttpClient) {
     this.employee={} as Employee;
     this.updateStatus ={} as ActionDTO;
     this.actionDTOSubject=new Subject();
     this.employeeSubject=new Subject();
    }
 
-   login():void
-  {
-    console.log("Employee")
-  }
+   login(credentials:any):any
+   {
+
+     console.log("Company")
+     return this.loginService.doLogin(credentials);
+
+   }
    updateProfile(newEmployee:Employee): void{
     this.httpClient.patch<ActionDTO>(`http://localhost:8085/employee/update-profile`,newEmployee).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
