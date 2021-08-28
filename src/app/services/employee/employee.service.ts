@@ -21,6 +21,10 @@ export class EmployeeService {
     this.employeeSubject=new Subject();
    }
 
+   login():void
+  {
+    console.log("Employee")
+  }
    updateProfile(newEmployee:Employee): void{
     this.httpClient.patch<ActionDTO>(`http://localhost:8085/employee/update-profile`,newEmployee).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {

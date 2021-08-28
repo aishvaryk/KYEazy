@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -64,6 +64,9 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
+import { LoginService } from './services/Login/login.service';
+import { AuthGuard } from './services/auth.guard';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -131,7 +134,12 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     NgxChartsModule
   ],
   providers: [
-    {
+    LoginService,
+    AuthGuard,
+     [{
+       provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
+     }],
+     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
      }
