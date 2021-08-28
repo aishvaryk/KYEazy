@@ -33,6 +33,7 @@ export class ViewEmployessComponent implements OnInit {
   public companyService: CompanyService;
   public employees:Employee[];
   private companyId:number;
+
   // verificationStatus: String;
   searchText:string;
   constructor(private activatedRoute:ActivatedRoute,  public observer: MediaObserver,public store: Store<{ breakpoint: Breakpoint }>,companyService:CompanyService) {
