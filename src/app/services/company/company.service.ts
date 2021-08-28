@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -10,7 +10,7 @@ import { ActionDTO } from 'src/app/models/action.model';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
-
+import { LoginService } from '../Login/login.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +26,7 @@ export class CompanyService {
   public registrationStatus:ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
 
-  constructor(private httpClient :HttpClient,public dialog: MatDialog) {
+  constructor(private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
     //this.employees
     this.employees=[];
     this.registrationStatus={} as ActionDTO;
@@ -39,6 +39,22 @@ export class CompanyService {
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
 
+  login(credentials:any):void
+  {
+    console.log("Company")
+    this.loginService.doLogin(credentials).subscribe(
+      (response:any)=>{
+       console.log(response.token)
+       this.loginService.loginUser(response.token)
+
+      }
+      ,
+      error=>{
+        console.log(error)
+
+      })
+
+  }
   register(newCompany:Company): void{
     this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
       data => console.log('success', data),
@@ -64,9 +80,22 @@ export class CompanyService {
 
 }
 
-  getEmployees(id:number,pageSize:number,pageNumber:number): void{
+getEmployees(id:number,pageSize:number,pageNumber:number): void{
 
-    this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+    let token=this.loginService.getToken()
+    //  var header={
+    //     headers:new HttpHeaders({"Authorization":"Bearer "+token,"Access-Control-Allow-Origin": '*'})
+
+    //   };
+    var header={headers:new HttpHeaders().set("Authorization","Bearer "+token)
+    }
+       console.log(header)
+
+    //let header = this.initHeaders();
+    //let options = new RequestOptions({ headers: header, method: 'post'});
+
+
+    this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`,header).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
 
 
@@ -189,6 +218,17 @@ updateProfile(newCompany:Company): void{
 });
 }
 
+initHeaders(): Headers {
+  var headers = new Headers();
+  let token = this.loginService.getToken();
+  if (token !== null) {
+     headers.append('Authorization','Bearer '+token);
+  }
+  headers.append('Pragma', 'no-cache');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Access-Control-Allow-Origin', '*');
+  return headers;
+ }
 
 
    /*

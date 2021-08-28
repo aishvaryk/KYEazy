@@ -26,6 +26,10 @@ export class AdminService {
     this.companiesSubject=new Subject();
     this.companySubject=new Subject();
   }
+  login():void
+  {
+    console.log("Admin")
+  }
   viewAllApplications(pageSize:number,pageNumber:number):void{
     this.httpClient.get(`http://localhost:8085/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
