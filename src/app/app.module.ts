@@ -59,6 +59,8 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
+import {MatTabsModule} from '@angular/material/tabs';
+
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -128,7 +130,8 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatTabsModule
   ],
   providers: [
     {

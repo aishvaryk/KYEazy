@@ -1,8 +1,11 @@
 .company-container {
+  margin-top: 10px;
+
   .company-display-options {
   }
 
   .search-companys {
+    // margin-right: 10px;
     font-size: 12px;
     width: 100%;
     // position: absolute;
@@ -14,6 +17,7 @@
 }
 
 .company-container-mobile {
+  margin-top: 10px;
   font-size: 12px;
   width: 100%;
   .search-form-field-mobile{
