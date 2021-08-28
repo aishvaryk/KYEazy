@@ -41,6 +41,7 @@ export class CompanyService {
 
   login(credentials:any):void
   {
+
     console.log("Company")
     this.loginService.doLogin(credentials).subscribe(
       (response:any)=>{
@@ -87,15 +88,15 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
     //     headers:new HttpHeaders({"Authorization":"Bearer "+token,"Access-Control-Allow-Origin": '*'})
 
     //   };
-    var header={headers:new HttpHeaders().set("Authorization","Bearer "+token)
-    }
-       console.log(header)
+  //  var header={headers:new HttpHeaders().set("Authorization","Bearer "+token)
+    //}
+      // console.log(header)
 
     //let header = this.initHeaders();
     //let options = new RequestOptions({ headers: header, method: 'post'});
 
 
-    this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`,header).pipe(map((response) => response as Employee[]))
+    this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
 
 

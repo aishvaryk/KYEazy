@@ -136,9 +136,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
   providers: [
     LoginService,
     AuthGuard,
-    // [{
-    //   //provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
-    // }],
+     [{
+       provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
+     }],
      {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
