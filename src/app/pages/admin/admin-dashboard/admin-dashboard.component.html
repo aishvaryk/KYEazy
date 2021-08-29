@@ -9,6 +9,7 @@
   fxLayout="row wrap"
   fxLayoutAlign="center"
   fxLayoutAlign.xs="space-around center"
+  style="margin: auto;"
 >
   <div
   [ngClass]="{
@@ -99,28 +100,44 @@
       fxLayoutAlign="space-between enter"
       fxFlex="40"
     >
-      <div class="pending">
-        <p>Pending</p>
-        <p>
+      <div class="pending " >
+        <p   [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">Pending</p>
+        <p  [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">
           {{ company.numberOfPendingEmployees }}
         </p>
       </div>
 
       <div class="accepted">
-        <p>Accepted</p>
-        <p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">Accepted</p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">
           {{ company.numberOfAcceptedEmployees }}
         </p>
       </div>
       <div class="rejected">
-        <p>Rejected</p>
-        <p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">Rejected</p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">
           {{ company.numberOfRejectedEmployees }}
         </p>
       </div>
       <div class="total">
-        <p>Total</p>
-        <p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">Total</p>
+        <p [ngClass]="{
+          'employee-status-mobile': isSmall
+        }">
           {{ company.numberOfTotalEmployees }}
         </p>
       </div>
@@ -151,7 +168,7 @@
   </mat-card>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="end" class="company-paginator">
+<div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
   <mat-paginator
     [length]="paginator.length"
     [pageSize]="paginator.currentPageSize"

@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login.component';
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -14,6 +15,7 @@ import { SignupComponent } from './pages/company/signup/signup.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+// import { LoginComponent } from './pages/admin/login/login.component';
 
 const routes: Routes = [
   {
@@ -74,6 +76,10 @@ const routes: Routes = [
       {
         path: 'employee/profile',
         component: ProfileComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
       }
     ]
   },

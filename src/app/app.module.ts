@@ -66,6 +66,8 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
+import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +97,9 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
     CompanyComponent,
     EmployeesComponent,
     ViewEmployessComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminLoginComponent,
+    AdminAllEmployeesComponent
   ],
   imports: [
     StoreModule.forRoot({
