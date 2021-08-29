@@ -12,6 +12,7 @@ import { updateMenu } from 'src/app/redux/actions/menu.action';
 export class HeaderComponent implements OnInit {
 
   deviceSmall:any;
+  deviceExtraSmall:any;
   isOpen:boolean = false;
 
 

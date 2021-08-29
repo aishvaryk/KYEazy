@@ -1,3 +1,14 @@
+.container-card {
+  width: 96%;
+  margin-top: 2%;
+}
+
+.container-card-mobile {
+  width: 100%;
+  margin-top: 0.5%;
+  padding: 8px;
+}
+
 .mat-form-field {
   margin-top: 2%;
   width: 100%;
@@ -5,12 +16,19 @@
 .multiple-employee-form-container
 {
   width: 50%;
+  margin-bottom: 2%;
 }
 .single-employee-heading
 {
   width: 50%;
 }
-.employee-form-container
-{
-  margin-top: 2%;
+
+.form-heading {
+  font-size: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.form-start {
+  margin-top:3%;
 }

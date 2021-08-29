@@ -1,22 +1,94 @@
 <div class="profile-container" fxLayout="row" fxLayoutAlign="center center">
 
-  <mat-card class="profile-card" fxLayout="column"  >
-    <div class="card-container" fxLayout="column" fxLayoutAlign="start start">
+  <mat-card
+  [ngClass.gt-sm]="'profile-card-large'"
+  [ngClass.sm]="'profile-card-medium'"
+  [ngClass.xs]="'profile-card-mobile'"
+  fxLayout="column"  >
+
+    <div class="card-container"
+    [ngClass.gt-sm]="'card-container-large'"
+    [ngClass.sm]="'card-container-medium'"
+    [ngClass.xs]="'card-container-mobile'"
+    fxLayout="column" fxLayoutAlign="start center">
       <mat-card-header
       [ngClass.gt-sm]="'profile-card-header-large'"
       [ngClass.sm]="'profile-card-header-medium'"
       [ngClass.xs]="'profile-card-header-mobile'"
-      fxLayout="row wrap" fxLayoutAlign="start center">
+      fxLayout="column" fxLayoutAlign="center center">
+
         <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" />
         <mat-card-title class="profile-name" >First Name Last Name</mat-card-title>
-        <mat-card-subtitle class="profile-email">abc@xyz.com</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content class="profile-card-content" fxLayout="column" fxLayoutAlign="start start">
-        <div class="profile-gender"><strong>Gender:</strong> Male</div>
-        <div class="profile-address"><strong>Address:</strong> Line 1, Line 2, City, State, Country</div>
-        <div class="profile-document"><strong>Document Details:</strong> Document Type: Document No.</div>
-        <div class="profile-video"><strong>Profile Video: </strong> Video</div>
+
+        <div class="profile-content-row address-container"
+        fxLayout="column" fxLayoutAlign="center center"
+         >
+          <div class="profile-element address" fxLayout="column" fxLayoutAlign="start center">
+            <strong fxLayout="row wrap" fxLayoutAlign="center center"> Address line 1, address line 2</strong>
+            <strong fxLayout="row wrap" fxLayoutAlign="center center"> City, State, Country</strong>
+            <div class="profile-component-detail">Address</div>
+          </div>
+        </div>
+
+        <div class="profile-content-row contact info"
+        fxLayout.xs="column" fxLayoutAlign.xs="center center"
+        fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="profile-element email" fxLayout="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start center">
+            <strong>email@email.com</strong>
+            <div class="profile-component-detail">Email-Address</div>
+          </div>
+          <div class="profile-element mobile-no" fxLayout="column" fxLayoutAlign="start end" fxLayoutAlign.xs="start center">
+            <strong> +91-9782626453</strong>
+            <div class="profile-component-detail">Mobile No.</div>
+          </div>
+        </div>
+
+
+        <div class="profile-content-row contact info"
+        fxLayout.xs="column" fxLayoutAlign.xs="center center"
+        fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="profile-element gender" fxLayout="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start center">
+            <strong fxLayout="row wrap" fxLayoutAlign="center center"> Male</strong>
+            <div class="profile-component-detail">Gender</div>
+          </div>
+          <div class="profile-element company" fxLayout="column" fxLayoutAlign="start end" fxLayoutAlign.xs="start center">
+            <strong fxLayout="row wrap" fxLayoutAlign="center center">Infosys</strong>
+            <div class="profile-component-detail">Company</div>
+          </div>
+        </div>
+
+        <div class="profile-content-row contact info" fxLayout="row wrap" fxLayoutAlign="space-between center"
+        fxLayout.xs="column" fxLayoutAlign.xs="center center"
+        >
+          <div class="profile-element document-type" fxLayout="column" fxLayoutAlign="start startr" fxLayoutAlign.xs="start center">
+            <strong>Aadhaar Card</strong>
+            <div class="profile-component-detail">Document Type</div>
+          </div>
+          <div class="profile-element document-no" fxLayout="column" fxLayoutAlign="start end" fxLayoutAlign.xs="start center">
+            <strong>1234 5678 8912</strong>
+            <div class="profile-component-detail">Document No.</div>
+          </div>
+        </div>
+
+
+
+
+        <div class="profile-content-row address-container" fxLayout="row wrap" fxLayoutAlign="center center">
+          <div class="profile-element live-video" fxLayout="column" fxLayoutAlign="start center">
+            <video
+            #toPlay
+            controls
+            [width]="320"
+            [height]="180"
+            ></video>
+            <div class="profile-component-detail">Live Video</div>
+          </div>
+
+        </div>
+
         <div class="profile-buttons" fxLayout="row" fxLayoutAlign="space-between center">
           <button mat-stroked-button color="primary"><mat-icon>check</mat-icon>&nbsp;Accept</button>
           <button mat-stroked-button color="warn"><mat-icon>clear</mat-icon>&nbsp;Reject</button>
@@ -24,8 +96,10 @@
       </mat-card-content>
     </div>
 
+    <!-- <mat-spinner mode="indeterminate" ></mat-spinner> -->
+    <iframe src="" width="100%" height="500px">
+    </iframe>
   </mat-card>
-
 </div>
 
 
