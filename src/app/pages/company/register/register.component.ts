@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 
@@ -17,13 +19,15 @@ export class RegisterComponent implements OnInit {
   newEmployee:Employee;
   companyService:CompanyService;
   form:any
+  dialog:MatDialog;
 
-  constructor(companyService:CompanyService) {
+  constructor(companyService:CompanyService,dialog:MatDialog) {
     this.newEmployee={} as Employee;
     this.companyService=companyService;
     this.form = new FormGroup({
       document: new FormControl('', [Validators.required])
     })
+    this.dialog=dialog;
    }
 
   ngOnInit(): void {
@@ -41,7 +45,7 @@ export class RegisterComponent implements OnInit {
     this.newEmployee.firstName=this.employeeForm.value.firstName;
     this.newEmployee.lastName=this.employeeForm.value.lastName;
     this.newEmployee.emailID=this.employeeForm.value.email;
-    this.companyService.registerEmployee(this.newEmployee,1);
+    this.companyService.registerEmployee(this.newEmployee,1)
     console.log(this.employeeForm);
   }
 

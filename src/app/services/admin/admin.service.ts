@@ -15,7 +15,7 @@ export class AdminService {
   public companies:Company[];
   public companiesSubject:Subject<Company[]>;
   public companySubject:Subject<Company[]>;
-
+  public employeeVideoSubject:Subject<ArrayBuffer>;
   employeesSubject:Subject<Employee[]>
     constructor(private httpClient:HttpClient ) {
     this.employees=[]
@@ -25,6 +25,7 @@ export class AdminService {
     this.companies=[]
     this.companiesSubject=new Subject();
     this.companySubject=new Subject();
+    this.employeeVideoSubject=new Subject();
   }
   login():void
   {
@@ -45,6 +46,19 @@ export class AdminService {
         this.employeesSubject.next(this.employees);
 
   });
+
+}
+getEmployeeVideo()
+{
+  this.httpClient.get("http://localhost:8085/admin/get-video/RPunjabidb0.mp4",{responseType:"arraybuffer"})
+  .subscribe((results:any)=>
+  {
+
+    //let blob = new Blob([data], { type: type});
+    //let url = window.URL.createObjectURL(blob);
+    console.log(results);
+    this.employeeVideoSubject.next(results)
+  })
 }
 viewAcceptedApplications(pageSize:number,pageNumber:number):void{
   this.httpClient.get(`http://localhost:8085/admin/view-accepted-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))

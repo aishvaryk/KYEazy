@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Employee } from 'src/app/models/employee.model';
+import { AdminService } from 'src/app/services/admin/admin.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 
 @Component({
@@ -13,7 +15,10 @@ export class ProfileComponent implements OnInit {
   public employeeService:EmployeeService;
   private employeeId:number;
 
-  constructor(employeeService:EmployeeService,private activatedRoute:ActivatedRoute) {
+  @ViewChild('toPlay')
+  public toPlay: any;
+
+  constructor(employeeService:EmployeeService,private sanitizer: DomSanitizer,private adminService:AdminService,private activatedRoute:ActivatedRoute) {
     this.employee={} as Employee;
     this.employeeService=employeeService;
     this.employeeId=0;
@@ -35,6 +40,22 @@ export class ProfileComponent implements OnInit {
       console.log(this.employee);
     }
     );
+    this.adminService.getEmployeeVideo();
+    this.adminService.employeeVideoSubject.subscribe((video)=>{
+      console.log(video)
+
+   //  this.employee.employeeVideo=video;
+      let blob = new Blob([video], { type:"video/mp4"});
+        let url = window.URL.createObjectURL(blob);
+        this.employee.employeeVideo=url;
+
+        this.toPlay.nativeElement.src = url;
+
+       // this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+
+    })
+
   }
 
 }
