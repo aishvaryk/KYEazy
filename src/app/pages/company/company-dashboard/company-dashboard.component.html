@@ -1,17 +1,43 @@
-<!-- <ngx-charts-advanced-pie-chart
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="pieChartData"
-  [gradient]="gradient"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
-  >
-</ngx-charts-advanced-pie-chart> -->
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.lt-sm]="'container-card-mobile'"
 
-<ngx-charts-pie-grid
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="pieChartData"
-  (select)="onSelect($event)">
-</ngx-charts-pie-grid>
+  >
+  <div class="pie-chart-container" fxLayout="row"
+  fxLayoutAlign="space-around center"
+  fxLayout.xs="column">
+    <div class="pie-chart">
+    <ngx-charts-pie-chart
+      [view]="chartView"
+      [scheme]="colorScheme"
+      [results]="pieChartData"
+      [gradient]="gradient"
+      [legend]="showNormalLegend"
+      [legendPosition]="legendPosition"
+      [labels]="showLabels"
+      [doughnut]="isDoughnut"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-pie-chart>
+  </div>
+  <div
+  [ngClass.gt-xs]="'pie-chart-legend'"
+  [ngClass.xs]="'pie-chart-legend-mobile'"
+  fxLayout="row" fxLayoutAlign="end"
+  >
+
+    <ngx-charts-advanced-pie-chart
+      style="line-height: 15px"
+      [view]="legendView"
+      [scheme]="colorScheme"
+      [results]="pieChartData"
+      [label]="'Total Employees'"
+    >
+    </ngx-charts-advanced-pie-chart>
+  </div>
+  </div>
+  </mat-card>
+</div>

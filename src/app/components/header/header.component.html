@@ -1,16 +1,18 @@
 <header class="header">
 
-  <div class="row" fxLayout="row">
-
+  <div class="row" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="menu-logo" fxLayout="row" fxLayoutAlign="start center">
       <button mat-icon-button color="primary"
         (click)="toggleMenu()"
-        *ngIf="deviceSmall && !isOpen">
+        *ngIf="deviceSmall && !isOpen"
+        class="menu-button">
         <mat-icon>menu</mat-icon>
       </button>
 
       <button mat-icon-button color="primary"
         (click)="toggleMenu()"
-        *ngIf="deviceSmall && isOpen">
+        *ngIf="deviceSmall && isOpen"
+        class="menu-button">
         <mat-icon>clear</mat-icon>
       </button>
 
@@ -30,11 +32,21 @@
     </button>
     </div>
 
-    <!-- <div class="buttons">
-      <div class="btns">
+    <div class="buttons" >
+      <div class="large-header-buttons" *ngIf="!deviceSmall" >
         <button mat-button> About </button>
         <button mat-button> Contact Us </button>
       </div>
-    </div> -->
 
+      <div class="small-header-buttons" *ngIf="deviceSmall" >
+        <button mat-icon-button color="primary">
+          <mat-icon >info_outlined</mat-icon>
+        </button>
+        <button mat-icon-button color="primary">
+          <mat-icon >contact_support</mat-icon>
+        </button>
+    </div>
+
+    </div>
+  </div>
   </header>
