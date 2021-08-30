@@ -9,6 +9,7 @@ import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/Login/login.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
     password:""
   }
 
-  constructor(public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService) {
+  constructor(public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService,public errorDialog:MatDialog) {
 
 
     this.form = new FormGroup({
@@ -62,7 +63,13 @@ export class LoginComponent implements OnInit {
          this.router.navigate(['/employee/kyc'])
         },
         (error:any)=>{
-          console.log(error)
+          console.log(error);
+          this.errorDialog.open(ModalComponent,{
+            data: {
+              type: "INFORMATION_PROMPTS",
+              error: "INVALID_USER"
+            },
+          });
 
         })
     }
@@ -76,7 +83,13 @@ export class LoginComponent implements OnInit {
          this.router.navigate(['/company/dashboard'])
         },
         (error:any)=>{
-          console.log(error)
+          console.log(error);
+          this.errorDialog.open(ModalComponent,{
+            data: {
+              type: "INFORMATION_PROMPTS",
+              error: "INVALID_COMPANY"
+            },
+          });
 
         })
     }

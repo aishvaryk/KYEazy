@@ -48,11 +48,20 @@ export class CompanyService {
   }
   register(newCompany:Company): void{
     this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
-      data => console.log('success', data),
+      data =>{ console.log('success', data);
+      this.dialog.open(ModalComponent,{
+        data: {
+          type:"INFORMATION_PROMPTS",
+          error: "SUCCESSFUL"
+        }
+      });
+    }
+      ,
       error =>{console.log(error.message)
         this.dialog.open(ModalComponent,{
             data: {
-              type: "COMPANY_REGISTER"
+              type:"INFORMATION_PROMPTS",
+              error: "COMPANY_REGISTER"
             }
           });
         }
@@ -96,13 +105,29 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 registerEmployee(newEmployee:Employee,companyId:number): void{
-  this.httpClient.post<ActionDTO>(`http://localhost:8085/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
-  .subscribe((results: ActionDTO) => {
-      console.log(results);
-      this.registrationStatus=results;
-      this.actionDTOSubject.next(results);
+  this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
+  .subscribe(
+  data => {
+      console.log(data);
+      this.registrationStatus=data;
+      this.actionDTOSubject.next(data);
+      this.dialog.open(ModalComponent,{
+        data: {
+          type:"INFORMATION_PROMPTS",
+          error: "SUCCESSFUL"
+        }
+      });
+},
+error =>{console.log(error.message)
+  this.dialog.open(ModalComponent,{
+      data: {
+        type:"INFORMATION_PROMPTS",
+        error: "USER_EXIST"
+      }
+    });
+  }
 
-});
+);
 }
 
 
