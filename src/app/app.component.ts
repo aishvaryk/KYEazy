@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         }
 
-        if (change.mqAlias === 'lg') {
+        if (change.mqAlias === 'xl') {
           breakpoint = {
             isXs: false,
             isSm: false,
@@ -91,6 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         }
 
+        console.log(breakpoint);
         this.store.dispatch(update(breakpoint));
       });
   }

@@ -21,9 +21,8 @@ export class HomeComponent implements OnInit,OnDestroy {
     public dialog: MatDialog,
     public store: Store<{ breakpoint: Breakpoint }>
     ) {
-
     this.store.select('breakpoint').subscribe((breakpoint) => {
-      if(breakpoint.isXs || breakpoint.isSm) {
+      if(breakpoint.isXs || breakpoint.isSm)  {
         this.isSmall = true;
         this.flexDirection = "column";
       }
