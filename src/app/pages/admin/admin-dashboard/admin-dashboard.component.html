@@ -52,20 +52,6 @@
   </div>
   <!-- search input ends -->
 
-  <!-- Company details start -->
-  <!-- <div
-    fxLayout="column"
-    fxLayoutAlign="space-around center"
-    fxLayoutGap="10px"
-    [ngClass]="{
-      'company-card-container-mobile': isSmall,
-      'company-container-card': !isSmall
-    }"
-    fxLayout.lt-sm="row wrap"
-    *ngFor="let company of companies"
-  > -->
-
-
   <!-- mat card starts -->
   <mat-card
     [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }"
@@ -166,9 +152,16 @@
       </button>
     </mat-card-content>
   </mat-card>
+
+  <button mat-raised-button color="primary"  fxLayoutAlign="center" fxLayout="row"  [ngClass]="{
+    'view-more-mobile': isSmall,
+    'view-more': !isSmall
+  }" routerLink="/admin/all-companies">View More</button>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
+
+
+<!-- <div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
   <mat-paginator
     [length]="paginator.length"
     [pageSize]="paginator.currentPageSize"
@@ -177,6 +170,6 @@
     [hidePageSize]="isSmall"
   >
   </mat-paginator>
-</div>
+</div> -->
 <!-- </div> -->
 <!-- </div> -->

@@ -17,30 +17,32 @@ export interface paginator {
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.scss'],
 })
 export class AdminDashboardComponent implements OnInit {
-
   public isSmall: any;
   public paginator: paginator;
-  public companies:Company[];
-  public adminService:AdminService;
-  public companyService:CompanyService;
-  public employees:Employee[];
-  public numOfPendingEmployees:number=0;
-  public numOfAcceptedEmployees:number=0;
-  public companyId:number=0;
-  public companyRoute:any;
+  public companies: Company[];
+  public adminService: AdminService;
+  public companyService: CompanyService;
+  public employees: Employee[];
+  public numOfPendingEmployees: number = 0;
+  public numOfAcceptedEmployees: number = 0;
+  public companyId: number = 0;
+  public companyRoute: any;
 
-
-  constructor(public store: Store<{ breakpoint: Breakpoint }>, adminService:AdminService,companyService:CompanyService ) {
+  constructor(
+    public store: Store<{ breakpoint: Breakpoint }>,
+    adminService: AdminService,
+    companyService: CompanyService
+  ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
-      if (breakpoint.isXs ) {
+      if (breakpoint.isXs) {
         this.isSmall = true;
       } else {
         this.isSmall = false;
       }
-    })
+    });
 
     this.paginator = {
       length: 100,
@@ -48,40 +50,30 @@ export class AdminDashboardComponent implements OnInit {
       pageSizeOptions: [5, 10, 25, 100],
       currentPageIndex: 0,
     };
-    this.companies=[{}] as Company[];
-    this.adminService=adminService;
-    this.companyService=companyService;
-    this.employees={} as Employee[];
+    this.companies = [{}] as Company[];
+    this.adminService = adminService;
+    this.companyService = companyService;
+    this.employees = {} as Employee[];
   }
 
-  onViewEmployees(companyId:number)
-  {
+  onViewEmployees(companyId: number) {
     console.log(companyId);
-    this.companyRoute="/admin/employees/"+companyId;
+    this.companyRoute = '/admin/employees/' + companyId;
   }
   ngOnInit(): void {
     console.log(this.isSmall);
 
-    this.adminService.getCompanies(5,1);
-    this.adminService.companiesSubject.subscribe((companies)=>{
-      this.companies=companies;
+    this.adminService.getCompanies(5, 1);
+    this.adminService.companiesSubject.subscribe((companies) => {
+      this.companies = companies;
       console.log(this.companies);
     });
-
-
-
-
-}
-
-
-
+  }
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
     console.log(this.paginator);
   }
 
-  OnSearchSelect() {
-
-  }
+  OnSearchSelect() {}
 }
