@@ -1,5 +1,5 @@
-import { Breakpoint } from './../../../models/breakpoint.model';
 import { Component, OnInit } from '@angular/core';
+import { Breakpoint } from './../../../models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
@@ -15,11 +15,11 @@ export interface paginator {
 }
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  selector: 'app-all-companies',
+  templateUrl: './all-companies.component.html',
+  styleUrls: ['./all-companies.component.scss']
 })
-export class AdminDashboardComponent implements OnInit {
+export class AllCompaniesComponent implements OnInit {
 
   public isSmall: any;
   public paginator: paginator;
@@ -84,4 +84,5 @@ export class AdminDashboardComponent implements OnInit {
   OnSearchSelect() {
 
   }
+
 }

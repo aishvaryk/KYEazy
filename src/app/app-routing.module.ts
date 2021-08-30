@@ -1,3 +1,5 @@
+import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { LoginComponent } from './components/login/login.component';
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
@@ -80,6 +82,14 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent
+      },
+      {
+        path: 'all-employees',
+        component: AdminAllEmployeesComponent
+      },
+      {
+        path: 'all-companies',
+        component: AllCompaniesComponent
       }
     ]
   },
