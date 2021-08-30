@@ -1,0 +1,47 @@
+.container-card {
+  width: 96%;
+  margin-top: 2%;
+}
+
+.container-card-mobile {
+  width: 100%;
+  margin-top: 0.5%;
+  padding: 8px;
+}
+
+.pie-chart-container {
+  width: 100%;
+}
+.pie-chart-legend-mobile {
+  width: 100%;
+}
+
+
+::ng-deep .advanced-pie-legend {
+  // margin-top: 20px;
+  .total-value {
+    height: 40px;
+  }
+
+  .legend-items {
+    overflow:visible !important;
+    // background-color: yellow;
+    font-family:Montserrat;
+    line-height: 25px;
+    .legend-item{
+      height: 100%;
+      cursor: unset !important;
+    }
+    .item-color {
+      height: 65px !important;
+    }
+  }
+}
+
+::ng-deep .advanced-pie{
+  display: none;
+  .chart{
+    display: none;
+  }
+  width: 0 !important;
+}

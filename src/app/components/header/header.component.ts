@@ -12,6 +12,7 @@ import { LoginService } from 'src/app/services/Login/login.service';
 export class HeaderComponent implements OnInit {
 
   deviceSmall:any;
+  deviceExtraSmall:any;
   isOpen:boolean = false;
   loginService :LoginService;
 

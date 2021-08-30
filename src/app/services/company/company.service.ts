@@ -216,6 +216,7 @@ getEmployeesSortedByDate(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 getCompanyDetails(id:number): void{
+  console.log("ansnda");
   this.httpClient.get(`http://localhost:8085/company/get-company-details/${id}`).pipe(map((response) => response as Company))
   .subscribe((results: Company) => {
       console.log(results);

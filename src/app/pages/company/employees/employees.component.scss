@@ -7,7 +7,7 @@
 }
 
 .employee-card {
-  width: 90%;
+  width: 95%;
   margin-bottom: 16px;
 }
 
@@ -30,6 +30,17 @@
   width:100px;
 }
 
+.container-card {
+  width: 96%;
+  margin-top: 2%;
+}
+
+.container-card-mobile {
+  width: 100%;
+  margin-top: 0.5%;
+  padding: 8px;
+}
+
 .employee-buttons-mobile {
   margin-top: 15px;
 }
@@ -49,7 +60,10 @@
     color:red;
   }
   .verification-pending {
-    color: yellowgreen;
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
   }
 }
 
@@ -64,7 +78,10 @@
     color:red;
   }
   .verification-pending {
-    color: yellowgreen;
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
   }
 }
 .employee-email{
@@ -94,7 +111,8 @@
 }
 
 .employee-display-options {
-  width: 90%;
+  width: 95%;
+  margin-top: 10px;
 }
 
 .employee-display-options-mobile {

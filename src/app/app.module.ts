@@ -24,6 +24,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 
@@ -131,7 +133,9 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatCardModule,
     MatListModule,
     MatPaginatorModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     LoginService,

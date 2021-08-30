@@ -42,6 +42,7 @@ export class DetailsComponent implements OnInit {
     details.contact = this.form.value.contact;
     details.state = this.form.value.state;
     details.country = this.form.value.country;
+    details.email=this.form.value.email;
     this.store.dispatch(setDetails(details));
   }
 

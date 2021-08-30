@@ -14,7 +14,9 @@ export class DocumentsComponent implements OnInit {
 
   constructor(public store: Store<{ documents: Documents }>) {
     this.form = new FormGroup({
-      document: new FormControl('', [Validators.required])
+      document: new FormControl('', [Validators.required]),
+      documentNumber: new FormControl('', [Validators.required]),
+      documentType: new FormControl('', [Validators.required])
     })
 
   }
@@ -38,6 +40,7 @@ export class DocumentsComponent implements OnInit {
     documents.document = this.form.value.document;
     documents.documentNumber = this.form.value.documentNumber;
     documents.documentType = this.form.value.documentType;
+    console.log(this.form.value.documentNumber);
     this.store.dispatch(setDocuments(documents));
   }
 
