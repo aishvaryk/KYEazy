@@ -27,6 +27,8 @@ export class ProfileComponent implements OnInit {
   public companyService:CompanyService;
   public isReview:any;
   public adminService:AdminService;
+  public isAdminPage:boolean;
+  public isPending:boolean;
 
   @ViewChild('toPlay')
   public toPlay: any;
@@ -36,6 +38,8 @@ export class ProfileComponent implements OnInit {
     this.employee={} as Employee;
     this.employeeService=employeeService;
     this.employeeId=0;
+    this.isAdminPage=false;
+    this.isPending=false;
     this.address={} as Address;
     this.company={} as Company;
     this.companyService=companyService;
@@ -68,16 +72,53 @@ export class ProfileComponent implements OnInit {
           this.store.select('selfie').subscribe((selfie) => console.log(selfie));
           this.store.select('liveliness').subscribe((liveliness) => console.log(liveliness));
         }
+        else if(route.substring(1,4) ==='adm'){
+        console.log("setting here");
+        this.isAdminPage=true;
+        }
         else {
           this.isReview=false;
         }
       })
+      this.adminService.employeeSubject.subscribe((employee)=>
+      { console.log("subject");
+        this.employee=employee;
+        this.address=this.employee.address;
+        if(this.employee.status==="Pending")
+        {
+          this.isPending=true;
+          console.log(this.isPending,this.isReview,"if");
+        }
+        else{
+          this.isPending=false;
+          console.log("else mein")
+        }
+        console.log(this.employee);
+        console.log(this.address);
+        this.companyService.getCompanyDetails(this.employee.companyId);
+        this.companyService.companySubject.subscribe((company)=>
+        {
+          this.company=company;
+        }
+        )
+      }
+      );
+
+
+
+
+
+
+
+
    }
    AcceptEmployee(){
      this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Accepted");
+    // this.isPending=false;
    }
    RejectEmployee(){
     this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Rejected");
+    //this.isPending=false;
    }
 
   ngOnInit(): void {
@@ -90,7 +131,9 @@ export class ProfileComponent implements OnInit {
       }
 
     );
-    this.employeeService.viewProfile(this.employeeId);
+    //this.employeeService.viewProfile(this.employeeId);
+
+    this.adminService.viewEmployeeDetails(this.employeeId);
     this.employeeService.employeeSubject.subscribe((employee)=>
     {
       this.employee=employee;
@@ -134,4 +177,5 @@ export class ProfileComponent implements OnInit {
     return 'data:image/jpeg;base64,' + img;
   }
 
-}
+
+  }

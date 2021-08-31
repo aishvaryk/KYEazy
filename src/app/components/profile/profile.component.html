@@ -153,8 +153,7 @@
             <div class="profile-component-detail">Live Video</div>
           </div>
         </div>
-
-        <div *ngIf ="!isReview"
+        <div *ngIf ="!isReview && isAdminPage && isPending"
           class="profile-buttons"
           fxLayout="row"
           fxLayoutAlign="space-between center"
@@ -170,6 +169,25 @@
     </div>
 
     <!-- <mat-spinner mode="indeterminate" ></mat-spinner> -->
-    <iframe src="" width="100%" height="500px"> </iframe>
+    <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+      <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">check_circle_outline</mat-icon>
+      &nbsp;
+      <div class="verification-text">Employee Verified</div>
+    </div>
+
+    <div class="verification-failed" *ngIf=" employee.status === 'Rejected'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">cancel</mat-icon>
+      <div class="verification-text">Employee Rejected</div>
+    </div>
+
+    <div class="verification-registered" *ngIf=" employee.status === 'Registered'" fxLayout="row"
+      fxLayoutAlign="start center">
+      <mat-icon aria-label="i">how_to_reg</mat-icon>
+      <div class="verification-text">Employee Registered</div>
+    </div>
+      </div>
   </mat-card>
 </div>

@@ -68,35 +68,35 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: AdminDashboardComponent,
-        canActivate: [AdminGuard]
+       // canActivate: [AdminGuard]
       },
       {
         path: 'accepted-kyc',
         component: AcceptedKycComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
         },
       {
         path: 'pending-kyc',
         component: PendingKycComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
 
       },
       {
         path: 'rejected-kyc',
         component: RejectedKycComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
 
       },
       {
         path: 'employees/:companyId',
         component: ViewEmployessComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
 
       },
       {
         path: 'employee/profile',
         component: ProfileComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
 
 
       },
@@ -107,12 +107,12 @@ const routes: Routes = [
       {
         path: 'all-employees',
         component: AdminAllEmployeesComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
       },
       {
         path: 'all-companies',
         component: AllCompaniesComponent,
-        canActivate: [AdminGuard]
+        //canActivate: [AdminGuard]
       }
     ]
   },
