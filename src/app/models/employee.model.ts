@@ -17,5 +17,6 @@ export interface Employee {
   dateTimeofVerification:Date;
   companyId:number;
   address:Address;
-  employeeVideo: any
+  gender:string;
+  employeeVideo: string
 }

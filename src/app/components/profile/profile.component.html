@@ -22,10 +22,10 @@
       >
         <img
           mat-card-avatar
-          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-        />
+          [src]=formatImage(employee.capturedImage)
+          />
         <mat-card-title class="profile-name"
-          >First Name Last Name</mat-card-title
+          >{{employee.firstName}} {{employee.lastName}}</mat-card-title
         >
       </mat-card-header>
 
@@ -45,10 +45,10 @@
             fxLayoutAlign="start center"
           >
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              Address line 1, address line 2</strong
+              {{address.streetNumber}}, {{address.street}}</strong
             >
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              City, State, Country</strong
+              {{address.city}}, {{address.state}}, {{address.country}}</strong
             >
             <div class="profile-component-detail">Address</div>
           </div>
@@ -67,7 +67,7 @@
             fxLayoutAlign="start start"
             fxLayoutAlign.xs="start center"
           >
-            <strong>email@email.com</strong>
+            <strong>{{employee.emailID}}</strong>
             <div class="profile-component-detail">Email-Address</div>
           </div>
           <div
@@ -76,7 +76,7 @@
             fxLayoutAlign="start end"
             fxLayoutAlign.xs="start center"
           >
-            <strong> +91-9782626453</strong>
+            <strong> {{employee.contactNumber}}</strong>
             <div class="profile-component-detail">Mobile No.</div>
           </div>
         </div>
@@ -95,7 +95,7 @@
             fxLayoutAlign.xs="start center"
           >
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              Male</strong
+              {{employee.gender}}</strong
             >
             <div class="profile-component-detail">Gender</div>
           </div>
@@ -106,7 +106,7 @@
             fxLayoutAlign.xs="start center"
           >
             <strong fxLayout="row wrap" fxLayoutAlign="center center"
-              >Infosys</strong
+              >{{company.name}}</strong
             >
             <div class="profile-component-detail">Company</div>
           </div>
@@ -125,7 +125,7 @@
             fxLayoutAlign="start startr"
             fxLayoutAlign.xs="start center"
           >
-            <strong>Aadhaar Card</strong>
+            <strong>{{employee.documentType}}</strong>
             <div class="profile-component-detail">Document Type</div>
           </div>
           <div
@@ -134,7 +134,7 @@
             fxLayoutAlign="start end"
             fxLayoutAlign.xs="start center"
           >
-            <strong>1234 5678 8912</strong>
+            <strong>{{employee.documentNumber}}</strong>
             <div class="profile-component-detail">Document No.</div>
           </div>
         </div>
@@ -149,20 +149,20 @@
             fxLayout="column"
             fxLayoutAlign="start center"
           >
-            <video #toPlay controls [width]="320" [height]="180"></video>
+            <video #toPlay controls [width]="320" [height]="180" src=""></video>
             <div class="profile-component-detail">Live Video</div>
           </div>
         </div>
 
-        <div
+        <div *ngIf ="!isReview"
           class="profile-buttons"
           fxLayout="row"
           fxLayoutAlign="space-between center"
         >
-          <button mat-stroked-button color="primary">
+          <button mat-stroked-button color="primary" (click)="AcceptEmployee()">
             <mat-icon>check</mat-icon>&nbsp;Accept
           </button>
-          <button mat-stroked-button color="warn">
+          <button mat-stroked-button color="warn" (click)="RejectEmployee()">
             <mat-icon>clear</mat-icon>&nbsp;Reject
           </button>
         </div>

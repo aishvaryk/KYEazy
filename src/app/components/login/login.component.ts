@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           this.errorDialog.open(ModalComponent,{
             data: {
               type: "INFORMATION_PROMPTS",
-              error: "INVALID_USER"
+              error: "Invalid Credentials!!"
             },
           });
 

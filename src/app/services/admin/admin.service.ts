@@ -48,9 +48,9 @@ export class AdminService {
   });
 
 }
-getEmployeeVideo()
+getEmployeeVideo(username:string)
 {
-  this.httpClient.get("http://localhost:8085/admin/get-video/RPunjabidb0.mp4",{responseType:"arraybuffer"})
+  this.httpClient.get(`http://localhost:8085/admin/get-video/${username}`,{responseType:"arraybuffer"})
   .subscribe((results:any)=>
   {
 
