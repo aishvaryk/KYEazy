@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
 
     if(this.form.status === 'INVALID') return;
 
+
     if(this.type == "EMPLOYEE_LOGIN") {
       this.credentials.role="EMPLOYEE";
       localStorage.setItem('userType',"EMPLOYEE")
@@ -74,6 +75,27 @@ export class LoginComponent implements OnInit {
 
         })
     }
+
+    if(this.type == "ADMIN_LOGIN") {
+      this.credentials.role="ADMIN";
+      localStorage.setItem('userType',"ADMIN")
+      this.adminService.login(this.credentials).subscribe(
+        (response:any)=>{
+         console.log(response.token)
+         this.loginService.loginUser(response.token)
+         this.router.navigate(['/admin/dashboard'])
+        },
+        (error:any)=>{
+          console.log(error);
+          this.errorDialog.open(ModalComponent,{
+            data: {
+              type: "INFORMATION_PROMPTS",
+            },
+          });
+
+        })
+    }
+
 
     if(this.type == "COMPANY_LOGIN") {
       this.credentials.role="COMPANY";
@@ -98,8 +120,7 @@ export class LoginComponent implements OnInit {
 
 
 
-    this.dialog.close();
+
+
   }
-
-
 }

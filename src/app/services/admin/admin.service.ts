@@ -5,11 +5,13 @@ import { Employee } from 'src/app/models/employee.model';
 import { Subject } from 'rxjs';
 import { Byte } from '@angular/compiler/src/util';
 import { Company } from 'src/app/models/company.model';
+import { LoginService } from '../Login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
+
   employees: Employee[];
   public employee: Employee;
   public employeeSubject:Subject<Employee>;
@@ -18,7 +20,9 @@ export class AdminService {
   public companySubject:Subject<Company[]>;
   public employeeVideoSubject:Subject<ArrayBuffer>;
   employeesSubject:Subject<Employee[]>
-    constructor(private httpClient:HttpClient ) {
+
+    constructor(private httpClient:HttpClient,private loginService:LoginService, ) {
+
     this.employees=[]
     this.employeesSubject=new Subject();
     this.employee={ } as Employee;
@@ -28,9 +32,12 @@ export class AdminService {
     this.companySubject=new Subject();
     this.employeeVideoSubject=new Subject();
   }
-  login():void
+  login(credentials:any):any
   {
-    console.log("Admin")
+
+    console.log("Company")
+    return this.loginService.doLogin(credentials);
+
   }
   viewAllApplications(pageSize: number, pageNumber: number): void {
     this.httpClient
@@ -43,6 +50,7 @@ export class AdminService {
         this.employeesSubject.next(this.employees);
       });
   }
+
 
 
 getEmployeeVideo(username:string)
@@ -90,7 +98,9 @@ verifyEmployeeDetails(id:number,status:string):void{
   getAllEmployeeByName(name: string, pageSize: number, pageNumber: number): void {
     // in url do I have to provide pagesize and page number
     this.httpClient
-      .get(`http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`)
+      .get(
+        `http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
         console.log(results);
@@ -99,6 +109,47 @@ verifyEmployeeDetails(id:number,status:string):void{
       });
   }
 
+  getAllCompanyByName(
+    name: string,
+    pageSize: number,
+    pageNumber: number
+  ): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/companies-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+        .pipe(map((response) => response as Company[]))
+        .subscribe((results: Company[]) => {
+          this.companies = results;
+          this.companiesSubject.next(this.companies);
+        });
+  }
+
+  getAllEmployeesSortedByName(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/get-all-employees-sorted-by-name/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        console.log(results);
+        this.employees = results;
+        this.employeesSubject.next(this.employees);
+      });
+  }
+
+  getAllEmployeesSortedByDate(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/get-all-employees-sorted-by-date/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        console.log(results);
+        this.employees = results;
+        this.employeesSubject.next(this.employees);
+      });
+  }
 
   viewPendingApplications(pageSize: number, pageNumber: number): void {
     this.httpClient
@@ -122,8 +173,5 @@ verifyEmployeeDetails(id:number,status:string):void{
         this.companies = results;
         this.companiesSubject.next(this.companies);
       });
-  }
-
-
-
+    }
 }

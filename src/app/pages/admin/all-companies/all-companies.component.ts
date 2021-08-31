@@ -29,6 +29,7 @@ export class AllCompaniesComponent implements OnInit {
   public numOfAcceptedEmployees: number = 0;
   public companyId: number = 0;
   public companyRoute: any;
+  public searchText: any = "";
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
@@ -75,5 +76,20 @@ export class AllCompaniesComponent implements OnInit {
     // console.log(this.paginator);
   }
 
-  OnSearchSelect() {}
+
+  onSearchText(event:any) {
+    this.searchText=event.target.value;
+  }
+
+  OnSearchSelect() {
+    console.log(this.searchText);
+
+    this.adminService.getAllCompanyByName(this.searchText,10,1);
+    this.adminService.employeesSubject.subscribe((employees)=>{
+            this.employees=employees;
+            console.log(employees);
+          }
+          );
+
+  }
 }

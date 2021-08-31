@@ -1,6 +1,4 @@
 <div class="card">
-
-
   <div
     [ngClass]="{
       'company-container-mobile': isSmall,
@@ -9,15 +7,15 @@
     fxLayout="row wrap"
     fxLayoutAlign="center"
     fxLayoutAlign.xs="space-around center"
-    style="margin: auto;"
+    style="margin: auto"
   >
     <div
-    [ngClass]="{
-      'search-comapny-mobile': isSmall,
-      'search-comapny': !isSmall
-    }"
-      fxLayout = "row"
-      fxLayoutAlign = "end"
+      [ngClass]="{
+        'search-comapny-mobile': isSmall,
+        'search-comapny': !isSmall
+      }"
+      fxLayout="row"
+      fxLayoutAlign="end"
     >
       <mat-form-field
         [ngClass]="{
@@ -26,15 +24,19 @@
         }"
         appearance="outline"
       >
-        <mat-label [ngClass]="{
-          'search-form-mobile': isSmall,
-          'search-form': !isSmall
-        }">Search</mat-label>
+        <mat-label
+          [ngClass]="{
+            'search-form-mobile': isSmall,
+            'search-form': !isSmall
+          }"
+          >Search</mat-label
+        >
         <input
           type="text"
           matInput
           placeholder="Search by Company Name"
           class="search-form-input"
+          (input)="onSearchText($event)"
         /> </mat-form-field
       >&nbsp;
 
@@ -64,7 +66,6 @@
       fxLayout.lt-sm="row wrap"
       *ngFor="let company of companies"
     > -->
-
 
     <!-- mat card starts -->
     <mat-card
@@ -100,44 +101,68 @@
         fxLayoutAlign="space-between enter"
         fxFlex="40"
       >
-        <div class="pending " >
-          <p   [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">Pending</p>
-          <p  [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">
+        <div class="pending">
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
+            Pending
+          </p>
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
             {{ company.numberOfPendingEmployees }}
           </p>
         </div>
 
         <div class="accepted">
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">Accepted</p>
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
+            Accepted
+          </p>
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
             {{ company.numberOfAcceptedEmployees }}
           </p>
         </div>
         <div class="rejected">
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">Rejected</p>
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
+            Rejected
+          </p>
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
             {{ company.numberOfRejectedEmployees }}
           </p>
         </div>
         <div class="total">
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">Total</p>
-          <p [ngClass]="{
-            'employee-status-mobile': isSmall
-          }">
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
+            Total
+          </p>
+          <p
+            [ngClass]="{
+              'employee-status-mobile': isSmall
+            }"
+          >
             {{ company.numberOfTotalEmployees }}
           </p>
         </div>
@@ -180,3 +205,4 @@
   </div>
   <!-- </div> -->
   <!-- </div> -->
+</div>
