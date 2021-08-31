@@ -39,15 +39,47 @@ export class AdminService {
       });
   }
 
-  getAllEmployeeByName(name: string, pageSize: number, pageNumber: number): void {
+  getAllEmployeeByName(
+    name: string,
+    pageSize: number,
+    pageNumber: number
+  ): void {
     // in url do I have to provide pagesize and page number
     this.httpClient
-      .get(`http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`)
+      .get(
+        `http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
         console.log(results);
         this.employees = results;
         this.employeesSubject.next(results);
+      });
+  }
+
+  getAllEmployeesSortedByName(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/get-all-employees-sorted-by-name/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        console.log(results);
+        this.employees = results;
+        this.employeesSubject.next(this.employees);
+      });
+  }
+
+  getAllEmployeesSortedByDate(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/get-all-employees-sorted-by-date/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        console.log(results);
+        this.employees = results;
+        this.employeesSubject.next(this.employees);
       });
   }
 
@@ -114,6 +146,4 @@ export class AdminService {
         this.companiesSubject.next(this.companies);
       });
   }
-
-
 }

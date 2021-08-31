@@ -120,49 +120,43 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
   OnSearchSelect() {
         console.log(this.searchText);
-    this.adminService.getAllEmployeeByName(this.searchText,10,1);
+    this.adminService.getAllEmployeeByName(this.searchText,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.adminService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
             console.log(employees);
           }
           );
-      //    this.sortBy = event.value;
   }
 
-  OnSortSelect(event: any) {}
 
-  OnFilterSelect(event: any) {}
-//   OnSearchSelect() {
-//     console.log(this.searchText);
-//     this.adminService.getEmployeeByName(1,this.searchText);
-//     this.adminService.employeesSubject.subscribe((employees)=>{
-//       this.employees=employees;
-//       console.log(employees);
-//     }
-//     );
-// //    this.sortBy = event.value;
-//   }
+  OnSortSelect(event: any) {
+    console.log(event.value);
+    this.sortBy = event.value;
 
-//   OnSortSelect(event: any) {
-//     console.log(event.value);
-//     this.sortBy = event.value;
-//     if(this.sortBy==="name"){
-//     this.adminService.getEmployeesSortedByName(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//     this.adminService.employeesSubject.subscribe((employees)=>{
-//       this.employees=employees;
-//       console.log(employees);
-//     }
-//     );}
+    if(this.sortBy==="name"){
+    this.adminService.getAllEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+    this.adminService.employeesSubject.subscribe((employees)=>{
+      this.employees=employees;
+      console.log(employees);
+    }
+    );}
 
-//     if(this.sortBy==="date-registration"){
-//       this.adminService.getEmployeesSortedByDate(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//       this.adminService.employeesSubject.subscribe((employees)=>{
-//         this.employees=employees;
-//         console.log(employees);
-//       }
-//       );}
+    if(this.sortBy==="date-registration"){
+      this.adminService.getAllEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.adminService.employeesSubject.subscribe((employees)=>{
+        this.employees=employees;
+        console.log(employees);
+      }
+      );}
 
-//   }
+  }
+
+
+
+  OnFilterSelect(event: any) {
+
+  }
+
 
 //   OnFilterSelect(event: any) {
 //     console.log(event.value);
