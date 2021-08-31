@@ -60,23 +60,28 @@ const routes: Routes = [
       },
       {
         path: 'accepted-kyc',
-        component: AcceptedKycComponent
+        component: AcceptedKycComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'pending-kyc',
-        component: PendingKycComponent
+        component: PendingKycComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'rejected-kyc',
-        component: RejectedKycComponent
+        component: RejectedKycComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'employees/:companyId',
-        component: ViewEmployessComponent
+        component: ViewEmployessComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'employee/profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate:[AuthGuard]
       }
     ]
   },

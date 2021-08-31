@@ -15,10 +15,11 @@ export class HeaderComponent implements OnInit {
   deviceExtraSmall:any;
   isOpen:boolean = false;
   loginService :LoginService;
+  isHome:any;
 
   breakpoint$: Observable<Breakpoint>;
 
-  constructor(public store: Store<{breakpoint: Breakpoint, menu:boolean}>,loginService:LoginService) {
+  constructor(public store: Store<{breakpoint: Breakpoint, menu:boolean,route:string}>,loginService:LoginService) {
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isSm||breakpoint.isXs ) {
@@ -32,6 +33,12 @@ export class HeaderComponent implements OnInit {
 
     this.store.select('menu').subscribe((menu)=> this.isOpen=menu);
     this.loginService=loginService;
+    this.store.select('route').subscribe((route)=>{
+      if(route==='/')
+      this.isHome=true;
+      else
+      this.isHome=false;
+    })
   }
   ngOnInit(): void {
     this.doLogout();

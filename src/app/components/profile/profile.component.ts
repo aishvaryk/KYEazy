@@ -97,7 +97,6 @@ export class ProfileComponent implements OnInit {
       this.address=this.employee.address;
       console.log(this.employee);
       console.log(this.address);
-      console.log(this.employee.username);
       this.companyService.getCompanyDetails(this.employee.companyId);
       this.companyService.companySubject.subscribe((company)=>
       {

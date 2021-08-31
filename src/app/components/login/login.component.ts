@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         (response:any)=>{
          console.log(response.token)
          this.loginService.loginUser(response.token)
-         this.router.navigate(['/employee/kyc'])
+         this.router.navigate(['/admin/dashboard'])
         },
         (error:any)=>{
           console.log(error);
