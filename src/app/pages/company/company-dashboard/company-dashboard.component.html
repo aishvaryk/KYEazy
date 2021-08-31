@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center">
+<div fxLayout="column" fxLayoutAlign="start center" >
   <mat-card
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
@@ -40,4 +40,67 @@
   </div>
   </div>
   </mat-card>
+  <mat-card
+
+  [ngClass.gt-xs]="'container-card'"
+  [ngClass.lt-sm]="'container-card-mobile'"
+
+  >
+  <mat-card [ngClass]="{ 'employee-card-mobile': isSmall, 'employee-card': !isSmall }" fxLayout="row"
+    fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="space-between start"
+    *ngFor="let employee of employees" >
+
+    <mat-card-header fxFlex="60" [ngClass]="{ 'employee-card-header-mobile': isSmall }">
+      <!-- <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" /> -->
+      <img mat-card-avatar [src]=formatImage(employee.capturedImage) />
+
+      <mat-card-title class="employee-name">{{employee.firstName}} {{employee.lastName}}</mat-card-title>
+      <mat-card-subtitle class="employee-email" *ngIf="!isSmall">{{employee.emailID}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="employee-email-mobile" *ngIf="isSmall">{{employee.emailID}}</div>
+    <mat-card-content [ngClass]="{
+        'status-container-mobile': isSmall,
+        'status-container': !isSmall
+      }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter" fxFlex="40">
+      <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">check_circle_outline</mat-icon>
+        &nbsp;
+        <div class="verification-text">Employee Verified</div>
+      </div>
+
+      <div class="verification-failed" *ngIf=" employee.status === 'Rejected'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">cancel</mat-icon>
+        <div class="verification-text">Employee Rejected</div>
+      </div>
+
+      <div class="verification-registered" *ngIf=" employee.status === 'Registered'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">how_to_reg</mat-icon>
+        <div class="verification-text">Employee Registered</div>
+      </div>
+
+      <div class="verification-pending" *ngIf="employee.status === 'Pending'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">pending</mat-icon>
+        <div class="verification-text">Verification Pending</div>
+      </div>
+
+      <button mat-raised-button color="primary" routerLink="/company/employee/profile/{{employee.employeeId}}" [ngClass]="{
+          'employee-buttons-mobile': isSmall,
+          'employee-buttons': !isSmall
+        }">
+        View Profile
+      </button>
+    </mat-card-content>
+
+  </mat-card>
+  <div style="width: 90%;" fxLayout="row" fxLayoutAlign="center">
+  <button mat-stroked-button color="primary" routerLink="/company/employees"> View More <mat-icon aria-label="i">
+    expand_more
+  </mat-icon></button>
+</div>
+</mat-card>
 </div>

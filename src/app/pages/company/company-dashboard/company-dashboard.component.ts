@@ -21,6 +21,7 @@ export class CompanyDashboardComponent implements OnInit {
   public companyService: CompanyService;
   public employees:Employee[];
   public company:Company;
+  public isSmall:any;
 
   breakpoint$: Observable<Breakpoint>;
   chartView: any = [400, 300];
@@ -45,9 +46,11 @@ export class CompanyDashboardComponent implements OnInit {
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isXs ) {
+        this.isSmall=true
 
   this.chartView = [340, 300];
       } else {
+        this.isSmall=false;
         this.chartView = [400,300]
       }
     });
@@ -85,7 +88,20 @@ export class CompanyDashboardComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
   ngOnInit(): void {
-
+    this.companyService.getEmployeesSortedByDate(1,2,1);
+    this.companyService.employeesSubject.subscribe((employees)=>{
+      this.employees=employees;
+      console.log(employees);
+    }
+    );
   }
+  formatImage(img: any): any {
+
+    if (img == null) {
+      return null;
+    }
+    return 'data:image/jpeg;base64,' + img;
+  }
+
 
 }

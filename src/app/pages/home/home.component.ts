@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     console.log(localStorage);
-    this.loginService.logout();
+   this.loginService.logout();
   }
 
 

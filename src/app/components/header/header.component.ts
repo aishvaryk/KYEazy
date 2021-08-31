@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.doLogout();
+  //  this.doLogout();
   }
 
   toggleMenu(){

@@ -60,7 +60,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 import { LoginService } from './services/Login/login.service';
-import { AuthGuard } from './services/auth.guard';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
@@ -71,6 +70,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { CompanyGuard } from './company.guard';
 
 @NgModule({
   declarations: [
@@ -146,7 +146,7 @@ import { MatDividerModule } from '@angular/material/divider';
   ],
   providers: [
     LoginService,
-   // AuthGuard,
+    CompanyGuard,
      [{
        provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
      }],

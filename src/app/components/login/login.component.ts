@@ -62,14 +62,13 @@ export class LoginComponent implements OnInit {
         (response:any)=>{
          console.log(response.token)
          this.loginService.loginUser(response.token)
-         this.router.navigate(['/admin/dashboard'])
+         this.router.navigate(['/employee/kyc'])
         },
         (error:any)=>{
           console.log(error);
           this.errorDialog.open(ModalComponent,{
             data: {
               type: "INFORMATION_PROMPTS",
-              error: "Invalid Credentials!!"
             },
           });
 

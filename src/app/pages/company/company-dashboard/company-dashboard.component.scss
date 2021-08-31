@@ -15,6 +15,17 @@
 .pie-chart-legend-mobile {
   width: 100%;
 }
+.employee-card {
+  width: 95%;
+  margin-bottom: 16px;
+}
+
+.employee-card-mobile {
+  width: 95%;
+
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
 
 
 ::ng-deep .advanced-pie-legend {
@@ -44,4 +55,87 @@
     display: none;
   }
   width: 0 !important;
+}
+.employee-header-image {
+  background-size: cover;
+}
+
+.employee-buttons{
+  width:100px;
+}
+
+.container-card {
+  width: 96%;
+  margin-top: 2%;
+}
+
+.container-card-mobile {
+  width: 100%;
+  margin-top: 0.5%;
+  padding: 8px;
+}
+
+.employee-buttons-mobile {
+  margin-top: 15px;
+}
+
+.employee-buttons{
+  padding: 0;
+  margin-top: 0;
+
+}
+
+.status-container {
+  margin-bottom: 0;
+  .verification-done {
+    color:green;
+  }
+  .verification-failed {
+    color:red;
+  }
+  .verification-pending {
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
+  }
+}
+
+.status-container-mobile {
+  margin-bottom: 0;
+  width: 100%;
+  margin-top: 10px;
+  .verification-done {
+    color:green;
+  }
+  .verification-failed {
+    color:red;
+  }
+  .verification-pending {
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
+  }
+}
+.employee-email{
+  margin-bottom: 0;
+
+}
+
+
+.employee-card-header-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .employee-name{
+    margin-bottom: 0;
+  }
+}
+
+.employee-email-mobile {
+  font-size: 14px;
+  color: rgba(0,0,0,.54);
+  width: 100%;
+  margin-top: 20px;
 }

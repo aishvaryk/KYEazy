@@ -25,7 +25,7 @@ export class LoginService {
   }
   isLoggedIn()
   {
-    let token=localStorage.getItem("token");
+    let token=localStorage["token"];
     if(token==null || token==undefined || token==="")
     {
       return false

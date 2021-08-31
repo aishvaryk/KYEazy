@@ -17,30 +17,37 @@ import { SignupComponent } from './pages/company/signup/signup.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { AuthGuard } from './services/auth.guard';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
+import { CompanyGuard } from './company.guard';
+import { AdminGuard } from './admin.guard';
+import { EmployeeGuard } from './employee.guard';
 
 const routes: Routes = [
   {
     path: 'employee/kyc',
-    component: KycComponent
+    component: KycComponent,
+    canActivate: [EmployeeGuard]
   },
   {
     path: 'company',
     component: CompanyComponent,
+
     children: [
       {
         path: 'dashboard',
         component: CompanyDashboardComponent,
-        canActivate:[AuthGuard]
+        canActivate: [CompanyGuard]
+
       },
       {
         path: 'employees',
-        component: EmployeesComponent
+        component: EmployeesComponent,
+        canActivate: [CompanyGuard]
       },
       {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [CompanyGuard]
       },
 
       {
@@ -49,7 +56,8 @@ const routes: Routes = [
       },
       {
         path: 'employee/profile/:employeeId',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate: [CompanyGuard]
       }
     ]
   },
@@ -60,32 +68,36 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: AdminDashboardComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AdminGuard]
       },
       {
         path: 'accepted-kyc',
         component: AcceptedKycComponent,
-        canActivate:[AuthGuard]
-      },
+        canActivate: [AdminGuard]
+        },
       {
         path: 'pending-kyc',
         component: PendingKycComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AdminGuard]
+
       },
       {
         path: 'rejected-kyc',
         component: RejectedKycComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AdminGuard]
+
       },
       {
         path: 'employees/:companyId',
         component: ViewEmployessComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AdminGuard]
+
       },
       {
         path: 'employee/profile',
         component: ProfileComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AdminGuard]
+
 
       },
       {
@@ -94,11 +106,13 @@ const routes: Routes = [
       },
       {
         path: 'all-employees',
-        component: AdminAllEmployeesComponent
+        component: AdminAllEmployeesComponent,
+        canActivate: [AdminGuard]
       },
       {
         path: 'all-companies',
-        component: AllCompaniesComponent
+        component: AllCompaniesComponent,
+        canActivate: [AdminGuard]
       }
     ]
   },
@@ -106,10 +120,11 @@ const routes: Routes = [
     path:'',
     component: HomeComponent
   },
-  {
-    path: '**',
-    redirectTo:'/'
+   {
+     path: '**',
+     redirectTo:'/'
   }
+
 ];
 
 @NgModule({
