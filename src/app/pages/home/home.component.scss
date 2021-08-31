@@ -1,93 +1,203 @@
-.home-container {
+.home {
   overflow-y: auto;
   height: 90%;
 }
 
-.home {
+.login {
+  height: 90%;
+}
 
-  .left {
-    .heading {
-      font-size: 2rem;
-      line-height: 3rem;
-      color: #738F93;
-    }
+.left {
 
-    .companies-and-employees
-    {
-      .sub-heading {
-        font-size: 1.3rem;
-        list-style: 2rem;
-        font-weight: bold;
-        color: #39424E;
-      }
-
-      .login {
-        float:right;
-        margin-right: 5vh;
-      }
-
-      .signup {
-        float:left;
-        border-color: teal;
-        margin-right: 15px;
-      }
-    }
+  .heading {
+    color: #738f93;
   }
 
-  .right {
-    img {
-      object-fit: contain;
-      width: 100%;
-      height: 100%;
-    }
+  .heading-small {
+    @extend .heading;
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .heading-large {
+    @extend .heading;
+    font-size: 2.7rem;
+    line-height: 3.7rem;
+  }
+
+
+  .sub-heading {
+    text-align: justify;
+  }
+
+  .sub-heading-small {
+    @extend .sub-heading;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .sub-heading-large {
+    @extend .sub-heading;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .login-small {
+    font-size: 1.5rem;
+    width: 40%;
+  }
+
+  .login-large {
+    font-size: 1.5rem;
+    width: 30%;
   }
 
 }
 
-.about{
-  height:600px;
-  background-image: linear-gradient(240deg, lightblue, teal);
-  transform: rotate(-5deg) skew(-5deg) translateY(5rem);
+.right {
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
 }
 
-.about > *{
-  transform: rotate(5deg) skew(5deg) translateY(10rem);
-  text-align: center;
-}
-
-.some{
-  height:600px;
-  background-image: linear-gradient(240deg, green, teal);
-  transform: rotate(-5deg) skew(-5deg) translateY(10rem);
-}
-
-
-.parent{
-  display:flex;
+.card-container {
+  display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.box {
+.card-container-small {
+  overflow: auto;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.card-small {
   background: white;
   border-radius: 5px;
+  margin-top: 35%;
+  margin-right: 5%;
   display: inline-block;
-  height: 230px;
-  margin: 10px;
-  width: 200px;
-
-  .container:hover & {
-    transform: scale(1.3);
+  padding: 5px;
+  height: 57%;
+  width: 90%;
+  transition: all 1s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
     transition: all 0.5s ease-in-out;
   }
 }
 
-
-.box{
+.card {
+  background: white;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px;
+  height: 57%;
+  width: 15%;
   transition: all 1s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.5s ease-in-out;
+  }
+}
+
+.home-footer {
+  transform: translateY(10rem);
+}
+
+.about {
+  height:80%;
+  width: 100%;
+  background-image: linear-gradient(180deg, lightblue, teal);
+  transform: rotate(-5deg) skew(-5deg) translateY(5rem);
+
+  & > * {
+    transform: rotate(5deg) skew(5deg);
+  }
+
+  .about-heading {
+    float: right !important;
+    margin-right:10%;
+    font-size: 2rem;
+    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+  }
+}
+
+.service {
+  height:80%;
+  width: 100%;
+  background-image: linear-gradient(180deg, lightblue, teal);
+  transform: rotate(-5deg) skew(-5deg) translateY(10rem);
+
+  & > * {
+    transform: rotate(5deg) skew(5deg);
+  }
+
+  .service-heading {
+    float: right !important;
+    margin-right:10%;
+    font-size: 2rem;
+    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+  }
+}
+
+.team {
+  height:80%;
+  width: 100%;
+  background-image: linear-gradient(180deg, lightblue, teal);
+  transform: rotate(-5deg) skew(-5deg) translateY(15rem);
+
+  & > * {
+    transform: rotate(5deg) skew(5deg);
+  }
+
+  .team-heading {
+    float: right !important;
+    margin-right:10%;
+    font-size: 2rem;
+    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+  }
 }
 
 
-.home-footer {
-  transform: translateY(10rem)
+.product {
+  height:80%;
+  width: 100%;
+  background-image: linear-gradient(180deg, lightblue, teal);
+  transform: rotate(-5deg) skew(-5deg) translateY(20rem);
+
+  & > * {
+    transform: rotate(5deg) skew(5deg);
+  }
+
+  .product-heading {
+    float: right !important;
+    margin-right:10%;
+    font-size: 2rem;
+    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+  }
+}
+
+.solution {
+  height:80%;
+  width: 100%;
+  background-image: linear-gradient(180deg, lightblue, teal);
+  transform: rotate(-5deg) skew(-5deg) translateY(25rem);
+
+  & > * {
+    transform: rotate(5deg) skew(5deg);
+  }
+
+  .solution-heading {
+    float: right !important;
+    margin-right:10%;
+    font-size: 2rem;
+    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+  }
 }

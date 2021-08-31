@@ -1,11 +1,10 @@
-import { Breakpoint } from './../../../models/breakpoint.model';
 import { Component, OnInit } from '@angular/core';
+import { Breakpoint } from './../../../models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
-import { ActivatedRoute } from '@angular/router';
 
 export interface paginator {
   length: number;
@@ -15,11 +14,11 @@ export interface paginator {
 }
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss'],
+  selector: 'app-all-companies',
+  templateUrl: './all-companies.component.html',
+  styleUrls: ['./all-companies.component.scss'],
 })
-export class AdminDashboardComponent implements OnInit {
+export class AllCompaniesComponent implements OnInit {
   public isSmall: any;
   public paginator: paginator;
   public companies: Company[];
@@ -69,10 +68,11 @@ export class AdminDashboardComponent implements OnInit {
       console.log(this.companies);
     });
   }
+
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    console.log(this.paginator);
+    // console.log(this.paginator);
   }
 
   OnSearchSelect() {}

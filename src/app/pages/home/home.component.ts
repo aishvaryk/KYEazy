@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit,OnDestroy {
 
     this.loginService=loginService;
     this.store.select('breakpoint').subscribe((breakpoint) => {
-      if(breakpoint.isXs || breakpoint.isSm) {
+      if(breakpoint.isXs || breakpoint.isSm)  {
         this.isSmall = true;
         this.flexDirection = "column";
       }

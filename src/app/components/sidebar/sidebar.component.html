@@ -10,7 +10,7 @@
       fixedInViewport="false"
     >
       <mat-nav-list>
-
+        <!-- if route is for company and 3 menus will be dashboard, Employees,Register -->
         <a
           mat-list-item
           class="sidenav-list-item"
@@ -49,7 +49,7 @@
         <a
           mat-list-item
           class="sidenav-list-item"
-          routerLink="/admin/dashboard"
+          routerLink="/admin/all-employees"
           *ngIf="currentRoute.substring(1, 4) === 'adm'"
         >
           Employees</a
@@ -58,7 +58,7 @@
         <a
           mat-list-item
           class="sidenav-list-item"
-          routerLink="/admin/dashboard"
+          routerLink="/admin/all-companies"
           *ngIf="currentRoute.substring(1, 4) === 'adm'"
         >
           Companies</a

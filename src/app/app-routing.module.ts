@@ -1,3 +1,6 @@
+import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
+import { LoginComponent } from './components/login/login.component';
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -15,6 +18,7 @@ import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './services/auth.guard';
+// import { LoginComponent } from './pages/admin/login/login.component';
 
 const routes: Routes = [
   {
@@ -82,6 +86,19 @@ const routes: Routes = [
         path: 'employee/profile',
         component: ProfileComponent,
         canActivate:[AuthGuard]
+
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'all-employees',
+        component: AdminAllEmployeesComponent
+      },
+      {
+        path: 'all-companies',
+        component: AllCompaniesComponent
       }
     ]
   },

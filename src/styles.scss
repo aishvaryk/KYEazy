@@ -11,6 +11,7 @@
 html {
   height: 100vh;
   width: 100vw;
+  font-size: 10px;
 }
 
 body {
@@ -46,6 +47,8 @@ $my-theme: mat.define-light-theme((
 @include mat.stepper-theme($my-theme);
 @include mat.input-theme($my-theme);
 @include mat.form-field-theme($my-theme);
+@include mat.tabs-theme($my-theme);
+
 @include mat.tabs-theme($my-theme);
 
 ::-webkit-scrollbar {

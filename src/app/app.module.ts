@@ -8,15 +8,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
-import {​​​MatToolbarModule}​​​ from'@angular/material/toolbar';
-import {​​​MatIconModule}​​​ from'@angular/material/icon';
-import {​​​MatMenuModule}​​​ from'@angular/material/menu';
-import {​​​MatDividerModule}​​​ from'@angular/material/divider';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -26,6 +17,7 @@ import { MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 import { AppComponent } from './app.component';
 
@@ -61,6 +53,7 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
+
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -69,6 +62,15 @@ import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 import { LoginService } from './services/Login/login.service';
 import { AuthGuard } from './services/auth.guard';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
+import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
+import { MaterialModule } from './modules/material/material.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,10 @@ import { AuthInterceptor } from './services/auth.interceptor';
     CompanyComponent,
     EmployeesComponent,
     ViewEmployessComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminLoginComponent,
+    AdminAllEmployeesComponent,
+    AllCompaniesComponent
   ],
   imports: [
     StoreModule.forRoot({
@@ -112,22 +117,17 @@ import { AuthInterceptor } from './services/auth.interceptor';
     }),
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
     BrowserAnimationsModule,
      FlexLayoutModule,
     HttpClientModule,
-    MatStepperModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
+
     MatRadioModule,
     MatSelectModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
+
     MatSidenavModule,
     MatExpansionModule,
     MatCardModule,
@@ -135,7 +135,14 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatPaginatorModule,
     NgxChartsModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxChartsModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule
+
   ],
   providers: [
     LoginService,

@@ -5,11 +5,12 @@ import { Employee } from 'src/app/models/employee.model';
 import { Subject } from 'rxjs';
 import { Byte } from '@angular/compiler/src/util';
 import { Company } from 'src/app/models/company.model';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminService {
-  employees:Employee[];
+  employees: Employee[];
   public employee: Employee;
   public employeeSubject:Subject<Employee>;
   public companies:Company[];
@@ -31,23 +32,19 @@ export class AdminService {
   {
     console.log("Admin")
   }
-  viewAllApplications(pageSize:number,pageNumber:number):void{
-    this.httpClient.get(`http://localhost:8085/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
-    .subscribe((results: Employee[]) => {
-      this.employees=results;
+  viewAllApplications(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        this.employees = results;
         this.employeesSubject.next(this.employees);
+      });
+  }
 
-  });
-}
-  viewPendingApplications(pageSize:number,pageNumber:number):void{
-    this.httpClient.get(`http://localhost:8085/admin/view-pending-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
-    .subscribe((results: Employee[]) => {
-      this.employees=results;
-        this.employeesSubject.next(this.employees);
 
-  });
-
-}
 getEmployeeVideo(username:string)
 {
   this.httpClient.get(`http://localhost:8085/admin/get-video/${username}`,{responseType:"arraybuffer"})
@@ -89,17 +86,43 @@ verifyEmployeeDetails(id:number,status:string):void{
   .subscribe((results: Employee) => {
     this.employee=results;
       this.employeeSubject.next(this.employee);
+  })}
+  getAllEmployeeByName(name: string, pageSize: number, pageNumber: number): void {
+    // in url do I have to provide pagesize and page number
+    this.httpClient
+      .get(`http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`)
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        console.log(results);
+        this.employees = results;
+        this.employeesSubject.next(results);
+      });
+  }
 
-});
-}
 
-getCompanies(pageSize:number,pageNumber:number):void{
-  this.httpClient.get(`http://localhost:8085/admin/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Company[]))
-  .subscribe((results: Company[]) => {
-    this.companies=results;
-      this.companiesSubject.next(this.companies);
+  viewPendingApplications(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/view-pending-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        this.employees = results;
+        this.employeesSubject.next(this.employees);
+      });
+  }
 
-});
-}
+  getCompanies(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Company[]))
+      .subscribe((results: Company[]) => {
+        this.companies = results;
+        this.companiesSubject.next(this.companies);
+      });
+  }
+
 
 }

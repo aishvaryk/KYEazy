@@ -1,9 +1,25 @@
-<div class="home-container">
-  <div class="home" fxLayout="row" fxLayoutAlign="center center">
-    <!-- left view -->
-    <div class="left" fxFlex="50">
-      <!-- heading -->
-      <div class="heading">
+<div class="home">
+
+  <div class="login" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="10"></div>
+
+    <div
+      class="left"
+      fxFlex="40"
+      fxFlex.sm="80"
+      fxFlex.xs="80"
+      fxLayout="column"
+      fxLayoutAlign="space-around start"
+    >
+
+      <div
+      [ngClass.xs]="'heading-small'"
+      [ngClass.sm]="'heading-small'"
+      [ngClass.md]="'heading-small'"
+      [ngClass.lg]="'heading-large'"
+      [ngClass.xl]="'heading-large'"
+
+      >
         Verifying employees <br />
         for great companies.
       </div>
@@ -59,29 +75,117 @@
         </div>
         <!-- for employee ends -->
       </div>
+
+      <br/>
+
+      <div
+        [ngClass.xs]="'login-small'"
+        [ngClass.sm]="'login-small'"
+        [ngClass.md]="'login-large'"
+        [ngClass.lg]="'login-large'"
+        [ngClass.xl]="'login-large'"
+
+        style="width: 30%;"
+      >
+        <button style="width:100%" mat-raised-button color="primary">Log In</button>
+      </div>
+
+      <br/>
+
+      <div
+      >
+        Don't have account ?<a style="text-decoration: none;color: teal;" routerLink="/company/signup"> Sign up</a>
+      </div>
+
     </div>
-    <!-- left view ends -->
-    <!-- right view -->
+
+    <div fxFlex="5"></div>
+
     <div class="right" fxFlex="40" *ngIf="!isSmall">
       <img src="/assets/images/homepage.png" alt="homepage" />
     </div>
-    <!-- right view ends -->
+
+    <div fxFlex="5"></div>
   </div>
+
   <div class="about">
-    <div class="parent">
-      <div class="container">
-        <div class="box">Hello</div>
+    <div
+    [ngClass.xs]="'about-heading'"
+    [ngClass.sm]="'about-heading'"
+    [ngClass.md]="'about-heading'"
+    [ngClass.lg]="'about-heading'"
+    [ngClass.xl]="'about-heading'"
+    >
+      <b>About us</b>
+    </div>
+
+    <div
+    [ngClass.lt-md]="'card-container-small'"
+    [ngClass.gt-sm]="'card-container'">
+      <div
+      [ngClass.lt-md]="'card-small'"
+      [ngClass.gt-sm]="'card'"
+      >
       </div>
-      <div class="container">
-        <div class="box">Hello</div>
+      <div
+      [ngClass.lt-md]="'card-small'"
+      [ngClass.gt-sm]="'card'"
+      >
       </div>
-      <div class="container">
-        <div class="box">Hello</div>
+      <div
+      [ngClass.lt-md]="'card-small'"
+      [ngClass.gt-sm]="'card'"
+      >
       </div>
     </div>
   </div>
-  <div class="some"></div>
-  <div class="home-footer">
-    <app-footer></app-footer>
+
+  <div class="service">
+    <div
+    [ngClass.xs]="'service-heading'"
+    [ngClass.sm]="'service-heading'"
+    [ngClass.md]="'service-heading'"
+    [ngClass.lg]="'service-heading'"
+    [ngClass.xl]="'service-heading'"
+    >
+      <b>Our Services</b>
+    </div>
   </div>
+
+  <div class="team">
+    <div
+    [ngClass.xs]="'team-heading'"
+    [ngClass.sm]="'team-heading'"
+    [ngClass.md]="'team-heading'"
+    [ngClass.lg]="'team-heading'"
+    [ngClass.xl]="'team-heading'"
+    >
+      <b>Our Team</b>
+    </div>
+  </div>
+
+  <div class="product">
+    <div
+    [ngClass.xs]="'product-heading'"
+    [ngClass.sm]="'product-heading'"
+    [ngClass.md]="'product-heading'"
+    [ngClass.lg]="'product-heading'"
+    [ngClass.xl]="'product-heading'"
+    >
+      <b>Our Product</b>
+    </div>
+  </div>
+
+  <div class="solution">
+    <div class="solution-heading">
+      <b>Our Solutions</b>
+    </div>
+  </div>
+
+ <!--
+  <div class="home-footer">
+    <app-footer ></app-footer>
+  </div>
+ -->
+
 </div>

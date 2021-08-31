@@ -1,7 +1,7 @@
 .pwdField{
   width: 23%;
 }
-.mat-form-field{
+.mat-form-field, .btn-width{
   width: 40%;
 }
 .signupHeading
@@ -14,3 +14,22 @@ textarea{
   resize: none;
 
 }
+
+.card {
+  background: white;
+  box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 50px;
+  padding-top: 10px;
+
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  // width: 90%;
+
+}
+
+// .btn-width {
+//   width: 40%;}
