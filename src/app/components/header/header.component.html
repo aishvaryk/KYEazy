@@ -4,17 +4,17 @@
     <div class="menu-logo" fxLayout="row" fxLayoutAlign="start center">
       <button mat-icon-button color="primary"
         (click)="toggleMenu()"
-        *ngIf="deviceSmall && !isOpen"
+        *ngIf="deviceSmall && !isHome"
         class="menu-button">
         <mat-icon>menu</mat-icon>
       </button>
 
-      <button mat-icon-button color="primary"
+      <!-- <button mat-icon-button color="primary"
         (click)="toggleMenu()"
         *ngIf="deviceSmall && isOpen"
         class="menu-button">
         <mat-icon>clear</mat-icon>
-      </button>
+      </button> -->
 
 
       <div class="logo">
@@ -37,14 +37,14 @@
       </button>
       </div>
       <div class="small-header-buttons" *ngIf="deviceSmall" >
-        <button mat-icon-button color="primary">
-          <mat-icon *ngIf='isHome' >info_outlined</mat-icon>
+        <button mat-icon-button color="primary"  *ngIf='isHome'>
+          <mat-icon >info_outlined</mat-icon>
         </button>
-        <button mat-icon-button color="primary">
-          <mat-icon *ngIf='isHome' >contact_support</mat-icon>
+        <button mat-icon-button color="primary" *ngIf='isHome'>
+          <mat-icon  >contact_support</mat-icon>
         </button>
-        <button mat-icon-button color="primary">
-          <mat-icon *ngIf='loginService.isLoggedIn()' (click) = "doLogout()">logout</mat-icon>
+        <button mat-icon-button color="primary" *ngIf='loginService.isLoggedIn()'>
+          <mat-icon  (click) = "doLogout()">logout</mat-icon>
         </button>
     </div>
 

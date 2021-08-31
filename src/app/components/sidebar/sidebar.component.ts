@@ -29,17 +29,25 @@ export class SidebarComponent implements OnInit {
         this.hasBackdrop = false;
         this.sidenavMode = "side"
       }
+
+      this.store.select('route').subscribe((route)=> {
+        if( route === "/company/signup") {
+          this.sidenavOpen=false;
+        }
+        else {
+          if (breakpoint.isSm||breakpoint.isXs ) {
+          this.sidenavOpen=false;
+          }
+          else {
+            this.sidenavOpen=true;
+
+          }
+        }
+        this.currentRoute=route;
+      })
     })
 
-    this.store.select('route').subscribe((route)=> {
-      if( route === "/company/signup") {
-        this.sidenavOpen=false;
-      }
-      else {
-        this.sidenavOpen=true;
-      }
-      this.currentRoute=route;
-    })
+
 
     this.store.select('menu').subscribe((menu)=> this.sidenavOpen=menu);
 

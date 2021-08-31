@@ -18,7 +18,7 @@ import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './services/auth.guard';
-// import { LoginComponent } from './pages/admin/login/login.component';
+import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 
 const routes: Routes = [
   {
@@ -90,7 +90,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: AdminLoginComponent
       },
       {
         path: 'all-employees',
