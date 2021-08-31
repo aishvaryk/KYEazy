@@ -44,7 +44,6 @@ export class AdminService {
     pageSize: number,
     pageNumber: number
   ): void {
-    // in url do I have to provide pagesize and page number
     this.httpClient
       .get(
         `http://localhost:8085/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
@@ -55,6 +54,22 @@ export class AdminService {
         this.employees = results;
         this.employeesSubject.next(results);
       });
+  }
+
+  getAllCompanyByName(
+    name: string,
+    pageSize: number,
+    pageNumber: number
+  ): void {
+    this.httpClient
+      .get(
+        `http://localhost:8085/admin/companies-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+        .pipe(map((response) => response as Company[]))
+        .subscribe((results: Company[]) => {
+          this.companies = results;
+          this.companiesSubject.next(this.companies);
+        });
   }
 
   getAllEmployeesSortedByName(pageSize: number, pageNumber: number): void {
