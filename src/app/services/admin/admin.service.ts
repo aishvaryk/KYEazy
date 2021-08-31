@@ -88,4 +88,5 @@ getCompanies(pageSize:number,pageNumber:number):void{
 });
 }
 
+
 }
