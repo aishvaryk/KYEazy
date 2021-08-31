@@ -154,6 +154,7 @@ export class EmployeesComponent implements OnInit {
     this.filter = event.value;
 
     if(this.filter==="verification-failed"){
+      console.log("Rejected");
       this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
