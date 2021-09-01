@@ -58,6 +58,8 @@ export class SignupComponent implements OnInit {
     this.companyAddress.street=this.form.value.address2;
     this.newCompany.address=this.companyAddress;
     this.companyService.register(this.newCompany);
+
+
   }
 
 }

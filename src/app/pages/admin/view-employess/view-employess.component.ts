@@ -162,7 +162,7 @@ export class ViewEmployessComponent implements OnInit {
     console.log(event.value);
     this.filter = event.value;
 
-    if(this.filter==="vefication-failed"){
+    if(this.filter==="verification-failed"){
       this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;

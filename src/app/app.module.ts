@@ -72,6 +72,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { CompanyGuard } from './company.guard';
 import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -107,6 +109,7 @@ import { CarouselComponent, TemplateMarker } from './components/carousel/carouse
     AllCompaniesComponent,
     CarouselComponent,
     TemplateMarker,
+    SnackbarComponent,
   ],
   imports: [
     StoreModule.forRoot({
@@ -128,6 +131,7 @@ import { CarouselComponent, TemplateMarker } from './components/carousel/carouse
     FormsModule,
     MaterialModule,
     NgxChartsModule,
+    MatSnackBarModule,
   ],
   providers: [
     LoginService,
@@ -138,7 +142,8 @@ import { CarouselComponent, TemplateMarker } from './components/carousel/carouse
      {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
-     }
+     },
+     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}
   ],
   bootstrap: [AppComponent]
 })

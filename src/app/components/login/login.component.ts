@@ -10,6 +10,8 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/Login/login.service';
 import { ModalComponent } from '../modal/modal.component';
+import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,7 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class LoginComponent implements OnInit {
   loginService:LoginService;
+  durationInSeconds=5;
   @Input()
   public type: any;
 
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
     role:""
   }
 
-  constructor(public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService,public errorDialog:MatDialog) {
+  constructor(public snackbar:MatSnackBar,public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService,public errorDialog:MatDialog) {
 
 
     this.form = new FormGroup({
@@ -47,7 +50,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  openSnackBar(message: string, action: string) {
+    // this.snackbar.openFromComponent(SnackbarComponent, {
+    //   duration: this.durationInSeconds * 1000,
+    // });
+    this.snackbar.open(message,action);
+  }
   onSubmit(): void
   {
     this.credentials.username=this.form.value.username;
@@ -68,12 +76,7 @@ export class LoginComponent implements OnInit {
         },
         (error:any)=>{
           console.log(error);
-          this.errorDialog.open(ModalComponent,{
-            data: {
-              type: "INFORMATION_PROMPTS",
-            },
-          });
-
+          this.openSnackBar("Invalid Employee Credentials","Retry");
         })
     }
 
@@ -113,13 +116,7 @@ export class LoginComponent implements OnInit {
         },
         (error:any)=>{
           console.log(error);
-          this.errorDialog.open(ModalComponent,{
-            data: {
-              type: "INFORMATION_PROMPTS",
-              error: "INVALID_COMPANY"
-            },
-          });
-
+          this.openSnackBar("Invalid Company Credentials","Retry");
         })
     }
 
