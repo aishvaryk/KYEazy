@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Address } from 'src/app/models/address.model';
 
@@ -19,6 +20,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 export class ReviewComponent implements OnInit {
   employee: Employee
   address: Address
+  @Input() stepper!:MatStepper;
 
   constructor(
     private employeeService :EmployeeService,

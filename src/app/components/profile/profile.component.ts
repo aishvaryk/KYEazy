@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -29,6 +30,8 @@ export class ProfileComponent implements OnInit {
   public adminService:AdminService;
   public isAdminPage:boolean;
   public isPending:boolean;
+
+  @Input() stepper!:MatStepper;
 
   @ViewChild('toPlay')
   public toPlay: any;

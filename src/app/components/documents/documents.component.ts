@@ -1,5 +1,6 @@
- import { Component, OnInit, ViewChild } from '@angular/core';
+ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Documents } from 'src/app/models/documents.model';
 import { setDocuments } from 'src/app/redux/actions/documents.actions';
@@ -11,6 +12,8 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
 })
 export class DocumentsComponent implements OnInit {
   form: any;
+
+  @Input() stepper!:MatStepper;
 
   constructor(public store: Store<{ documents: Documents }>) {
     this.form = new FormGroup({
@@ -42,6 +45,11 @@ export class DocumentsComponent implements OnInit {
     documents.documentType = this.form.value.documentType;
     console.log(this.form.value.documentNumber);
     this.store.dispatch(setDocuments(documents));
+    this.stepper.next();
+  }
+
+  onBack() {
+    this.stepper.previous();
   }
 
 }
