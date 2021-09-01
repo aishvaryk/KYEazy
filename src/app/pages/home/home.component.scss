@@ -1,10 +1,13 @@
 .home {
   overflow-y: auto;
+  overflow-x: hidden;
   height: 90%;
+  width: 100%;
 }
 
 .login {
   height: 90%;
+  width: 100%;
 }
 
 .left {
@@ -62,35 +65,20 @@
   }
 }
 
+
+
+
+
+
+
+
+
 .card-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100%;
   width: 100%;
-}
-
-.card-container-small {
-  overflow: auto;
-  white-space: nowrap;
-  height: 100%;
-  width: 100%;
-}
-
-.card-small {
-  background: white;
-  border-radius: 5px;
-  margin-top: 35%;
-  margin-right: 5%;
-  display: inline-block;
-  padding: 5px;
-  height: 57%;
-  width: 90%;
-  transition: all 1s ease-in-out;
-  &:hover {
-    transform: scale(1.2);
-    transition: all 0.5s ease-in-out;
-  }
 }
 
 .card {
@@ -100,15 +88,55 @@
   padding: 5px;
   height: 57%;
   width: 15%;
-  transition: all 1s ease-in-out;
+
+  //transition: all 1s ease-in-out;
   &:hover {
     transform: scale(1.2);
     transition: all 0.5s ease-in-out;
   }
 }
 
-.home-footer {
-  transform: translateY(10rem);
+.card-container-small {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+  transform: rotate(5deg) skew(5deg) translateY(7rem) !important;
+}
+
+.card-small {
+  background: white;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px;
+  margin-right: 15%;
+  margin-left: 15%;
+  height: 70%;
+  width: 70%;
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.5s ease-in-out;
+  }
+}
+
+.card-container-small::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.card-container-small::-webkit-scrollbar-track {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.card-container-small::-webkit-scrollbar-thumb {
+  background:transparent;
+  border-radius: 0;
+}
+
+.card-container-small::-webkit-scrollbar-thumb:hover {
+  background: transparent;
 }
 
 .about {
@@ -125,25 +153,26 @@
     float: right !important;
     margin-right:10%;
     font-size: 2rem;
-    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+    transform: rotate(5deg) skew(5deg) translateY(5rem) !important;
   }
 }
+
 
 .service {
   height:80%;
   width: 100%;
   background-image: linear-gradient(180deg, lightblue, teal);
-  transform: rotate(-5deg) skew(-5deg) translateY(10rem);
+  // transform: rotate(-5deg) skew(-5deg) translateY(10rem);
 
-  & > * {
-    transform: rotate(5deg) skew(5deg);
-  }
+  // & > * {
+  //   transform: rotate(5deg) skew(5deg);
+  // }
 
   .service-heading {
     float: right !important;
     margin-right:10%;
     font-size: 2rem;
-    transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
+    //transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
   }
 }
 
@@ -200,4 +229,8 @@
     font-size: 2rem;
     transform: translateY(5rem) rotate(5deg) skew(5deg)  !important;
   }
+}
+
+.home-footer {
+  transform: translateY(10rem);
 }

@@ -49,8 +49,6 @@ $my-theme: mat.define-light-theme((
 @include mat.form-field-theme($my-theme);
 @include mat.tabs-theme($my-theme);
 
-@include mat.tabs-theme($my-theme);
-
 ::-webkit-scrollbar {
   width: 10px;
 }

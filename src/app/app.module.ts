@@ -71,6 +71,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { CompanyGuard } from './company.guard';
+import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,9 @@ import { CompanyGuard } from './company.guard';
     ProfileComponent,
     AdminLoginComponent,
     AdminAllEmployeesComponent,
-    AllCompaniesComponent
+    AllCompaniesComponent,
+    CarouselComponent,
+    TemplateMarker,
   ],
   imports: [
     StoreModule.forRoot({
@@ -121,28 +124,10 @@ import { CompanyGuard } from './company.guard';
     BrowserAnimationsModule,
      FlexLayoutModule,
     HttpClientModule,
-    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-
-    MatRadioModule,
-    MatSelectModule,
-
-    MatSidenavModule,
-    MatExpansionModule,
-    MatCardModule,
-    MatListModule,
-    MatPaginatorModule,
+    MaterialModule,
     NgxChartsModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-    NgxChartsModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule
-
   ],
   providers: [
     LoginService,

@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
-import { LoginService } from 'src/app/services/Login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +11,7 @@ import { LoginService } from 'src/app/services/Login/login.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit,OnDestroy {
-  loginService:LoginService;
+
   public isSmall: any;
   public flexDirection: any;
   public user: any;
@@ -20,11 +19,8 @@ export class HomeComponent implements OnInit,OnDestroy {
   constructor(
     public observer: MediaObserver,
     public dialog: MatDialog,
-    public store: Store<{ breakpoint: Breakpoint }>,
-    loginService:LoginService
+    public store: Store<{ breakpoint: Breakpoint }>
     ) {
-
-    this.loginService=loginService;
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if(breakpoint.isXs || breakpoint.isSm)  {
         this.isSmall = true;
@@ -40,7 +36,6 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     console.log(localStorage);
-   this.loginService.logout();
   }
 
 
@@ -62,6 +57,22 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  next() {
+    document.getElementById("3")?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+
+  prev() {
+    document.getElementById("2")?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
   }
 
   }
