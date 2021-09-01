@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Details } from 'src/app/models/details.model';
 import { Employee } from 'src/app/models/employee.model';
@@ -12,6 +13,8 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
+
+  @Input() stepper!: MatStepper;
 
   form: any;
   employee:Employee
@@ -64,6 +67,7 @@ export class DetailsComponent implements OnInit {
   }
 
   onSave() {
+    if(this.form.status === "INVALID") return;
     let details = {} as Details;
     details.firstName = this.form.value.firstName;
     details.lastName = this.form.value.lastName;
@@ -76,6 +80,7 @@ export class DetailsComponent implements OnInit {
     details.country = this.form.value.country;
     details.email=this.form.value.email;
     this.store.dispatch(setDetails(details));
+    this.stepper.next();
   }
 
 }

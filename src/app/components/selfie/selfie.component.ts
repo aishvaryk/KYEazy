@@ -1,4 +1,5 @@
-  import { AfterViewInit, Component, ElementRef, OnInit, Self, ViewChild } from '@angular/core';
+  import { AfterViewInit, Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Selfie } from 'src/app/models/selfie.model';
 import { setSelfie } from 'src/app/redux/actions/selfie.actions';
@@ -10,6 +11,8 @@ import { setSelfie } from 'src/app/redux/actions/selfie.actions';
 })
 export class SelfieComponent
 {
+
+  @Input() stepper!:MatStepper;
 
   @ViewChild('video')
   public video: any;
@@ -56,6 +59,7 @@ export class SelfieComponent
     let selfie = {} as Selfie;
     selfie.image = imageFile;
     this.store.dispatch(setSelfie(selfie));
+    this.stepper.next();
   }
 
   draw(image: any) {
@@ -75,6 +79,10 @@ export class SelfieComponent
         console.error(e);
       }
     }
+  }
+
+  back() {
+    this.stepper.previous();
   }
 
 }

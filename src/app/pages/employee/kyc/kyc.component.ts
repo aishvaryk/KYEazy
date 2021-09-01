@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { MatStepper } from '@angular/material/stepper';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -10,6 +11,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class KycComponent implements OnInit {
 
+  @ViewChild('stepper') private stepper!: MatStepper;
   private observable: any;
   public orientation: any;
 

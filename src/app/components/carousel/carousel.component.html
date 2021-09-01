@@ -1,20 +1,20 @@
-<div fxLayout="row" fxLayoutAlign="center center" style="width:100%;height:80%;">
+<div fxLayout="row" fxLayoutAlign="center center" [ngClass]="'carousel-container'">
 
-  <div style="text-align: center;" fxFlex="10">
-    <img (click)="onPrevClick()" style="width: 32px; height: 32px;" src="/assets/images/left-arrow.png">
+  <div style="text-align: center;" fxFlex="7">
+    <button mat-stroked-button (click)="onPrevClick()" color="black"><mat-icon>arrow_back_ios</mat-icon></button>
   </div>
 
-  <div fxFlex="80" style="display:flex; flex-direction:column; width: 100%; height: 100%; flex-wrap: wrap; justify-content: space-around; align-items: center; overflow-x: scroll; overflow-y: hidden;">
-    <div style="width: 100%;height: 100%;border: 1px solid black" *ngFor="let slide of slides;let i=index">
-      <div [id]="name+i" style="width: 100%;height: 100%;">
+  <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
+    <div style="width:100%; height: 100%;" *ngFor="let slide of slides;let i=index">
+      <div [id]="name+i" style="width:100%; height: 100%;">
         <ng-template #template [ngTemplateOutlet]="slide.template">
         </ng-template>
       </div>
     </div>
   </div>
 
-  <div style="text-align: center;" fxFlex="10">
-    <img (click)="onNextClick()" style="width: 32px; height: 32px;" src="/assets/images/right-arrow.png">
+  <div style="text-align: center;" fxFlex="7">
+    <button mat-stroked-button (click)="onNextClick()" color="black"><mat-icon>arrow_forward_ios</mat-icon></button>
   </div>
 
 </div>
