@@ -161,6 +161,7 @@
         <button
           mat-raised-button
           color="primary"
+          routerLink="/admin/employee/profile/{{employee.employeeId}}"
           [ngClass]="{
             'employee-buttons-mobile': isSmall,
             'employee-buttons': !isSmall

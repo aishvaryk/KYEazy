@@ -28,6 +28,8 @@
 }
 
 
+
+.pie-chart-legend {
 ::ng-deep .advanced-pie-legend {
   // margin-top: 20px;
   .total-value {
@@ -42,11 +44,19 @@
     .legend-item{
       height: 100%;
       cursor: unset !important;
+      .item-value {
+        font-size: 18px !important;
+      }
+      .item-percent {
+        font-size: 18px !important;
+      }
     }
     .item-color {
       height: 65px !important;
     }
+
   }
+}
 }
 
 ::ng-deep .advanced-pie{

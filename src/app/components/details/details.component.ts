@@ -67,16 +67,16 @@ export class DetailsComponent implements OnInit {
 
   onSave() {
     let details = {} as Details;
-    details.firstName = this.form.value.firstName;
-    details.lastName = this.form.value.lastName;
+    details.firstName = this.form.getRawValue().firstName;
+    details.lastName = this.form.getRawValue().lastName;
     details.gender = this.form.value.gender;
     details.addressLine1 = this.form.value.addressLine1;
     details.addressLine2 = this.form.value.addressLine2;
     details.city = this.form.value.city;
-    details.contact = this.form.value.contact;
+    details.contact = this.form.getRawValue().contact;
     details.state = this.form.value.state;
     details.country = this.form.value.country;
-    details.email=this.form.value.email;
+    details.email=this.form.getRawValue().email;
     this.store.dispatch(setDetails(details));
   }
 

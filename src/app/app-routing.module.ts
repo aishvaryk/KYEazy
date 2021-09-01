@@ -113,6 +113,11 @@ const routes: Routes = [
         path: 'all-companies',
         component: AllCompaniesComponent,
         canActivate: [AdminGuard]
+      },
+      {
+        path: 'employee/profile/:employeeId',
+        component: ProfileComponent,
+        canActivate: [AdminGuard]
       }
     ]
   },

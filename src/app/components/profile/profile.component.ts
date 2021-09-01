@@ -177,5 +177,8 @@ export class ProfileComponent implements OnInit {
     return 'data:image/jpeg;base64,' + img;
   }
 
+  viewDocument(){
+    window.open("https://www.google.com/", '_blank');
+  }
 
   }
