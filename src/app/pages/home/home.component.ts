@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
+import { LoginService } from 'src/app/services/Login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit,OnDestroy {
   constructor(
     public observer: MediaObserver,
     public dialog: MatDialog,
-    public store: Store<{ breakpoint: Breakpoint }>
+    public store: Store<{ breakpoint: Breakpoint }>,
+    public loginService:LoginService
     ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if(breakpoint.isXs || breakpoint.isSm)  {
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loginService.logout();
     console.log(localStorage);
   }
 

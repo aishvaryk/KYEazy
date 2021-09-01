@@ -10,6 +10,8 @@ import { Employee } from 'src/app/models/employee.model';
 import { Liveliness } from 'src/app/models/liveliness.model';
 import { Selfie } from 'src/app/models/selfie.model';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
+import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
+import { LoginService } from 'src/app/services/Login/login.service';
 
 @Component({
   selector: 'app-review',
@@ -21,6 +23,8 @@ export class ReviewComponent implements OnInit {
   address: Address
 
   constructor(
+    public snackbar:MatSnackBar,
+    public loginService:LoginService,
     private employeeService :EmployeeService,
     public store: Store<{
       details: Details,
@@ -37,6 +41,12 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  openSnackBar(message: string, action: string) {
+    // this.snackbar.openFromComponent(SnackbarComponent, {
+    //   duration: this.durationInSeconds * 1000,
+    // });
+    this.snackbar.open(message,action);
   }
 addEmployee()
 {
@@ -59,6 +69,8 @@ addEmployee()
   this.employee.address=this.address;
 
   this.employeeService.updateProfile(this.employee);
+  this.openSnackBar("Sucessfully Submitted","Okay");
+  this.loginService.logout();
 });
 }
 }
