@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class LoginService {
   constructor(private httpClient:HttpClient,private router: Router) { }
   doLogin(credentials:any)
   {
-   return this.httpClient.post(`http://localhost:8085/token`,credentials)
+   return this.httpClient.post(`${environment.backendURL}/token`,credentials)
 
 
   }
