@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -30,9 +31,11 @@ export class ProfileComponent implements OnInit {
   public isAdminPage:boolean;
   public isPending:boolean;
 
+  @Input() stepper!:MatStepper;
+
   @ViewChild('toPlay')
   public toPlay: any;
-
+  employeeImage: any
   constructor(employeeService:EmployeeService,private activatedRoute:ActivatedRoute,companyService:CompanyService,public store: Store<{route: string,details: Details,
     documents: Documents,selfie: Selfie,liveliness: Liveliness,}>,adminService:AdminService) {
     this.employee={} as Employee;
@@ -40,6 +43,7 @@ export class ProfileComponent implements OnInit {
     this.employeeId=0;
     this.isAdminPage=false;
     this.isPending=false;
+
     this.address={} as Address;
     this.company={} as Company;
     this.companyService=companyService;
@@ -68,8 +72,12 @@ export class ProfileComponent implements OnInit {
           this.store.select('documents').subscribe((documents) =>{
             this.employee.documentType=documents.documentType;
             this.employee.documentNumber=documents.documentNumber;
+
           });
-          this.store.select('selfie').subscribe((selfie) => console.log(selfie));
+          this.store.select('selfie').subscribe((selfie) =>{
+            this.employeeImage=selfie
+            console.log(selfie)
+          } );
           this.store.select('liveliness').subscribe((liveliness) => console.log(liveliness));
         }
         else if(route.substring(1,4) ==='adm'){
@@ -177,5 +185,8 @@ export class ProfileComponent implements OnInit {
     return 'data:image/jpeg;base64,' + img;
   }
 
+  viewDocument(){
+    window.open("https://www.google.com/", '_blank');
+  }
 
   }

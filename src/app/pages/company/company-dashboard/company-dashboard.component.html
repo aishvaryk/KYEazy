@@ -5,9 +5,9 @@
 
   >
   <div class="pie-chart-container" fxLayout="row"
-  fxLayoutAlign="space-around center"
-  fxLayout.xs="column">
-    <div class="pie-chart">
+  fxLayoutAlign="start center"
+  fxLayout.lt-md="column">
+    <div class="pie-chart" *ngIf="!zeroEmployees">
     <ngx-charts-pie-chart
       [view]="chartView"
       [scheme]="colorScheme"
@@ -27,6 +27,7 @@
   [ngClass.gt-xs]="'pie-chart-legend'"
   [ngClass.xs]="'pie-chart-legend-mobile'"
   fxLayout="row" fxLayoutAlign="end"
+  fxLayoutAlign.lt-md="center"
   >
 
     <ngx-charts-advanced-pie-chart
@@ -44,7 +45,7 @@
 
   [ngClass.gt-xs]="'container-card'"
   [ngClass.lt-sm]="'container-card-mobile'"
-
+  *ngIf="!zeroEmployees"
   >
   <mat-card [ngClass]="{ 'employee-card-mobile': isSmall, 'employee-card': !isSmall }" fxLayout="row"
     fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="space-between start"

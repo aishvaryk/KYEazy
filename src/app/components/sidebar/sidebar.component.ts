@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
       }
 
       this.store.select('route').subscribe((route)=> {
-        if( route === "/company/signup") {
+        if( route === "/company/signup" || route==="/admin/login") {
           this.sidenavOpen=false;
         }
         else {

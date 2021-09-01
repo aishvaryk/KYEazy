@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { map } from 'rxjs/operators';
@@ -11,6 +12,8 @@ import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
 import { LoginService } from '../Login/login.service';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,9 +27,10 @@ export class CompanyService {
   public companySubject:Subject<Company>;
   public actionDTOSubject:Subject<ActionDTO>;
   public registrationStatus:ActionDTO;
+
   public APIResponse: ActionDTO | exceptionDTO;
 
-  constructor(private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
+  constructor(private snackbar:MatSnackBar,private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
     //this.employees
     this.employees=[];
     this.registrationStatus={} as ActionDTO;
@@ -38,6 +42,10 @@ export class CompanyService {
     this.company={ } as Company;
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
+  openSnackBar(message: string, action: string) {
+
+    this.snackbar.open(message,action);
+  }
 
   login(credentials:any):any
   {
@@ -47,23 +55,23 @@ export class CompanyService {
 
   }
   register(newCompany:Company): void{
-    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
+    this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO)) .subscribe(
       data =>{ console.log('success', data);
-      this.dialog.open(ModalComponent,{
-        data: {
-          type:"INFORMATION_PROMPTS",
-          error: "SUCCESSFUL"
-        }
-      });
+       this.dialog.open(ModalComponent,{
+          data: {
+            type:"COMPANY_LOGIN",
+            error: "SUCCESSFUL"
+          }
+        });
+    this.openSnackBar("Sucessfully Submitted","Okay");
+
+
     }
       ,
       error =>{console.log(error.message)
-        this.dialog.open(ModalComponent,{
-            data: {
-              type:"INFORMATION_PROMPTS",
-              error: "COMPANY_REGISTER"
-            }
-          });
+        this.openSnackBar("Company Already Exists","Okay");
+
+
         }
     );
 
@@ -95,7 +103,7 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
     //let options = new RequestOptions({ headers: header, method: 'post'});
 
 
-    this.httpClient.get(`http://localhost:8085/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+    this.httpClient.get(`${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
 
 
@@ -105,26 +113,19 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 registerEmployee(newEmployee:Employee,companyId:number): void{
-  this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
+  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
   .subscribe(
   data => {
       console.log(data);
       this.registrationStatus=data;
       this.actionDTOSubject.next(data);
-      this.dialog.open(ModalComponent,{
-        data: {
-          type:"INFORMATION_PROMPTS",
-          error: "SUCCESSFUL"
-        }
-      });
+      this.openSnackBar("Successfully registered","Okay");
+
+
 },
 error =>{console.log(error.message)
-  this.dialog.open(ModalComponent,{
-      data: {
-        type:"INFORMATION_PROMPTS",
-        error: "USER_EXIST"
-      }
-    });
+  this.openSnackBar("Error in registration","Okay");
+
   }
 
 );
@@ -132,7 +133,7 @@ error =>{console.log(error.message)
 
 
 registerEmployees(newEmployee:FormData,companyId:number): void{
-  this.httpClient.post<ActionDTO>(`http://localhost:8085/company/register-employees/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
+  this.httpClient.post<ActionDTO>(`${environment.backendURL}/company/register-employees/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
   .subscribe((results: ActionDTO) => {
       console.log(results);
       this.registrationStatus=results;
@@ -142,7 +143,7 @@ registerEmployees(newEmployee:FormData,companyId:number): void{
 }
 
 getEmployeeByName(id:number,name:string): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-by-name/${id}/${name}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-by-name/${id}/${name}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -153,7 +154,7 @@ getEmployeeByName(id:number,name:string): void{
 
 
 getEmployeesWithPendingKYC(id:number,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-with-pending-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-with-pending-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -162,7 +163,7 @@ getEmployeesWithPendingKYC(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 getRegisteredEmployees(id:number,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-registered-employee/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-registered-employee/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -171,7 +172,7 @@ getRegisteredEmployees(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 getEmployeesWithRejectedKYC(id:number,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-with-rejected-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-with-rejected-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -180,7 +181,7 @@ getEmployeesWithRejectedKYC(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 getEmployeesByDateOfApplication(id:number,date:string,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-by-date-of-application/${id}/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-by-date-of-application/${id}/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -189,7 +190,7 @@ getEmployeesByDateOfApplication(id:number,date:string,pageSize:number,pageNumber
 });}
 
 getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/employees-by-status/${companyId}/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/employees-by-status/${companyId}/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -198,7 +199,7 @@ getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:n
 });}
 
 getEmployeesSortedByName(id:number,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-name/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-sorted-by-name/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -207,7 +208,7 @@ getEmployeesSortedByName(id:number,pageSize:number,pageNumber:number): void{
 });}
 
 getEmployeesSortedByDate(id:number,pageSize:number,pageNumber:number): void{
-  this.httpClient.get(`http://localhost:8085/company/get-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
+  this.httpClient.get(`${environment.backendURL}/company/get-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
       console.log(results);
       this.employees=results;
@@ -217,7 +218,7 @@ getEmployeesSortedByDate(id:number,pageSize:number,pageNumber:number): void{
 
 getCompanyDetails(id:number): void{
   console.log("ansnda");
-  this.httpClient.get(`http://localhost:8085/company/get-company-details/${id}`).pipe(map((response) => response as Company))
+  this.httpClient.get(`${environment.backendURL}/company/get-company-details/${id}`).pipe(map((response) => response as Company))
   .subscribe((results: Company) => {
       console.log(results);
       this.companySubject.next(results);
@@ -225,7 +226,7 @@ getCompanyDetails(id:number): void{
 });}
 
 updateProfile(newCompany:Company): void{
-  this.httpClient.patch<ActionDTO>(`http://localhost:8085/company/update-profile`,newCompany).pipe(map((response) => response as ActionDTO))
+  this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/update-profile`,newCompany).pipe(map((response) => response as ActionDTO))
   .subscribe((results: ActionDTO) => {
    // this.employees=results;
       console.log(results);

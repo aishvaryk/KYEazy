@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Liveliness } from 'src/app/models/liveliness.model';
 import { setLiveliness } from 'src/app/redux/actions/liveliness.actions';
@@ -11,6 +12,8 @@ declare var MediaRecorder: any;
   styleUrls: ['./liveliness.component.scss']
 })
 export class LivelinessComponent implements OnInit {
+
+  @Input() stepper!:MatStepper;
 
   @ViewChild('toCapture')
   public toCapture: any;
@@ -87,7 +90,11 @@ export class LivelinessComponent implements OnInit {
     liveliness.video = videoFile;
     liveliness.question = this.question;
     this.store.dispatch(setLiveliness(liveliness));
+    this.stepper.next();
+  }
 
+  back() {
+    this.stepper.previous();
   }
 
   retry() {

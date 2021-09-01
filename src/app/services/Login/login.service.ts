@@ -14,13 +14,20 @@ export class LoginService {
 
 
   }
+  setUserId(id:string)
+  {
+  localStorage.setItem("Id",id);
+  }
   getToken()
   {
     return localStorage.getItem("token")
   }
-  loginUser(token:string)
+  loginUser(token:string,id :string)
   {
     localStorage.setItem("token",token);
+    localStorage.setItem("Id",id);
+
+
     return true;
   }
   isLoggedIn()
@@ -35,6 +42,7 @@ export class LoginService {
   logout()
   {
     localStorage.removeItem("token");
+    localStorage.removeItem("Id");
     this.router.navigate(['/']);
   }
 }

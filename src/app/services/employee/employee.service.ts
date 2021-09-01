@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../Login/login.service';
+import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
+import { SnackbarComponent } from 'src/app/components/snackbar/snackbar.component';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +34,7 @@ export class EmployeeService {
 
    }
    updateProfile(newEmployee:Employee): void{
-    this.httpClient.patch<ActionDTO>(`http://localhost:8085/employee/update-profile`,newEmployee).pipe(map((response) => response as ActionDTO))
+    this.httpClient.patch<ActionDTO>(`${environment.backendURL}/employee/update-profile`,newEmployee).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
      // this.employees=results;
         console.log(results);
@@ -41,7 +45,7 @@ export class EmployeeService {
   }
 
     viewProfile(employeeId:number): void{
-    this.httpClient.get(`http://localhost:8085/employee/view-profile/${employeeId}`).pipe(map((response) => response as Employee))
+    this.httpClient.get(`${environment.backendURL}/employee/view-profile/${employeeId}`).pipe(map((response) => response as Employee))
     .subscribe((results: Employee) => {
         console.log(results);
         this.employee=results;

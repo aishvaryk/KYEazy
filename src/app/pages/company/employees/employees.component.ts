@@ -68,7 +68,12 @@ export class EmployeesComponent implements OnInit {
           this.isSmall = false;
         }
       });
-      this.companyService.getEmployees(1,10,1);
+    let k=localStorage.getItem("Id")
+
+      if(k!=null) {
+
+      this.companyService.getEmployees(parseInt(k),10,1);
+    }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
 
@@ -101,9 +106,13 @@ export class EmployeesComponent implements OnInit {
     {
       pageIndex=event.pageSize;
     }
+    let k=localStorage.getItem("Id")
 
-    this.companyService.getEmployees(1,event.pageSize,pageIndex);
-      this.companyService.employeesSubject.subscribe((employees)=>{
+    if(k!=null) {
+
+    this.companyService.getEmployees(parseInt(k),event.pageSize,pageIndex);
+    }
+    this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
     }
@@ -119,7 +128,12 @@ export class EmployeesComponent implements OnInit {
   }
   OnSearchSelect() {
     console.log(this.searchText);
-    this.companyService.getEmployeeByName(1,this.searchText);
+    let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+
+    this.companyService.getEmployeeByName(parseInt(k),this.searchText);
+    }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);
@@ -132,7 +146,13 @@ export class EmployeesComponent implements OnInit {
     console.log(event.value);
     this.sortBy = event.value;
     if(this.sortBy==="name"){
-    this.companyService.getEmployeesSortedByName(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+
+    this.companyService.getEmployeesSortedByName(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+
+    }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);
@@ -140,7 +160,12 @@ export class EmployeesComponent implements OnInit {
     );}
 
     if(this.sortBy==="date-registration"){
-      this.companyService.getEmployeesSortedByDate(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+
+      this.companyService.getEmployeesSortedByDate(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+    }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
@@ -155,8 +180,12 @@ export class EmployeesComponent implements OnInit {
 
     if(this.filter==="verification-failed"){
       console.log("rejected");
-      console.log("Rejected");
-      this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      let k=localStorage.getItem("Id")
+
+      if(k!=null) {
+
+      this.companyService.getEmployeesByStatus(parseInt(k),"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
@@ -164,7 +193,12 @@ export class EmployeesComponent implements OnInit {
       );}
 
       if(this.filter==="verification-completed"){
-        this.companyService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        let k=localStorage.getItem("Id")
+
+        if(k!=null) {
+
+        this.companyService.getEmployeesByStatus(parseInt(k),"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        }
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
           console.log(employees);
@@ -172,7 +206,12 @@ export class EmployeesComponent implements OnInit {
         );}
 
         if(this.filter==="verification-pending"){
-          this.companyService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+          let k=localStorage.getItem("Id")
+
+          if(k!=null) {
+
+          this.companyService.getEmployeesByStatus(parseInt(k),"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+          }
           this.companyService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
             console.log(employees);
@@ -180,7 +219,12 @@ export class EmployeesComponent implements OnInit {
           );}
 
           if(this.filter==="all"){
-            this.companyService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
+            let k=localStorage.getItem("Id")
+
+            if(k!=null) {
+
+            this.companyService.getEmployees(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+            }
             this.companyService.employeesSubject.subscribe((employees)=>{
               this.employees=employees;
               console.log(employees);

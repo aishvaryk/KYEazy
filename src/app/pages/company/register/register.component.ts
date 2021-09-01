@@ -76,9 +76,12 @@ export class RegisterComponent implements OnInit {
 
      const formData =  new FormData()
 formData.append('employeeCSV',this.form.get('document').value);
+let k=localStorage.getItem("Id")
 
-    this.companyService.registerEmployees(formData,1);
+    if(k!=null) {
 
+    this.companyService.registerEmployees(formData,parseInt(k));
+    }
   }
 
 
