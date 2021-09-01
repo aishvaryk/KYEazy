@@ -62,7 +62,12 @@ export class CompanyDashboardComponent implements OnInit {
     this.employees=[{}] as Employee[];
     this.company={} as Company;
     console.log(pieChartData);
-    this.companyService.getCompanyDetails(1);
+    let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+
+    this.companyService.getCompanyDetails(parseInt(k));
+    }
     this.companyService.companySubject.subscribe((company)=>{
       this.company=company;
       pieChartData[0].value=this.company.numberOfAcceptedEmployees;
@@ -88,7 +93,12 @@ export class CompanyDashboardComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
   ngOnInit(): void {
-    this.companyService.getEmployeesSortedByDate(1,2,1);
+    let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+
+    this.companyService.getEmployeesSortedByDate(parseInt(k),2,1);
+    }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);

@@ -62,7 +62,8 @@ export class LoginComponent implements OnInit {
       this.employeeService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
-         this.loginService.loginUser(response.token)
+         this.loginService.loginUser(response.token,response.id)
+         //this.loginService.setUserId(response.id)
          this.router.navigate(['/employee/kyc'])
         },
         (error:any)=>{
@@ -82,7 +83,7 @@ export class LoginComponent implements OnInit {
       this.adminService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
-         this.loginService.loginUser(response.token)
+         this.loginService.loginUser(response.token,"")
          this.router.navigate(['/admin/dashboard'])
         },
         (error:any)=>{
@@ -100,10 +101,14 @@ export class LoginComponent implements OnInit {
     if(this.type == "COMPANY_LOGIN") {
       this.credentials.role="COMPANY";
       localStorage.setItem('userType',"COMPANY")
+
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
-         this.loginService.loginUser(response.token)
+
+         this.loginService.loginUser(response.token,response.id)
+       //  this.loginService.setUserId(response.id)
+
          this.router.navigate(['/company/dashboard'])
         },
         (error:any)=>{

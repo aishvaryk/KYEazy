@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { filter, map } from 'rxjs/operators';
   styleUrls: ['./kyc.component.scss']
 })
 export class KycComponent implements OnInit {
+
 
   private observable: any;
   public orientation: any;

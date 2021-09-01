@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Details } from 'src/app/models/details.model';
@@ -16,6 +17,7 @@ export class DetailsComponent implements OnInit {
   form: any;
   employee:Employee
   isReadOnly=false
+
 
 
   constructor(private employeeService:EmployeeService,public store: Store<{ details: Details }>) {
@@ -36,12 +38,15 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let k=localStorage.getItem("Id")
 
-    this.employeeService.viewProfile(1);
+    if(k!=null) {
+     // console.log(parseInt(k))
+      this.employeeService.viewProfile(parseInt(k));
+    }
+
     this.employeeService.employeeSubject.subscribe((employee)=>{
-      console.log(employee.firstName)
       this.employee=employee;
-      console.log(this.employee.firstName)
       this.form = new FormGroup({
         firstName: new FormControl({value:this.employee.firstName,disabled:true}, Validators.required),
         lastName: new FormControl({value:this.employee.lastName,disabled:true}, Validators.required),
@@ -55,10 +60,7 @@ export class DetailsComponent implements OnInit {
         country: new FormControl(null, Validators.required)
 
       });
-      console.log(this.form)
-      console.log(this.isReadOnly)
-      this.isReadOnly=true;
-      console.log(this.isReadOnly)
+
   })
 
   }

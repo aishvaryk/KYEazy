@@ -24,6 +24,7 @@ export class CompanyService {
   public companySubject:Subject<Company>;
   public actionDTOSubject:Subject<ActionDTO>;
   public registrationStatus:ActionDTO;
+
   public APIResponse: ActionDTO | exceptionDTO;
 
   constructor(private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
@@ -47,14 +48,15 @@ export class CompanyService {
 
   }
   register(newCompany:Company): void{
-    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
+    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO)) .subscribe(
       data =>{ console.log('success', data);
-      this.dialog.open(ModalComponent,{
-        data: {
-          type:"INFORMATION_PROMPTS",
-          error: "SUCCESSFUL"
-        }
-      });
+       this.dialog.open(ModalComponent,{
+          data: {
+            type:"COMPANY_LOGIN",
+            error: "SUCCESSFUL"
+          }
+        });
+
     }
       ,
       error =>{console.log(error.message)

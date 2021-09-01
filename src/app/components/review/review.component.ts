@@ -19,6 +19,11 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 export class ReviewComponent implements OnInit {
   employee: Employee
   address: Address
+  details:Details
+  documents:Documents
+  selfie:Selfie
+  liveliness:Liveliness
+
 
   constructor(
     private employeeService :EmployeeService,
@@ -28,10 +33,16 @@ export class ReviewComponent implements OnInit {
       selfie: Selfie,
       liveliness: Liveliness,
     }>) {
-    this.store.select('details').subscribe((details) => console.log(details));
-    this.store.select('documents').subscribe((documents) => console.log(documents));
-    this.store.select('selfie').subscribe((selfie) => console.log(selfie));
-    this.store.select('liveliness').subscribe((liveliness) => console.log(liveliness));
+      this.details ={} as Details,
+      this.documents={} as Documents,
+      this.selfie={} as Selfie,
+      this.liveliness={} as Liveliness
+
+
+    this.store.select('details').subscribe((details) => this.details=details);
+    this.store.select('documents').subscribe((documents) => this.documents=documents);
+    this.store.select('selfie').subscribe((selfie) => this.selfie=selfie);
+      this.store.select('liveliness').subscribe((liveliness) =>this.liveliness=liveliness);
       this.employee={} as Employee;
       this.address ={} as Address;
   }
@@ -40,25 +51,29 @@ export class ReviewComponent implements OnInit {
   }
 addEmployee()
 {
-  console.log("adddddd")
-  this.store.select('details').subscribe((details) =>{
-  this.employee.employeeId=1;
-  this.address.streetNumber=details.addressLine1;
-  this.address.street=details.addressLine2;
-  this.address.country=details.country;
-  this.employee.firstName=details.firstName;
-  this.employee.lastName=details.lastName;
-  this.employee.contactNumber=details.contact;
-  if(details.gender==="m"){
+  let k=localStorage.getItem("Id");
+  if(k!=null)
+  {
+  this.employee.employeeId=parseInt(k);
+  }
+  this.address.streetNumber=this.details.addressLine1;
+  this.address.street=this.details.addressLine2;
+  this.address.country=this.details.country;
+  this.employee.firstName=this.details.firstName;
+  this.employee.lastName=this.details.lastName;
+  this.employee.contactNumber=this.details.contact;
+
+  if(this.details.gender==="m"){
     this.employee.gender="Male";
   }
-  if(details.gender==="f"){
+  if(this.details.gender==="f"){
     this.employee.gender="Female";
   }
-  this.employee.emailID=details.email;
+  this.employee.emailID=this.details.email;
   this.employee.address=this.address;
+  this.employee.documentNumber=this.documents.documentNumber;
+  this.employee.documentType=this.documents.documentType;
 
   this.employeeService.updateProfile(this.employee);
-});
 }
 }
