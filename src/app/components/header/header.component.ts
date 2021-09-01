@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { updateMenu } from 'src/app/redux/actions/menu.action';
 import { LoginService } from 'src/app/services/Login/login.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit {
   isOpen:boolean = false;
   loginService :LoginService;
   isHome:any;
+  backendURL=environment.backendURL
 
   breakpoint$: Observable<Breakpoint>;
 
@@ -30,7 +32,6 @@ export class HeaderComponent implements OnInit {
         this.store.dispatch(updateMenu(true))
       }
     });
-
     this.store.select('menu').subscribe((menu)=> this.isOpen=menu);
     this.loginService=loginService;
     this.store.select('route').subscribe((route)=>{

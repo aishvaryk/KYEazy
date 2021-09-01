@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { Byte } from '@angular/compiler/src/util';
 import { Company } from 'src/app/models/company.model';
 import { LoginService } from '../Login/login.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AdminService {
   public employeeVideoSubject:Subject<ArrayBuffer>;
   employeesSubject:Subject<Employee[]>
 
-    constructor(private httpClient:HttpClient,private loginService:LoginService, ) {
+    constructor(private httpClient:HttpClient,private loginService: LoginService ) {
 
     this.employees=[]
     this.employeesSubject=new Subject();
@@ -42,7 +43,7 @@ export class AdminService {
   viewAllApplications(pageSize: number, pageNumber: number): void {
     this.httpClient
       .get(
-        `http://localhost:8085/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
