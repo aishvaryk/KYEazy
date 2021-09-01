@@ -1,163 +1,85 @@
 <div class="profile-container" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card
-    [ngClass.gt-sm]="'profile-card-large'"
-    [ngClass.sm]="'profile-card-medium'"
-    [ngClass.xs]="'profile-card-mobile'"
-    fxLayout="column"
-  >
-    <div
-      class="card-container"
-      [ngClass.gt-sm]="'card-container-large'"
-      [ngClass.sm]="'card-container-medium'"
-      [ngClass.xs]="'card-container-mobile'"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-    >
-      <mat-card-header
-        [ngClass.gt-sm]="'profile-card-header-large'"
-        [ngClass.sm]="'profile-card-header-medium'"
-        [ngClass.xs]="'profile-card-header-mobile'"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <img
-          mat-card-avatar
-          [src]=formatImage(employee.capturedImage)
-          />
-        <mat-card-title class="profile-name"
-          >{{employee.firstName}} {{employee.lastName}}</mat-card-title
-        >
+  <mat-card [ngClass.gt-sm]="'profile-card-large'" [ngClass.sm]="'profile-card-medium'"
+    [ngClass.xs]="'profile-card-mobile'" fxLayout="column">
+    <div class="card-container" [ngClass.gt-sm]="'card-container-large'" [ngClass.sm]="'card-container-medium'"
+      [ngClass.xs]="'card-container-mobile'" fxLayout="column" fxLayoutAlign="start center">
+      <mat-card-header [ngClass.gt-sm]="'profile-card-header-large'" [ngClass.sm]="'profile-card-header-medium'"
+        [ngClass.xs]="'profile-card-header-mobile'" fxLayout="column" fxLayoutAlign="center center">
+        <!-- <img mat-card-avatar [src]="formatImage(employee.capturedImage)" /> -->
+        <img mat-card-avatar [src]="employeeImage" />
+        <mat-card-title class="profile-name">{{ employee.firstName }} {{ employee.lastName }}</mat-card-title>
       </mat-card-header>
 
-      <mat-card-content
-        class="profile-card-content"
-        fxLayout="column"
-        fxLayoutAlign="start start"
-      >
-        <div
-          class="profile-content-row address-container"
-          fxLayout="column"
-          fxLayoutAlign="center center"
-        >
-          <div
-            class="profile-element address"
-            fxLayout="column"
-            fxLayoutAlign="start center"
-          >
+      <mat-card-content class="profile-card-content" fxLayout="column" fxLayoutAlign="start start">
+        <div class="profile-content-row address-container" fxLayout="column" fxLayoutAlign="center center">
+          <div class="profile-element address" fxLayout="column" fxLayoutAlign="start center">
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              {{address.streetNumber}}, {{address.street}}</strong
-            >
+              {{ address.streetNumber }}, {{ address.street }}</strong>
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              {{address.city}}, {{address.state}}, {{address.country}}</strong
-            >
+              {{ address.city }}, {{ address.state }},
+              {{ address.country }}</strong>
             <div class="profile-component-detail">Address</div>
           </div>
         </div>
 
-        <div
-          class="profile-content-row contact info"
-          fxLayout.xs="column"
-          fxLayoutAlign.xs="center center"
-          fxLayout="row wrap"
-          fxLayoutAlign="space-between center"
-        >
-          <div
-            class="profile-element email"
-            fxLayout="column"
-            fxLayoutAlign="start start"
-            fxLayoutAlign.xs="start center"
-          >
-            <strong>{{employee.emailID}}</strong>
+        <div class="profile-content-row contact info" fxLayout.xs="column" fxLayoutAlign.xs="center center"
+          fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="profile-element email" fxLayout="column" fxLayoutAlign="start start"
+            fxLayoutAlign.xs="start center">
+            <strong>{{ employee.emailID }}</strong>
             <div class="profile-component-detail">Email-Address</div>
           </div>
-          <div
-            class="profile-element mobile-no"
-            fxLayout="column"
-            fxLayoutAlign="start end"
-            fxLayoutAlign.xs="start center"
-          >
-            <strong> {{employee.contactNumber}}</strong>
+          <div class="profile-element mobile-no" fxLayout="column" fxLayoutAlign="start end"
+            fxLayoutAlign.xs="start center">
+            <strong> {{ employee.contactNumber }}</strong>
             <div class="profile-component-detail">Mobile No.</div>
           </div>
         </div>
 
-        <div
-          class="profile-content-row contact info"
-          fxLayout.xs="column"
-          fxLayoutAlign.xs="center center"
-          fxLayout="row wrap"
-          fxLayoutAlign="space-between center"
-        >
-          <div
-            class="profile-element gender"
-            fxLayout="column"
-            fxLayoutAlign="start start"
-            fxLayoutAlign.xs="start center"
-          >
+        <div class="profile-content-row contact info" fxLayout.xs="column" fxLayoutAlign.xs="center center"
+          fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div class="profile-element gender" fxLayout="column" fxLayoutAlign="start start"
+            fxLayoutAlign.xs="start center">
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-              {{employee.gender}}</strong
-            >
+              {{ employee.gender }}</strong>
             <div class="profile-component-detail">Gender</div>
           </div>
-          <div
-            class="profile-element company"
-            fxLayout="column"
-            fxLayoutAlign="start end"
-            fxLayoutAlign.xs="start center"
-          >
-            <strong fxLayout="row wrap" fxLayoutAlign="center center"
-              >{{company.name}}</strong
-            >
+          <div class="profile-element company" fxLayout="column" fxLayoutAlign="start end"
+            fxLayoutAlign.xs="start center">
+            <strong fxLayout="row wrap" fxLayoutAlign="center center">{{
+              company.name
+              }}</strong>
             <div class="profile-component-detail">Company</div>
           </div>
         </div>
 
-        <div
-          class="profile-content-row contact info"
-          fxLayout="row wrap"
-          fxLayoutAlign="space-between center"
-          fxLayout.xs="column"
-          fxLayoutAlign.xs="center center"
-        >
-          <div
-            class="profile-element document-type"
-            fxLayout="column"
-            fxLayoutAlign="start startr"
-            fxLayoutAlign.xs="start center"
-          >
-            <strong>{{employee.documentType}}</strong>
+        <div class="profile-content-row contact info" fxLayout="row wrap" fxLayoutAlign="space-between center"
+          fxLayout.xs="column" fxLayoutAlign.xs="center center">
+          <div class="profile-element document-type" fxLayout="column" fxLayoutAlign="start startr"
+            fxLayoutAlign.xs="start center">
+            <strong>{{ employee.documentType }}</strong>
             <div class="profile-component-detail">Document Type</div>
           </div>
-          <div
-            class="profile-element document-no"
-            fxLayout="column"
-            fxLayoutAlign="start end"
-            fxLayoutAlign.xs="start center"
-          >
-            <strong>{{employee.documentNumber}}</strong>
+          <div class="profile-element document-no" fxLayout="column" fxLayoutAlign="start end"
+            fxLayoutAlign.xs="start center">
+            <strong>{{ employee.documentNumber }}</strong>
             <div class="profile-component-detail">Document No.</div>
           </div>
         </div>
-
-        <div
-          class="profile-content-row address-container"
-          fxLayout="row wrap"
-          fxLayoutAlign="center center"
-        >
-          <div
-            class="profile-element live-video"
-            fxLayout="column"
-            fxLayoutAlign="start center"
-          >
+        <div class="profile-content-row address-container" fxLayout="row wrap" fxLayoutAlign="center center">
+          <div class="profile-element document" fxLayout="column" fxLayoutAlign="start center">
+            <button mat-stroked-button color="primary" (click)="viewDocument()">View Document</button>
+          </div>
+        </div>
+        <div class="profile-content-row address-container" fxLayout="row wrap" fxLayoutAlign="center center">
+          <div class="profile-element live-video" fxLayout="column" fxLayoutAlign="start center">
             <video #toPlay controls [width]="320" [height]="180" src=""></video>
             <div class="profile-component-detail">Live Video</div>
           </div>
         </div>
-        <div *ngIf ="!isReview && isAdminPage && isPending"
-          class="profile-buttons"
-          fxLayout="row"
-          fxLayoutAlign="space-between center"
-        >
+
+        <div *ngIf="!isReview && isAdminPage && isPending" class="profile-buttons" fxLayout="row"
+          fxLayoutAlign="space-between center">
           <button mat-stroked-button color="primary" (click)="AcceptEmployee()">
             <mat-icon>check</mat-icon>&nbsp;Accept
           </button>
@@ -169,25 +91,24 @@
     </div>
 
     <!-- <mat-spinner mode="indeterminate" ></mat-spinner> -->
-    <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center center">
-      <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row"
-      fxLayoutAlign="start center">
-      <mat-icon aria-label="i">check_circle_outline</mat-icon>
-      &nbsp;
-      <div class="verification-text">Employee Verified</div>
-    </div>
-
-    <div class="verification-failed" *ngIf=" employee.status === 'Rejected'" fxLayout="row"
-      fxLayoutAlign="start center">
-      <mat-icon aria-label="i">cancel</mat-icon>
-      <div class="verification-text">Employee Rejected</div>
-    </div>
-
-    <div class="verification-registered" *ngIf=" employee.status === 'Registered'" fxLayout="row"
-      fxLayoutAlign="start center">
-      <mat-icon aria-label="i">how_to_reg</mat-icon>
-      <div class="verification-text">Employee Registered</div>
-    </div>
+    <div style="width: 100%" fxLayout="row" fxLayoutAlign="center center">
+      <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon aria-label="i">check_circle_outline</mat-icon>
+        &nbsp;
+        <div class="verification-text">Employee Verified</div>
       </div>
+
+      <div class="verification-failed" *ngIf="employee.status === 'Rejected'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">cancel</mat-icon>
+        <div class="verification-text">Employee Rejected</div>
+      </div>
+
+      <div class="verification-registered" *ngIf="employee.status === 'Registered'" fxLayout="row"
+        fxLayoutAlign="start center">
+        <mat-icon aria-label="i">how_to_reg</mat-icon>
+        <div class="verification-text">Employee Registered</div>
+      </div>
+    </div>
   </mat-card>
 </div>

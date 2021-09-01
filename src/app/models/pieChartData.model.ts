@@ -1,13 +1,18 @@
-export var pieChartData:any=[{
-  'name':'accepted',
+export var pieChartData:any=[
+{
+  'name':'Registered',
   'value':0
 },
 {
-  'name':'rejected',
+  'name':'Accepted',
   'value':0
 },
 {
-  'name':'pending',
+  'name':'Rejected',
+  'value':0
+},
+{
+  'name':'Pending',
   'value':0
 }
 ]

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { map } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
 import { LoginService } from '../Login/login.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,9 +26,10 @@ export class CompanyService {
   public companySubject:Subject<Company>;
   public actionDTOSubject:Subject<ActionDTO>;
   public registrationStatus:ActionDTO;
+
   public APIResponse: ActionDTO | exceptionDTO;
 
-  constructor(private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
+  constructor(private snackbar:MatSnackBar,private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
     //this.employees
     this.employees=[];
     this.registrationStatus={} as ActionDTO;
@@ -38,6 +41,10 @@ export class CompanyService {
     this.company={ } as Company;
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
+  openSnackBar(message: string, action: string) {
+
+    this.snackbar.open(message,action);
+  }
 
   login(credentials:any):any
   {
@@ -47,23 +54,23 @@ export class CompanyService {
 
   }
   register(newCompany:Company): void{
-    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as ActionDTO|exceptionDTO)) .subscribe(
+    this.httpClient.post<ActionDTO | exceptionDTO>(`http://localhost:8085/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO)) .subscribe(
       data =>{ console.log('success', data);
-      this.dialog.open(ModalComponent,{
-        data: {
-          type:"INFORMATION_PROMPTS",
-          error: "SUCCESSFUL"
-        }
-      });
+       this.dialog.open(ModalComponent,{
+          data: {
+            type:"COMPANY_LOGIN",
+            error: "SUCCESSFUL"
+          }
+        });
+    this.openSnackBar("Sucessfully Submitted","Okay");
+
+
     }
       ,
       error =>{console.log(error.message)
-        this.dialog.open(ModalComponent,{
-            data: {
-              type:"INFORMATION_PROMPTS",
-              error: "COMPANY_REGISTER"
-            }
-          });
+        this.openSnackBar("Company Already Exists","Okay");
+
+
         }
     );
 
@@ -111,20 +118,13 @@ registerEmployee(newEmployee:Employee,companyId:number): void{
       console.log(data);
       this.registrationStatus=data;
       this.actionDTOSubject.next(data);
-      this.dialog.open(ModalComponent,{
-        data: {
-          type:"INFORMATION_PROMPTS",
-          error: "SUCCESSFUL"
-        }
-      });
+      this.openSnackBar("Successfully registered","Okay");
+
+
 },
 error =>{console.log(error.message)
-  this.dialog.open(ModalComponent,{
-      data: {
-        type:"INFORMATION_PROMPTS",
-        error: "USER_EXIST"
-      }
-    });
+  this.openSnackBar("Error in registration","Okay");
+
   }
 
 );

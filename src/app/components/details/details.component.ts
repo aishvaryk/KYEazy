@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
@@ -21,6 +22,7 @@ export class DetailsComponent implements OnInit {
   isReadOnly=false
 
 
+
   constructor(private employeeService:EmployeeService,public store: Store<{ details: Details }>) {
     this.employee={} as Employee;
     this.form=new FormGroup({
@@ -39,12 +41,15 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let k=localStorage.getItem("Id")
 
-    this.employeeService.viewProfile(1);
+    if(k!=null) {
+     // console.log(parseInt(k))
+      this.employeeService.viewProfile(parseInt(k));
+    }
+
     this.employeeService.employeeSubject.subscribe((employee)=>{
-      console.log(employee.firstName)
       this.employee=employee;
-      console.log(this.employee.firstName)
       this.form = new FormGroup({
         firstName: new FormControl({value:this.employee.firstName,disabled:true}, Validators.required),
         lastName: new FormControl({value:this.employee.lastName,disabled:true}, Validators.required),
@@ -58,10 +63,7 @@ export class DetailsComponent implements OnInit {
         country: new FormControl(null, Validators.required)
 
       });
-      console.log(this.form)
-      console.log(this.isReadOnly)
-      this.isReadOnly=true;
-      console.log(this.isReadOnly)
+
   })
 
   }
@@ -69,16 +71,16 @@ export class DetailsComponent implements OnInit {
   onSave() {
     if(this.form.status === "INVALID") return;
     let details = {} as Details;
-    details.firstName = this.form.value.firstName;
-    details.lastName = this.form.value.lastName;
+    details.firstName = this.form.getRawValue().firstName;
+    details.lastName = this.form.getRawValue().lastName;
     details.gender = this.form.value.gender;
     details.addressLine1 = this.form.value.addressLine1;
     details.addressLine2 = this.form.value.addressLine2;
     details.city = this.form.value.city;
-    details.contact = this.form.value.contact;
+    details.contact = this.form.getRawValue().contact;
     details.state = this.form.value.state;
     details.country = this.form.value.country;
-    details.email=this.form.value.email;
+    details.email=this.form.getRawValue().email;
     this.store.dispatch(setDetails(details));
     this.stepper.next();
   }

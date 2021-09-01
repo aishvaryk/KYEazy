@@ -12,6 +12,7 @@ import { filter, map } from 'rxjs/operators';
 export class KycComponent implements OnInit {
 
   @ViewChild('stepper') private stepper!: MatStepper;
+
   private observable: any;
   public orientation: any;
 
