@@ -5,8 +5,10 @@
       [ngClass.xs]="'card-container-mobile'" fxLayout="column" fxLayoutAlign="start center">
       <mat-card-header [ngClass.gt-sm]="'profile-card-header-large'" [ngClass.sm]="'profile-card-header-medium'"
         [ngClass.xs]="'profile-card-header-mobile'" fxLayout="column" fxLayoutAlign="center center">
-         <!-- <img mat-card-avatar [src]="formatImage(employee.capturedImage)" /> -->
-         <img mat-card-avatar #toImage />
+
+        <img *ngIf="isAdminPage" mat-card-avatar [src]="formatImage(employee.capturedImage)" />
+         <img  *ngIf="!isAdminPage"mat-card-avatar #toImage />
+
         <mat-card-title class="profile-name">{{ employee.firstName }} {{ employee.lastName }}</mat-card-title>
       </mat-card-header>
 
@@ -71,6 +73,7 @@
             <button mat-stroked-button color="primary" (click)="viewDocument()">View Document</button>
           </div>
         </div>
+
         <div class="profile-content-row address-container" fxLayout="row wrap" fxLayoutAlign="center center">
           <div class="profile-element live-video" fxLayout="column" fxLayoutAlign="start center">
             <video #toPlay controls [width]="320" [height]="180" ></video>

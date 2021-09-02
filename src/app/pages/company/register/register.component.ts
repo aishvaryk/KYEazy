@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { ActionDTO } from 'src/app/models/action.model';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 
@@ -20,14 +23,19 @@ export class RegisterComponent implements OnInit {
   companyService:CompanyService;
   form:any
   dialog:MatDialog;
+  public registrationStatus:ActionDTO;
+  public actionDTOSubject:Subject<ActionDTO>;
+  loading!:boolean;
 
-  constructor(companyService:CompanyService,dialog:MatDialog) {
+  constructor(companyService:CompanyService,dialog:MatDialog,public snackbar:MatSnackBar) {
     this.newEmployee={} as Employee;
     this.companyService=companyService;
     this.form = new FormGroup({
       document: new FormControl('', [Validators.required])
     })
     this.dialog=dialog;
+    this.registrationStatus={} as ActionDTO;
+    this.actionDTOSubject=new Subject();
    }
 
   ngOnInit(): void {
@@ -46,7 +54,23 @@ export class RegisterComponent implements OnInit {
     this.newEmployee.lastName=this.employeeForm.value.lastName;
     this.newEmployee.emailID=this.employeeForm.value.email;
     let k=localStorage.getItem("Id")
-    if(k!=null)this.companyService.registerEmployee(this.newEmployee,parseInt(k))
+    this.loading=true;
+    if(k == null) return;
+    this.companyService.registerEmployee(this.newEmployee,parseInt(k)).subscribe(
+      (data: any) => {
+          console.log(data);
+          this.registrationStatus=data;
+          this.actionDTOSubject.next(data);
+          this.snackbar.open("Successfully registered","Okay");
+          this.loading=false;
+
+    },
+    (error:any) =>{console.log(error.message)
+      this.snackbar.open("Error in registration","Okay");
+      this.loading=false;
+      }
+
+    );
     console.log(this.employeeForm);
   }
 
@@ -80,8 +104,9 @@ export class RegisterComponent implements OnInit {
       let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+    this.loading=true;
     this.companyService.registerEmployees(formData,parseInt(k));
+    this.loading=false;
     }
   }
 

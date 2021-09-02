@@ -36,6 +36,7 @@ export class AdminAllEmployeesComponent implements OnInit {
   public sortBy: string;
   public search: string;
   public employees:Employee[];
+  public loading!:boolean;
   //verificationStatus: String;
   searchText:string;
   constructor(public observer: MediaObserver,adminService:AdminService) {
@@ -69,6 +70,7 @@ export class AdminAllEmployeesComponent implements OnInit {
           this.isSmall = false;
         }
       });
+      this.loading=true;
       this.adminService.viewAllApplications(10,1);
       this.adminService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
@@ -77,10 +79,12 @@ export class AdminAllEmployeesComponent implements OnInit {
          this.paginator.currentPageIndex=1;
 
         console.log(employees);
+        this.loading=false;
 
       }
       );
   }
+
   formatImage(img: any): any {
 
     if (img == null) {
@@ -102,11 +106,12 @@ export class AdminAllEmployeesComponent implements OnInit {
     {
       pageIndex=event.pageSize;
     }
-
+    this.loading=true;
     this.adminService.viewAllApplications(event.pageSize,pageIndex);
       this.adminService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
+        this.loading=false;
     }
       );
 
@@ -119,11 +124,13 @@ export class AdminAllEmployeesComponent implements OnInit {
 
   }
   OnSearchSelect() {
-        console.log(this.searchText);
+    console.log(this.searchText);
+    this.loading=true;
     this.adminService.getAllEmployeeByName(this.searchText,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.adminService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
             console.log(employees);
+            this.loading=false;
           }
           );
   }
@@ -134,18 +141,22 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.sortBy = event.value;
 
     if(this.sortBy==="name"){
+    this.loading=true;
     this.adminService.getAllEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.adminService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);
+      this.loading=false;
     }
     );}
 
     if(this.sortBy==="date-registration"){
+      this.loading=true;
       this.adminService.getAllEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.adminService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
+        this.loading=false;
       }
       );}
 

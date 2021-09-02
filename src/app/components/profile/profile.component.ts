@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit,AfterViewInit {
   fileURL=""
 
   @Input() stepper!:MatStepper;
-
   @ViewChild('toImage')
   public toImage:any
   @ViewChild('toPlay')
@@ -45,24 +44,21 @@ ngAfterViewInit()
 {
   this.store.select('liveliness').subscribe((liveliness) =>{
     console.log(liveliness)
+    if(!liveliness.video) return;
      let blob = new Blob([liveliness.video], { type:"video/mp4"});
       let url = window.URL.createObjectURL(blob);
       //this.employee.employeeVideo=url;
       console.log(url)
-
       this.toPlay.nativeElement.src = url;
     });
+
     this.store.select('selfie').subscribe((selfie)=>{
       console.log(selfie)
+      if(!selfie.image) return;
       let blob = new Blob([selfie.image], { type:"image/png"});
       let url = window.URL.createObjectURL(blob);
-
-
         this.toImage.nativeElement.src=url
-       } );
-
-
-
+    });
 }
 
   constructor(employeeService:EmployeeService,
@@ -70,7 +66,8 @@ ngAfterViewInit()
     companyService:CompanyService,
     public store: Store<{route: string,details: Details,
     documents: Documents,selfie: Selfie,liveliness: Liveliness}>,adminService:AdminService) {
-    this.employee={} as Employee;
+
+      this.employee={} as Employee;
     this.employeeService=employeeService;
     this.employeeId=0;
     this.isAdminPage=false;
@@ -106,13 +103,11 @@ ngAfterViewInit()
           this.store.select('documents').subscribe((documents) =>{
             this.employee.documentType=documents.documentType;
             this.employee.documentNumber=documents.documentNumber;
-
             var file = new Blob([documents.document], {type: 'application/pdf'});
             var fileURL = URL.createObjectURL(file);
             this.fileURL=fileURL;
           });
           this.store.select('liveliness').subscribe((liveliness) =>console.log(liveliness));
-
         }
         else if(route.substring(1,4) ==='adm'){
         console.log("setting here");
@@ -122,6 +117,7 @@ ngAfterViewInit()
           this.isReview=false;
         }
       })
+
       this.adminService.employeeSubject.subscribe((employee)=>
       {
         console.log("subject");
@@ -147,10 +143,13 @@ ngAfterViewInit()
       }
       );
    }
+
+
    AcceptEmployee(){
      this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Accepted");
     // this.isPending=false;
    }
+
    RejectEmployee(){
     this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Rejected");
     //this.isPending=false;
@@ -158,46 +157,44 @@ ngAfterViewInit()
 
   ngOnInit(): void {
     if(!this.isReview){
-    this.activatedRoute.params.subscribe(
+      this.activatedRoute.params.subscribe(
       (params) => {
-
         // console.log(params.employeeId);
         this.employeeId=params.employeeId;
       }
-
     );
     //this.employeeService.viewProfile(this.employeeId);
 
     this.adminService.viewEmployeeDetails(this.employeeId);
-    this.employeeService.employeeSubject.subscribe((employee)=>
+
+    this.adminService.employeeSubject.subscribe((employee)=>
     {
+      console.log('yes yes');
       this.employee=employee;
       this.address=this.employee.address;
       console.log(this.employee);
       console.log(this.address);
       this.companyService.getCompanyDetails(this.employee.companyId);
-      this.companyService.companySubject.subscribe((company)=>
-      {
-        this.company=company;
-        console.log(company);
-      }
-      )
-      console.log('chalaaaaa')
       this.adminService.getEmployeeVideo(this.employee.username);
-      this.adminService.employeeVideoSubject.subscribe((video)=>{
-      console.log(video)
-
-      let blob = new Blob([video], { type:"video/mp4"});
-        let url = window.URL.createObjectURL(blob);
-        this.employee.employeeVideo=url;
-
-        this.toPlay.nativeElement.src = url;
-
-       // this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    })
-
     }
     );
+
+    this.companyService.companySubject.subscribe((company)=>
+    {
+      this.company=company;
+      console.log(company);
+    }
+    )
+
+    this.adminService.employeeVideoSubject.subscribe((video: any)=>{
+      console.log(video + "asdf")
+      let blob = new Blob([video], { type:"video/mp4"});
+      let url = window.URL.createObjectURL(blob);
+      this.employee.employeeVideo=url;
+      this.toPlay.nativeElement.src = url;
+     // this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  })
+
 
   }
   }

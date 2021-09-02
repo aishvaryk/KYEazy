@@ -1,4 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="start center" style="height: 100%;">
+<div fxLayout="column" *ngIf="loading" fxLayoutAlign="center center" class="loader">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div fxLayout="column" *ngIf="!loading" fxLayoutAlign="start center" style="height: 100%;">
   <mat-card [ngClass.gt-xs]="'container-card'" [ngClass.lt-sm]="'container-card-mobile'" *ngIf="!zeroEmployees">
     <div class="pie-chart-container" fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-md="column">
       <div class="pie-chart" *ngIf="!zeroEmployees">

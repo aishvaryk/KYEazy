@@ -81,3 +81,11 @@ $my-theme: mat.define-light-theme((
 .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
   color: rgba(0, 0, 0, 0.6) !important;
 }
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke:teal !important;
+}
+
+.loader{
+  margin-top: 20%;
+}
