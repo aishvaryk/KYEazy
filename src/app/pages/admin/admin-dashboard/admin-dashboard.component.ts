@@ -30,7 +30,7 @@ export class AdminDashboardComponent implements OnInit {
   public numOfAcceptedEmployees: number = 0;
   public companyId: number = 0;
   public companyRoute: any;
-
+  loading!:boolean;
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService,
@@ -62,11 +62,12 @@ export class AdminDashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.isSmall);
-
+    this.loading=true;
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
       console.log(this.companies);
+      this.loading=false;
     });
   }
   OnPageChange(event: any) {

@@ -38,6 +38,7 @@ export class EmployeesComponent implements OnInit {
 
   public zeroEmployees: any;
 
+  public loading!:boolean;
   //verificationStatus: String;
   searchText: string;
   constructor(public observer: MediaObserver, companyService: CompanyService) {
@@ -73,8 +74,10 @@ export class EmployeesComponent implements OnInit {
       });
     let k = localStorage.getItem('Id');
 
-    if (k != null) {
-      this.companyService.getEmployees(parseInt(k), 10, 1);
+    if(k!=null) {
+        this.loading=true;
+      this.companyService.getEmployees(parseInt(k),10,1);
+      this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
@@ -116,15 +119,17 @@ export class EmployeesComponent implements OnInit {
     if (event.pageIndex) {
       pageIndex = event.pageSize;
     }
-    let k = localStorage.getItem('Id');
+    let k=localStorage.getItem("Id")
 
-    if (k != null) {
-      this.companyService.getEmployees(parseInt(k), event.pageSize, pageIndex);
+    if(k!=null) {
+      this.loading=true;
+    this.companyService.getEmployees(parseInt(k),event.pageSize,pageIndex);
+    this.loading=false;
     }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-      console.log(employees);
-    });
+    this.companyService.employeesSubject.subscribe((employees)=>{
+        this.employees=employees;
+        console.log(employees);
+    })
   }
 
   onSearchText(event: any) {
@@ -132,10 +137,12 @@ export class EmployeesComponent implements OnInit {
   }
   OnSearchSelect() {
     console.log(this.searchText);
-    let k = localStorage.getItem('Id');
+    let k=localStorage.getItem("Id")
 
-    if (k != null) {
-      this.companyService.getEmployeeByName(parseInt(k), this.searchText);
+    if(k!=null) {
+    this.loading=true;
+    this.companyService.getEmployeeByName(parseInt(k),this.searchText);
+    this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
@@ -147,34 +154,31 @@ export class EmployeesComponent implements OnInit {
   OnSortSelect(event: any) {
     console.log(event.value);
     this.sortBy = event.value;
-    if (this.sortBy === 'name') {
-      let k = localStorage.getItem('Id');
 
-      if (k != null) {
-        this.companyService.getEmployeesSortedByName(
-          parseInt(k),
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-        console.log(employees);
-      });
+    if(this.sortBy==="name"){
+      let k=localStorage.getItem("Id")
+
+    if(k!=null) {
+    this.loading=true;
+    this.companyService.getEmployeesSortedByName(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+    this.loading=false;
     }
+    this.companyService.employeesSubject.subscribe((employees)=>{
+      this.employees=employees;
+      console.log(employees);
+    });
+  }
 
-    if (this.sortBy === 'date-registration') {
-      let k = localStorage.getItem('Id');
+  if (this.sortBy === 'date-registration') {
+    let k = localStorage.getItem('Id');
 
-      if (k != null) {
-        this.companyService.getEmployeesSortedByDate(
-          parseInt(k),
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
+    if(k!=null) {
+      this.loading=true;
+      this.companyService.getEmployeesSortedByDate(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.loading=false;
+    }
+      this.companyService.employeesSubject.subscribe((employees)=>{
+        this.employees=employees;
         console.log(employees);
       });
     }
@@ -184,40 +188,48 @@ export class EmployeesComponent implements OnInit {
     console.log(event.value);
     this.filter = event.value;
 
-    if (this.filter === 'verification-failed') {
-      console.log('rejected');
-      let k = localStorage.getItem('Id');
+    if(this.filter==="verification-failed"){
+      console.log("rejected");
+      let k=localStorage.getItem("Id")
 
-      if (k != null) {
-        this.companyService.getEmployeesByStatus(
-          parseInt(k),
-          'Rejected',
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
+      if(k!=null) {
+        this.loading=true;
+      this.companyService.getEmployeesByStatus(parseInt(k),"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.loading=false;
       }
       this.companyService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
         console.log(employees);
-      });
-    }
-
-    if (this.filter === 'verification-completed') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.companyService.getEmployeesByStatus(
-          parseInt(k),
-          'Accepted',
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
       }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-        console.log(employees);
-      });
-    }
+      );}
+
+      if(this.filter==="verification-completed"){
+        let k=localStorage.getItem("Id")
+
+        if(k!=null) {
+          this.loading=true;
+        this.companyService.getEmployeesByStatus(parseInt(k),"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        this.loading=false;
+        }
+        this.companyService.employeesSubject.subscribe((employees)=>{
+          this.employees=employees;
+          console.log(employees);
+        }
+        );}
+
+        if(this.filter==="verification-pending"){
+          let k=localStorage.getItem("Id")
+
+          if(k!=null) {
+          this.loading=true;
+          this.companyService.getEmployeesByStatus(parseInt(k),"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+          this.loading=false;
+          }
+          this.companyService.employeesSubject.subscribe((employees)=>{
+            this.employees=employees;
+            console.log(employees);
+          }
+          );}
 
     if (this.filter === 'verification-pending') {
       let k = localStorage.getItem('Id');

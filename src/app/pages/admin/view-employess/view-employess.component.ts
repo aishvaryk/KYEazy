@@ -33,6 +33,7 @@ export class ViewEmployessComponent implements OnInit {
   public companyService: CompanyService;
   public employees:Employee[];
   private companyId:number;
+  loading!:boolean;
 
   // verificationStatus: String;
   searchText:string;
@@ -81,13 +82,14 @@ export class ViewEmployessComponent implements OnInit {
         this.isSmall = false;
       }
     });
+    this.loading=true;
     this.companyService.getEmployees(this.companyId,10,1);
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
 
        this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
        this.paginator.currentPageIndex=1;
-
+      this.loading=false;
       console.log(employees);
 
     }
@@ -113,12 +115,12 @@ export class ViewEmployessComponent implements OnInit {
      {
        pageIndex=event.pageSize;
      }
-
+     this.loading=true;
      this.companyService.getEmployees(1,event.pageSize,pageIndex);
        this.companyService.employeesSubject.subscribe((employees)=>{
          this.employees=employees;
          console.log(employees);
-
+        this.loading=false;
        }
        );
   }
@@ -130,7 +132,9 @@ export class ViewEmployessComponent implements OnInit {
   }
   OnSearchSelect() {
     console.log(this.searchText);
+    this.loading=true;
     this.companyService.getEmployeeByName(1,this.searchText);
+    this.loading=false;
 
 
 //    this.sortBy = event.value;
@@ -140,18 +144,22 @@ export class ViewEmployessComponent implements OnInit {
     console.log(event.value);
     this.sortBy = event.value;
     if(this.sortBy==="name"){
+    this.loading=true;
     this.companyService.getEmployeesSortedByName(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
       console.log(employees);
+      this.loading=false;
     }
     );}
 
     if(this.sortBy==="date-registration"){
+      this.loading=true;
       this.companyService.getEmployeesSortedByDate(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
+        this.loading=false;
       }
       );}
 
@@ -163,34 +171,42 @@ export class ViewEmployessComponent implements OnInit {
     this.filter = event.value;
 
     if(this.filter==="verification-failed"){
+      this.loading=true;
       this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
         console.log(employees);
+        this.loading=false;
       }
       );}
 
       if(this.filter==="verification-completed"){
+        this.loading=true;
         this.companyService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
           console.log(employees);
+          this.loading=false;
         }
         );}
 
         if(this.filter==="verification-pending"){
+          this.loading=true;
           this.companyService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
           this.companyService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
             console.log(employees);
+            this.loading=false;
           }
           );}
 
           if(this.filter==="all"){
+            this.loading=true;
             this.companyService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
             this.companyService.employeesSubject.subscribe((employees)=>{
               this.employees=employees;
               console.log(employees);
+              this.loading=false;
             }
             );}
 

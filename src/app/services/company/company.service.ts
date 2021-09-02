@@ -43,11 +43,6 @@ export class CompanyService {
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
 
-  openSnackBar(message: string, action: string) {
-
-    this.snackbar.open(message,action);
-  }
-
   login(credentials:any):any
   {
     console.log("Company");
@@ -90,23 +85,8 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
 
 });}
 
-registerEmployee(newEmployee:Employee,companyId:number): void{
-  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
-  .subscribe(
-  data => {
-      console.log(data);
-      this.registrationStatus=data;
-      this.actionDTOSubject.next(data);
-      this.openSnackBar("Successfully registered","Okay");
-
-
-},
-error =>{console.log(error.message)
-  this.openSnackBar("Error in registration","Okay");
-
-  }
-
-);
+registerEmployee(newEmployee:Employee,companyId:number): any{
+  return this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register-employee/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
 }
 
 
