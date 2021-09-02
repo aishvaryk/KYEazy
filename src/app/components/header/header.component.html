@@ -4,7 +4,7 @@
     <div class="menu-logo" fxLayout="row" fxLayoutAlign="start center">
       <button mat-icon-button color="primary"
         (click)="toggleMenu()"
-        *ngIf="deviceSmall && !isHome"
+        *ngIf="deviceSmall && !isHome && !isAdminLogin"
         class="menu-button">
         <mat-icon>menu</mat-icon>
       </button>
@@ -18,7 +18,9 @@
 
 
       <div class="logo">
-        <img src='/assets/images/logo.png' />
+        <a routerLink="/">
+          <img src='/assets/images/logo.png' />
+          </a>
       </div>
     </div>
 
@@ -27,10 +29,10 @@
         <button mat-button *ngIf='isHome'> About </button>
         <button mat-button *ngIf='isHome'> Contact Us </button>
         <button
-        mat-raised-button
+        mat-stroked-button
         (click) = "doLogout()"
         class="logout"
-        color="warn"
+        color="primary"
         *ngIf="loginService.isLoggedIn()"
       >
         Log Out

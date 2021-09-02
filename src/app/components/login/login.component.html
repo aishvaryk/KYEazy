@@ -1,10 +1,10 @@
-<div fxLayout="row" fxLayoutAlign="center center" class="form-margin">
+<div fxLayout="row" fxLayoutAlign="center center" class="form-margin" style="width: 100%;">
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div fxLayout="column" fxLayoutAlign="center center">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" [ngClass]="{'admin-form': type === 'ADMIN_LOGIN'}">
+    <div fxLayout="column" fxLayoutAlign="center center" [ngClass]="{'admin-login-field-container': type === 'ADMIN_LOGIN'}">
 
-      <mat-form-field appearance="outline">
-        <mat-label>Email or Username</mat-label>
+      <mat-form-field appearance="outline" [ngClass]="{'admin-login-field': type === 'ADMIN_LOGIN'}">
+              <mat-label>Email or Username</mat-label>
         <input
         matInput
         placeholder=""
@@ -15,7 +15,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline"[ngClass]="{'admin-login-field': type === 'ADMIN_LOGIN'}">
         <mat-label>Password</mat-label>
         <input
           matInput

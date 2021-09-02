@@ -5,7 +5,10 @@
   <mat-tab-group style="width: 100%" dynamicHeight="true" mat-align-tabs="center">
     <mat-tab label="Single Employee">
         <div fxLayout="column" fxLayoutAlign="center center" style="width: 100%" class="form-start">
-          <div class="form-heading" fxLayout="row" fxLayoutAlign="center">
+          <div
+          [ngClass.gt-xs]="'form-heading'"
+          [ngClass.xs]="'form-heading-mobile'"
+          fxLayout="row" fxLayoutAlign="center">
             Register Single Employee
           </div>
           <form fxLayout="column" fxLayoutAlign="center center" [ngStyle.gt-xs]="'width: 50%'"
@@ -65,21 +68,26 @@
         [ngClass.gt-sm]="'multiple-employee-form-container'"
         fxLayout="column"
         class="form-start">
-          <div class="form-heading" fxLayoutAlign="start">Register Multiple Employees</div>
+        <div
+        [ngClass.gt-xs]="'form-heading'"
+        [ngClass.xs]="'form-heading-mobile'"
+         fxLayoutAlign="start"
+         fxLayoutAlign.xs="center">Register Multiple Employees</div>
 
-          <form style="width: 100%" (ngSubmit)="onSave()" [formGroup]="form">
-            <div fxLayout="row" style="width: 100%" fxLayoutAlign="space-between">
-              <div>
-                <input #input hidden type="file" (change)="onChange($event)" />
-                <button mat-stroked-button color="primary" (click)="input.click()">
-                  Upload Registration Document
-                </button>
-              </div>
-              <button mat-raised-button color="primary" type="submit">
-                Submit
+         <form style="width: 100%" (ngSubmit)="onSave()" [formGroup]="form">
+          <div fxLayout="row wrap" fxLayout.xs="column" style="width: 100%" fxLayoutAlign="space-between"
+          fxLayoutAlign.xs="center center">
+            <div style="margin-top: 10px;">
+              <input #input hidden type="file" (change)="onChange($event)" />
+              <button mat-stroked-button color="primary" (click)="input.click()">
+                Upload Registration Document
               </button>
             </div>
-          </form>
+            <button mat-raised-button color="primary" type="submit" style="margin-top: 10px;">
+              Submit
+            </button>
+          </div>
+        </form>
         </div>
       </div>
     </mat-tab>

@@ -1,5 +1,8 @@
-<div class="card">
-
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card
+  [ngClass.gt-xs] = "'container-card'"
+  [ngClass.xs] = "'container-card-mobile'"
+  >
 
 <div
   [ngClass]="{
@@ -158,7 +161,8 @@
     'view-more': !isSmall
   }" routerLink="/admin/all-companies">View More</button>
 </div>
-
+</mat-card>
+</div>
 
 
 <!-- <div fxLayout="row" fxLayoutAlign="center" class="company-paginator">

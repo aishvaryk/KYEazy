@@ -17,7 +17,9 @@ export class HeaderComponent implements OnInit {
   isOpen:boolean = false;
   loginService :LoginService;
   isHome:any;
-  backendURL=environment.backendURL
+  backendURL=environment.backendURL;
+  isAdminLogin:any;
+
 
   breakpoint$: Observable<Breakpoint>;
 
@@ -37,8 +39,11 @@ export class HeaderComponent implements OnInit {
     this.store.select('route').subscribe((route)=>{
       if(route==='/')
       this.isHome=true;
+      else if(route==='/admin/login')
+      this.isAdminLogin=true
       else
       this.isHome=false;
+      this.isAdminLogin=false;
     })
   }
   ngOnInit(): void {

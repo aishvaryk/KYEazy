@@ -30,17 +30,20 @@ export class EmployeesComponent implements OnInit {
   private observable: any;
   public isSmall: boolean;
   public paginator: paginator;
-  public companyService: CompanyService
+  public companyService: CompanyService;
   public filter: string;
   public sortBy: string;
   public search: string;
-  public employees:Employee[];
+  public employees: Employee[];
+
+  public zeroEmployees: any;
+
   //verificationStatus: String;
-  searchText:string;
-  constructor(public observer: MediaObserver,companyService:CompanyService) {
+  searchText: string;
+  constructor(public observer: MediaObserver, companyService: CompanyService) {
     //this.verificationStatus = 'verified';
     this.isSmall = false;
-    this.searchText='';
+    this.searchText = '';
     this.paginator = {
       length: 100,
       currentPageSize: 10,
@@ -50,8 +53,8 @@ export class EmployeesComponent implements OnInit {
     this.filter = '';
     this.sortBy = '';
     this.search = '';
-    this.companyService=companyService;
-    this.employees=[{}] as Employee[];
+    this.companyService = companyService;
+    this.employees = [{}] as Employee[];
   }
 
   ngOnInit(): void {
@@ -68,168 +71,185 @@ export class EmployeesComponent implements OnInit {
           this.isSmall = false;
         }
       });
-    let k=localStorage.getItem("Id")
+    let k = localStorage.getItem('Id');
 
-      if(k!=null) {
-
-      this.companyService.getEmployees(parseInt(k),10,1);
+    if (k != null) {
+      this.companyService.getEmployees(parseInt(k), 10, 1);
     }
-      this.companyService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
 
-         this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
-         this.paginator.currentPageIndex=1;
+      this.paginator.length =
+        Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
+      this.paginator.currentPageIndex = 1;
 
-        console.log(employees);
+      console.log(employees);
+    });
 
+
+    if(k!=null) {
+      this.companyService.getCompanyDetails(parseInt(k));
       }
-      );
+    this.companyService.companySubject.subscribe((company) => {
+      console.log(company);
+      if (company.numberOfTotalEmployees === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+    });
   }
   formatImage(img: any): any {
-
     if (img == null) {
       return null;
     }
     return 'data:image/jpeg;base64,' + img;
   }
 
-
   OnPageChange(event: any) {
+    this.paginator.length =
+      Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
+    if (event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
-
-    this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
-   if(event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
-
-   if(event.pageSize)this.paginator.currentPageSize = event.pageSize;
-    let pageIndex=1;
-    if(event.pageIndex)
-    {
-      pageIndex=event.pageSize;
+    if (event.pageSize) this.paginator.currentPageSize = event.pageSize;
+    let pageIndex = 1;
+    if (event.pageIndex) {
+      pageIndex = event.pageSize;
     }
-    let k=localStorage.getItem("Id")
+    let k = localStorage.getItem('Id');
 
-    if(k!=null) {
-
-    this.companyService.getEmployees(parseInt(k),event.pageSize,pageIndex);
+    if (k != null) {
+      this.companyService.getEmployees(parseInt(k), event.pageSize, pageIndex);
     }
-    this.companyService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
-        console.log(employees);
-    }
-      );
-
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+      console.log(employees);
+    });
   }
 
-  onSearchText(event:any)
-  {
-
-    this.searchText=event.target.value;
-
+  onSearchText(event: any) {
+    this.searchText = event.target.value;
   }
   OnSearchSelect() {
     console.log(this.searchText);
-    let k=localStorage.getItem("Id")
+    let k = localStorage.getItem('Id');
 
-    if(k!=null) {
-
-    this.companyService.getEmployeeByName(parseInt(k),this.searchText);
+    if (k != null) {
+      this.companyService.getEmployeeByName(parseInt(k), this.searchText);
     }
-    this.companyService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
       console.log(employees);
-    }
-    );
-//    this.sortBy = event.value;
+    });
+    //    this.sortBy = event.value;
   }
 
   OnSortSelect(event: any) {
     console.log(event.value);
     this.sortBy = event.value;
-    if(this.sortBy==="name"){
-      let k=localStorage.getItem("Id")
+    if (this.sortBy === 'name') {
+      let k = localStorage.getItem('Id');
 
-    if(k!=null) {
-
-    this.companyService.getEmployeesSortedByName(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
-
-    }
-    this.companyService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
-      console.log(employees);
-    }
-    );}
-
-    if(this.sortBy==="date-registration"){
-      let k=localStorage.getItem("Id")
-
-    if(k!=null) {
-
-      this.companyService.getEmployeesSortedByDate(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
-    }
-      this.companyService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
-        console.log(employees);
+      if (k != null) {
+        this.companyService.getEmployeesSortedByName(
+          parseInt(k),
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
       }
-      );}
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
 
+    if (this.sortBy === 'date-registration') {
+      let k = localStorage.getItem('Id');
+
+      if (k != null) {
+        this.companyService.getEmployeesSortedByDate(
+          parseInt(k),
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
+      }
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
   }
 
   OnFilterSelect(event: any) {
     console.log(event.value);
     this.filter = event.value;
 
-    if(this.filter==="verification-failed"){
-      console.log("rejected");
-      let k=localStorage.getItem("Id")
+    if (this.filter === 'verification-failed') {
+      console.log('rejected');
+      let k = localStorage.getItem('Id');
 
-      if(k!=null) {
-
-      this.companyService.getEmployeesByStatus(parseInt(k),"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      if (k != null) {
+        this.companyService.getEmployeesByStatus(
+          parseInt(k),
+          'Rejected',
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
       }
-      this.companyService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
         console.log(employees);
+      });
+    }
+
+    if (this.filter === 'verification-completed') {
+      let k = localStorage.getItem('Id');
+
+      if (k != null) {
+        this.companyService.getEmployeesByStatus(
+          parseInt(k),
+          'Accepted',
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
       }
-      );}
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
 
-      if(this.filter==="verification-completed"){
-        let k=localStorage.getItem("Id")
+    if (this.filter === 'verification-pending') {
+      let k = localStorage.getItem('Id');
 
-        if(k!=null) {
+      if (k != null) {
+        this.companyService.getEmployeesByStatus(
+          parseInt(k),
+          'Pending',
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
+      }
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
 
-        this.companyService.getEmployeesByStatus(parseInt(k),"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-        }
-        this.companyService.employeesSubject.subscribe((employees)=>{
-          this.employees=employees;
-          console.log(employees);
-        }
-        );}
+    if (this.filter === 'all') {
+      let k = localStorage.getItem('Id');
 
-        if(this.filter==="verification-pending"){
-          let k=localStorage.getItem("Id")
-
-          if(k!=null) {
-
-          this.companyService.getEmployeesByStatus(parseInt(k),"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-          }
-          this.companyService.employeesSubject.subscribe((employees)=>{
-            this.employees=employees;
-            console.log(employees);
-          }
-          );}
-
-          if(this.filter==="all"){
-            let k=localStorage.getItem("Id")
-
-            if(k!=null) {
-
-            this.companyService.getEmployees(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
-            }
-            this.companyService.employeesSubject.subscribe((employees)=>{
-              this.employees=employees;
-              console.log(employees);
-            }
-            );}
-
+      if (k != null) {
+        this.companyService.getEmployees(
+          parseInt(k),
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex
+        );
+      }
+      this.companyService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
   }
 }

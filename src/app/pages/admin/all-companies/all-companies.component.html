@@ -1,5 +1,8 @@
-
-<div  class="card">
+<div fxLayout="row" fxLayoutAlign="center">
+  <mat-card
+  [ngClass.gt-xs] = "'container-card'"
+  [ngClass.xs] = "'container-card-mobile'"
+  >
 
   <div *ngIf="loading">
     <mat-spinner color="primary"></mat-spinner>
@@ -212,4 +215,6 @@
   </div>
   <!-- </div> -->
   <!-- </div> -->
+</mat-card>
 </div>
+

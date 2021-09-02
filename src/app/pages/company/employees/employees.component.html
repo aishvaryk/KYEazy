@@ -1,5 +1,6 @@
-<div fxLayout="row" fxLayoutAlign="center">
+<div  fxLayout="column" fxLayoutAlign="start center" style="height: 100%;">
   <mat-card
+  *ngIf="zeroEmployees"
   [ngClass.gt-xs] = "'container-card'"
   [ngClass.xs] = "'container-card-mobile'"
   >
@@ -57,6 +58,11 @@
       </button>
     </div>
   </div>
+  <div
+      [ngClass.gt-xs]="'employee-cards-container'"
+
+      [ngClass.xs]="'employee-cards-container-mobile'"
+      fxLayout="column">
 
   <mat-card [ngClass]="{ 'employee-card-mobile': isSmall, 'employee-card': !isSmall }" fxLayout="row"
     fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="space-between start"
@@ -109,7 +115,7 @@
     </mat-card-content>
 
   </mat-card>
-
+  </div>
   <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
     <mat-paginator [length]="paginator.length" [pageSize]="paginator.currentPageSize"
       [pageSizeOptions]="paginator.pageSizeOptions" (page)="OnPageChange($event)" [hidePageSize]="isSmall" style="width: 100%;">
@@ -117,5 +123,35 @@
   </div>
 
   </div>
+  </mat-card>
+  <mat-card [ngClass.gt-xs]="'no-employee-container-card'" [ngClass.lt-sm]="'no-employee-container-card-mobile'"
+    *ngIf="!zeroEmployees"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-around center"
+    fxLayout.xs="column-reverse"
+    fxLayoutAlign.xs="space-around center"
+    >
+
+    <div
+    [ngClass.xs]="'no-employee-content-mobile'"
+    [ngClass.gt-xs]="'no-employee-content'"
+    >
+      <div class="no-employee-text">
+        <h1 class="no-employee-heading">
+          No Employee Has Been Registered Yet!
+        </h1>
+        <h2 class="no-employee-sub-heading">
+          Please Register an Employee.
+        </h2>
+      </div>
+      <div class="register-button">
+        <button mat-stroked-button color="primary" routerLink="/company/register"> Get Started <mat-icon>navigate_next</mat-icon> </button>
+      </div>
+    </div>
+    <div
+    [ngClass.xs]="'no-employee-image-container-mobile'"
+    [ngClass.gt-xs]="'no-employee-image-container'">
+      <img class="no-employee-image" src="assets/images/no-employee-dashboard.png">
+    </div>
   </mat-card>
   </div>
