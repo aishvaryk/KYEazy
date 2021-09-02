@@ -33,6 +33,7 @@ export class ViewEmployessComponent implements OnInit {
   public companyService: CompanyService;
   public employees:Employee[];
   private companyId:number;
+  public zeroEmployees: any;
   loading!:boolean;
 
   // verificationStatus: String;
@@ -93,6 +94,8 @@ export class ViewEmployessComponent implements OnInit {
       console.log(employees);
 
     }
+
+
     );
 
   }

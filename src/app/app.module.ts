@@ -74,6 +74,7 @@ import { CompanyGuard } from './company.guard';
 import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
     CarouselComponent,
     TemplateMarker,
     SnackbarComponent,
+    EmployeeCardComponent,
   ],
   imports: [
     StoreModule.forRoot({
