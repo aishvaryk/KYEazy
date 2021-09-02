@@ -1,5 +1,12 @@
-<div class="card">
+
+<div  class="card">
+
+  <div *ngIf="loading">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+
   <div
+    *ngIf="!loading"
     [ngClass]="{
       'company-container-mobile': isSmall,
       'company-container': !isSmall

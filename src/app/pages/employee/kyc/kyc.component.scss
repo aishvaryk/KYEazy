@@ -16,3 +16,8 @@
   overflow-y:auto !important;
   height: 85%;
 }
+
+::ng-deep .mat-horizontal-stepper-content {
+  outline: 0;
+  height: 100%;
+}

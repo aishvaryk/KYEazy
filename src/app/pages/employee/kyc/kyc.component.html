@@ -2,7 +2,6 @@
 <mat-stepper [linear]="false" [orientation]="orientation" #stepper>
   <mat-step label="Personal Details">
     <app-details ></app-details>
-    <button mat-raised-button matStepperNext style="float:right" color="primary">Next</button>
   </mat-step>
   <mat-step label="Documents">
     <app-documents [stepper]="stepper" ></app-documents>

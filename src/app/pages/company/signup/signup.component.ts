@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Address } from 'src/app/models/address.model';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -16,11 +19,12 @@ export class SignupComponent implements OnInit {
   hide:boolean = true;
   isSubmitted: boolean = false;
   form: any;
+  loading!: boolean
   newCompany:Company;
   companyAddress:Address;
   companyService:CompanyService;
 
-  constructor(companyService:CompanyService) {
+  constructor(companyService:CompanyService, private snackbar:MatSnackBar,public router: Router,public dialog:MatDialog,) {
     this.newCompany={} as Company;
     this.companyAddress={} as Address;
     this.companyService=companyService;
@@ -57,9 +61,16 @@ export class SignupComponent implements OnInit {
     this.companyAddress.streetNumber=this.form.value.address;
     this.companyAddress.street=this.form.value.address2;
     this.newCompany.address=this.companyAddress;
-    this.companyService.register(this.newCompany);
-
-
+    this.loading = true;
+    this.companyService.register(this.newCompany).subscribe((data: any) => {
+    this.snackbar.open("Sucessfully Submitted","Okay");
+    this.loading = false;
+    this.router.navigate(['/']);
+    },(error: any) => {
+      this.snackbar.open("Company Already Exists","Okay");
+      this.loading = false;
+    }
+    );
   }
 
 }

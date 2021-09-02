@@ -42,6 +42,7 @@ export class CompanyService {
     this.company={ } as Company;
     this.APIResponse={ } as ActionDTO|exceptionDTO;
   }
+
   openSnackBar(message: string, action: string) {
 
     this.snackbar.open(message,action);
@@ -54,28 +55,9 @@ export class CompanyService {
     return this.loginService.doLogin(credentials);
 
   }
-  register(newCompany:Company): void{
-    this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO)) .subscribe(
-      data =>{ console.log('success', data);
-       this.dialog.open(ModalComponent,{
-          data: {
-            type:"COMPANY_LOGIN",
-            error: "SUCCESSFUL"
-          }
-        });
-    this.openSnackBar("Sucessfully Submitted","Okay");
 
-
-    }
-      ,
-      error =>{console.log(error.message)
-        this.openSnackBar("Company Already Exists","Okay");
-
-
-        }
-    );
-
-
+  register(newCompany:Company): any{
+   return  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO))
         // console.log(results);
         // if(!results.success)
         // {
@@ -105,8 +87,6 @@ getEmployees(id:number,pageSize:number,pageNumber:number): void{
 
     this.httpClient.get(`${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
-
-
         this.employees=results;
         this.employeesSubject.next(this.employees);
 

@@ -30,12 +30,14 @@ export class AllCompaniesComponent implements OnInit {
   public companyId: number = 0;
   public companyRoute: any;
   public searchText: any = "";
+  public loading: boolean;
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService,
     companyService: CompanyService
   ) {
+    this.loading = false;
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -60,12 +62,15 @@ export class AllCompaniesComponent implements OnInit {
     console.log(companyId);
     this.companyRoute = '/admin/employees/' + companyId;
   }
+
   ngOnInit(): void {
     console.log(this.isSmall);
 
+    this.loading = true
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
+      this.loading = false;
       console.log(this.companies);
     });
   }

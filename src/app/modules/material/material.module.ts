@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const MaterialModules = [
   MatStepperModule,
@@ -29,6 +30,7 @@ const MaterialModules = [
   MatToolbarModule,
   MatIconModule,
   MatMenuModule,
+  MatProgressSpinnerModule,
   MatDividerModule,
   MatSidenavModule,
   MatExpansionModule,

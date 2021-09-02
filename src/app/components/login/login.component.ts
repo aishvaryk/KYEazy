@@ -108,10 +108,8 @@ export class LoginComponent implements OnInit {
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
-
          this.loginService.loginUser(response.token,response.id)
-       //  this.loginService.setUserId(response.id)
-
+        //this.loginService.setUserId(response.id)
          this.router.navigate(['/company/dashboard'])
         },
         (error:any)=>{

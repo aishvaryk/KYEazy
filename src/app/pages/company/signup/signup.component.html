@@ -1,4 +1,8 @@
-<div class="card">
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading" class="card" >
 
 <h1 class="signupHeading">Sign up your Company</h1>
 
