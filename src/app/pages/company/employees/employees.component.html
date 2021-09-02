@@ -1,162 +1,169 @@
-<div fxLayout="column" *ngIf="loading" fxLayoutAlign="center center" class="loader">
+<div
+  fxLayout="column"
+  *ngIf="loading"
+  fxLayoutAlign="center center"
+  class="loader"
+>
   <mat-spinner></mat-spinner>
 </div>
 
-
-<div  fxLayout="column" *ngIf="!loading" fxLayoutAlign="start center" style="height: 100%;">
+<div
+  fxLayout="column"
+  *ngIf="!loading"
+  fxLayoutAlign="start center"
+  style="height: 100%"
+>
   <mat-card
-  *ngIf="!zeroEmployees"
-  [ngClass.gt-xs] = "'container-card'"
-  [ngClass.xs] = "'container-card-mobile'"
+    *ngIf="!zeroEmployees"
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.xs]="'container-card-mobile'"
   >
-  <div
-    [ngClass.gt-xs] = "'employee-container'"
-    [ngClass.xs] = "'employee-container-mobile'"
-    fxLayout="row wrap" fxLayoutAlign="center" fxLayoutAlign.xs="space-around center">
-  <div
-    [ngClass.gt-xs] = "'employee-display-options'"
-    [ngClass.xs] = "'employee-display-options-mobile'"
-    fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-
     <div
-      [ngClass.gt-xs] = "'filter-sort-employees'"
-      [ngClass.xs] = "'filter-sort-employees-mobile'"
-      fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="row"
-      fxLayoutAlign.xs="space-between center">
+      [ngClass.gt-xs]="'employee-container'"
+      [ngClass.xs]="'employee-container-mobile'"
+      fxLayout="row wrap"
+      fxLayoutAlign="center"
+      fxLayoutAlign.xs="space-around center"
+    >
+      <div
+        [ngClass.gt-xs]="'employee-display-options'"
+        [ngClass.xs]="'employee-display-options-mobile'"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between center"
+      >
+        <div
+          [ngClass.gt-xs]="'filter-sort-employees'"
+          [ngClass.xs]="'filter-sort-employees-mobile'"
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between center"
+          fxLayout.xs="row"
+          fxLayoutAlign.xs="space-between center"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Filter Status</mat-label>
+            <mat-select (selectionChange)="OnFilterSelect($event)">
+              <mat-option value="all">All Employees</mat-option>
+              <mat-option value="verification-completed" style="color: green"
+                >Verification Completed</mat-option
+              >
+              <mat-option value="verification-failed" style="color: red"
+                >Verification Failed</mat-option
+              >
+              <mat-option value="verification-pending" style="color: sandybrown"
+                >Verification Pending</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Filter Status</mat-label>
-        <mat-select (selectionChange)="OnFilterSelect($event)">
-          <mat-option value="all">All Employees</mat-option>
-          <mat-option value="verification-completed" style="color: green">Verification Completed</mat-option>
-          <mat-option value="verification-failed" style="color: red">Verification Failed</mat-option>
-          <mat-option value="verification-pending" style="color: sandybrown">Verification Pending</mat-option>
+          <mat-form-field appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="OnSortSelect($event)">
+              <mat-option value="name">Name</mat-option>
+              <mat-option value="date-registration"
+                >Date of Registration</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        </mat-select>
-      </mat-form-field>
+        <div
+          [ngClass.gt-xs]="'search-employees'"
+          [ngClass.xs]="'search-employees-mobile'"
+          fxLayout="row"
+          fxLayoutAlign="end"
+        >
+          <mat-form-field
+            [ngClass.gt-xs]="'search-form-field'"
+            [ngClass.xs]="'search-form-field-mobile'"
+            appearance="outline"
+          >
+            <mat-label class="search-form-label">Search</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControl]="emailFormControl"
+              placeholder="Search by Employee Name"
+              (input)="onSearchText($event)"
+              class="search-form-input"
+            /> </mat-form-field
+          >&nbsp;
 
-      <mat-form-field appearance="outline">
-        <mat-label>Sort By</mat-label>
-        <mat-select (selectionChange)="OnSortSelect($event)">
-          <mat-option value="name">Name</mat-option>
-          <mat-option value="date-registration">Date of Registration</mat-option>
-        </mat-select>
-      </mat-form-field>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="OnSearchSelect()"
+            class="search-button"
+          >
+            <mat-icon aria-label="i">search</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div
+        [ngClass.gt-xs]="'employee-cards-container'"
+        [ngClass.xs]="'employee-cards-container-mobile'"
+        fxLayout="column"
+      >
+
+      <!-- Employee Card Component -->
+        <div *ngFor="let employee of employees" class="employee-card">
+          <app-employee-card
+            [employee]="employee"
+            [isSmall]="isSmall"
+          ></app-employee-card>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
+        <mat-paginator
+          [length]="paginator.length"
+          [pageSize]="paginator.currentPageSize"
+          [pageSizeOptions]="paginator.pageSizeOptions"
+          (page)="OnPageChange($event)"
+          [hidePageSize]="isSmall"
+          style="width: 100%"
+        >
+        </mat-paginator>
+      </div>
     </div>
-
-    <div
-      [ngClass.gt-xs] = "'search-employees'"
-      [ngClass.xs] = "'search-employees-mobile'"
-      fxLayout="row" fxLayoutAlign="end">
-      <mat-form-field
-        [ngClass.gt-xs] = "'search-form-field'"
-        [ngClass.xs] = "'search-form-field-mobile'"
-        appearance="outline">
-
-        <mat-label class="search-form-label">Search</mat-label>
-        <input type="text" matInput [formControl]="emailFormControl"
-          placeholder="Search by Employee Name" (input)="onSearchText($event)" class="search-form-input" />
-      </mat-form-field>&nbsp;
-
-      <button mat-raised-button color="primary"  (click)="OnSearchSelect()" class="search-button">
-        <mat-icon aria-label="i" >search</mat-icon>
-      </button>
-    </div>
-  </div>
-  <div
-      [ngClass.gt-xs]="'employee-cards-container'"
-
-      [ngClass.xs]="'employee-cards-container-mobile'"
-      fxLayout="column">
-
-  <mat-card [ngClass]="{ 'employee-card-mobile': isSmall, 'employee-card': !isSmall }" fxLayout="row"
-    fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="space-between start"
-    *ngFor="let employee of employees" >
-
-    <mat-card-header fxFlex="60" [ngClass]="{ 'employee-card-header-mobile': isSmall }">
-      <!-- <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" /> -->
-      <img mat-card-avatar [src]=formatImage(employee.capturedImage) />
-
-      <mat-card-title class="employee-name">{{employee.firstName}} {{employee.lastName}}</mat-card-title>
-      <mat-card-subtitle class="employee-email" *ngIf="!isSmall">{{employee.emailID}}</mat-card-subtitle>
-    </mat-card-header>
-
-    <div class="employee-email-mobile" *ngIf="isSmall">{{employee.emailID}}</div>
-    <mat-card-content [ngClass]="{
-        'status-container-mobile': isSmall,
-        'status-container': !isSmall
-      }" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between enter" fxFlex="40">
-      <div class="verification-done" *ngIf="employee.status === 'Accepted'" fxLayout="row"
-        fxLayoutAlign="start center">
-        <mat-icon aria-label="i">check_circle_outline</mat-icon>
-        &nbsp;
-        <div class="verification-text">Employee Verified</div>
-      </div>
-
-      <div class="verification-failed" *ngIf=" employee.status === 'Rejected'" fxLayout="row"
-        fxLayoutAlign="start center">
-        <mat-icon aria-label="i">cancel</mat-icon>
-        <div class="verification-text">Employee Rejected</div>
-      </div>
-
-      <div class="verification-registered" *ngIf=" employee.status === 'Registered'" fxLayout="row"
-        fxLayoutAlign="start center">
-        <mat-icon aria-label="i">how_to_reg</mat-icon>
-        <div class="verification-text">Employee Registered</div>
-      </div>
-
-      <div class="verification-pending" *ngIf="employee.status === 'Pending'" fxLayout="row"
-        fxLayoutAlign="start center">
-        <mat-icon aria-label="i">pending</mat-icon>
-        <div class="verification-text">Verification Pending</div>
-      </div>
-
-      <button mat-raised-button color="primary" routerLink="/company/employee/profile/{{employee.employeeId}}" [ngClass]="{
-          'employee-buttons-mobile': isSmall,
-          'employee-buttons': !isSmall
-        }">
-        View Profile
-      </button>
-    </mat-card-content>
-
   </mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
-    <mat-paginator [length]="paginator.length" [pageSize]="paginator.currentPageSize"
-      [pageSizeOptions]="paginator.pageSizeOptions" (page)="OnPageChange($event)" [hidePageSize]="isSmall" style="width: 100%;">
-    </mat-paginator>
-  </div>
 
-  </div>
-  </mat-card>
-  <mat-card [ngClass.gt-xs]="'no-employee-container-card'" [ngClass.lt-sm]="'no-employee-container-card-mobile'"
+  <mat-card
+    [ngClass.gt-xs]="'no-employee-container-card'"
+    [ngClass.lt-sm]="'no-employee-container-card-mobile'"
     *ngIf="zeroEmployees"
     fxLayout.gt-xs="row"
     fxLayoutAlign.gt-xs="space-around center"
     fxLayout.xs="column-reverse"
     fxLayoutAlign.xs="space-around center"
-    >
-
+  >
     <div
-    [ngClass.xs]="'no-employee-content-mobile'"
-    [ngClass.gt-xs]="'no-employee-content'"
+      [ngClass.xs]="'no-employee-content-mobile'"
+      [ngClass.gt-xs]="'no-employee-content'"
     >
       <div class="no-employee-text">
         <h1 class="no-employee-heading">
           No Employee Has Been Registered Yet!
         </h1>
-        <h2 class="no-employee-sub-heading">
-          Please Register an Employee.
-        </h2>
+        <h2 class="no-employee-sub-heading">Please Register an Employee.</h2>
       </div>
       <div class="register-button">
-        <button mat-stroked-button color="primary" routerLink="/company/register"> Get Started <mat-icon>navigate_next</mat-icon> </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/company/register"
+        >
+          Get Started <mat-icon>navigate_next </mat-icon>
+        </button>
       </div>
     </div>
     <div
-    [ngClass.xs]="'no-employee-image-container-mobile'"
-    [ngClass.gt-xs]="'no-employee-image-container'">
-      <img class="no-employee-image" src="assets/images/no-employee-dashboard.png">
+      [ngClass.xs]="'no-employee-image-container-mobile'"
+      [ngClass.gt-xs]="'no-employee-image-container'"
+    >
+      <img
+        class="no-employee-image"
+        src="assets/images/no-employee-dashboard.png"
+      />
     </div>
   </mat-card>
-  </div>
+</div>

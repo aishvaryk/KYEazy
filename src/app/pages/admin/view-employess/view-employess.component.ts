@@ -33,6 +33,7 @@ export class ViewEmployessComponent implements OnInit {
   public companyService: CompanyService;
   public employees:Employee[];
   private companyId:number;
+  public zeroEmployees: any;
   loading!:boolean;
 
   searchText:string;
@@ -89,6 +90,8 @@ export class ViewEmployessComponent implements OnInit {
       this.loading=false;
 
     }
+
+
     );
 
   }
