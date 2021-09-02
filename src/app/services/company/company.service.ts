@@ -31,7 +31,6 @@ export class CompanyService {
   public APIResponse: ActionDTO | exceptionDTO;
 
   constructor(private snackbar:MatSnackBar,private loginService: LoginService,private httpClient :HttpClient,public dialog: MatDialog) {
-    //this.employees
     this.employees=[];
     this.registrationStatus={} as ActionDTO;
     this.employee={ } as Employee;
@@ -45,39 +44,16 @@ export class CompanyService {
 
   login(credentials:any):any
   {
-    console.log("Company");
     return this.loginService.doLogin(credentials);
   }
 
   register(newCompany:Company): any{
    return  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO))
-        // console.log(results);
-        // if(!results.success)
-        // {
-        //   this.dialog.open(ModalComponent,{
-        //     data: {
-        //       type: "COMPANY_REGISTER"
-        //     }
-        //   });
-        // }
-
 }
 
 getEmployees(id:number,pageSize:number,pageNumber:number): void{
 
     let token=this.loginService.getToken()
-    //  var header={
-    //     headers:new HttpHeaders({"Authorization":"Bearer "+token,"Access-Control-Allow-Origin": '*'})
-
-    //   };
-  //  var header={headers:new HttpHeaders().set("Authorization","Bearer "+token)
-    //}
-      // console.log(header)
-
-    //let header = this.initHeaders();
-    //let options = new RequestOptions({ headers: header, method: 'post'});
-
-
     this.httpClient.get(`${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
         this.employees=results;
@@ -93,7 +69,6 @@ registerEmployee(newEmployee:Employee,companyId:number): any{
 registerEmployees(newEmployee:FormData,companyId:number): void{
   this.httpClient.post<ActionDTO>(`${environment.backendURL}/company/register-employees/${companyId}`,newEmployee).pipe(map((response) => response as ActionDTO))
   .subscribe((results: ActionDTO) => {
-      console.log(results);
       this.registrationStatus=results;
       this.actionDTOSubject.next(results);
 
@@ -103,7 +78,6 @@ registerEmployees(newEmployee:FormData,companyId:number): void{
 getEmployeeByName(id:number,name:string): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-by-name/${id}/${name}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(results);
 
@@ -114,7 +88,6 @@ getEmployeeByName(id:number,name:string): void{
 getEmployeesWithPendingKYC(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-with-pending-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -123,7 +96,6 @@ getEmployeesWithPendingKYC(id:number,pageSize:number,pageNumber:number): void{
 getRegisteredEmployees(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-registered-employee/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -132,7 +104,6 @@ getRegisteredEmployees(id:number,pageSize:number,pageNumber:number): void{
 getEmployeesWithRejectedKYC(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-with-rejected-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -141,7 +112,6 @@ getEmployeesWithRejectedKYC(id:number,pageSize:number,pageNumber:number): void{
 getEmployeesByDateOfApplication(id:number,date:string,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-by-date-of-application/${id}/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -150,7 +120,6 @@ getEmployeesByDateOfApplication(id:number,date:string,pageSize:number,pageNumber
 getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/employees-by-status/${companyId}/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -159,7 +128,6 @@ getEmployeesByStatus(companyId:number,status:string,pageSize:number,pageNumber:n
 getEmployeesSortedByName(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-sorted-by-name/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
@@ -168,17 +136,14 @@ getEmployeesSortedByName(id:number,pageSize:number,pageNumber:number): void{
 getEmployeesSortedByDate(id:number,pageSize:number,pageNumber:number): void{
   this.httpClient.get(`${environment.backendURL}/company/get-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
   .subscribe((results: Employee[]) => {
-      console.log(results);
       this.employees=results;
       this.employeesSubject.next(this.employees);
 
 });}
 
 getCompanyDetails(id:number): void{
-  console.log("ansnda");
   this.httpClient.get(`${environment.backendURL}/company/get-company-details/${id}`).pipe(map((response) => response as Company))
   .subscribe((results: Company) => {
-      console.log(results);
       this.companySubject.next(results);
 
 });}
@@ -186,8 +151,6 @@ getCompanyDetails(id:number): void{
 updateProfile(newCompany:Company): void{
   this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/update-profile`,newCompany).pipe(map((response) => response as ActionDTO))
   .subscribe((results: ActionDTO) => {
-   // this.employees=results;
-      console.log(results);
       this.registrationStatus=results;
       this.actionDTOSubject.next(results);
 
@@ -206,18 +169,4 @@ initHeaders(): Headers {
   return headers;
  }
 
-
-   /*
-    this.httpClient.get("http://localhost:8085/company/employees/1").pipe(map((response) => response as Employee[]))
-    .subscribe((results: Employee[]) => {
-      this.employees=results;
-      this.getEmployeesById();
-    });
-    console.log(this.employees)
-*/
-
- /*
- getAllEmployees(): Observable<Employee[]> {
-  return  this.httpClient.get("http://localhost:8085/company/employees/1").pipe(map((response) => response as Employee[]))
-}*/
 }

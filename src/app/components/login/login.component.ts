@@ -51,9 +51,6 @@ export class LoginComponent implements OnInit {
 
   }
   openSnackBar(message: string, action: string) {
-    // this.snackbar.openFromComponent(SnackbarComponent, {
-    //   duration: this.durationInSeconds * 1000,
-    // });
     this.snackbar.open(message,action);
   }
   onSubmit(): void
@@ -69,13 +66,10 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userType',"EMPLOYEE")
       this.employeeService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
-         //this.loginService.setUserId(response.id)
          this.router.navigate(['/employee/kyc'])
         },
         (error:any)=>{
-          console.log(error);
           this.openSnackBar("Invalid Employee Credentials","Retry");
         })
     }
@@ -85,12 +79,10 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('userType',"ADMIN")
       this.adminService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,"")
          this.router.navigate(['/admin/dashboard'])
         },
         (error:any)=>{
-          console.log(error);
           this.errorDialog.open(ModalComponent,{
             data: {
               type: "INFORMATION_PROMPTS",
@@ -107,13 +99,10 @@ export class LoginComponent implements OnInit {
 
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
-        //this.loginService.setUserId(response.id)
          this.router.navigate(['/company/dashboard'])
         },
         (error:any)=>{
-          console.log(error);
           this.openSnackBar("Invalid Company Credentials","Retry");
         })
     }

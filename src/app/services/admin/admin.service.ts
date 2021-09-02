@@ -35,11 +35,9 @@ export class AdminService {
   }
   login(credentials:any):any
   {
-
-    console.log("Company")
     return this.loginService.doLogin(credentials);
-
   }
+
   viewAllApplications(pageSize: number, pageNumber: number): void {
     this.httpClient
       .get(
@@ -59,10 +57,6 @@ getEmployeeVideo(username:string)
   this.httpClient.get(`${environment.backendURL}/admin/get-video/${username}`,{responseType:"arraybuffer"})
   .subscribe((results:any)=>
   {
-
-    //let blob = new Blob([data], { type: type});
-    //let url = window.URL.createObjectURL(blob);
-    console.log(results);
     this.employeeVideoSubject.next(results)
   })
 }
@@ -97,14 +91,12 @@ verifyEmployeeDetails(id:number,status:string):void{
       this.employeeSubject.next(this.employee);
   })}
   getAllEmployeeByName(name: string, pageSize: number, pageNumber: number): void {
-    // in url do I have to provide pagesize and page number
     this.httpClient
       .get(
         `${environment.backendURL}/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
-        console.log(results);
         this.employees = results;
         this.employeesSubject.next(results);
       });
@@ -133,7 +125,6 @@ verifyEmployeeDetails(id:number,status:string):void{
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
-        console.log(results);
         this.employees = results;
         this.employeesSubject.next(this.employees);
       });
@@ -146,7 +137,6 @@ verifyEmployeeDetails(id:number,status:string):void{
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
-        console.log(results);
         this.employees = results;
         this.employeesSubject.next(this.employees);
       });

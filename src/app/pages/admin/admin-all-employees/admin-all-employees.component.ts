@@ -37,10 +37,8 @@ export class AdminAllEmployeesComponent implements OnInit {
   public search: string;
   public employees:Employee[];
   public loading!:boolean;
-  //verificationStatus: String;
   searchText:string;
   constructor(public observer: MediaObserver,adminService:AdminService) {
-    //this.verificationStatus = 'verified';
     this.isSmall = false;
     this.searchText='';
     this.paginator = {
@@ -78,7 +76,6 @@ export class AdminAllEmployeesComponent implements OnInit {
          this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
          this.paginator.currentPageIndex=1;
 
-        console.log(employees);
         this.loading=false;
 
       }
@@ -110,7 +107,6 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.adminService.viewAllApplications(event.pageSize,pageIndex);
       this.adminService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
         this.loading=false;
     }
       );
@@ -124,12 +120,10 @@ export class AdminAllEmployeesComponent implements OnInit {
 
   }
   OnSearchSelect() {
-    console.log(this.searchText);
     this.loading=true;
     this.adminService.getAllEmployeeByName(this.searchText,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.adminService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
-            console.log(employees);
             this.loading=false;
           }
           );
@@ -137,7 +131,6 @@ export class AdminAllEmployeesComponent implements OnInit {
 
 
   OnSortSelect(event: any) {
-    console.log(event.value);
     this.sortBy = event.value;
 
     if(this.sortBy==="name"){
@@ -145,7 +138,6 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.adminService.getAllEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.adminService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
-      console.log(employees);
       this.loading=false;
     }
     );}
@@ -155,55 +147,13 @@ export class AdminAllEmployeesComponent implements OnInit {
       this.adminService.getAllEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.adminService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
         this.loading=false;
       }
       );}
 
   }
 
-
-
   OnFilterSelect(event: any) {
-
   }
 
-
-//   OnFilterSelect(event: any) {
-//     console.log(event.value);
-//     this.filter = event.value;
-
-//     if(this.filter==="verification-failed"){
-//       this.adminService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//       this.adminService.employeesSubject.subscribe((employees)=>{
-//         this.employees=employees;
-//         console.log(employees);
-//       }
-//       );}
-
-//       if(this.filter==="verification-completed"){
-//         this.adminService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//         this.adminService.employeesSubject.subscribe((employees)=>{
-//           this.employees=employees;
-//           console.log(employees);
-//         }
-//         );}
-
-//         if(this.filter==="verification-pending"){
-//           this.adminService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//           this.adminService.employeesSubject.subscribe((employees)=>{
-//             this.employees=employees;
-//             console.log(employees);
-//           }
-//           );}
-
-//           if(this.filter==="all"){
-//             this.adminService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//             this.adminService.employeesSubject.subscribe((employees)=>{
-//               this.employees=employees;
-//               console.log(employees);
-//             }
-//             );}
-
-//   }
 }

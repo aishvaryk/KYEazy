@@ -59,26 +59,22 @@ export class AllCompaniesComponent implements OnInit {
   }
 
   onViewEmployees(companyId: number) {
-    console.log(companyId);
     this.companyRoute = '/admin/employees/' + companyId;
   }
 
   ngOnInit(): void {
-    console.log(this.isSmall);
 
     this.loading = true
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
       this.loading = false;
-      console.log(this.companies);
     });
   }
 
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    // console.log(this.paginator);
   }
 
 
@@ -87,12 +83,9 @@ export class AllCompaniesComponent implements OnInit {
   }
 
   OnSearchSelect() {
-    console.log(this.searchText);
-
     this.adminService.getAllCompanyByName(this.searchText,10,1);
     this.adminService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
-            console.log(employees);
           }
           );
 

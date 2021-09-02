@@ -1,6 +1,7 @@
-  import { AfterViewInit, Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Selfie } from 'src/app/models/selfie.model';
 import { setSelfie } from 'src/app/redux/actions/selfie.actions';
 
@@ -11,7 +12,6 @@ import { setSelfie } from 'src/app/redux/actions/selfie.actions';
 })
 export class SelfieComponent
 {
-
   @Input() stepper!:MatStepper;
 
   @ViewChild('video')
@@ -23,11 +23,46 @@ export class SelfieComponent
   public captured: boolean;
   public camera: boolean;
   public image: string;
+  public breakpoint! : Breakpoint;
+  public height!: number;
+  public width!: number;
 
-  constructor(public store: Store<{ documents: Selfie }>) {
+  constructor(
+    public store: Store<{
+      documents: Selfie,
+      breakpoint: Breakpoint
+    }>,
+    ) {
     this.captured = false;
     this.camera = false;
     this.image = "";
+    this.height = 300;
+    this.width = 300;
+
+    this.store.select('breakpoint').subscribe((breakpoint) => {
+      this.breakpoint = breakpoint;
+      if(breakpoint.isXs) {
+        this.height = 0
+        this.width = 0
+      }
+      if(breakpoint.isSm) {
+        this.height = 0
+        this.width = 0
+      }
+      if(breakpoint.isMd ) {
+        this.height = 0
+        this.width = 0
+      }
+      if(breakpoint.isLg) {
+        this.height = 0
+        this.width = 0
+      }
+      if(breakpoint.isXl) {
+        this.height = 0
+        this.width = 0
+      }
+    })
+
   }
 
   ngOnInit(): void {

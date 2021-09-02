@@ -29,15 +29,12 @@ export class EmployeeService {
    login(credentials:any):any
    {
 
-     console.log("Company")
      return this.loginService.doLogin(credentials);
 
    }
    updateProfile(newEmployee:Employee): void{
     this.httpClient.patch<ActionDTO>(`${environment.backendURL}/employee/update-profile`,newEmployee).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
-     // this.employees=results;
-        console.log(results);
         this.updateStatus=results;
         this.actionDTOSubject.next(results);
 
@@ -47,8 +44,6 @@ export class EmployeeService {
   updateEmployeeImage(id:number,image:FormData): void{
     this.httpClient.patch<ActionDTO>(`${environment.backendURL}/employee/update-profile/${id}/profile-pictures`,image).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
-     // this.employees=results;
-        console.log(results);
         this.updateStatus=results;
         this.actionDTOSubject.next(results);
 
@@ -57,8 +52,6 @@ export class EmployeeService {
   updateEmployeeVideo(id:number,video:FormData): void{
     this.httpClient.patch<ActionDTO>(`${environment.backendURL}/employee/update-video/${id}/video`,video).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
-     // this.employees=results;
-        console.log(results);
         this.updateStatus=results;
         this.actionDTOSubject.next(results);
 
@@ -67,8 +60,6 @@ export class EmployeeService {
   updateEmployeeDocument(id:number,document:FormData): void{
     this.httpClient.patch<ActionDTO>(`${environment.backendURL}/employee/update-document/${id}/document`,document).pipe(map((response) => response as ActionDTO))
     .subscribe((results: ActionDTO) => {
-     // this.employees=results;
-        console.log(results);
         this.updateStatus=results;
         this.actionDTOSubject.next(results);
 
@@ -79,7 +70,6 @@ export class EmployeeService {
     viewProfile(employeeId:number): void{
     this.httpClient.get(`${environment.backendURL}/employee/view-profile/${employeeId}`).pipe(map((response) => response as Employee))
     .subscribe((results: Employee) => {
-        console.log(results);
         this.employee=results;
         this.employeeSubject.next(this.employee);
 

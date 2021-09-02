@@ -86,11 +86,9 @@ addEmployee()
   this.employee.address=this.address;
   this.employee.documentNumber=this.documents.documentNumber;
   this.employee.documentType=this.documents.documentType;
- // this.employee.capturedImage=this.selfie.image.text;
 
 
   let id=parseInt(localStorage.getItem("Id")!);
- // this.employeeService.updateDocument(this.employee);
     const documentData =  new FormData()
       documentData.append('employeeDocument',this.documents.document);
       this.employeeService.updateEmployeeDocument(id,documentData)
@@ -102,7 +100,6 @@ addEmployee()
       imageData.append('profilePicture',this.selfie.image);
   this.employeeService.updateEmployeeImage(id,imageData)
   const videoData =  new FormData()
-  console.log(this.liveliness.video)
   videoData.append('employeeVideo',this.liveliness.video);
 this.employeeService.updateEmployeeVideo(id,videoData)
 

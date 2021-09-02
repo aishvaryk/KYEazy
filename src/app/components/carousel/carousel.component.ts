@@ -25,7 +25,6 @@ export class CarouselComponent implements OnInit,AfterContentInit,AfterViewInit 
   }
 
   ngOnInit(): void {
-    console.log(this.name);
   }
 
   ngAfterContentInit() {

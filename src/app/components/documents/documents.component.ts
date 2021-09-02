@@ -43,7 +43,6 @@ export class DocumentsComponent implements OnInit {
     documents.document = this.form.value.document;
     documents.documentNumber = this.form.value.documentNumber;
     documents.documentType = this.form.value.documentType;
-    console.log(this.form.value.documentNumber);
     this.store.dispatch(setDocuments(documents));
     this.stepper.next();
   }

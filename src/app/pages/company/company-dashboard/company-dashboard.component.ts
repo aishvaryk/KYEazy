@@ -9,8 +9,6 @@ import { pieChartData } from 'src/app/models/pieChartData.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-// import { ChartType, ChartOptions } from 'chart.js';
-// import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-company-dashboard',
@@ -30,7 +28,6 @@ export class CompanyDashboardComponent implements OnInit {
   legendView: any = [300, 300];
   pieChartData: any;
 
-  // options
   gradient: boolean = true;
   showAdvanceLegend: boolean = true;
 
@@ -62,7 +59,6 @@ export class CompanyDashboardComponent implements OnInit {
     this.companyService = companyService;
     this.employees = [{}] as Employee[];
     this.company = {} as Company;
-    console.log(pieChartData);
     let k=localStorage.getItem("Id")
 if(k!=null) {
   this.loading=true;
@@ -75,8 +71,6 @@ if(k!=null) {
       } else {
         this.zeroEmployees = false;
       }
-      console.log(pieChartData,"pehle");
-      console.log(this.company.numberOfTotalEmployees);
       pieChartData[0].value =
         this.company.numberOfTotalEmployees -
         this.company.numberOfAcceptedEmployees -
@@ -85,22 +79,19 @@ if(k!=null) {
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
-      console.log(pieChartData);
       Object.assign(this, { pieChartData });
     });
   }
 
   onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
+
   ngOnInit(): void {
     let k=localStorage.getItem("Id")
 
@@ -111,13 +102,14 @@ if(k!=null) {
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
-      console.log(employees);
     });
   }
+
   formatImage(img: any): any {
     if (img == null) {
       return null;
     }
     return 'data:image/jpeg;base64,' + img;
   }
+
 }

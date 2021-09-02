@@ -85,13 +85,10 @@ export class LivelinessComponent implements OnInit {
 
   save() {
     const videoFile = new File([this.blob], 'answer.mp4', { type: 'video/mp4' });
-    console.log(videoFile);
     let liveliness = {} as Liveliness;
     liveliness.video = videoFile;
     liveliness.question = this.question;
-    console.log("dispatched")
     this.store.dispatch(setLiveliness(liveliness));
-    console.log("After dispatched")
     this.stepper.next();
   }
 
@@ -125,7 +122,7 @@ export class LivelinessComponent implements OnInit {
           this.chunks = [];
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
   }

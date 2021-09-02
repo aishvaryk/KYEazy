@@ -58,20 +58,18 @@ export class RegisterComponent implements OnInit {
     if(k == null) return;
     this.companyService.registerEmployee(this.newEmployee,parseInt(k)).subscribe(
       (data: any) => {
-          console.log(data);
           this.registrationStatus=data;
           this.actionDTOSubject.next(data);
           this.snackbar.open("Successfully registered","Okay");
           this.loading=false;
 
     },
-    (error:any) =>{console.log(error.message)
+    (error:any) =>{
       this.snackbar.open("Error in registration","Okay");
       this.loading=false;
       }
 
     );
-    console.log(this.employeeForm);
   }
 
   public errorHandling = (control: string, error: string) => {
@@ -94,10 +92,8 @@ export class RegisterComponent implements OnInit {
 
   onSave() {
     if(this.form.status === "INVALID") {
-      console.log('if m');
       return;
     }
-    console.log(this.form.get('document').value);
 
      const formData =  new FormData()
       formData.append('employeeCSV',this.form.get('document').value);

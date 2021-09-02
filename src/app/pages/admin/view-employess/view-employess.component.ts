@@ -35,7 +35,6 @@ export class ViewEmployessComponent implements OnInit {
   private companyId:number;
   loading!:boolean;
 
-  // verificationStatus: String;
   searchText:string;
   constructor(private activatedRoute:ActivatedRoute,  public observer: MediaObserver,public store: Store<{ breakpoint: Breakpoint }>,companyService:CompanyService) {
     this.searchText='';
@@ -63,8 +62,6 @@ export class ViewEmployessComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params) => {
-
-        console.log(params.companyId);
         this.companyId=params.companyId;
       }
 
@@ -90,7 +87,6 @@ export class ViewEmployessComponent implements OnInit {
        this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
        this.paginator.currentPageIndex=1;
       this.loading=false;
-      console.log(employees);
 
     }
     );
@@ -119,7 +115,6 @@ export class ViewEmployessComponent implements OnInit {
      this.companyService.getEmployees(1,event.pageSize,pageIndex);
        this.companyService.employeesSubject.subscribe((employees)=>{
          this.employees=employees;
-         console.log(employees);
         this.loading=false;
        }
        );
@@ -131,24 +126,20 @@ export class ViewEmployessComponent implements OnInit {
 
   }
   OnSearchSelect() {
-    console.log(this.searchText);
     this.loading=true;
     this.companyService.getEmployeeByName(1,this.searchText);
     this.loading=false;
 
 
-//    this.sortBy = event.value;
   }
 
   OnSortSelect(event: any) {
-    console.log(event.value);
     this.sortBy = event.value;
     if(this.sortBy==="name"){
     this.loading=true;
     this.companyService.getEmployeesSortedByName(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
-      console.log(employees);
       this.loading=false;
     }
     );}
@@ -158,7 +149,6 @@ export class ViewEmployessComponent implements OnInit {
       this.companyService.getEmployeesSortedByDate(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
         this.loading=false;
       }
       );}
@@ -167,7 +157,6 @@ export class ViewEmployessComponent implements OnInit {
 
 
   OnFilterSelect(event: any) {
-    console.log(event.value);
     this.filter = event.value;
 
     if(this.filter==="verification-failed"){
@@ -175,7 +164,6 @@ export class ViewEmployessComponent implements OnInit {
       this.companyService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
         this.loading=false;
       }
       );}
@@ -185,7 +173,6 @@ export class ViewEmployessComponent implements OnInit {
         this.companyService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
-          console.log(employees);
           this.loading=false;
         }
         );}
@@ -195,7 +182,6 @@ export class ViewEmployessComponent implements OnInit {
           this.companyService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
           this.companyService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
-            console.log(employees);
             this.loading=false;
           }
           );}
@@ -205,7 +191,6 @@ export class ViewEmployessComponent implements OnInit {
             this.companyService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
             this.companyService.employeesSubject.subscribe((employees)=>{
               this.employees=employees;
-              console.log(employees);
               this.loading=false;
             }
             );}

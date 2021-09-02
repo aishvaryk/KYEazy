@@ -39,10 +39,8 @@ export class EmployeesComponent implements OnInit {
   public zeroEmployees: any;
 
   public loading!:boolean;
-  //verificationStatus: String;
   searchText: string;
   constructor(public observer: MediaObserver, companyService: CompanyService) {
-    //this.verificationStatus = 'verified';
     this.isSmall = false;
     this.searchText = '';
     this.paginator = {
@@ -86,7 +84,6 @@ export class EmployeesComponent implements OnInit {
         Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
       this.paginator.currentPageIndex = 1;
 
-      console.log(employees);
     });
 
 
@@ -94,7 +91,6 @@ export class EmployeesComponent implements OnInit {
       this.companyService.getCompanyDetails(parseInt(k));
       }
     this.companyService.companySubject.subscribe((company) => {
-      console.log(company);
       if (company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
       } else {
@@ -128,15 +124,14 @@ export class EmployeesComponent implements OnInit {
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
     })
   }
 
   onSearchText(event: any) {
     this.searchText = event.target.value;
   }
+
   OnSearchSelect() {
-    console.log(this.searchText);
     let k=localStorage.getItem("Id")
 
     if(k!=null) {
@@ -146,13 +141,10 @@ export class EmployeesComponent implements OnInit {
     }
     this.companyService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
-      console.log(employees);
     });
-    //    this.sortBy = event.value;
   }
 
   OnSortSelect(event: any) {
-    console.log(event.value);
     this.sortBy = event.value;
 
     if(this.sortBy==="name"){
@@ -165,7 +157,6 @@ export class EmployeesComponent implements OnInit {
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
-      console.log(employees);
     });
   }
 
@@ -179,17 +170,14 @@ export class EmployeesComponent implements OnInit {
     }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
-        console.log(employees);
       });
     }
   }
 
   OnFilterSelect(event: any) {
-    console.log(event.value);
     this.filter = event.value;
 
     if(this.filter==="verification-failed"){
-      console.log("rejected");
       let k=localStorage.getItem("Id")
 
       if(k!=null) {
@@ -199,7 +187,6 @@ export class EmployeesComponent implements OnInit {
       }
       this.companyService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       }
       );}
 
@@ -213,7 +200,6 @@ export class EmployeesComponent implements OnInit {
         }
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
-          console.log(employees);
         }
         );}
 
@@ -227,7 +213,6 @@ export class EmployeesComponent implements OnInit {
           }
           this.companyService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
-            console.log(employees);
           }
           );}
 
@@ -244,7 +229,6 @@ export class EmployeesComponent implements OnInit {
       }
       this.companyService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
 
@@ -260,7 +244,6 @@ export class EmployeesComponent implements OnInit {
       }
       this.companyService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
   }

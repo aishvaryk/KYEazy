@@ -43,17 +43,13 @@ export class ProfileComponent implements OnInit,AfterViewInit {
 ngAfterViewInit()
 {
   this.store.select('liveliness').subscribe((liveliness) =>{
-    console.log(liveliness)
     if(!liveliness.video) return;
      let blob = new Blob([liveliness.video], { type:"video/mp4"});
       let url = window.URL.createObjectURL(blob);
-      //this.employee.employeeVideo=url;
-      console.log(url)
       this.toPlay.nativeElement.src = url;
     });
 
     this.store.select('selfie').subscribe((selfie)=>{
-      console.log(selfie)
       if(!selfie.image) return;
       let blob = new Blob([selfie.image], { type:"image/png"});
       let url = window.URL.createObjectURL(blob);
@@ -80,12 +76,9 @@ ngAfterViewInit()
 
       this.store.select('route').subscribe((route)=> {
         if( route === "/employee/kyc") {
-          console.log("if me")
           this.isReview=true;
-          console.log(this.isReview);
           this.store.select('details').subscribe((details) =>
           {
-           console.log(details,"inside profile review");
            this.address.streetNumber=details.addressLine1;
            this.address.street=details.addressLine2;
            this.address.country=details.country;
@@ -107,10 +100,8 @@ ngAfterViewInit()
             var fileURL = URL.createObjectURL(file);
             this.fileURL=fileURL;
           });
-          this.store.select('liveliness').subscribe((liveliness) =>console.log(liveliness));
         }
         else if(route.substring(1,4) ==='adm'){
-        console.log("setting here");
         this.isAdminPage=true;
         }
         else {
@@ -120,20 +111,15 @@ ngAfterViewInit()
 
       this.adminService.employeeSubject.subscribe((employee)=>
       {
-        console.log("subject");
         this.employee=employee;
         this.address=this.employee.address;
         if(this.employee.status==="Pending")
         {
           this.isPending=true;
-          console.log(this.isPending,this.isReview,"if");
         }
         else{
           this.isPending=false;
-          console.log("else mein")
         }
-        console.log(this.employee);
-        console.log(this.address);
         this.companyService.getCompanyDetails(this.employee.companyId);
         this.companyService.companySubject.subscribe((company)=>
         {
@@ -147,33 +133,26 @@ ngAfterViewInit()
 
    AcceptEmployee(){
      this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Accepted");
-    // this.isPending=false;
    }
 
    RejectEmployee(){
     this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Rejected");
-    //this.isPending=false;
    }
 
   ngOnInit(): void {
     if(!this.isReview){
       this.activatedRoute.params.subscribe(
       (params) => {
-        // console.log(params.employeeId);
         this.employeeId=params.employeeId;
       }
     );
-    //this.employeeService.viewProfile(this.employeeId);
 
     this.adminService.viewEmployeeDetails(this.employeeId);
 
     this.adminService.employeeSubject.subscribe((employee)=>
     {
-      console.log('yes yes');
       this.employee=employee;
       this.address=this.employee.address;
-      console.log(this.employee);
-      console.log(this.address);
       this.companyService.getCompanyDetails(this.employee.companyId);
       this.adminService.getEmployeeVideo(this.employee.username);
     }
@@ -182,17 +161,14 @@ ngAfterViewInit()
     this.companyService.companySubject.subscribe((company)=>
     {
       this.company=company;
-      console.log(company);
     }
     )
 
     this.adminService.employeeVideoSubject.subscribe((video: any)=>{
-      console.log(video + "asdf")
       let blob = new Blob([video], { type:"video/mp4"});
       let url = window.URL.createObjectURL(blob);
       this.employee.employeeVideo=url;
       this.toPlay.nativeElement.src = url;
-     // this.sanitizer.bypassSecurityTrustResourceUrl(url);
   })
 
 

@@ -57,23 +57,21 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onViewEmployees(companyId: number) {
-    console.log(companyId);
     this.companyRoute = '/admin/employees/' + companyId;
   }
+
   ngOnInit(): void {
-    console.log(this.isSmall);
     this.loading=true;
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
-      console.log(this.companies);
       this.loading=false;
     });
   }
+
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    console.log(this.paginator);
   }
 
   OnSearchSelect() {}

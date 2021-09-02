@@ -44,7 +44,6 @@ export class DetailsComponent implements OnInit {
     let k=localStorage.getItem("Id")
 
     if(k!=null) {
-     // console.log(parseInt(k))
       this.employeeService.viewProfile(parseInt(k));
     }
 
