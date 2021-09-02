@@ -1,6 +1,6 @@
 <div  fxLayout="column" fxLayoutAlign="start center" style="height: 100%;">
   <mat-card
-  *ngIf="zeroEmployees"
+  *ngIf="!zeroEmployees"
   [ngClass.gt-xs] = "'container-card'"
   [ngClass.xs] = "'container-card-mobile'"
   >
@@ -125,7 +125,7 @@
   </div>
   </mat-card>
   <mat-card [ngClass.gt-xs]="'no-employee-container-card'" [ngClass.lt-sm]="'no-employee-container-card-mobile'"
-    *ngIf="!zeroEmployees"
+    *ngIf="zeroEmployees"
     fxLayout.gt-xs="row"
     fxLayoutAlign.gt-xs="space-around center"
     fxLayout.xs="column-reverse"
