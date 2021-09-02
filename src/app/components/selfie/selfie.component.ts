@@ -58,6 +58,7 @@ export class SelfieComponent
     const imageFile = new File([blob], 'name.png', { type: 'image/png' });
     let selfie = {} as Selfie;
     selfie.image = imageFile;
+    selfie.imageBlob=blob;
     this.store.dispatch(setSelfie(selfie));
     this.stepper.next();
   }

@@ -45,7 +45,8 @@ export class RegisterComponent implements OnInit {
     this.newEmployee.firstName=this.employeeForm.value.firstName;
     this.newEmployee.lastName=this.employeeForm.value.lastName;
     this.newEmployee.emailID=this.employeeForm.value.email;
-    this.companyService.registerEmployee(this.newEmployee,1)
+    let k=localStorage.getItem("Id")
+    if(k!=null)this.companyService.registerEmployee(this.newEmployee,parseInt(k))
     console.log(this.employeeForm);
   }
 
@@ -75,8 +76,8 @@ export class RegisterComponent implements OnInit {
     console.log(this.form.get('document').value);
 
      const formData =  new FormData()
-formData.append('employeeCSV',this.form.get('document').value);
-let k=localStorage.getItem("Id")
+      formData.append('employeeCSV',this.form.get('document').value);
+      let k=localStorage.getItem("Id")
 
     if(k!=null) {
 
