@@ -13,6 +13,7 @@ import { Selfie } from 'src/app/models/selfie.model';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/Login/login.service';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({
   selector: 'app-review',
@@ -48,10 +49,7 @@ export class ReviewComponent implements OnInit {
     this.store.select('details').subscribe((details) => this.details=details);
     this.store.select('documents').subscribe((documents) => this.documents=documents);
     this.store.select('selfie').subscribe((selfie) => this.selfie=selfie);
-      this.store.select('liveliness').subscribe((liveliness) => {
-        this.liveliness=liveliness
-        console.log(liveliness);
-      });
+    this.store.select('liveliness').subscribe((liveliness) =>this.liveliness=liveliness);
       this.employee={} as Employee;
       this.address ={} as Address;
   }
@@ -62,6 +60,8 @@ export class ReviewComponent implements OnInit {
 
     this.snackbar.open(message,action);
   }
+
+
 addEmployee()
 {
   let k=localStorage.getItem("Id");
@@ -86,10 +86,31 @@ addEmployee()
   this.employee.address=this.address;
   this.employee.documentNumber=this.documents.documentNumber;
   this.employee.documentType=this.documents.documentType;
+ // this.employee.capturedImage=this.selfie.image.text;
+
+
+  let id=parseInt(localStorage.getItem("Id")!);
+ // this.employeeService.updateDocument(this.employee);
+    const documentData =  new FormData()
+      documentData.append('employeeDocument',this.documents.document);
+      this.employeeService.updateEmployeeDocument(id,documentData)
+
+
 
   this.employeeService.updateProfile(this.employee);
+    const imageData =  new FormData()
+      imageData.append('profilePicture',this.selfie.image);
+  this.employeeService.updateEmployeeImage(id,imageData)
+  const videoData =  new FormData()
+  console.log(this.liveliness.video)
+  videoData.append('employeeVideo',this.liveliness.video);
+this.employeeService.updateEmployeeVideo(id,videoData)
+
+
+
   this.openSnackBar("Sucessfully Submitted","Okay");
   this.loginService.logout();
+
 
 }
 }

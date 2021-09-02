@@ -11,7 +11,7 @@ export interface Employee {
   documentType:string;
   documentNumber:string;
   emailID:string;
-  capturedImage: Byte[]
+  capturedImage: Byte[] |File
   status:string;
   dateTimeofApplication:Date;
   dateTimeofVerification:Date;

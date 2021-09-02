@@ -89,7 +89,9 @@ export class LivelinessComponent implements OnInit {
     let liveliness = {} as Liveliness;
     liveliness.video = videoFile;
     liveliness.question = this.question;
+    console.log("dispatched")
     this.store.dispatch(setLiveliness(liveliness));
+    console.log("After dispatched")
     this.stepper.next();
   }
 
