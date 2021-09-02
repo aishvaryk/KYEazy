@@ -48,7 +48,10 @@ export class ReviewComponent implements OnInit {
     this.store.select('details').subscribe((details) => this.details=details);
     this.store.select('documents').subscribe((documents) => this.documents=documents);
     this.store.select('selfie').subscribe((selfie) => this.selfie=selfie);
-      this.store.select('liveliness').subscribe((liveliness) =>this.liveliness=liveliness);
+      this.store.select('liveliness').subscribe((liveliness) => {
+        this.liveliness=liveliness
+        console.log(liveliness);
+      });
       this.employee={} as Employee;
       this.address ={} as Address;
   }
