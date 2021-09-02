@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { updateMenu } from 'src/app/redux/actions/menu.action';
-import { LoginService } from 'src/app/services/Login/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-header',

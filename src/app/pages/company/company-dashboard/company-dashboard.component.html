@@ -28,6 +28,7 @@
     <!-- Employee-Card-Component -->
     <div *ngFor="let employee of employees" class="employee-card">
       <app-employee-card
+        [user]="'company'"
         [employee]="employee"
         [isSmall]="isSmall"
       ></app-employee-card>

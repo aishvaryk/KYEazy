@@ -68,6 +68,7 @@
       >
       <div *ngFor="let employee of employees">
         <app-employee-card
+          [user]="'admin'"
           [employee]="employee"
           [isSmall]="isSmall"
         ></app-employee-card>

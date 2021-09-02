@@ -19,8 +19,11 @@ export class SidebarComponent implements OnInit {
   employeePage:any;
   companyRegisterPage:any;
   currentRoute:any
+
   constructor(public store: Store<{breakpoint: Breakpoint, route: string, menu:boolean}>) {
+
     this.breakpoint$ = store.select('breakpoint');
+
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isSm||breakpoint.isXs ) {
         this.hasBackdrop = true;

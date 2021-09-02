@@ -5,7 +5,7 @@ import { Employee } from 'src/app/models/employee.model';
 import { Subject } from 'rxjs';
 import { Byte } from '@angular/compiler/src/util';
 import { Company } from 'src/app/models/company.model';
-import { LoginService } from '../Login/login.service';
+import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

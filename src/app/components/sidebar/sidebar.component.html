@@ -1,5 +1,4 @@
   <mat-sidenav-container class="sidenav-container" [hasBackdrop]="hasBackdrop">
-
     <mat-sidenav
       [ngClass.gt-sm]="'sidenav-large'"
       [ngClass.sm]="'sidenav-medium'"
@@ -10,7 +9,6 @@
       fixedInViewport="false"
     >
       <mat-nav-list>
-        <!-- if route is for company and 3 menus will be dashboard, Employees,Register -->
         <a
           mat-list-item
           class="sidenav-list-item"
@@ -72,16 +70,3 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
-
-<!-- <mat-expansion-panel  class="mat-elevation-z0 sidenav-expansion">
-      <mat-expansion-panel-header class="sidenav-expansion-header">
-        <mat-panel-title class="sidenav-list-item" >
-        Register Employees
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-nav-list>
-        <a mat-list-item class="sidenav-list-item" routerLink="/company/register"
-          >Single Employee</a>
-        <a mat-list-item class="sidenav-list-item" >Multiple Employees</a>
-      </mat-nav-list>
-    </mat-expansion-panel> -->

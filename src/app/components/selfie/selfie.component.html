@@ -2,18 +2,13 @@
 <div style="width: 100%; height: 100%;" fxLayout="column" fxLayoutAlign="center center">
   <div
     fxLayout="column"
-    [ngStyle.xs]="{ width: '90%' }"
-    [ngStyle.sm]="{ width: '70%' }"
-    [ngStyle.md]="{ width: '50%' }"
-    [ngStyle.lg]="{ width: '40%' }"
-    [ngStyle.xl]="{ width: '40%' }"
   >
     <div [class.show]="!camera" [class.hide]="camera">
       <img
         (click)="startCamera()"
         class="camera-icon"
-        height="200"
-        width="200"
+        [height]="height"
+        [width]="width"
         src="/assets/images/camera2.gif"
       />
     </div>
@@ -23,16 +18,16 @@
         #video
         [class.show]="!captured"
         [class.hide]="captured"
-        [width]="500"
-        [height]="300"
+        [width]="width"
+        [height]="height"
         autoplay
       ></video>
       <canvas
         #canvas
         [class.show]="captured"
         [class.hide]="!captured"
-        [width]="500"
-        [height]="300"
+        [width]="width"
+        [height]="height"
       ></canvas>
       <div [class.show]="!captured" [class.hide]="captured">
         <button mat-raised-button color="primary" (click)="capture()">Capture</button>

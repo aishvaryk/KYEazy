@@ -34,14 +34,10 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 import { SignupComponent } from './pages/company/signup/signup.component';
-import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
-import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
-import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { RegisterComponent } from './pages/company/register/register.component';
-import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -59,12 +55,12 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
-import { LoginService } from './services/Login/login.service';
+import { LoginService } from './services/login/login.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
-import { MaterialModule } from './modules/material/material.module';
+import { MaterialModule } from './app-material.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -72,9 +68,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { CompanyGuard } from './company.guard';
 import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
-import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
+import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { EmptyComponent } from './components/empty/empty.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -85,9 +84,6 @@ import { EmployeeCardComponent } from './components/employee-card/employee-card.
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    PendingKycComponent,
-    AcceptedKycComponent,
-    RejectedKycComponent,
     HomeComponent,
     EmployeesComponent,
     KycComponent,
@@ -97,7 +93,6 @@ import { EmployeeCardComponent } from './components/employee-card/employee-card.
     SelfieComponent,
     LivelinessComponent,
     ReviewComponent,
-    EmployeeDashboardComponent,
     CompanyDashboardComponent,
     AdminDashboardComponent,
     AdminComponent,
@@ -110,8 +105,11 @@ import { EmployeeCardComponent } from './components/employee-card/employee-card.
     AllCompaniesComponent,
     CarouselComponent,
     TemplateMarker,
-    SnackbarComponent,
     EmployeeCardComponent,
+    ProfilePageComponent,
+    BarChartComponent,
+    EmptyComponent,
+    PieChartComponent,
   ],
   imports: [
     StoreModule.forRoot({

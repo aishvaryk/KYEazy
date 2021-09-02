@@ -8,10 +8,9 @@ import { Store } from '@ngrx/store';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { LoginService } from 'src/app/services/Login/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
 import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-login',

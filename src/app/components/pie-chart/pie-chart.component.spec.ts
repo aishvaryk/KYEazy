@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingKycComponent } from './pending-kyc.component';
+import { PieChartComponent } from './pie-chart.component';
 
-describe('PendingKycComponent', () => {
-  let component: PendingKycComponent;
-  let fixture: ComponentFixture<PendingKycComponent>;
+describe('PieChartComponent', () => {
+  let component: PieChartComponent;
+  let fixture: ComponentFixture<PieChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PendingKycComponent ]
+      declarations: [ PieChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PendingKycComponent);
+    fixture = TestBed.createComponent(PieChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

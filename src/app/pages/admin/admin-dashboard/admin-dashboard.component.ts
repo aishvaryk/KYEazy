@@ -57,7 +57,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onViewEmployees(companyId: number) {
-    this.companyRoute = '/admin/employees/' + companyId;
+    this.companyRoute = '/admin/company/employees/' + companyId;
   }
 
   ngOnInit(): void {

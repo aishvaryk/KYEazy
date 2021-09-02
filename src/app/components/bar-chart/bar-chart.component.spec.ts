@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RejectedKycComponent } from './rejected-kyc.component';
+import { BarChartComponent } from './bar-chart.component';
 
-describe('RejectedKycComponent', () => {
-  let component: RejectedKycComponent;
-  let fixture: ComponentFixture<RejectedKycComponent>;
+describe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RejectedKycComponent ]
+      declarations: [ BarChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RejectedKycComponent);
+    fixture = TestBed.createComponent(BarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

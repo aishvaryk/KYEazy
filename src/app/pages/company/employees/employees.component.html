@@ -108,10 +108,12 @@
       <!-- Employee Card Component -->
         <div *ngFor="let employee of employees" class="employee-card">
           <app-employee-card
+            [user]="'company'"
             [employee]="employee"
             [isSmall]="isSmall"
           ></app-employee-card>
         </div>
+
       </div>
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
         <mat-paginator
@@ -125,6 +127,7 @@
         </mat-paginator>
       </div>
     </div>
+
   </mat-card>
 
   <mat-card

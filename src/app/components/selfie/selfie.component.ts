@@ -42,16 +42,17 @@ export class SelfieComponent
     this.store.select('breakpoint').subscribe((breakpoint) => {
       this.breakpoint = breakpoint;
       if(breakpoint.isXs) {
-        this.height = 0
-        this.width = 0
+        console.log(breakpoint.isXs);
+        this.height = 250
+        this.width = 250
       }
       if(breakpoint.isSm) {
-        this.height = 0
-        this.width = 0
+        this.height = 400
+        this.width = 350
       }
       if(breakpoint.isMd ) {
-        this.height = 0
-        this.width = 0
+        this.height = 500
+        this.width = 350
       }
       if(breakpoint.isLg) {
         this.height = 0

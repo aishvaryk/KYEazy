@@ -11,7 +11,7 @@ import { ActionDTO } from 'src/app/models/action.model';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
-import { LoginService } from '../Login/login.service';
+import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

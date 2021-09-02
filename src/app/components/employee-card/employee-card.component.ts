@@ -9,6 +9,8 @@ export class EmployeeCardComponent implements OnInit {
 
   @Input() employee:any;
   @Input() isSmall:any;
+  @Input() user:any;
+
   constructor() { }
 
   ngOnInit(): void {
