@@ -23,6 +23,7 @@ export class CompanyDashboardComponent implements OnInit {
   public company: Company;
   public isSmall: any;
   public zeroEmployees: any;
+  loading!:boolean;
 
   breakpoint$: Observable<Breakpoint>;
   chartView: any = [400, 300];
@@ -64,8 +65,9 @@ export class CompanyDashboardComponent implements OnInit {
     console.log(pieChartData);
     let k=localStorage.getItem("Id")
 if(k!=null) {
-
+  this.loading=true;
   this.companyService.getCompanyDetails(parseInt(k));
+  this.loading=false;
   } this.companyService.companySubject.subscribe((company) => {
       this.company = company;
       if (this.company.numberOfTotalEmployees === 0) {
@@ -103,8 +105,9 @@ if(k!=null) {
     let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+    this.loading=true;
     this.companyService.getEmployeesSortedByDate(parseInt(k),2,1);
+    this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;

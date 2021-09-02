@@ -34,6 +34,7 @@ export class EmployeesComponent implements OnInit {
   public filter: string;
   public sortBy: string;
   public search: string;
+  public loading!:boolean;
   public employees:Employee[];
   //verificationStatus: String;
   searchText:string;
@@ -71,8 +72,9 @@ export class EmployeesComponent implements OnInit {
     let k=localStorage.getItem("Id")
 
       if(k!=null) {
-
+        this.loading=true;
       this.companyService.getEmployees(parseInt(k),10,1);
+      this.loading=false;
     }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
@@ -109,8 +111,9 @@ export class EmployeesComponent implements OnInit {
     let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+      this.loading=true;
     this.companyService.getEmployees(parseInt(k),event.pageSize,pageIndex);
+    this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
@@ -131,8 +134,9 @@ export class EmployeesComponent implements OnInit {
     let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+    this.loading=true;
     this.companyService.getEmployeeByName(parseInt(k),this.searchText);
+    this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
@@ -149,9 +153,9 @@ export class EmployeesComponent implements OnInit {
       let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+    this.loading=true;
     this.companyService.getEmployeesSortedByName(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
-
+    this.loading=false;
     }
     this.companyService.employeesSubject.subscribe((employees)=>{
       this.employees=employees;
@@ -163,8 +167,9 @@ export class EmployeesComponent implements OnInit {
       let k=localStorage.getItem("Id")
 
     if(k!=null) {
-
+      this.loading=true;
       this.companyService.getEmployeesSortedByDate(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.loading=false;
     }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
@@ -183,8 +188,9 @@ export class EmployeesComponent implements OnInit {
       let k=localStorage.getItem("Id")
 
       if(k!=null) {
-
+        this.loading=true;
       this.companyService.getEmployeesByStatus(parseInt(k),"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+      this.loading=false;
       }
       this.companyService.employeesSubject.subscribe((employees)=>{
         this.employees=employees;
@@ -196,8 +202,9 @@ export class EmployeesComponent implements OnInit {
         let k=localStorage.getItem("Id")
 
         if(k!=null) {
-
+          this.loading=true;
         this.companyService.getEmployeesByStatus(parseInt(k),"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+        this.loading=false;
         }
         this.companyService.employeesSubject.subscribe((employees)=>{
           this.employees=employees;
@@ -209,8 +216,9 @@ export class EmployeesComponent implements OnInit {
           let k=localStorage.getItem("Id")
 
           if(k!=null) {
-
+          this.loading=true;
           this.companyService.getEmployeesByStatus(parseInt(k),"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
+          this.loading=false;
           }
           this.companyService.employeesSubject.subscribe((employees)=>{
             this.employees=employees;
@@ -222,8 +230,9 @@ export class EmployeesComponent implements OnInit {
             let k=localStorage.getItem("Id")
 
             if(k!=null) {
-
+            this.loading=true;
             this.companyService.getEmployees(parseInt(k),this.paginator.currentPageSize,this.paginator.currentPageIndex);
+            this.loading=false;
             }
             this.companyService.employeesSubject.subscribe((employees)=>{
               this.employees=employees;
