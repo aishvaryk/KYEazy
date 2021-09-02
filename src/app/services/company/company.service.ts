@@ -50,10 +50,8 @@ export class CompanyService {
 
   login(credentials:any):any
   {
-
-    console.log("Company")
+    console.log("Company");
     return this.loginService.doLogin(credentials);
-
   }
 
   register(newCompany:Company): any{
