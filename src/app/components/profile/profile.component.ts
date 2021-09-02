@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,7 @@ import { Documents } from 'src/app/models/documents.model';
 import { Employee } from 'src/app/models/employee.model';
 import { Liveliness } from 'src/app/models/liveliness.model';
 import { Selfie } from 'src/app/models/selfie.model';
+import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -19,7 +20,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,AfterViewInit {
   public employee:Employee;
   public employeeService:EmployeeService;
   private employeeId:number;
@@ -30,14 +31,45 @@ export class ProfileComponent implements OnInit {
   public adminService:AdminService;
   public isAdminPage:boolean;
   public isPending:boolean;
+  fileURL=""
 
   @Input() stepper!:MatStepper;
 
+  @ViewChild('toImage')
+  public toImage:any
   @ViewChild('toPlay')
   public toPlay: any;
   employeeImage: any
-  constructor(employeeService:EmployeeService,private activatedRoute:ActivatedRoute,companyService:CompanyService,public store: Store<{route: string,details: Details,
-    documents: Documents,selfie: Selfie,liveliness: Liveliness,}>,adminService:AdminService) {
+
+ngAfterViewInit()
+{
+  this.store.select('liveliness').subscribe((liveliness) =>{
+    console.log(liveliness)
+     let blob = new Blob([liveliness.video], { type:"video/mp4"});
+      let url = window.URL.createObjectURL(blob);
+      //this.employee.employeeVideo=url;
+      console.log(url)
+
+      this.toPlay.nativeElement.src = url;
+    });
+    this.store.select('selfie').subscribe((selfie)=>{
+      console.log(selfie)
+      let blob = new Blob([selfie.image], { type:"image/png"});
+      let url = window.URL.createObjectURL(blob);
+
+
+        this.toImage.nativeElement.src=url
+       } );
+
+
+
+}
+
+  constructor(employeeService:EmployeeService,
+    private activatedRoute:ActivatedRoute,
+    companyService:CompanyService,
+    public store: Store<{route: string,details: Details,
+    documents: Documents,selfie: Selfie,liveliness: Liveliness}>,adminService:AdminService) {
     this.employee={} as Employee;
     this.employeeService=employeeService;
     this.employeeId=0;
@@ -48,8 +80,10 @@ export class ProfileComponent implements OnInit {
     this.company={} as Company;
     this.companyService=companyService;
     this.adminService=adminService;
+
       this.store.select('route').subscribe((route)=> {
         if( route === "/employee/kyc") {
+          console.log("if me")
           this.isReview=true;
           console.log(this.isReview);
           this.store.select('details').subscribe((details) =>
@@ -73,12 +107,12 @@ export class ProfileComponent implements OnInit {
             this.employee.documentType=documents.documentType;
             this.employee.documentNumber=documents.documentNumber;
 
+            var file = new Blob([documents.document], {type: 'application/pdf'});
+            var fileURL = URL.createObjectURL(file);
+            this.fileURL=fileURL;
           });
-          this.store.select('selfie').subscribe((selfie) =>{
-            this.employeeImage=selfie
-            console.log(selfie)
-          } );
-          this.store.select('liveliness').subscribe((liveliness) => console.log(liveliness));
+          this.store.select('liveliness').subscribe((liveliness) =>console.log(liveliness));
+
         }
         else if(route.substring(1,4) ==='adm'){
         console.log("setting here");
@@ -89,7 +123,8 @@ export class ProfileComponent implements OnInit {
         }
       })
       this.adminService.employeeSubject.subscribe((employee)=>
-      { console.log("subject");
+      {
+        console.log("subject");
         this.employee=employee;
         this.address=this.employee.address;
         if(this.employee.status==="Pending")
@@ -111,14 +146,6 @@ export class ProfileComponent implements OnInit {
         )
       }
       );
-
-
-
-
-
-
-
-
    }
    AcceptEmployee(){
      this.adminService.verifyEmployeeDetails(this.employee.employeeId,"Accepted");
@@ -155,11 +182,11 @@ export class ProfileComponent implements OnInit {
         console.log(company);
       }
       )
+      console.log('chalaaaaa')
       this.adminService.getEmployeeVideo(this.employee.username);
-    this.adminService.employeeVideoSubject.subscribe((video)=>{
+      this.adminService.employeeVideoSubject.subscribe((video)=>{
       console.log(video)
 
-   //  this.employee.employeeVideo=video;
       let blob = new Blob([video], { type:"video/mp4"});
         let url = window.URL.createObjectURL(blob);
         this.employee.employeeVideo=url;
@@ -167,8 +194,6 @@ export class ProfileComponent implements OnInit {
         this.toPlay.nativeElement.src = url;
 
        // this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-
     })
 
     }
@@ -186,7 +211,7 @@ export class ProfileComponent implements OnInit {
   }
 
   viewDocument(){
-    window.open("https://www.google.com/", '_blank');
+    window.open(this.fileURL);
   }
 
   }
