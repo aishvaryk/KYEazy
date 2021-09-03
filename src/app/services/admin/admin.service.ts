@@ -175,4 +175,21 @@ verifyEmployeeDetails(id:number,status:string):void{
         this.companiesSubject.next(this.companies);
       });
     }
+
+    getAllEmployeesByStatus(
+      status: string,
+      pageSize: number,
+      pageNumber: number
+    ): void {
+      this.httpClient
+        .get(
+          `${environment.backendURL}/admin/all-employees-by-status/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        )
+        .pipe(map((response) => response as Employee[]))
+        .subscribe((results: Employee[]) => {
+          console.log(results);
+          this.employees = results;
+          this.employeesSubject.next(this.employees);
+        });
+    }
 }

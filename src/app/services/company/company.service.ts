@@ -27,6 +27,7 @@ export class CompanyService {
   public companySubject:Subject<Company>;
   public actionDTOSubject:Subject<ActionDTO>;
   public registrationStatus:ActionDTO;
+  public updateStatus:ActionDTO;
 
   public APIResponse: ActionDTO | exceptionDTO;
 
@@ -41,6 +42,7 @@ export class CompanyService {
     this.companySubject=new Subject();
     this.company={ } as Company;
     this.APIResponse={ } as ActionDTO|exceptionDTO;
+    this.updateStatus= { } as ActionDTO;
   }
 
   login(credentials:any):any
@@ -50,34 +52,13 @@ export class CompanyService {
   }
 
   register(newCompany:Company): any{
-   return  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO))
-        // console.log(results);
-        // if(!results.success)
-        // {
-        //   this.dialog.open(ModalComponent,{
-        //     data: {
-        //       type: "COMPANY_REGISTER"
-        //     }
-        //   });
-        // }
+   return  this.httpClient.post<ActionDTO | exceptionDTO>(`${environment.backendURL}/company/register`,newCompany).pipe(map((response) => response as Company|exceptionDTO));
 
 }
 
 getEmployees(id:number,pageSize:number,pageNumber:number): void{
 
     let token=this.loginService.getToken()
-    //  var header={
-    //     headers:new HttpHeaders({"Authorization":"Bearer "+token,"Access-Control-Allow-Origin": '*'})
-
-    //   };
-  //  var header={headers:new HttpHeaders().set("Authorization","Bearer "+token)
-    //}
-      // console.log(header)
-
-    //let header = this.initHeaders();
-    //let options = new RequestOptions({ headers: header, method: 'post'});
-
-
     this.httpClient.get(`${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`).pipe(map((response) => response as Employee[]))
     .subscribe((results: Employee[]) => {
         this.employees=results;
@@ -182,6 +163,17 @@ getCompanyDetails(id:number): void{
       this.companySubject.next(results);
 
 });}
+
+updateCompanyImage(id:number,image:FormData): void{
+  this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/icon/{id}`,image).pipe(map((response) => response as ActionDTO))
+  .subscribe((results: ActionDTO) => {
+   // this.employees=results;
+      console.log(results);
+      this.updateStatus=results;
+      this.actionDTOSubject.next(results);
+
+});
+}
 
 updateProfile(newCompany:Company): void{
   this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/update-profile`,newCompany).pipe(map((response) => response as ActionDTO))

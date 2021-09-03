@@ -12,7 +12,7 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
 })
 export class DocumentsComponent implements OnInit {
   form: any;
-
+  loading!:boolean;
   @Input() stepper!:MatStepper;
 
   constructor(public store: Store<{ documents: Documents }>) {
@@ -30,9 +30,11 @@ export class DocumentsComponent implements OnInit {
   onChange(event: any) {
     let file = event.target.files[0];
     const url = URL.createObjectURL(file);
+    this.loading=true;
     this.form.patchValue({
       document: file,
     });
+    this.loading=false;
   }
 
   onSave() {

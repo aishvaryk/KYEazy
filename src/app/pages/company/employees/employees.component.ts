@@ -229,19 +229,7 @@ export class EmployeesComponent implements OnInit {
             this.employees=employees;
             console.log(employees);
           }
-          );}
-
-    if (this.filter === 'verification-pending') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.companyService.getEmployeesByStatus(
-          parseInt(k),
-          'Pending',
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-      }
+          );
       this.companyService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
         console.log(employees);

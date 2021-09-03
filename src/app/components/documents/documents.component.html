@@ -1,4 +1,7 @@
-<mat-card style="width: 100%; height: 100%;">
+<div fxLayout="column" *ngIf="loading" fxLayoutAlign="center center" class="loader">
+  <mat-spinner></mat-spinner>
+</div>
+<mat-card *ngIf="!loading" style="width: 100%; height: 100%;">
 
 <div style="width: 100%; height: 100%;" fxLayout="column" fxLayoutAlign="center center">
 

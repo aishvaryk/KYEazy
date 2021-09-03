@@ -21,6 +21,7 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 export class LoginComponent implements OnInit {
   loginService:LoginService;
   durationInSeconds=5;
+  loading!:boolean;
   @Input()
   public type: any;
 
@@ -67,30 +68,36 @@ export class LoginComponent implements OnInit {
     if(this.type == "EMPLOYEE_LOGIN") {
       this.credentials.role="EMPLOYEE";
       localStorage.setItem('userType',"EMPLOYEE")
+      this.loading=true;
       this.employeeService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
          //this.loginService.setUserId(response.id)
          this.router.navigate(['/employee/kyc'])
+         this.loading=false;
         },
         (error:any)=>{
           console.log(error);
           this.openSnackBar("Invalid Employee Credentials","Retry");
+          this.loading=false;
         })
     }
 
     if(this.type == "ADMIN_LOGIN") {
       this.credentials.role="ADMIN";
       localStorage.setItem('userType',"ADMIN")
+      this.loading=true;
       this.adminService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
          this.loginService.loginUser(response.token,"")
          this.router.navigate(['/admin/dashboard'])
+         this.loading=false;
         },
         (error:any)=>{
           console.log(error);
+          this.loading=false;
           this.errorDialog.open(ModalComponent,{
             data: {
               type: "INFORMATION_PROMPTS",
@@ -104,17 +111,19 @@ export class LoginComponent implements OnInit {
     if(this.type == "COMPANY_LOGIN") {
       this.credentials.role="COMPANY";
       localStorage.setItem('userType',"COMPANY")
-
+      this.loading=true;
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
          console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
         //this.loginService.setUserId(response.id)
-         this.router.navigate(['/company/dashboard'])
+         this.router.navigate(['/company/dashboard']);
+         this.loading=false;
         },
         (error:any)=>{
           console.log(error);
           this.openSnackBar("Invalid Company Credentials","Retry");
+          this.loading=false;
         })
     }
 

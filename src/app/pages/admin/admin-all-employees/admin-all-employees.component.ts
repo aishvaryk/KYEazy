@@ -24,7 +24,7 @@ export interface paginator {
 @Component({
   selector: 'app-admin-all-employees',
   templateUrl: './admin-all-employees.component.html',
-  styleUrls: ['./admin-all-employees.component.scss']
+  styleUrls: ['./admin-all-employees.component.scss'],
 })
 export class AdminAllEmployeesComponent implements OnInit {
   emailFormControl = new FormControl('');
@@ -35,14 +35,14 @@ export class AdminAllEmployeesComponent implements OnInit {
   public filter: string;
   public sortBy: string;
   public search: string;
-  public employees:Employee[];
-  public loading!:boolean;
+  public employees: Employee[];
+  public loading!: boolean;
   //verificationStatus: String;
-  searchText:string;
-  constructor(public observer: MediaObserver,adminService:AdminService) {
+  searchText: string;
+  constructor(public observer: MediaObserver, adminService: AdminService) {
     //this.verificationStatus = 'verified';
     this.isSmall = false;
-    this.searchText='';
+    this.searchText = '';
     this.paginator = {
       length: 100,
       currentPageSize: 10,
@@ -52,8 +52,8 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.filter = '';
     this.sortBy = '';
     this.search = '';
-    this.adminService=adminService;
-    this.employees=[{}] as Employee[];
+    this.adminService = adminService;
+    this.employees = [{}] as Employee[];
   }
 
   ngOnInit(): void {
@@ -70,140 +70,130 @@ export class AdminAllEmployeesComponent implements OnInit {
           this.isSmall = false;
         }
       });
-      this.loading=true;
-      this.adminService.viewAllApplications(10,1);
-      this.adminService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
+    this.loading = true;
+    this.adminService.viewAllApplications(10, 1);
+    this.adminService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
 
-         this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
-         this.paginator.currentPageIndex=1;
+      this.paginator.length =
+        Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
+      this.paginator.currentPageIndex = 1;
 
-        console.log(employees);
-        this.loading=false;
-
-      }
-      );
+      console.log(employees);
+      this.loading = false;
+    });
   }
 
   formatImage(img: any): any {
-
     if (img == null) {
       return null;
     }
     return 'data:image/jpeg;base64,' + img;
   }
 
-
   OnPageChange(event: any) {
+    this.paginator.length =
+      Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
+    if (event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
-
-    this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
-   if(event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
-
-   if(event.pageSize)this.paginator.currentPageSize = event.pageSize;
-    let pageIndex=1;
-    if(event.pageIndex)
-    {
-      pageIndex=event.pageSize;
+    if (event.pageSize) this.paginator.currentPageSize = event.pageSize;
+    let pageIndex = 1;
+    if (event.pageIndex) {
+      pageIndex = event.pageSize;
     }
-    this.loading=true;
-    this.adminService.viewAllApplications(event.pageSize,pageIndex);
-      this.adminService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
-        console.log(employees);
-        this.loading=false;
-    }
-      );
-
+    this.loading = true;
+    this.adminService.viewAllApplications(event.pageSize, pageIndex);
+    this.adminService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+      console.log(employees);
+      this.loading = false;
+    });
   }
 
-  onSearchText(event:any)
-  {
-
-    this.searchText=event.target.value;
-
+  onSearchText(event: any) {
+    this.searchText = event.target.value;
   }
   OnSearchSelect() {
     console.log(this.searchText);
-    this.loading=true;
-    this.adminService.getAllEmployeeByName(this.searchText,this.paginator.currentPageSize,this.paginator.currentPageIndex);
-    this.adminService.employeesSubject.subscribe((employees)=>{
-            this.employees=employees;
-            console.log(employees);
-            this.loading=false;
-          }
-          );
+    this.loading = true;
+    this.adminService.getAllEmployeeByName(
+      this.searchText,
+      this.paginator.currentPageSize,
+      this.paginator.currentPageIndex
+    );
+    this.adminService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+      console.log(employees);
+      this.loading = false;
+    });
   }
-
 
   OnSortSelect(event: any) {
     console.log(event.value);
     this.sortBy = event.value;
 
-    if(this.sortBy==="name"){
-    this.loading=true;
-    this.adminService.getAllEmployeesSortedByName(this.paginator.currentPageSize,this.paginator.currentPageIndex);
-    this.adminService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
-      console.log(employees);
-      this.loading=false;
-    }
-    );}
-
-    if(this.sortBy==="date-registration"){
-      this.loading=true;
-      this.adminService.getAllEmployeesSortedByDate(this.paginator.currentPageSize,this.paginator.currentPageIndex);
-      this.adminService.employeesSubject.subscribe((employees)=>{
-        this.employees=employees;
+    if (this.sortBy === 'name') {
+      this.loading = true;
+      this.adminService.getAllEmployeesSortedByName(
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex
+      );
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
         console.log(employees);
-        this.loading=false;
-      }
-      );}
+        this.loading = false;
+      });
+    }
 
+    if (this.sortBy === 'date-registration') {
+      this.loading = true;
+      this.adminService.getAllEmployeesSortedByDate(
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex
+      );
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+        this.loading = false;
+      });
+    }
   }
-
-
 
   OnFilterSelect(event: any) {
-
+    console.log(event.value);
+    this.filter = event.value;
+    if (this.filter === 'verification-failed') {
+      this.adminService.getAllEmployeesByStatus(
+        'Rejected',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex
+      );
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'verification-completed') {
+      this.adminService.getAllEmployeesByStatus('Accepted', 10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'verification-pending') {
+      // this.paginator.currentPageSize,this.paginator.currentPageIndex
+      this.adminService.getAllEmployeesByStatus('Pending', 10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'all') {
+      this.adminService.viewAllApplications(10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
   }
-
-
-//   OnFilterSelect(event: any) {
-//     console.log(event.value);
-//     this.filter = event.value;
-
-//     if(this.filter==="verification-failed"){
-//       this.adminService.getEmployeesByStatus(1,"Rejected",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//       this.adminService.employeesSubject.subscribe((employees)=>{
-//         this.employees=employees;
-//         console.log(employees);
-//       }
-//       );}
-
-//       if(this.filter==="verification-completed"){
-//         this.adminService.getEmployeesByStatus(1,"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//         this.adminService.employeesSubject.subscribe((employees)=>{
-//           this.employees=employees;
-//           console.log(employees);
-//         }
-//         );}
-
-//         if(this.filter==="verification-pending"){
-//           this.adminService.getEmployeesByStatus(1,"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//           this.adminService.employeesSubject.subscribe((employees)=>{
-//             this.employees=employees;
-//             console.log(employees);
-//           }
-//           );}
-
-//           if(this.filter==="all"){
-//             this.adminService.getEmployees(1,this.paginator.currentPageSize,this.paginator.currentPageIndex);
-//             this.adminService.employeesSubject.subscribe((employees)=>{
-//               this.employees=employees;
-//               console.log(employees);
-//             }
-//             );}
-
-//   }
 }
