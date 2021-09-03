@@ -28,7 +28,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('image') image!: any;
   @ViewChild('video') video!: any;
 
-  public imageURL = "";
+  documentURL: any;
+
   constructor() {
   }
 
@@ -36,13 +37,25 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Prase Image
     let blob = new Blob([this.selfie.image], { type:"image/png"});
     let url = window.URL.createObjectURL(blob);
     this.image.nativeElement.src = url
+
+    // Parse Video
+    blob = new Blob([this.liveliness.video], { type:"video/mp4"});
+    url = window.URL.createObjectURL(blob);
+    this.video.nativeElement.src = url
+
+    // Parse Document
+    blob = new Blob([this.document.document], {type: 'application/pdf'});
+    url = URL.createObjectURL(blob);
+    this.documentURL = url;
+
   }
 
   viewDocument() {
-    //window.open(this.document.document);
+    window.open(this.documentURL);
   }
 
 }
