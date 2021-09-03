@@ -4,7 +4,7 @@ import { Employee } from 'src/app/models/employee.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LoginService } from '../loginn/login.service';
+import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

@@ -45,7 +45,7 @@ import { ViewEmployessComponent } from './pages/admin/view-employess/view-employ
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
-import { LoginService } from './services/loginn/login.service';
+import { LoginService } from './services/login/login.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
