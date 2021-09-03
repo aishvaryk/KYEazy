@@ -5,7 +5,7 @@ import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
-import { pieChartData } from 'src/app/models/pieChartData.model';
+import { pieChartData } from 'src/app/models/pie-chart-data.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -43,6 +43,7 @@ export class CompanyDashboardComponent implements OnInit {
     this.employees = [{}] as Employee[];
     this.company = {} as Company;
     let k = localStorage.getItem('Id');
+    console.log(k);
     if (k != null) {
       this.loading = true;
       this.companyService.getCompanyDetails(parseInt(k));
@@ -63,13 +64,15 @@ export class CompanyDashboardComponent implements OnInit {
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
-      Object.assign(this, { pieChartData });
+      console.log("Pie chart dataa"+pieChartData);
+            Object.assign(this, { pieChartData });
     });
   }
 
   ngOnInit(): void {
-    let k = localStorage.getItem('Id');
 
+    let k = localStorage.getItem('Id');
+    console.log(k);
     if (k != null) {
       this.loading = true;
       this.companyService.getEmployeesSortedByDate(parseInt(k), 2, 1);

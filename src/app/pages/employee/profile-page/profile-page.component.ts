@@ -57,11 +57,15 @@ export class ProfilePageComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params) => {
       this.employeeId = params.employeeId;
+      console.log(this.employeeId)
       this.employeeLoading = true;
       this.adminService.viewEmployeeDetails(this.employeeId);
+
     });
 
+
     this.adminService.employeeSubject.subscribe((employee) => {
+    console.log(employee)
       this.employeeLoading = false;
       this.employee = employee;
       // Parsing Personal Details

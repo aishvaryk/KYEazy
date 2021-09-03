@@ -41,12 +41,24 @@ export class EmployeeService {
         this.updateStatus = results;
         this.actionDTOSubject.next(results);
       });
-  }
 
+  }
+  updateEmployeeStatus(newEmployee: Employee): void {
+    this.httpClient
+      .patch<ActionDTO>(
+        `${environment.backendURL}/employee/update-status/{id}`,
+        newEmployee
+      )
+      .pipe(map((response) => response as ActionDTO))
+      .subscribe((results: ActionDTO) => {
+        this.updateStatus = results;
+        this.actionDTOSubject.next(results);
+      });
+}
   updateEmployeeImage(id: number, image: FormData): void {
     this.httpClient
       .patch<ActionDTO>(
-        `${environment.backendURL}/employee/update-profile/${id}/profile-pictures`,
+        `${environment.backendURL}/employee/update-captured-image/${id}`,
         image
       )
       .pipe(map((response) => response as ActionDTO))
@@ -59,7 +71,7 @@ export class EmployeeService {
   updateEmployeeVideo(id: number, video: FormData): void {
     this.httpClient
       .patch<ActionDTO>(
-        `${environment.backendURL}/employee/update-video/${id}/video`,
+        `${environment.backendURL}/employee/update-video/${id}`,
         video
       )
       .pipe(map((response) => response as ActionDTO))
@@ -72,7 +84,7 @@ export class EmployeeService {
   updateEmployeeDocument(id: number, document: FormData): void {
     this.httpClient
       .patch<ActionDTO>(
-        `${environment.backendURL}/employee/update-document/${id}/document`,
+        `${environment.backendURL}/employee/update-document/${id}`,
         document
       )
       .pipe(map((response) => response as ActionDTO))
