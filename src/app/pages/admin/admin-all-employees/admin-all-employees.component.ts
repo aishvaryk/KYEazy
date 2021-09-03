@@ -63,6 +63,7 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("challaaaaa");
     this.observable = this.observer
       .asObservable()
       .pipe(
@@ -118,12 +119,17 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.searchText = event.target.value;
   }
   OnSearchSelect() {
+    console.log('chala');
     this.loading = true;
-    this.adminService.getAllEmployeeByName(
+    let k=localStorage.getItem("Id");
+    if(k!=null){
+    this.adminService.getAllEmployeesByName(
+      parseInt(k),
       this.searchText,
       this.paginator.currentPageSize,
       this.paginator.currentPageIndex
     );
+    }
     this.adminService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
       this.loading = false;
@@ -132,10 +138,12 @@ export class AdminAllEmployeesComponent implements OnInit {
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
-
+    let k=localStorage.getItem("Id");
+    if(k!=null){
     if (this.sortBy === 'name') {
       this.loading = true;
       this.adminService.getAllEmployeesSortedByName(
+        parseInt(k),
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex
       );
@@ -148,6 +156,8 @@ export class AdminAllEmployeesComponent implements OnInit {
     if (this.sortBy === 'date-registration') {
       this.loading = true;
       this.adminService.getAllEmployeesSortedByDate(
+        parseInt(k),
+
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex
       );
@@ -157,6 +167,7 @@ export class AdminAllEmployeesComponent implements OnInit {
         this.loading = false;
       });
     }
+  }
   }
 
   OnFilterSelect(event: any) {

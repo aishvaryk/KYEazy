@@ -12,13 +12,12 @@ import {
 } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
-
-export interface paginator {
-  length: number;
-  currentPageIndex: number;
-  currentPageSize: number;
-  pageSizeOptions: Array<number>;
-}
+import { ActivatedRoute } from '@angular/router';
+import { Company } from 'src/app/models/company.model';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
+import { Store } from '@ngrx/store';
+import { paginator } from '../../admin/all-companies/all-companies.component';
+import { Paginator } from 'src/app/models/paginator.model';
 
 @Component({
   selector: 'app-employees',
@@ -27,68 +26,75 @@ export interface paginator {
 })
 export class EmployeesComponent implements OnInit {
   emailFormControl = new FormControl('');
-  private observable: any;
+  public paginator: Paginator;
   public isSmall: boolean;
-  public paginator: paginator;
   public companyService: CompanyService;
   public filter: string;
   public sortBy: string;
   public search: string;
   public employees: Employee[];
-
+  public companyId: any;
+  public company: Company;
   public zeroEmployees: any;
-
   public loading!: boolean;
   searchText: string;
-  constructor(public observer: MediaObserver, companyService: CompanyService) {
+  currentUser!: string;
+
+  constructor(
+    public store: Store<{ breakpoint: Breakpoint; route: string }>,
+    companyService: CompanyService,
+    public activatedRoute: ActivatedRoute
+  ) {
     this.isSmall = false;
     this.searchText = '';
-    this.paginator = {
-      length: 100,
-      currentPageSize: 10,
-      pageSizeOptions: [2, 10, 25],
-      currentPageIndex: 0,
-    };
     this.filter = '';
     this.sortBy = '';
     this.search = '';
     this.companyService = companyService;
     this.employees = [{}] as Employee[];
+    this.companyId = 0;
+    this.company = {} as Company;
+    this.paginator = {} as Paginator;
   }
 
   ngOnInit(): void {
-    this.observable = this.observer
-      .asObservable()
-      .pipe(
-        filter((changes: MediaChange[]) => changes.length > 0),
-        map((changes: MediaChange[]) => changes[0])
-      )
-      .subscribe((change: MediaChange) => {
-        if (change.mqAlias === 'xs') {
-          this.isSmall = true;
-        } else {
-          this.isSmall = false;
-        }
-      });
-    let k = localStorage.getItem('Id');
 
-    if (k != null) {
-      this.loading = true;
-      this.companyService.getEmployees(parseInt(k), 10, 1);
-      this.loading = false;
-    }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
+    this.activatedRoute.params.subscribe((params) => {
+      this.companyId = params.companyId;
+      if(params.companyId==undefined)
+      {
+        let k=localStorage.getItem("Id");
+        if(k!=null)this.companyId= parseInt(k)
+      }
 
-      this.paginator.length =
-        Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
-      this.paginator.currentPageIndex = 1;
     });
 
-    if (k != null) {
-      this.companyService.getCompanyDetails(parseInt(k));
-    }
+    this.store.select('breakpoint').subscribe((change: Breakpoint) => {
+      if (change.isXs) {
+        this.isSmall = true;
+      } else {
+        this.isSmall = false;
+      }
+    });
+
+    this.store.select('route').subscribe((route: string) => {
+      if (route.substring(1, 4) === 'com') this.currentUser = 'company';
+      else this.currentUser = 'admin';
+    });
+
+    this.companyService.getEmployees(this.companyId, 5, 1);
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+    });
+
+    this.companyService.getCompanyDetails(this.companyId);
     this.companyService.companySubject.subscribe((company) => {
+      this.company = company;
+      this.paginator.length = company.numberOfTotalEmployees;
+      this.paginator.currentPageIndex = 0;
+      this.paginator.currentPageSize = 5;
+      this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
+
       if (company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
       } else {
@@ -96,33 +102,16 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
-  formatImage(img: any): any {
-    if (img == null) {
-      return null;
-    }
-    return 'data:image/jpeg;base64,' + img;
-  }
 
   OnPageChange(event: any) {
-    this.paginator.length =
-      Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
-    if (event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
-    if (event.pageSize) this.paginator.currentPageSize = event.pageSize;
-    let pageIndex = 1;
-    if (event.pageIndex) {
-      pageIndex = event.pageSize;
-    }
-    let k = localStorage.getItem('Id');
-
-    if (k != null) {
-      this.loading = true;
-      this.companyService.getEmployees(parseInt(k), event.pageSize, pageIndex);
-      this.loading = false;
-    }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-    });
+    this.paginator.currentPageIndex = event.pageIndex;
+    this.paginator.currentPageSize = event.pageSize;
+    this.companyService.getEmployees(
+      this.companyId,
+      this.paginator.currentPageSize,
+      this.paginator.currentPageIndex + 1
+    );
   }
 
   onSearchText(event: any) {
@@ -130,53 +119,31 @@ export class EmployeesComponent implements OnInit {
   }
 
   OnSearchSelect() {
-    let k = localStorage.getItem('Id');
-
-    if (k != null) {
-      this.loading = true;
-      this.companyService.getEmployeeByName(parseInt(k), this.searchText);
-      this.loading = false;
-    }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-    });
+    this.companyService.getEmployeeByName(
+      this.companyId,
+      this.searchText,
+      this.paginator.currentPageSize,
+      this.paginator.currentPageIndex + 1
+    );
   }
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
 
     if (this.sortBy === 'name') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.loading = true;
-        this.companyService.getEmployeesSortedByName(
-          parseInt(k),
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-        this.loading = false;
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+      this.companyService.getEmployeesSortedByName(
+        this.companyId,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
 
     if (this.sortBy === 'date-registration') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.loading = true;
-        this.companyService.getEmployeesSortedByDate(
-          parseInt(k),
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-        this.loading = false;
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+      this.companyService.getEmployeesSortedByDate(
+        this.companyId,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
   }
 
@@ -184,86 +151,47 @@ export class EmployeesComponent implements OnInit {
     this.filter = event.value;
 
     if (this.filter === 'verification-failed') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.loading = true;
-        this.companyService.getEmployeesByStatus(
-          parseInt(k),
-          'Rejected',
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-        this.loading = false;
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+      this.companyService.getEmployeesByStatus(
+        this.companyId,
+        'Rejected',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
 
     if (this.filter === 'verification-completed') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.loading = true;
-        this.companyService.getEmployeesByStatus(
-          parseInt(k),
-          'Accepted',
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-        this.loading = false;
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+      this.companyService.getEmployeesByStatus(
+        this.companyId,
+        'Accepted',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
 
     if (this.filter === 'verification-pending') {
-      let k = localStorage.getItem('Id');
+      this.companyService.getEmployeesByStatus(
+        this.companyId,
+        'Pending',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
+    }
 
-        if(k!=null) {
-          this.loading=true;
-        this.companyService.getEmployeesByStatus(parseInt(k),"Accepted",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-        this.loading=false;
-        }
-        this.companyService.employeesSubject.subscribe((employees)=>{
-          this.employees=employees;
-          console.log(employees);
-        }
-        );}
-
-        if(this.filter==="verification-pending"){
-          let k=localStorage.getItem("Id")
-
-          if(k!=null) {
-          this.loading=true;
-          this.companyService.getEmployeesByStatus(parseInt(k),"Pending",this.paginator.currentPageSize,this.paginator.currentPageIndex);
-          this.loading=false;
-          }
-          this.companyService.employeesSubject.subscribe((employees)=>{
-            this.employees=employees;
-            console.log(employees);
-          }
-          );
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+    if (this.filter === 'verification-pending') {
+      this.companyService.getEmployeesByStatus(
+        this.companyId,
+        'Pending',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
 
     if (this.filter === 'all') {
-      let k = localStorage.getItem('Id');
-
-      if (k != null) {
-        this.companyService.getEmployees(
-          parseInt(k),
-          this.paginator.currentPageSize,
-          this.paginator.currentPageIndex
-        );
-      }
-      this.companyService.employeesSubject.subscribe((employees) => {
-        this.employees = employees;
-      });
+      this.companyService.getEmployees(
+        this.companyId,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
     }
   }
 }

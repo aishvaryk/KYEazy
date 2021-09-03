@@ -33,22 +33,17 @@ import { CompanyDashboardComponent } from './pages/company/company-dashboard/com
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CompanyComponent } from './pages/company/company.component';
-
 import { breakpointReducer } from './redux/reducers/breakpoint.reducer';
 import { detailsReducer } from './redux/reducers/details.reducer';
 import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
-
-import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
-
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 import { LoginService } from './services/login/login.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
-import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
 import { MaterialModule } from './app-material.module';
 import { CompanyGuard } from './company.guard';
@@ -66,6 +61,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { EmptyComponent } from './components/empty/empty.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { CompanyCardComponent } from './components/company-card/company-card.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +86,6 @@ import { CompanyCardComponent } from './components/company-card/company-card.com
     AdminComponent,
     CompanyComponent,
     EmployeesComponent,
-    ViewEmployessComponent,
     ProfileComponent,
     AdminLoginComponent,
     AdminAllEmployeesComponent,

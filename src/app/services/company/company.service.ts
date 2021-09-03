@@ -90,10 +90,10 @@ export class CompanyService {
       });
   }
 
-  getEmployeeByName(id: number, name: string): void {
+  getEmployeeByName(id: number, name: string,pageSize:number,pageNumber:number): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/company/get-employees-by-name/${id}/${name}`
+        `${environment.backendURL}/company/get-employees-by-name/${id}/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
@@ -101,71 +101,6 @@ export class CompanyService {
         this.employeesSubject.next(results);
       });
     }
-
-  getEmployeesWithPendingKYC(
-    id: number,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-with-pending-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getRegisteredEmployees(
-    id: number,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-registered-employee/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getEmployeesWithRejectedKYC(
-    id: number,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-with-rejected-kyc/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getEmployeesByDateOfApplication(
-    id: number,
-    date: string,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-by-date-of-application/${id}/${date}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
 
   getEmployeesByStatus(
     companyId: number,
@@ -238,15 +173,4 @@ export class CompanyService {
       });
   }
 
-  initHeaders(): Headers {
-    var headers = new Headers();
-    let token = this.loginService.getToken();
-    if (token !== null) {
-      headers.append('Authorization', 'Bearer ' + token);
-    }
-    headers.append('Pragma', 'no-cache');
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
-    return headers;
-  }
 }
