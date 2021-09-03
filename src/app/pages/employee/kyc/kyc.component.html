@@ -1,7 +1,7 @@
 <div [ngClass.sm]="'kyc-mobile'" [ngClass.xs]="'kyc-mobile'" [ngClass.md]="'kyc'" [ngClass.lg]="'kyc'">
 <mat-stepper [linear]="false" [orientation]="orientation" #stepper>
   <mat-step label="Personal Details">
-    <app-details ></app-details>
+    <app-details [stepper]="stepper" ></app-details>
   </mat-step>
   <mat-step label="Documents">
     <app-documents [stepper]="stepper" ></app-documents>

@@ -1,31 +1,32 @@
 .profile-container {
-  margin-top: 100px;
+  width: 100%;
+  height: 100%;
 }
 
 .profile-card-mobile {
   width: 95%;
-  margin-top:2%;
+  margin-top: 2%;
   margin-bottom: 2%;
 }
 
 .profile-card-medium {
   width: 90%;
-  margin-top:2%;
+  margin-top: 2%;
   margin-bottom: 2%;
 }
-.profile-card-large{
+.profile-card-large {
   width: 70%;
-  margin-top:2%;
+  margin-top: 2%;
   margin-bottom: 2%;
 }
 
 .profile-card-header-large {
   margin-top: -120px;
-  img{
+  img {
     width: 200px;
     height: 200px;
   }
-  .profile-name{
+  .profile-name {
     font-size: 30px;
     margin-top: 20px;
   }
@@ -33,11 +34,11 @@
 
 .profile-card-header-medium {
   margin-top: -110px;
-  img{
+  img {
     width: 180px;
     height: 180px;
   }
-  .profile-name{
+  .profile-name {
     font-size: 30px;
     margin-top: 20px;
   }
@@ -45,17 +46,15 @@
 
 .profile-card-header-mobile {
   margin-top: -90px;
-  img{
+  img {
     width: 150px;
     height: 150px;
   }
-  .profile-name{
+  .profile-name {
     font-size: 25px;
     margin-top: 20px;
   }
 }
-
-
 
 .profile-card-content {
   margin-top: 20px;
@@ -73,15 +72,15 @@
 .profile-element {
   margin-top: 24px;
 }
-.profile-component-detail{
+.profile-component-detail {
   color: rgba($color: #000000, $alpha: 0.5);
   font-size: 14px;
 }
 .verification-done {
-  color:green;
+  color: green;
 }
 .verification-failed {
-  color:red;
+  color: red;
 }
 .verification-pending {
   color: sandybrown;

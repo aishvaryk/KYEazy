@@ -8,16 +8,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
-import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatListModule } from '@angular/material/list';
-import { MatCardModule} from '@angular/material/card';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {
+  MAT_RADIO_DEFAULT_OPTIONS,
+} from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 
@@ -49,7 +42,6 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
-
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -61,14 +53,15 @@ import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.compo
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
 import { MaterialModule } from './app-material.module';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
 import { CompanyGuard } from './company.guard';
-import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import {
+  CarouselComponent,
+  TemplateMarker,
+} from './components/carousel/carousel.component';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
@@ -119,13 +112,13 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
       route: routeReducer,
       menu: menuReducer,
       selfie: selfieReducer,
-      liveliness: livelinessReducer
+      liveliness: livelinessReducer,
     }),
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-     FlexLayoutModule,
+    FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -136,15 +129,19 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
   providers: [
     LoginService,
     CompanyGuard,
-     [{
-       provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
-     }],
-     {
+    [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+      },
+    ],
+    {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
-     },
-     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}
+    },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
