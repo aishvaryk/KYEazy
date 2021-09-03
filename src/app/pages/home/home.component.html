@@ -45,7 +45,12 @@
         [ngClass.xl]="'login-large'"
         style="width: 30%"
       >
-        <button (click)="showCompanyLoginModal()" style="width: 100%" mat-raised-button color="primary">
+        <button
+          (click)="showCompanyLoginModal()"
+          style="width: 100%"
+          mat-raised-button
+          color="primary"
+        >
           Log In
         </button>
       </div>
@@ -65,12 +70,11 @@
     <div fxFlex="5"></div>
 
     <div class="right" fxFlex="40" *ngIf="!isSmall">
-      <img src="/assets/images/homepage.png" alt="homepage" />
+      <img src="/assets/images/homepage.gif" alt="homepage" />
     </div>
 
     <div fxFlex="5"></div>
   </div>
-
 
   <!-- <div class="about">
     <div
@@ -91,7 +95,6 @@
       <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
     </div>
   </div> -->
-
 
   <!-- <div class="service">
 
@@ -114,9 +117,9 @@
 
     <br/> -->
 
-    <!-- transform:rotate(5deg) skew(5deg) translateY(5rem) -->
+  <!-- transform:rotate(5deg) skew(5deg) translateY(5rem) -->
 
-    <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width:100%;height:80%;">
+  <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width:100%;height:80%;">
 
       <div style="text-align: center;" fxFlex="10">
         <img (click)="prev()" style="width: 32px; height: 32px;" src="/assets/images/left-arrow.png">
@@ -142,8 +145,7 @@
 
   <!-- </div> -->
 
-
- <!-- <div class="team">
+  <!-- <div class="team">
     <div
       [ngClass.xs]="'team-heading'"
       [ngClass.sm]="'team-heading'"
@@ -173,10 +175,7 @@
     </div>
   </div> -->
 
-
   <div class="home-footer">
-    <app-footer ></app-footer>
+    <app-footer></app-footer>
   </div>
-
-
 </div>

@@ -18,10 +18,9 @@ export interface paginator {
 @Component({
   selector: 'app-view-employess',
   templateUrl: './view-employess.component.html',
-  styleUrls: ['./view-employess.component.scss']
+  styleUrls: ['./view-employess.component.scss'],
 })
 export class ViewEmployessComponent implements OnInit {
-
   emailFormControl = new FormControl('');
   private observable: any;
   public isSmall: boolean = false;
@@ -31,20 +30,20 @@ export class ViewEmployessComponent implements OnInit {
   public sortBy: string;
   public search: string;
   public companyService: CompanyService;
-  public employees:Employee[];
-  private companyId:number;
-  loading!:boolean;
+  public employees: Employee[];
+  private companyId: number;
+  public zeroEmployees: any;
+  loading!: boolean;
 
-  // verificationStatus: String;
-  searchText:string;
-  constructor(private activatedRoute:ActivatedRoute,  public observer: MediaObserver,public store: Store<{ breakpoint: Breakpoint }>,companyService:CompanyService) {
-    this.searchText='';
-    this.companyId=0;
-    this.activatedRoute.params.subscribe(
-      (params) => {
-        // console.log(params.employeeId);
-        this.companyId=params.companyId;
-      });
+  searchText: string;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public observer: MediaObserver,
+    public store: Store<{ breakpoint: Breakpoint }>,
+    companyService: CompanyService
+  ) {
+    this.searchText = '';
+    this.companyId = 0;
     this.paginator = {
       length: 100,
       currentPageSize: 10,
@@ -60,57 +59,55 @@ export class ViewEmployessComponent implements OnInit {
       } else {
         this.isSmall = false;
       }
-    })
-    this.companyService=companyService;
-    this.employees=[{}] as Employee[];
+    });
+    this.companyService = companyService;
+    this.employees = [{}] as Employee[];
+    this.companyService.companySubject.subscribe((company) => {
+      if (company.numberOfTotalEmployees === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(
-      (params) => {
-
-        console.log(params.companyId);
-        this.companyId=params.companyId;
-      }
-
-    );
-    this.observable = this.observer
-    .asObservable()
-    .pipe(
-      filter((changes: MediaChange[]) => changes.length > 0),
-      map((changes: MediaChange[]) => changes[0])
-    )
-    .subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'xs') {
-        this.isSmall = true;
-      } else {
-        this.isSmall = false;
-      }
+    this.activatedRoute.params.subscribe((params) => {
+      this.companyId = params.companyId;
     });
-    this.loading=true;
-    this.companyService.getEmployees(this.companyId,10,1);
-    this.companyService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
+    this.observable = this.observer
+      .asObservable()
+      .pipe(
+        filter((changes: MediaChange[]) => changes.length > 0),
+        map((changes: MediaChange[]) => changes[0])
+      )
+      .subscribe((change: MediaChange) => {
+        if (change.mqAlias === 'xs') {
+          this.isSmall = true;
+        } else {
+          this.isSmall = false;
+        }
+      });
+    this.loading = true;
+    this.companyService.getEmployees(this.companyId, 10, 1);
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
 
-       this.paginator.length=Math.floor(this.employees.length/this.paginator.currentPageSize)+2;
-       this.paginator.currentPageIndex=1;
-      this.loading=false;
-      console.log(employees);
-
-    }
-    );
-
+      this.paginator.length =
+        Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
+      this.paginator.currentPageIndex = 1;
+      this.loading = false;
+    });
   }
   formatImage(img: any): any {
-
     if (img == null) {
       return null;
     }
     return 'data:image/jpeg;base64,' + img;
   }
 
-
   OnPageChange(event: any) {
+    if (event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
     if(event.pageIndex) this.paginator.currentPageIndex = event.pageIndex;
 
@@ -127,15 +124,11 @@ export class ViewEmployessComponent implements OnInit {
          console.log(employees);
          if(this.employees===null)
          this.loading=false;
-        this.loading=false;
        }
        );
   }
-  onSearchText(event:any)
-  {
-
-    this.searchText=event.target.value;
-
+  onSearchText(event: any) {
+    this.searchText = event.target.value;
   }
   OnSearchSelect() {
     console.log(this.searchText);
@@ -143,12 +136,9 @@ export class ViewEmployessComponent implements OnInit {
     this.companyService.getEmployeeByName(this.companyId,this.searchText);
     this.loading=false;
 
-
-//    this.sortBy = event.value;
   }
 
   OnSortSelect(event: any) {
-    console.log(event.value);
     this.sortBy = event.value;
     if(this.sortBy==="name"){
     this.loading=true;
@@ -169,12 +159,9 @@ export class ViewEmployessComponent implements OnInit {
         this.loading=false;
       }
       );}
-
   }
 
-
   OnFilterSelect(event: any) {
-    console.log(event.value);
     this.filter = event.value;
 
     if(this.filter==="verification-failed"){
@@ -217,7 +204,5 @@ export class ViewEmployessComponent implements OnInit {
               this.loading=false;
             }
             );}
-
   }
-
 }

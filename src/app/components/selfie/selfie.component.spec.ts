@@ -8,9 +8,8 @@ describe('SelfieComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelfieComponent ]
-    })
-    .compileComponents();
+      declarations: [SelfieComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

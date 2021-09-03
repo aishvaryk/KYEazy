@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
@@ -12,32 +11,33 @@ import { updateRoute } from './redux/actions/route.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   mediaSubscriber: any;
 
   event$: any;
 
   constructor(
     public mediaObserver: MediaObserver,
-    public store: Store<{ breakpoint: Breakpoint, route:string }>,
+    public store: Store<{ breakpoint: Breakpoint; route: string }>,
     private router: Router
   ) {
     this.event$ = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        this.store.dispatch(updateRoute(event.url))
+        this.store.dispatch(updateRoute(event.url));
       }
     });
-   }
+  }
 
   ngOnInit() {
-    this.mediaSubscriber = this.mediaObserver.asObservable().pipe(
-      filter((changes: MediaChange[]) => changes.length > 0),
-      map((changes: MediaChange[]) => changes[0]))
+    this.mediaSubscriber = this.mediaObserver
+      .asObservable()
+      .pipe(
+        filter((changes: MediaChange[]) => changes.length > 0),
+        map((changes: MediaChange[]) => changes[0])
+      )
       .subscribe((change: MediaChange) => {
-
         let breakpoint = {} as Breakpoint;
 
         if (change.mqAlias === 'xs') {
@@ -47,9 +47,8 @@ export class AppComponent implements OnInit, OnDestroy {
             isMd: false,
             isLg: false,
             isXl: false,
-          }
+          };
         }
-
 
         if (change.mqAlias === 'sm') {
           breakpoint = {
@@ -58,7 +57,7 @@ export class AppComponent implements OnInit, OnDestroy {
             isMd: false,
             isLg: false,
             isXl: false,
-          }
+          };
         }
 
         if (change.mqAlias === 'md') {
@@ -68,7 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
             isMd: true,
             isLg: false,
             isXl: false,
-          }
+          };
         }
 
         if (change.mqAlias === 'lg') {
@@ -78,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
             isMd: false,
             isLg: true,
             isXl: false,
-          }
+          };
         }
 
         if (change.mqAlias === 'xl') {
@@ -88,10 +87,8 @@ export class AppComponent implements OnInit, OnDestroy {
             isMd: false,
             isLg: false,
             isXl: true,
-          }
+          };
         }
-
-        console.log(breakpoint);
         this.store.dispatch(update(breakpoint));
       });
   }
@@ -99,14 +96,4 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mediaSubscriber.unsubscribe();
   }
-
 }
-
-   /*this.companyService.register(this.newCompany);
-   this.companyService.registeredCompany.subscribe((company)=>{
-   this.companyResponse=company;
-   console.log(this.companyResponse);
-   })*/
-
-
-

@@ -1,5 +1,13 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Liveliness } from 'src/app/models/liveliness.model';
@@ -9,11 +17,10 @@ declare var MediaRecorder: any;
 @Component({
   selector: 'app-liveliness',
   templateUrl: './liveliness.component.html',
-  styleUrls: ['./liveliness.component.scss']
+  styleUrls: ['./liveliness.component.scss'],
 })
 export class LivelinessComponent implements OnInit {
-
-  @Input() stepper!:MatStepper;
+  @Input() stepper!: MatStepper;
 
   @ViewChild('toCapture')
   public toCapture: any;
@@ -33,31 +40,28 @@ export class LivelinessComponent implements OnInit {
   public timeout: any;
   public question: string;
 
-
   constructor(public store: Store<{ documents: Liveliness }>) {
     this.camera = false;
     this.captured = false;
     this.chunks = [];
     this.timeleft = 10;
-    this.question = ""
+    this.question = '';
     this.videoConstraints = {
       video: {
-        facingMode: "user",
-      }
+        facingMode: 'user',
+      },
     };
     this.audioConstraints = {
       audio: {
-        echoCancellation: true
-      }
-    }
+        echoCancellation: true,
+      },
+    };
     this.getQuestion();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   async startCamera() {
     this.loading=true;
@@ -66,9 +70,9 @@ export class LivelinessComponent implements OnInit {
     this.loading=false;
     this.mediaRecorder.start();
     this.timeleft = 10;
-    if(this.timeout) clearTimeout(this.timeout);
+    if (this.timeout) clearTimeout(this.timeout);
     this.timeout = setTimeout(() => this.stopCamera(), 1000 * 10);
-    if(this.interval) clearInterval(this.interval);
+    if (this.interval) clearInterval(this.interval);
     this.interval = setInterval(() => {
       if (this.timeleft <= 0) clearInterval(this.interval);
       this.timeleft -= 1;
@@ -76,24 +80,23 @@ export class LivelinessComponent implements OnInit {
   }
 
   stopCamera() {
-    if (this.mediaRecorder.state === "inactive") return;
+    if (this.mediaRecorder.state === 'inactive') return;
     this.captured = true;
     this.timeleft = 0;
     this.mediaRecorder.stop();
     for (let track of this.stream.getTracks()) {
-      track.stop()
+      track.stop();
     }
   }
 
   save() {
-    const videoFile = new File([this.blob], 'answer.mp4', { type: 'video/mp4' });
-    console.log(videoFile);
+    const videoFile = new File([this.blob], 'answer.mp4', {
+      type: 'video/mp4',
+    });
     let liveliness = {} as Liveliness;
     liveliness.video = videoFile;
     liveliness.question = this.question;
-    console.log("dispatched")
     this.store.dispatch(setLiveliness(liveliness));
-    console.log("After dispatched")
     this.stepper.next();
   }
 
@@ -121,29 +124,28 @@ export class LivelinessComponent implements OnInit {
         this.mediaRecorder = new MediaRecorder(this.stream);
         this.mediaRecorder.ondataavailable = (ev: any) => {
           this.chunks.push(ev.data);
-        }
+        };
         this.mediaRecorder.onstop = (ev: any) => {
-          this.blob = new Blob(this.chunks, { 'type': 'video/mp4;' });
+          this.blob = new Blob(this.chunks, { type: 'video/mp4;' });
           let videoURL = window.URL.createObjectURL(this.blob);
           this.toPlay.nativeElement.src = videoURL;
           this.chunks = [];
-        }
+        };
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
   }
 
-  getQuestion(){
-    let operations = ['+','*'];
-    let firstOperand = this.getRandomNumber(1,5);
-    let secondOperand = this.getRandomNumber(1,5);
-    let operator = operations[this.getRandomNumber(1,1000) % 2];
-    this.question = "what is "+ firstOperand + operator + secondOperand + " ?"
+  getQuestion() {
+    let operations = ['+', '*'];
+    let firstOperand = this.getRandomNumber(1, 5);
+    let secondOperand = this.getRandomNumber(1, 5);
+    let operator = operations[this.getRandomNumber(1, 1000) % 2];
+    this.question = 'what is ' + firstOperand + operator + secondOperand + ' ?';
   }
 
-  getRandomNumber(min:number, max: number): number {
+  getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
 }

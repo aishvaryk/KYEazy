@@ -1,6 +1,12 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -8,15 +14,14 @@ import { Store } from '@ngrx/store';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { LoginService } from 'src/app/services/Login/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
-import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginService:LoginService;
@@ -28,42 +33,38 @@ export class LoginComponent implements OnInit {
   @Input()
   public dialog: any;
   public form;
-  credentials={
-    username:"",
-    password:"",
-    role:""
-  }
+  credentials = {
+    username: '',
+    password: '',
+    role: '',
+  };
 
-  constructor(public snackbar:MatSnackBar,public store: Store<{loggedin: boolean}>, public router: Router,private companyService:CompanyService,private employeeService:EmployeeService,private adminService: AdminService,loginService:LoginService,public errorDialog:MatDialog) {
-
-
+  constructor(
+    public snackbar: MatSnackBar,
+    public store: Store<{ loggedin: boolean }>,
+    public router: Router,
+    private companyService: CompanyService,
+    private employeeService: EmployeeService,
+    private adminService: AdminService,
+    loginService: LoginService,
+    public errorDialog: MatDialog
+  ) {
     this.form = new FormGroup({
-      username: new FormControl('', [
-        Validators.required
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-      ])
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
-    this.loginService=loginService;
+    this.loginService = loginService;
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   openSnackBar(message: string, action: string) {
-    // this.snackbar.openFromComponent(SnackbarComponent, {
-    //   duration: this.durationInSeconds * 1000,
-    // });
-    this.snackbar.open(message,action);
+    this.snackbar.open(message, action);
   }
-  onSubmit(): void
-  {
-    this.credentials.username=this.form.value.username;
-    this.credentials.password=this.form.value.password
+  onSubmit(): void {
+    this.credentials.username = this.form.value.username;
+    this.credentials.password = this.form.value.password;
 
-    if(this.form.status === 'INVALID') return;
-
+    if (this.form.status === 'INVALID') return;
 
     if(this.type == "EMPLOYEE_LOGIN") {
       this.credentials.role="EMPLOYEE";
@@ -100,11 +101,11 @@ export class LoginComponent implements OnInit {
           this.loading=false;
           this.errorDialog.open(ModalComponent,{
             data: {
-              type: "INFORMATION_PROMPTS",
+              type: 'INFORMATION_PROMPTS',
             },
           });
-
-        })
+        }
+      );
     }
 
 
@@ -114,14 +115,11 @@ export class LoginComponent implements OnInit {
       this.loading=true;
       this.companyService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
-        //this.loginService.setUserId(response.id)
          this.router.navigate(['/company/dashboard']);
          this.loading=false;
         },
         (error:any)=>{
-          console.log(error);
           this.openSnackBar("Invalid Company Credentials","Retry");
           this.loading=false;
         })

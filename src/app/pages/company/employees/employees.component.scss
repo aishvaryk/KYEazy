@@ -7,38 +7,21 @@
 }
 
 .employee-cards-container {
-  width: 90%;
+  width: 95%;
 }
 .employee-cards-container-mobile {
   width: 95%;
-}
-.employee-card {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.employee-card-mobile {
-  width: 100%;
-
-  margin-bottom: 12px;
-  padding-bottom: 10px;
 }
 
 .employee-paginator {
   width: 93%;
 }
 
-.employee-header-image {
-  background-size: cover;
-}
-
-.employee-buttons{
-  width:100px;
-}
-
 .container-card {
   width: 96%;
   margin-top: 2%;
+
+  margin-bottom: 2%;
 }
 
 .container-card-mobile {
@@ -47,73 +30,8 @@
   padding: 8px;
 }
 
-.employee-buttons-mobile {
-  margin-top: 15px;
-}
-
-.employee-buttons{
-  padding: 0;
-  margin-top: 0;
-
-}
-
-.status-container {
-  margin-bottom: 0;
-  .verification-done {
-    color:green;
-  }
-  .verification-failed {
-    color:red;
-  }
-  .verification-pending {
-    color: sandybrown;
-  }
-  .verification-registered {
-    color: #677e9a;
-  }
-}
-
-.status-container-mobile {
-  margin-bottom: 0;
-  width: 100%;
-  margin-top: 10px;
-  .verification-done {
-    color:green;
-  }
-  .verification-failed {
-    color:red;
-  }
-  .verification-pending {
-    color: sandybrown;
-  }
-  .verification-registered {
-    color: #677e9a;
-  }
-}
-.employee-email{
-  margin-bottom: 0;
-
-}
-
-
-.employee-card-header-mobile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  .employee-name{
-    margin-bottom: 0;
-  }
-}
-
-.employee-email-mobile {
-  font-size: 14px;
-  color: rgba(0,0,0,.54);
-  width: 100%;
-  margin-top: 20px;
-}
-
 .mat-paginator {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .employee-display-options {
@@ -129,7 +47,7 @@
   width: 45%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 45%;
   }
@@ -139,7 +57,7 @@
   width: 100%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 47.5%;
   }
@@ -160,7 +78,7 @@
 .search-employees-mobile {
   font-size: 12px;
   width: 100%;
-  .search-form-field-mobile{
+  .search-form-field-mobile {
     width: 100%;
     min-width: none;
   }
@@ -168,45 +86,4 @@
     margin-top: 0.2em;
     height: 43px;
   }
-}
-
-
-.no-employee-container-card {
-  width: 96%;
-  margin-top: 2%;
-  height: 100%;
-
-  margin-bottom: 2%;
-}
-.no-employee-container-card-mobile {
-  width: 100%;
-  margin-top: 0.5%;
-  padding: 8px;
-  height: 100%;
-}
-
-.no-employee-image-container {
-  width: 40%;
-  .no-employee-image{
-   width: 100%;
-   height: 100%;
-  }
-}
-.no-employee-image-container-mobile {
-  width: 90%;
-  .no-employee-image{
-   width: 100%;
-   height: 100%;
-  }
-}
-
-.no-employee-content-mobile {
-  margin-left: 6%;
-}
-
-.no-employee-heading {
-  color: rgba(0,0,0,.7);
-}
-.no-employee-sub-heading {
-  color:rgba(0,0,0, 0.5);
 }

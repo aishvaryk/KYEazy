@@ -9,8 +9,6 @@ import { pieChartData } from 'src/app/models/pieChartData.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-// import { ChartType, ChartOptions } from 'chart.js';
-// import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-company-dashboard',
@@ -23,25 +21,10 @@ export class CompanyDashboardComponent implements OnInit {
   public company: Company;
   public isSmall: any;
   public zeroEmployees: any;
-  loading!:boolean;
+  loading!: boolean;
 
   breakpoint$: Observable<Breakpoint>;
-  chartView: any = [400, 300];
-  legendView: any = [300, 300];
   pieChartData: any;
-
-  // options
-  gradient: boolean = true;
-  showAdvanceLegend: boolean = true;
-
-  showNormalLegend: boolean = false;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-
-  legendPosition: any = 'below';
-  colorScheme: any = {
-    domain: ['slategrey', 'green', 'red', '#FC9A1D'],
-  };
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
@@ -51,32 +34,27 @@ export class CompanyDashboardComponent implements OnInit {
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
-
-        this.chartView = [340, 300];
       } else {
         this.isSmall = false;
-        this.chartView = [400, 300];
       }
     });
 
     this.companyService = companyService;
     this.employees = [{}] as Employee[];
     this.company = {} as Company;
-    console.log(pieChartData);
-    let k=localStorage.getItem("Id")
-if(k!=null) {
-  this.loading=true;
-  this.companyService.getCompanyDetails(parseInt(k));
-  this.loading=false;
-  } this.companyService.companySubject.subscribe((company) => {
+    let k = localStorage.getItem('Id');
+    if (k != null) {
+      this.loading = true;
+      this.companyService.getCompanyDetails(parseInt(k));
+      this.loading = false;
+    }
+    this.companyService.companySubject.subscribe((company) => {
       this.company = company;
       if (this.company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
       } else {
         this.zeroEmployees = false;
       }
-      console.log(pieChartData,"pehle");
-      console.log(this.company.numberOfTotalEmployees);
       pieChartData[0].value =
         this.company.numberOfTotalEmployees -
         this.company.numberOfAcceptedEmployees -
@@ -85,35 +63,23 @@ if(k!=null) {
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
-      console.log(pieChartData);
       Object.assign(this, { pieChartData });
     });
   }
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
   ngOnInit(): void {
-    let k=localStorage.getItem("Id")
+    let k = localStorage.getItem('Id');
 
-    if(k!=null) {
-    this.loading=true;
-    this.companyService.getEmployeesSortedByDate(parseInt(k),2,1);
-    this.loading=false;
+    if (k != null) {
+      this.loading = true;
+      this.companyService.getEmployeesSortedByDate(parseInt(k), 2, 1);
+      this.loading = false;
     }
-    this.companyService.employeesSubject.subscribe((employees)=>{
-      this.employees=employees;
-      console.log(employees);
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
     });
   }
+
   formatImage(img: any): any {
     if (img == null) {
       return null;

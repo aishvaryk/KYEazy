@@ -8,16 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
-import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatListModule } from '@angular/material/list';
-import { MatCardModule} from '@angular/material/card';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 
@@ -34,14 +25,10 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 import { SignupComponent } from './pages/company/signup/signup.component';
-import { PendingKycComponent } from './pages/admin/pending-kyc/pending-kyc.component';
-import { AcceptedKycComponent } from './pages/admin/accepted-kyc/accepted-kyc.component';
-import { RejectedKycComponent } from './pages/admin/rejected-kyc/rejected-kyc.component';
 import { HomeComponent } from './pages/home/home.component';
 import { EmployeesComponent } from './pages/company/employees/employees.component';
 import { KycComponent } from './pages/employee/kyc/kyc.component';
 import { RegisterComponent } from './pages/company/register/register.component';
-import { EmployeeDashboardComponent } from './pages/employee/employee-dashboard/employee-dashboard.component';
 import { CompanyDashboardComponent } from './pages/company/company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -53,27 +40,32 @@ import { documentsReducer } from './redux/reducers/documents.reducer';
 import { routeReducer } from './redux/reducers/route.reducer';
 import { menuReducer } from './redux/reducers/menu.reducer';
 
-
 import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
-import { LoginService } from './services/Login/login.service';
+import { LoginService } from './services/login/login.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
-import { MaterialModule } from './modules/material/material.module';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatDividerModule } from '@angular/material/divider';
+import { MaterialModule } from './app-material.module';
 import { CompanyGuard } from './company.guard';
-import { CarouselComponent, TemplateMarker } from './components/carousel/carousel.component';
-import { SnackbarComponent } from './components/snackbar/snackbar.component';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import {
+  CarouselComponent,
+  TemplateMarker,
+} from './components/carousel/carousel.component';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
+import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
+import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { EmptyComponent } from './components/empty/empty.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { CompanyCardComponent } from './components/company-card/company-card.component';
 
 @NgModule({
   declarations: [
@@ -84,9 +76,6 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
     ModalComponent,
     LoginComponent,
     SignupComponent,
-    PendingKycComponent,
-    AcceptedKycComponent,
-    RejectedKycComponent,
     HomeComponent,
     EmployeesComponent,
     KycComponent,
@@ -96,7 +85,6 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
     SelfieComponent,
     LivelinessComponent,
     ReviewComponent,
-    EmployeeDashboardComponent,
     CompanyDashboardComponent,
     AdminDashboardComponent,
     AdminComponent,
@@ -109,7 +97,12 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
     AllCompaniesComponent,
     CarouselComponent,
     TemplateMarker,
-    SnackbarComponent,
+    EmployeeCardComponent,
+    ProfilePageComponent,
+    BarChartComponent,
+    EmptyComponent,
+    PieChartComponent,
+    CompanyCardComponent,
   ],
   imports: [
     StoreModule.forRoot({
@@ -119,13 +112,13 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
       route: routeReducer,
       menu: menuReducer,
       selfie: selfieReducer,
-      liveliness: livelinessReducer
+      liveliness: livelinessReducer,
     }),
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
-     FlexLayoutModule,
+    FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -136,15 +129,19 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/materi
   providers: [
     LoginService,
     CompanyGuard,
-     [{
-       provide :HTTP_INTERCEPTORS, useClass :AuthInterceptor ,multi:true
-     }],
-     {
+    [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+      },
+    ],
+    {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
-     },
-     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 5000}}
+    },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

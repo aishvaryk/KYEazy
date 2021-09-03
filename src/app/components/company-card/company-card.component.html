@@ -1,0 +1,71 @@
+<mat-card
+  [ngClass.xs]="'company-card-mobile'"
+  [ngClass.gt-xs]="'company-card'"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-between center"
+  fxLayoutAlign.xs="space-between start"
+  fxLayoutGap="10%"
+>
+  <mat-card-header fxFlex="60" [ngClass.xs]="'company-card-header-mobile'">
+    <img mat-card-avatar />
+    <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
+    <mat-card-subtitle class="company-email">{{
+      company.cinNumber
+    }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content
+    [ngClass.xs]="'status-container-mobile'"
+    [ngClass.gt-xs]="'status-container'"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between enter"
+    fxFlex="40"
+  >
+    <div class="pending">
+      <p [ngClass.xs]="'employee-status-mobile'">Pending</p>
+      <p [ngClass.xs]="'employee-status-mobile'">
+        {{ company.numberOfPendingEmployees }}
+      </p>
+    </div>
+
+    <div class="accepted">
+      <p [ngClass.xs]="'employee-status-mobile'">Accepted</p>
+      <p [ngClass.xs]="'employee-status-mobile'">
+        {{ company.numberOfAcceptedEmployees }}
+      </p>
+    </div>
+    <div class="rejected">
+      <p [ngClass.xs]="'employee-status-mobile'">Rejected</p>
+      <p [ngClass.xs]="'employee-status-mobile'">
+        {{ company.numberOfRejectedEmployees }}
+      </p>
+    </div>
+    <div class="total">
+      <p [ngClass.xs]="'employee-status-mobile'">Total</p>
+      <p [ngClass.xs]="'employee-status-mobile'">
+        {{ company.numberOfTotalEmployees }}
+      </p>
+    </div>
+  </mat-card-content>
+
+  <!-- <div class="company-email-mobile" *ngIf="isSmall">abc@google.com</div> -->
+  <mat-card-content
+    [ngClass.xs]="'status-container-mobile'"
+    [ngClass.gt-xs]="'status-container'"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between enter"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/admin/company/employees/{{ company.companyId }}"
+      [ngClass.xs]="'company-buttons-mobile'"
+      [ngClass.gt-xs]="'company-buttons'"
+    >
+      View Employees
+    </button>
+  </mat-card-content>
+</mat-card>

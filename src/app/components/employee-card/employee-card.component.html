@@ -1,0 +1,81 @@
+<mat-card
+  [ngClass.xs]="'employee-card-mobile'"
+  [ngClass.gt-xs]="'employee-card'"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-between center"
+  fxLayoutAlign.xs="space-between start"
+>
+  <mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
+    <img mat-card-avatar [src]="formatImage(employee.capturedImage)" />
+    <mat-card-title class="employee-name">
+      {{ employee.firstName }} {{ employee.lastName }}
+    </mat-card-title>
+    <mat-card-subtitle class="employee-email" *ngIf="!isSmall">
+      {{ employee.emailID }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="employee-email-mobile" *ngIf="isSmall">
+    {{ employee.emailID }}
+  </div>
+
+  <mat-card-content
+    [ngClass.xs]="'status-container-mobile'"
+    [ngClass.gt-xs]="'status-container'"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between enter"
+    fxFlex="40"
+  >
+    <div
+      class="verification-done"
+      *ngIf="employee.status === 'Accepted'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">check_circle_outline</mat-icon>
+      <div class="verification-text">Verified</div>
+    </div>
+
+    <div
+      class="verification-failed"
+      *ngIf="employee.status === 'Rejected'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">cancel</mat-icon>
+      <div class="verification-text">Rejected</div>
+    </div>
+
+    <div
+      class="verification-registered"
+      *ngIf="employee.status === 'Registered'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">how_to_reg</mat-icon>
+      <div class="verification-text">Registered</div>
+    </div>
+
+    <div
+      class="verification-pending"
+      *ngIf="employee.status === 'Pending'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">pending</mat-icon>
+      <div class="verification-text">Pending</div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/{{ user }}/employee/profile/{{ employee.employeeId }}"
+      [ngClass.xs]="'employee-buttons-mobile'"
+      [ngClass.gt-xs]="'employee-buttons'"
+    >
+      View Profile
+    </button>
+  </mat-card-content>
+</mat-card>

@@ -4,15 +4,14 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
-import { LoginService } from 'src/app/services/Login/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit,OnDestroy {
-
+export class HomeComponent implements OnInit, OnDestroy {
   public isSmall: any;
   public flexDirection: any;
   public user: any;
@@ -21,49 +20,43 @@ export class HomeComponent implements OnInit,OnDestroy {
     public observer: MediaObserver,
     public dialog: MatDialog,
     public store: Store<{ breakpoint: Breakpoint }>,
-    public loginService:LoginService
-    ) {
+    public loginService: LoginService
+  ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
-      if(breakpoint.isXs || breakpoint.isSm)  {
+      if (breakpoint.isXs || breakpoint.isSm) {
         this.isSmall = true;
-        this.flexDirection = "column";
-      }
-      else {
+        this.flexDirection = 'column';
+      } else {
         this.isSmall = false;
-        this.flexDirection = "row";
+        this.flexDirection = 'row';
       }
-    })
-
+    });
   }
 
   ngOnInit(): void {
     this.loginService.logout();
-    console.log(localStorage);
   }
 
-
   showEmployeeLoginModal(): void {
-    this.dialog.open(ModalComponent,{
+    this.dialog.open(ModalComponent, {
       data: {
-        type: "EMPLOYEE_LOGIN"
-      }
+        type: 'EMPLOYEE_LOGIN',
+      },
     });
-
   }
 
   showCompanyLoginModal(): void {
-    this.dialog.open(ModalComponent,{
+    this.dialog.open(ModalComponent, {
       data: {
-        type: "COMPANY_LOGIN"
-      }
+        type: 'COMPANY_LOGIN',
+      },
     });
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   next() {
-    document.getElementById("3")?.scrollIntoView({
+    document.getElementById('3')?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',
@@ -71,11 +64,10 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   prev() {
-    document.getElementById("2")?.scrollIntoView({
+    document.getElementById('2')?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',
     });
   }
-
-  }
+}

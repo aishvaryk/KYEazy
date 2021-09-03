@@ -1,5 +1,5 @@
 @use '~@angular/material' as mat;
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 * {
   margin: 0;
@@ -21,27 +21,29 @@ body {
   overflow-y: hidden;
 }
 
-.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle{
-  border-color:teal;
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  border-color: teal;
 }
 
-.mat-radio-button.mat-primary .mat-radio-inner-circle{
-  color:teal;
-  background-color:teal;
+.mat-radio-button.mat-primary .mat-radio-inner-circle {
+  color: teal;
+  background-color: teal;
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color:teal;
+  background-color: teal;
 }
 
 $my-primary: mat.define-palette(mat.$teal-palette);
 $my-accent: mat.define-palette(mat.$cyan-palette);
-$my-theme: mat.define-light-theme((
- color: (
-   primary: $my-primary,
-   accent: $my-accent
- )
-));
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+  )
+);
 
 @include mat.button-theme($my-theme);
 @include mat.stepper-theme($my-theme);
@@ -67,25 +69,26 @@ $my-theme: mat.define-light-theme((
   background: #b30000;
 }
 
-
-
-
 .mat-form-field-appearance-outline .mat-form-field-outline {
   color: rgba(0, 0, 0, 0.4) !important;
 }
 
-.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+.mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-outline {
   color: rgba(0, 0, 0, 0.4) !important;
 }
 
-.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+.mat-input-element:disabled,
+.mat-form-field-type-mat-native-select.mat-form-field-disabled
+  .mat-form-field-infix::after {
   color: rgba(0, 0, 0, 0.6) !important;
 }
 
-.mat-progress-spinner circle, .mat-spinner circle {
-  stroke:teal !important;
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: teal !important;
 }
 
-.loader{
+.loader {
   margin-top: 20%;
 }

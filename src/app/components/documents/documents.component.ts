@@ -1,4 +1,4 @@
- import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.scss']
+  styleUrls: ['./documents.component.scss'],
 })
 export class DocumentsComponent implements OnInit {
   form: any;
@@ -19,13 +19,11 @@ export class DocumentsComponent implements OnInit {
     this.form = new FormGroup({
       document: new FormControl('', [Validators.required]),
       documentNumber: new FormControl('', [Validators.required]),
-      documentType: new FormControl('', [Validators.required])
-    })
-
+      documentType: new FormControl('', [Validators.required]),
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onChange(event: any) {
     let file = event.target.files[0];
@@ -38,14 +36,13 @@ export class DocumentsComponent implements OnInit {
   }
 
   onSave() {
-    if(this.form.status === "INVALID") {
+    if (this.form.status === 'INVALID') {
       return;
     }
     let documents = {} as Documents;
     documents.document = this.form.value.document;
     documents.documentNumber = this.form.value.documentNumber;
     documents.documentType = this.form.value.documentType;
-    console.log(this.form.value.documentNumber);
     this.store.dispatch(setDocuments(documents));
     this.stepper.next();
   }
@@ -53,5 +50,4 @@ export class DocumentsComponent implements OnInit {
   onBack() {
     this.stepper.previous();
   }
-
 }

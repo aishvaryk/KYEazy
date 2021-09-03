@@ -37,10 +37,9 @@ export class AdminAllEmployeesComponent implements OnInit {
   public search: string;
   public employees: Employee[];
   public loading!: boolean;
-  //verificationStatus: String;
+  public zeroEmployees: any;
   searchText: string;
   constructor(public observer: MediaObserver, adminService: AdminService) {
-    //this.verificationStatus = 'verified';
     this.isSmall = false;
     this.searchText = '';
     this.paginator = {
@@ -54,6 +53,13 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.search = '';
     this.adminService = adminService;
     this.employees = [{}] as Employee[];
+    this.adminService.getTotalNoOfEmployees().subscribe((response: number) => {
+      if (response === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -79,7 +85,6 @@ export class AdminAllEmployeesComponent implements OnInit {
         Math.floor(this.employees.length / this.paginator.currentPageSize) + 2;
       this.paginator.currentPageIndex = 1;
 
-      console.log(employees);
       this.loading = false;
     });
   }
@@ -105,7 +110,6 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.adminService.viewAllApplications(event.pageSize, pageIndex);
     this.adminService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
-      console.log(employees);
       this.loading = false;
     });
   }
@@ -114,7 +118,6 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.searchText = event.target.value;
   }
   OnSearchSelect() {
-    console.log(this.searchText);
     this.loading = true;
     this.adminService.getAllEmployeeByName(
       this.searchText,
@@ -123,13 +126,11 @@ export class AdminAllEmployeesComponent implements OnInit {
     );
     this.adminService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
-      console.log(employees);
       this.loading = false;
     });
   }
 
   OnSortSelect(event: any) {
-    console.log(event.value);
     this.sortBy = event.value;
 
     if (this.sortBy === 'name') {
@@ -140,7 +141,6 @@ export class AdminAllEmployeesComponent implements OnInit {
       );
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
         this.loading = false;
       });
     }
