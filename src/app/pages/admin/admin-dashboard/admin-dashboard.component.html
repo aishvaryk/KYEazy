@@ -1,0 +1,76 @@
+<div
+  fxLayout="column"
+  *ngIf="loading"
+  fxLayoutAlign="center center"
+  class="loader"
+>
+  <mat-spinner></mat-spinner>
+</div>
+
+<div
+  fxLayout="column"
+  *ngIf="!loading"
+  fxLayoutAlign="start center"
+  style="height: 100%"
+>
+  <mat-card
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.lt-sm]="'container-card-mobile'"
+    *ngIf="!zeroEmployees"
+  >
+    <app-pie-chart
+      style="width: 100%"
+      [pieChartData]="pieChartData"
+    ></app-pie-chart>
+  </mat-card>
+  <mat-card
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.xs]="'container-card-mobile'"
+  >
+    <div
+      [ngClass]="{
+        'company-container-mobile': isSmall,
+        'company-container': !isSmall
+      }"
+      fxLayout="row wrap"
+      fxLayoutAlign="center"
+      fxLayoutAlign.xs="space-around center"
+      style="margin: auto"
+      *ngIf="!zeroCompanies"
+    >
+      <!-- mat card starts -->
+      <div
+        *ngFor="let company of companies"
+        style="width: 100%"
+        fxLayout="row"
+        fxLayoutAlign="center"
+      >
+        <app-company-card
+          [company]="company"
+          style="width: 95%"
+        ></app-company-card>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        fxLayoutAlign="center"
+        fxLayout="row"
+        [ngClass]="{
+          'view-more-mobile': isSmall,
+          'view-more': !isSmall
+        }"
+        routerLink="/admin/all-companies"
+      >
+        View More
+      </button>
+    </div>
+  </mat-card>
+
+  <app-empty
+    style="width: 96%"
+    [dataType]="'company'"
+    [page]="'admin'"
+    *ngIf="zeroCompanies"
+  ></app-empty>
+</div>

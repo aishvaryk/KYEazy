@@ -1,0 +1,88 @@
+.pie-chart-container {
+  width: 100%;
+}
+.pie-chart-legend-mobile {
+  width: 100%;
+}
+.pie-chart-legend {
+  ::ng-deep .advanced-pie-legend {
+    // margin-top: 20px;
+    .total-value {
+      height: 40px;
+    }
+
+    .legend-items {
+      overflow: visible !important;
+      // background-color: yellow;
+      font-family: Montserrat;
+      line-height: 25px;
+      .legend-item {
+        height: 100%;
+        cursor: unset !important;
+        .item-value {
+          font-size: 18px !important;
+        }
+        .item-percent {
+          font-size: 18px !important;
+        }
+      }
+      .item-color {
+        height: 65px !important;
+      }
+    }
+  }
+}
+
+.pie-chart-legend-mobile {
+  ::ng-deep .advanced-pie-legend {
+    margin-left: -75px;
+    .total-value {
+      height: 30px;
+      font-size: 20px !important;
+    }
+    .total-label {
+      font-size: 15px !important;
+    }
+
+    .legend-items {
+      overflow: visible !important;
+      // background-color: yellow;
+      font-family: Montserrat;
+      line-height: 25px;
+
+      .legend-item {
+        height: 100%;
+        margin-right: 9px !important;
+        cursor: unset !important;
+        .item-value {
+          font-size: 14px !important;
+        }
+        .item-label {
+          font-size: 12px !important;
+        }
+        .item-percent {
+          font-size: 14px !important;
+        }
+      }
+      .item-color {
+        height: 65px !important;
+      }
+    }
+  }
+}
+
+::ng-deep .advanced-pie {
+  display: none;
+  .chart {
+    display: none;
+  }
+  width: 0 !important;
+}
+
+::ng-deep .advanced-pie-legend-wrapper {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}

@@ -1,0 +1,79 @@
+:host {
+  width: 100%;
+}
+
+.employee-card {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.employee-card-mobile {
+  width: 100%;
+
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+.employee-card-header-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .employee-name {
+    margin-bottom: 0;
+  }
+}
+
+.employee-email {
+  margin-bottom: 0;
+}
+
+.employee-email-mobile {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+  width: 100%;
+  margin-top: 20px;
+}
+
+.status-container {
+  margin-bottom: 0;
+  .verification-done {
+    color: green;
+  }
+  .verification-failed {
+    color: red;
+  }
+  .verification-pending {
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
+  }
+}
+
+.status-container-mobile {
+  margin-bottom: 0;
+  width: 100%;
+  margin-top: 10px;
+  .verification-done {
+    color: green;
+  }
+  .verification-failed {
+    color: red;
+  }
+  .verification-pending {
+    color: sandybrown;
+  }
+  .verification-registered {
+    color: #677e9a;
+  }
+}
+
+.employee-buttons {
+  padding: 0;
+  margin-top: 0;
+  width: 100px;
+}
+
+.employee-buttons-mobile {
+  margin-top: 15px;
+}

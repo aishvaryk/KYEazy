@@ -1,0 +1,45 @@
+<div class="modal" *ngIf="data.type === 'INFORMATION_PROMPTS'">
+  <div class="prompt-header">
+    <div class="prompt" *ngIf="data.error === 'INVALID_COMPANY'">
+      INVALID COMPANY CREDENTIALS
+    </div>
+    <div class="prompt" *ngIf="data.error === 'INVALID_USER'">
+      INVALID EMPLOYEE CREDENTIALS
+    </div>
+    <div class="prompt" *ngIf="data.error === 'COMPANY_REGISTER'">
+      COMPANY ALREADY EXISTS
+    </div>
+    <div class="prompt" *ngIf="data.error === 'SUCCESSFUL'">
+      CREATED SUCCESSFULLY
+    </div>
+    <div class="prompt" *ngIf="data.error === 'USER_EXIST'">
+      THIS USER ALREADY EXISTS
+    </div>
+    <span class="close-modal-button" (click)="onClose()"> &times;</span>
+  </div>
+</div>
+
+<div class="modal" *ngIf="data.type !== 'INFORMATION_PROMPTS'">
+  <div class="modal-header">
+    <div *ngIf="data.type === 'EMPLOYEE_LOGIN'">
+      <!-- EMPLOYEE -->
+    </div>
+    <div *ngIf="data.type === 'COMPANY_LOGIN'">
+      <!-- COMPANY -->
+    </div>
+    <span class="close-modal-button" (click)="onClose()"> &times;</span>
+  </div>
+
+  <br />
+
+  <div class="modal-body">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Company Login" class="company">
+        <app-login [type]="'COMPANY_LOGIN'" [dialog]="dialog"></app-login>
+      </mat-tab>
+      <mat-tab label="Employee Login">
+        <app-login [type]="'EMPLOYEE_LOGIN'" [dialog]="dialog"></app-login>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
