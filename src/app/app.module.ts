@@ -8,9 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 
-import {
-  MAT_RADIO_DEFAULT_OPTIONS,
-} from '@angular/material/radio';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 
@@ -67,6 +65,7 @@ import { ProfilePageComponent } from './pages/employee/profile-page/profile-page
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { EmptyComponent } from './components/empty/empty.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { CompanyCardComponent } from './components/company-card/company-card.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +102,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     BarChartComponent,
     EmptyComponent,
     PieChartComponent,
+    CompanyCardComponent,
   ],
   imports: [
     StoreModule.forRoot({

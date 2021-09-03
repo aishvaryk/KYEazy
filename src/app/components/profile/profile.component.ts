@@ -33,8 +33,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     // Prase Image
@@ -57,5 +56,4 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   viewDocument() {
     window.open(this.documentURL);
   }
-
 }

@@ -8,9 +8,8 @@ describe('PieChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PieChartComponent ]
-    })
-    .compileComponents();
+      declarations: [PieChartComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

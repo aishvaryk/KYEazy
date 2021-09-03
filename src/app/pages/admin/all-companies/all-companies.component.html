@@ -1,220 +1,101 @@
-
-<div fxLayout="column" *ngIf="loading" fxLayoutAlign="center center" class="loader">
+<div
+  fxLayout="column"
+  *ngIf="loading"
+  fxLayoutAlign="center center"
+  class="loader"
+>
   <mat-spinner></mat-spinner>
 </div>
 
-<div fxLayout="row" *ngIf="!loading" fxLayoutAlign="center">
-
+<div fxLayout="column" *ngIf="!loading" fxLayoutAlign="start center">
   <mat-card
-  [ngClass.gt-xs] = "'container-card'"
-  [ngClass.xs] = "'container-card-mobile'"
-  >
-
-  <div
-    [ngClass]="{
-      'company-container-mobile': isSmall,
-      'company-container': !isSmall
-    }"
-    fxLayout="row wrap"
-    fxLayoutAlign="center"
-    fxLayoutAlign.xs="space-around center"
-    style="margin: auto"
+    *ngIf="!zeroCompanies"
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.xs]="'container-card-mobile'"
   >
     <div
       [ngClass]="{
-        'search-comapny-mobile': isSmall,
-        'search-comapny': !isSmall
+        'company-container-mobile': isSmall,
+        'company-container': !isSmall
       }"
-      fxLayout="row"
-      fxLayoutAlign="end"
+      fxLayout="row wrap"
+      fxLayoutAlign="center"
+      fxLayoutAlign.xs="space-around center"
+      style="margin: auto"
     >
-      <mat-form-field
+      <div
         [ngClass]="{
-          'search-form-field-mobile': isSmall,
-          'search-form-field': !isSmall
-        }"
-        appearance="outline"
-      >
-        <mat-label
-          [ngClass]="{
-            'search-form-mobile': isSmall,
-            'search-form': !isSmall
-          }"
-          >Search</mat-label
-        >
-        <input
-          type="text"
-          matInput
-          placeholder="Search by Company Name"
-          class="search-form-input"
-          (input)="onSearchText($event)"
-        /> </mat-form-field
-      >&nbsp;
-
-      <button
-        mat-raised-button
-        color="primary"
-        [ngClass]="{
-          'search-button-mobile': isSmall,
-          'search-button': !isSmall
-        }"
-        (click)="OnSearchSelect()"
-      >
-        <mat-icon aria-label="i">search</mat-icon>
-      </button>
-    </div>
-    <!-- search input ends -->
-
-    <!-- Company details start -->
-    <!-- <div
-      fxLayout="column"
-      fxLayoutAlign="space-around center"
-      fxLayoutGap="10px"
-      [ngClass]="{
-        'company-card-container-mobile': isSmall,
-        'company-container-card': !isSmall
-      }"
-      fxLayout.lt-sm="row wrap"
-      *ngFor="let company of companies"
-    > -->
-
-    <!-- mat card starts -->
-    <mat-card
-      [ngClass]="{ 'company-card-mobile': isSmall, 'company-card': !isSmall }"
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutAlign="space-between center"
-      fxLayoutAlign.xs="space-between start"
-      fxLayoutGap="10%"
-      *ngFor="let company of companies"
-    >
-      <mat-card-header
-        fxFlex="60"
-        [ngClass]="{ 'company-card-header-mobile': isSmall }"
-      >
-        <img
-          mat-card-avatar
-        />
-        <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
-        <mat-card-subtitle class="company-email">{{
-          company.cinNumber
-        }}</mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content
-        [ngClass]="{
-          'status-container-mobile': isSmall,
-          'status-container': !isSmall
-        }"
-        fxLayout="row wrap"
-        fxLayout.xs="column"
-        fxLayoutAlign="space-between enter"
-        fxFlex="40"
-      >
-        <div class="pending">
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            Pending
-          </p>
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            {{ company.numberOfPendingEmployees }}
-          </p>
-        </div>
-
-        <div class="accepted">
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            Accepted
-          </p>
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            {{ company.numberOfAcceptedEmployees }}
-          </p>
-        </div>
-        <div class="rejected">
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            Rejected
-          </p>
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            {{ company.numberOfRejectedEmployees }}
-          </p>
-        </div>
-        <div class="total">
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            Total
-          </p>
-          <p
-            [ngClass]="{
-              'employee-status-mobile': isSmall
-            }"
-          >
-            {{ company.numberOfTotalEmployees }}
-          </p>
-        </div>
-      </mat-card-content>
-
-      <!-- <div class="company-email-mobile" *ngIf="isSmall">abc@google.com</div> -->
-      <mat-card-content
-        [ngClass]="{
-          'status-container-mobile': isSmall,
-          'status-container': !isSmall
+          'search-comapny-mobile': isSmall,
+          'search-comapny': !isSmall
         }"
         fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutAlign="space-between enter"
+        fxLayoutAlign="end"
       >
+        <mat-form-field
+          [ngClass]="{
+            'search-form-field-mobile': isSmall,
+            'search-form-field': !isSmall
+          }"
+          appearance="outline"
+        >
+          <mat-label
+            [ngClass]="{
+              'search-form-mobile': isSmall,
+              'search-form': !isSmall
+            }"
+            >Search</mat-label
+          >
+          <input
+            type="text"
+            matInput
+            placeholder="Search by Company Name"
+            class="search-form-input"
+            (input)="onSearchText($event)"
+          /> </mat-form-field
+        >&nbsp;
+
         <button
           mat-raised-button
           color="primary"
-          routerLink="/admin/company/employees/{{ company.companyId }}"
           [ngClass]="{
-            'company-buttons-mobile': isSmall,
-            'company-buttons': !isSmall
+            'search-button-mobile': isSmall,
+            'search-button': !isSmall
           }"
+          (click)="OnSearchSelect()"
         >
-          View Employees
+          <mat-icon aria-label="i">search</mat-icon>
         </button>
-      </mat-card-content>
-    </mat-card>
-  </div>
+      </div>
 
-  <div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
-    <mat-paginator
-      [length]="paginator.length"
-      [pageSize]="paginator.currentPageSize"
-      [pageSizeOptions]="paginator.pageSizeOptions"
-      (page)="OnPageChange($event)"
-      [hidePageSize]="isSmall"
-    >
-    </mat-paginator>
-  </div>
-  <!-- </div> -->
-  <!-- </div> -->
-</mat-card>
+      <div
+        *ngFor="let company of companies"
+        style="width: 100%"
+        fxLayout="row"
+        fxLayoutAlign="center"
+      >
+        <app-company-card
+          [company]="company"
+          style="width: 95%"
+        ></app-company-card>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
+      <mat-paginator
+        [length]="paginator.length"
+        [pageSize]="paginator.currentPageSize"
+        [pageSizeOptions]="paginator.pageSizeOptions"
+        (page)="OnPageChange($event)"
+        [hidePageSize]="isSmall"
+      >
+      </mat-paginator>
+    </div>
+  </mat-card>
+
+  <app-empty
+    style="width: 96%"
+    [dataType]="'company'"
+    [page]="'admin'"
+    *ngIf="zeroCompanies"
+  ></app-empty>
 </div>
-

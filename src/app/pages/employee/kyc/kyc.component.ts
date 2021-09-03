@@ -7,35 +7,33 @@ import { filter, map } from 'rxjs/operators';
 @Component({
   selector: 'app-kyc',
   templateUrl: './kyc.component.html',
-  styleUrls: ['./kyc.component.scss']
+  styleUrls: ['./kyc.component.scss'],
 })
 export class KycComponent implements OnInit {
-
   @ViewChild('stepper') private stepper!: MatStepper;
 
   private observable: any;
   public orientation: any;
 
   constructor(public observer: MediaObserver) {
-    this.orientation = "vertical"
+    this.orientation = 'vertical';
 
-    this.observable = this.observer.asObservable().pipe(
-      filter((changes: MediaChange[]) => changes.length > 0),
-      map((changes: MediaChange[]) => changes[0])
-    ).subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
-        this.orientation = "vertical"
-      } else {
-        this.orientation = "horizontal"
-      }
-    });
-
+    this.observable = this.observer
+      .asObservable()
+      .pipe(
+        filter((changes: MediaChange[]) => changes.length > 0),
+        map((changes: MediaChange[]) => changes[0])
+      )
+      .subscribe((change: MediaChange) => {
+        if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+          this.orientation = 'vertical';
+        } else {
+          this.orientation = 'horizontal';
+        }
+      });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnDestory(): void {
-  }
-
+  ngOnDestory(): void {}
 }

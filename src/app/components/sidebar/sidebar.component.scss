@@ -1,9 +1,8 @@
-
 .sidenav-container {
   height: 100%;
 }
 
-.sidenav-large{
+.sidenav-large {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +10,7 @@
   background: teal;
 }
 
-.sidenav-medium{
+.sidenav-medium {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,14 +18,13 @@
   background: teal;
 }
 
-.sidenav-mobile{
+.sidenav-mobile {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
   background: rgb(0, 160, 160);
 }
-
 
 .sidenav-expansion {
   background-color: rgba(167, 57, 57, 0);
@@ -43,7 +41,6 @@
 .sidenav-list-item {
   color: white;
 }
-
 
 ::ng-deep .sidenav-expansion-header > .mat-expansion-indicator:after {
   color: white;

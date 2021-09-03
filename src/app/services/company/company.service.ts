@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CompanyService {
-
   public employees: Employee[];
   public employee: Employee;
   public company: Company;

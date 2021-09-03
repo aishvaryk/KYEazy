@@ -29,8 +29,9 @@ export class AllCompaniesComponent implements OnInit {
   public numOfAcceptedEmployees: number = 0;
   public companyId: number = 0;
   public companyRoute: any;
-  public searchText: any = "";
+  public searchText: any = '';
   public loading: boolean;
+  public zeroCompanies: any;
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
@@ -63,11 +64,15 @@ export class AllCompaniesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.loading = true
+    this.loading = true;
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
+      if (companies.length === 0) {
+        this.zeroCompanies = true;
+      } else {
+        this.zeroCompanies = false;
+      }
       this.loading = false;
     });
   }
@@ -77,17 +82,14 @@ export class AllCompaniesComponent implements OnInit {
     this.paginator.currentPageSize = event.pageSize;
   }
 
-
-  onSearchText(event:any) {
-    this.searchText=event.target.value;
+  onSearchText(event: any) {
+    this.searchText = event.target.value;
   }
 
   OnSearchSelect() {
-    this.adminService.getAllCompanyByName(this.searchText,10,1);
-    this.adminService.employeesSubject.subscribe((employees)=>{
-            this.employees=employees;
-          }
-          );
-
+    this.adminService.getAllCompanyByName(this.searchText, 10, 1);
+    this.adminService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+    });
   }
 }
