@@ -11,7 +11,7 @@ import { Liveliness } from 'src/app/models/liveliness.model';
 import { Selfie } from 'src/app/models/selfie.model';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from 'src/app/services/login/login.service';
+import { LoginService } from 'src/app/services/loginn/login.service';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 @Component({

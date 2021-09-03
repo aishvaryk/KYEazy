@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Employee } from 'src/app/models/employee.model';
 import { Subject } from 'rxjs';
 import { Company } from 'src/app/models/company.model';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../loginn/login.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
