@@ -6,7 +6,6 @@
   margin-top: 1% !important;
 }
 
-
 .employee-cards-container {
   width: 95%;
 }
@@ -29,14 +28,13 @@
   width: 93%;
 }
 
-
 .status-container {
   margin-bottom: 0;
   .verification-done {
-    color:green;
+    color: green;
   }
   .verification-failed {
-    color:red;
+    color: red;
   }
   .verification-pending {
     color: sandybrown;
@@ -51,10 +49,10 @@
   width: 100%;
   margin-top: 10px;
   .verification-done {
-    color:green;
+    color: green;
   }
   .verification-failed {
-    color:red;
+    color: red;
   }
   .verification-pending {
     color: sandybrown;
@@ -63,17 +61,12 @@
     color: #677e9a;
   }
 }
-.employee-email{
+.employee-email {
   margin-bottom: 0;
-
 }
 
-
-
-
-
 .mat-paginator {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .employee-display-options {
@@ -89,7 +82,7 @@
   width: 45%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 45%;
   }
@@ -99,7 +92,7 @@
   width: 100%;
   font-size: 12px;
   mat-form-field {
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
     width: 47.5%;
   }
@@ -120,7 +113,7 @@
 .search-employees-mobile {
   font-size: 12px;
   width: 100%;
-  .search-form-field-mobile{
+  .search-form-field-mobile {
     width: 100%;
     min-width: none;
   }
@@ -129,7 +122,6 @@
     height: 43px;
   }
 }
-
 
 .container-card {
   width: 96%;

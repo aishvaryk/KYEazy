@@ -20,10 +20,7 @@
         fxLayout="column"
         fxLayoutAlign="center center"
       >
-        <img
-          #image
-          mat-card-avatar
-        />
+        <img #image mat-card-avatar />
         <mat-card-title class="profile-name">
           {{ employee.firstName }} {{ employee.lastName }}
         </mat-card-title>
@@ -106,7 +103,7 @@
             fxLayoutAlign.xs="start center"
           >
             <strong fxLayout="row wrap" fxLayoutAlign="center center">
-            {{ company }}
+              {{ company }}
             </strong>
             <div class="profile-component-detail">Company</div>
           </div>
@@ -216,6 +213,5 @@
         <div class="verification-text">Registered</div>
       </div>
     </div>
-
   </mat-card>
 </div>

@@ -45,10 +45,10 @@ export class ReviewComponent implements OnInit {
       liveliness: Liveliness;
     }>
   ) {
-    this.details = {} as Details,
-    this.documents = {} as Documents,
-    this.selfie = {} as Selfie,
-    this.liveliness = {} as Liveliness;
+    (this.details = {} as Details),
+      (this.documents = {} as Documents),
+      (this.selfie = {} as Selfie),
+      (this.liveliness = {} as Liveliness);
     this.imageLoading = false;
     this.employeeLoading = false;
     this.videoLoading = false;
@@ -60,38 +60,32 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeLoading = true;
-    this.store
-      .select('details')
-      .subscribe((details) => {
-        if(JSON.stringify(details) === "{}") return;
-        this.details = details
-        this.employeeLoading = false;
-      });
+    this.store.select('details').subscribe((details) => {
+      if (JSON.stringify(details) === '{}') return;
+      this.details = details;
+      this.employeeLoading = false;
+    });
 
     this.documentLoading = true;
-    this.store
-      .select('documents')
-      .subscribe((documents) => {
-        if(JSON.stringify(documents) === "{}") return;
-        this.documents = documents
-        this.documentLoading = false;
-      });
+    this.store.select('documents').subscribe((documents) => {
+      if (JSON.stringify(documents) === '{}') return;
+      this.documents = documents;
+      this.documentLoading = false;
+    });
 
     this.imageLoading = true;
     this.store.select('selfie').subscribe((selfie) => {
-      if(JSON.stringify(selfie) === "{}") return;
-      this.selfie = selfie
+      if (JSON.stringify(selfie) === '{}') return;
+      this.selfie = selfie;
       this.imageLoading = false;
     });
 
     this.videoLoading = true;
-    this.store
-      .select('liveliness')
-      .subscribe((liveliness) => {
-        if(JSON.stringify(liveliness) === "{}") return;
-        this.liveliness = liveliness
-        this.videoLoading = false;
-      });
+    this.store.select('liveliness').subscribe((liveliness) => {
+      if (JSON.stringify(liveliness) === '{}') return;
+      this.liveliness = liveliness;
+      this.videoLoading = false;
+    });
   }
 
   submitKYC() {

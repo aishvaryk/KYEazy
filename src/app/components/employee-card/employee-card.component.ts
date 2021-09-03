@@ -3,18 +3,16 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-employee-card',
   templateUrl: './employee-card.component.html',
-  styleUrls: ['./employee-card.component.scss']
+  styleUrls: ['./employee-card.component.scss'],
 })
 export class EmployeeCardComponent implements OnInit {
+  @Input() employee: any;
+  @Input() isSmall: any;
+  @Input() user: any;
 
-  @Input() employee:any;
-  @Input() isSmall:any;
-  @Input() user:any;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   formatImage(img: any): any {
     if (img == null) {
@@ -22,5 +20,4 @@ export class EmployeeCardComponent implements OnInit {
     }
     return 'data:image/jpeg;base64,' + img;
   }
-
 }

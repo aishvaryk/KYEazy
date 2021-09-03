@@ -40,5 +40,4 @@ export class LoginService {
     localStorage.removeItem('Id');
     this.router.navigate(['/']);
   }
-
 }

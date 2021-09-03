@@ -104,8 +104,7 @@
         [ngClass.xs]="'employee-cards-container-mobile'"
         fxLayout="column"
       >
-
-      <!-- Employee Card Component -->
+        <!-- Employee Card Component -->
         <div *ngFor="let employee of employees" class="employee-card">
           <app-employee-card
             [user]="'company'"
@@ -113,7 +112,6 @@
             [isSmall]="isSmall"
           ></app-employee-card>
         </div>
-
       </div>
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
         <mat-paginator
@@ -127,46 +125,11 @@
         </mat-paginator>
       </div>
     </div>
-
   </mat-card>
-
-  <mat-card
-    [ngClass.gt-xs]="'no-employee-container-card'"
-    [ngClass.lt-sm]="'no-employee-container-card-mobile'"
+  <app-empty
+    style="width: 96%"
     *ngIf="zeroEmployees"
-    fxLayout.gt-xs="row"
-    fxLayoutAlign.gt-xs="space-around center"
-    fxLayout.xs="column-reverse"
-    fxLayoutAlign.xs="space-around center"
-  >
-    <div
-      [ngClass.xs]="'no-employee-content-mobile'"
-      [ngClass.gt-xs]="'no-employee-content'"
-    >
-      <div class="no-employee-text">
-        <h1 class="no-employee-heading">
-          No Employee Has Been Registered Yet!
-        </h1>
-        <h2 class="no-employee-sub-heading">Please Register an Employee.</h2>
-      </div>
-      <div class="register-button">
-        <button
-          mat-stroked-button
-          color="primary"
-          routerLink="/company/register"
-        >
-          Get Started <mat-icon>navigate_next </mat-icon>
-        </button>
-      </div>
-    </div>
-    <div
-      [ngClass.xs]="'no-employee-image-container-mobile'"
-      [ngClass.gt-xs]="'no-employee-image-container'"
-    >
-      <img
-        class="no-employee-image"
-        src="assets/images/no-employee-dashboard.png"
-      />
-    </div>
-  </mat-card>
+    [dataType]="'employee'"
+    [page]="'company'"
+  ></app-empty>
 </div>

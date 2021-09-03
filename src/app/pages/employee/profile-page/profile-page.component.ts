@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
   public employeeId: any;
@@ -30,31 +30,30 @@ export class ProfilePageComponent implements OnInit {
   public imageLoading: any;
 
   constructor(
-    private store: Store<{route: string}>,
+    private store: Store<{ route: string }>,
     private activatedRoute: ActivatedRoute,
     private companyService: CompanyService,
-    private adminService: AdminService,
+    private adminService: AdminService
   ) {
     this.details = {} as Details;
-    this.documents =  {} as Documents;
+    this.documents = {} as Documents;
     this.liveliness = {} as Liveliness;
     this.selfie = {} as Selfie;
 
-    this.imageLoading =false;
+    this.imageLoading = false;
     this.employeeLoading = false;
     this.videoLoading = false;
     this.companyLoading = false;
   }
 
   ngOnInit(): void {
-
     this.store.select('route').subscribe((route) => {
-      if(route.substring(1, 4) === "com") {
-        this.userType = "company"
+      if (route.substring(1, 4) === 'com') {
+        this.userType = 'company';
       } else {
-        this.userType = "admin"
+        this.userType = 'admin';
       }
-    })
+    });
 
     this.activatedRoute.params.subscribe((params) => {
       this.employeeId = params.employeeId;
@@ -81,13 +80,15 @@ export class ProfilePageComponent implements OnInit {
       this.documents.documentType = employee.documentType;
       // Parsing Image
       this.imageLoading = true;
-      fetch("data:image/png;base64,"+this.employee.capturedImage)
-      .then(response => response.blob())
-      .then( blob => {
-        this.selfie.imageBlob = blob;
-        this.selfie.image = new File([blob],employee.username,{type: "image/png"})
-        this.imageLoading = false;
-      })
+      fetch('data:image/png;base64,' + this.employee.capturedImage)
+        .then((response) => response.blob())
+        .then((blob) => {
+          this.selfie.imageBlob = blob;
+          this.selfie.image = new File([blob], employee.username, {
+            type: 'image/png',
+          });
+          this.imageLoading = false;
+        });
       // Parsing Documents
       this.documents.documentNumber = this.employee.documentNumber;
       this.documents.documentType = this.employee.documentType;
@@ -108,7 +109,5 @@ export class ProfilePageComponent implements OnInit {
       // Parsing Video
       this.liveliness.video = video;
     });
-
   }
-
 }

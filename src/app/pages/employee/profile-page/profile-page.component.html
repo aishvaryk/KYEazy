@@ -9,18 +9,19 @@
 
 <div
   fxLayout="column"
-  *ngIf="!employeeLoading && !videoLoading  && !companyLoading && !imageLoading"
+  *ngIf="!employeeLoading && !videoLoading && !companyLoading && !imageLoading"
   fxLayoutAlign="center center"
   class="loader"
 >
   <app-profile
-  style="width:100%"
-  [employee]="details"
-  [document]="documents"
-  [liveliness]="liveliness"
-  [selfie]="selfie"
-  [company]="company.name"
-  [status]="employee.status"
-  [userType] = "userType"
-  > </app-profile>
+    style="width: 100%"
+    [employee]="details"
+    [document]="documents"
+    [liveliness]="liveliness"
+    [selfie]="selfie"
+    [company]="company.name"
+    [status]="employee.status"
+    [userType]="userType"
+  >
+  </app-profile>
 </div>

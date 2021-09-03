@@ -7,6 +7,8 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
 import { ActivatedRoute } from '@angular/router';
 
+import { pieChartData } from 'src/app/models/pieChartData.model';
+
 export interface paginator {
   length: number;
   currentPageIndex: number;
@@ -30,7 +32,11 @@ export class AdminDashboardComponent implements OnInit {
   public numOfAcceptedEmployees: number = 0;
   public companyId: number = 0;
   public companyRoute: any;
-  loading!:boolean;
+  public pieChartData: any;
+  public zeroEmployees: any;
+  public zeroCompanies: any;
+
+  loading!: boolean;
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService,
@@ -54,6 +60,28 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService = adminService;
     this.companyService = companyService;
     this.employees = {} as Employee[];
+    this.adminService.getTotalNoOfEmployees().subscribe((response: number) => {
+      if (response === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+    });
+
+    this.adminService
+      .getNoOfRegisteredEmployees()
+      .subscribe((response: number) => (pieChartData[0].value = response));
+    this.adminService
+      .getNoOfAcceptedEmployees()
+      .subscribe((response: number) => (pieChartData[1].value = response));
+    this.adminService
+      .getNoOfRejectedEmployees()
+      .subscribe((response: number) => (pieChartData[2].value = response));
+    this.adminService
+      .getNoOfPendingEmployees()
+      .subscribe((response: number) => (pieChartData[3].value = response));
+
+    Object.assign(this, { pieChartData });
   }
 
   onViewEmployees(companyId: number) {
@@ -61,11 +89,16 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading=true;
+    this.loading = true;
     this.adminService.getCompanies(5, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
-      this.loading=false;
+      this.loading = false;
+      if (companies.length === 0) {
+        this.zeroCompanies = true;
+      } else {
+        this.zeroCompanies = false;
+      }
     });
   }
 

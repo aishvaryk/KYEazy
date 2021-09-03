@@ -28,21 +28,18 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('image') image!: any;
   @ViewChild('video') video!: any;
 
-  public imageURL = "";
-  constructor() {
-  }
+  public imageURL = '';
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
-    let blob = new Blob([this.selfie.image], { type:"image/png"});
+    let blob = new Blob([this.selfie.image], { type: 'image/png' });
     let url = window.URL.createObjectURL(blob);
-    this.image.nativeElement.src = url
+    this.image.nativeElement.src = url;
   }
 
   viewDocument() {
     //window.open(this.document.document);
   }
-
 }

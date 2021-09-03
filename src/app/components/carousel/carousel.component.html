@@ -1,21 +1,29 @@
-<div fxLayout="row" fxLayoutAlign="center center" [ngClass]="'carousel-container'">
-
-  <div style="text-align: center;" fxFlex="7">
-    <button mat-stroked-button (click)="onPrevClick()" color="black"><mat-icon>arrow_back_ios</mat-icon></button>
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  [ngClass]="'carousel-container'"
+>
+  <div style="text-align: center" fxFlex="7">
+    <button mat-stroked-button (click)="onPrevClick()" color="black">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
   </div>
 
   <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
-    <div style="width:100%; height: 100%;" *ngFor="let slide of slides;let i=index">
-      <div [id]="name+i" style="width:100%; height: 100%;">
+    <div
+      style="width: 100%; height: 100%"
+      *ngFor="let slide of slides; let i = index"
+    >
+      <div [id]="name + i" style="width: 100%; height: 100%">
         <ng-template #template [ngTemplateOutlet]="slide.template">
         </ng-template>
       </div>
     </div>
   </div>
 
-  <div style="text-align: center;" fxFlex="7">
-    <button mat-stroked-button (click)="onNextClick()" color="black"><mat-icon>arrow_forward_ios</mat-icon></button>
+  <div style="text-align: center" fxFlex="7">
+    <button mat-stroked-button (click)="onNextClick()" color="black">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
   </div>
-
 </div>
-

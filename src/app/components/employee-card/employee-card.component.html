@@ -6,14 +6,13 @@
   fxLayoutAlign="space-between center"
   fxLayoutAlign.xs="space-between start"
 >
-
-<mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
+  <mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
     <img mat-card-avatar [src]="formatImage(employee.capturedImage)" />
     <mat-card-title class="employee-name">
       {{ employee.firstName }} {{ employee.lastName }}
     </mat-card-title>
     <mat-card-subtitle class="employee-email" *ngIf="!isSmall">
-      {{employee.emailID}}
+      {{ employee.emailID }}
     </mat-card-subtitle>
   </mat-card-header>
 
@@ -29,7 +28,6 @@
     fxLayoutAlign="space-between enter"
     fxFlex="40"
   >
-
     <div
       class="verification-done"
       *ngIf="employee.status === 'Accepted'"
@@ -73,12 +71,11 @@
     <button
       mat-raised-button
       color="primary"
-      routerLink="/{{user}}/employee/profile/{{ employee.employeeId }}"
+      routerLink="/{{ user }}/employee/profile/{{ employee.employeeId }}"
       [ngClass.xs]="'employee-buttons-mobile'"
       [ngClass.gt-xs]="'employee-buttons'"
     >
       View Profile
     </button>
-
   </mat-card-content>
 </mat-card>
