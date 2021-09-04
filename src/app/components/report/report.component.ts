@@ -6,7 +6,9 @@ import {
   NgForm,
   Validators,
 } from '@angular/forms';
+import { MatDialog} from '@angular/material/dialog';
 import { CompanyService } from 'src/app/services/company/company.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-report',
@@ -34,6 +36,7 @@ export class ReportComponent implements OnInit {
   }
 
   onSubmit(){
+    // alert("form submit")
     if (this.form.status==='INVALID') {
       return;
     }
