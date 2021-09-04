@@ -12,6 +12,7 @@ export class ModalComponent implements OnInit {
     public data: {
       type: string;
       error: string;
+      employeeId: number;
     },
     public dialog: MatDialogRef<ModalComponent>
   ) {}
@@ -20,5 +21,6 @@ export class ModalComponent implements OnInit {
 
   onClose(): void {
     this.dialog.close();
+    alert("closed")
   }
 }

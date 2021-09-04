@@ -70,7 +70,6 @@ export class SelfieComponent {
       }
     });
   }
-
   ngOnInit(): void {}
 
   async startCamera() {
