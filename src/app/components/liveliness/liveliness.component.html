@@ -45,12 +45,16 @@
       perferendis.</span
     >
     <mat-divider></mat-divider>
-    <span
-      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
-      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
-      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
-      perferendis.</span
-    >
+
+    <div textAlign="center" fxLayout="row" fxLayoutAlign="start center" style="width:100%;padding: 1rem;">
+      <span style="width: 70%;display: block;">
+        {{ question }}
+      </span>
+      <button style="width: 30%;display: block;margin: 0;" mat-stroked-button color="primary" (click)="getQuestion()">
+        Generate New
+      </button>
+    </div>
+
     <mat-divider></mat-divider>
     <br/>
   </div>
@@ -73,7 +77,6 @@
 
       <!-- video container -->
       <div [class.show]="camera" [class.hide]="!camera" fxFlex>
-        <p>{{ question }}</p>
         <p *ngIf="timeleft > 0">Timeleft: {{ timeleft }}</p>
 
         <!-- to capture video -->
