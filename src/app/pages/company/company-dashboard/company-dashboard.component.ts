@@ -53,9 +53,11 @@ export class CompanyDashboardComponent implements OnInit {
       this.company = company;
       if (this.company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
+
       } else {
         this.zeroEmployees = false;
       }
+      console.log(this.company.numberOfTotalEmployees , this.zeroEmployees, "afafafaf")
       pieChartData[0].value =
         this.company.numberOfTotalEmployees -
         this.company.numberOfAcceptedEmployees -
@@ -64,7 +66,6 @@ export class CompanyDashboardComponent implements OnInit {
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
-      console.log("Pie chart dataa"+pieChartData);
             Object.assign(this, { pieChartData });
     });
   }

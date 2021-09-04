@@ -21,13 +21,16 @@
   </div>
 
   <mat-card-content
-    [ngClass.xs]="'status-container-mobile'"
-    [ngClass.gt-xs]="'status-container'"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutAlign="space-between enter"
-    fxFlex="40"
+
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-between enter"
   >
+  <div
+  [ngClass.xs]="'status-container-mobile'"
+    [ngClass.gt-xs]="'status-container'"
+    fxFlex="40"
+    >
     <div
       class="verification-done"
       *ngIf="employee.status === 'Accepted'"
@@ -59,6 +62,16 @@
     </div>
 
     <div
+      class="reported"
+      *ngIf="employee.status === 'Reported'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">report</mat-icon>
+      <div class="verification-text">Reported</div>
+    </div>
+
+    <div
       class="verification-pending"
       *ngIf="employee.status === 'Pending'"
       fxLayout="row"
@@ -67,6 +80,8 @@
       <mat-icon aria-label="i">pending</mat-icon>
       <div class="verification-text">Pending</div>
     </div>
+
+  </div>
 
     <button
       mat-raised-button
@@ -77,5 +92,16 @@
     >
       View Profile
     </button>
+
+    <button
+      mat-button
+      color="primary"
+      [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item><mat-icon color="warn" style="margin-right: 3px;" (click)="OnReport()">report</mat-icon>Report</button>
+      <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
+    </mat-menu>
   </mat-card-content>
 </mat-card>

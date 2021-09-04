@@ -48,12 +48,18 @@
   .verification-registered {
     color: #677e9a;
   }
+  .reported {
+    color:red;
+  }
 }
 
 .status-container-mobile {
   margin-bottom: 0;
   width: 100%;
   margin-top: 10px;
+  .reported {
+    color:red;
+  }
   .verification-done {
     color: green;
   }

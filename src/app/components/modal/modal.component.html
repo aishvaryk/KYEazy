@@ -1,4 +1,4 @@
-<div class="modal" *ngIf="data.type === 'INFORMATION_PROMPTS'">
+<!-- <div class="modal" *ngIf="data.type === 'INFORMATION_PROMPTS'">
   <div class="prompt-header">
     <div class="prompt" *ngIf="data.error === 'INVALID_COMPANY'">
       INVALID COMPANY CREDENTIALS
@@ -17,9 +17,9 @@
     </div>
     <span class="close-modal-button" (click)="onClose()"> &times;</span>
   </div>
-</div>
+</div> -->
 
-<div class="modal" *ngIf="data.type !== 'INFORMATION_PROMPTS'">
+<div class="modal" *ngIf="data.type !== 'INFORMATION_PROMPTS' && data.type !== 'REPORT'">
   <div class="modal-header">
     <div *ngIf="data.type === 'EMPLOYEE_LOGIN'">
       <!-- EMPLOYEE -->
@@ -27,6 +27,7 @@
     <div *ngIf="data.type === 'COMPANY_LOGIN'">
       <!-- COMPANY -->
     </div>
+
     <span class="close-modal-button" (click)="onClose()"> &times;</span>
   </div>
 
@@ -41,5 +42,17 @@
         <app-login [type]="'EMPLOYEE_LOGIN'" [dialog]="dialog"></app-login>
       </mat-tab>
     </mat-tab-group>
+  </div>
+</div>
+
+<div class="modal" *ngIf="data.type == 'REPORT'">
+  <div class="modal-header">
+    <span class="close-modal-button" (click)="onClose()"> &times;</span>
+  </div>
+
+  <br />
+
+  <div class="modal-body">
+    <app-report [employeeId]="data.employeeId"></app-report>
   </div>
 </div>

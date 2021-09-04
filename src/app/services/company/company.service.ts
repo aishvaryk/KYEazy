@@ -173,4 +173,16 @@ export class CompanyService {
       });
   }
 
+  reportEmployee(message: string, employeeId: number): void {
+    this.httpClient
+      .post<Employee[]>(
+        `${environment.backendURL}/company/report-employee/${employeeId}`,
+        message
+      )
+      .pipe(map((response) => response as Employee[])).subscribe((employees: Employee[])=>
+      {
+        this.employees = employees;
+        this.employeesSubject.next(this.employees);
+      });
+  }
 }
