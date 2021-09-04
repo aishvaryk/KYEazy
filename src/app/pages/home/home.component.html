@@ -23,6 +23,8 @@
 
       <br />
 
+
+
       <div
         [ngClass.xs]="'sub-heading-small'"
         [ngClass.sm]="'sub-heading-small'"
@@ -87,19 +89,29 @@
       <b>About us</b>
     </div>
 
-    <div
-      [ngStyle.lt-md]="{'display': 'none'}"
-      [ngClass.gt-sm]="'card-container'"
-    >
+    <!--
+      <div class="card-container">
       <div [ngClass.gt-sm]="'card'"></div>
       <div [ngClass.gt-sm]="'card'"></div>
       <div [ngClass.gt-sm]="'card'"></div>
-    </div>
+      </div>
+    -->
 
-    <div>
+    <div style="width: 100%; height: 100%;">
+      <app-carousel name="about">
+        <div *carousel-slide > 1</div>
+        <div *carousel-slide > 2 </div>
+        <div *carousel-slide > 3</div>
+      </app-carousel>
     </div>
 
   </div>
+
+
+
+
+
+
 
   <!-- <div class="service">
 
@@ -180,7 +192,8 @@
     </div>
   </div> -->
 
-  <div class="home-footer">
+  <!-- <div class="home-footer">
     <app-footer></app-footer>
-  </div>
+  </div> -->
+
 </div>

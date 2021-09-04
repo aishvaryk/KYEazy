@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 .login {
   height: 100%;
   width: 100%;
@@ -135,19 +143,18 @@
 .about {
   height: 80%;
   width: 100%;
-  background-image: linear-gradient(180deg, lightblue, teal);
+  background-image: linear-gradient(180deg,lightblue, teal);
   transform: rotate(-5deg) skew(-5deg) translateY(5rem);
 
   & > * {
-    transform: rotate(5deg) skew(5deg);
+    transform: rotate(5deg) skew(5deg) translateY(5rem);
   }
 
   .about-heading {
     display: flex;
     justify-content: flex-end;
-    margin-right: 10%;
+    margin-right: 7%;
     font-size: 2rem;
-    transform: rotate(5deg) skew(5deg) translateY(5rem) !important;
   }
 }
 

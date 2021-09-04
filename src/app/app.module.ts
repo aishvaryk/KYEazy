@@ -49,7 +49,7 @@ import { MaterialModule } from './app-material.module';
 import { CompanyGuard } from './company.guard';
 import {
   CarouselComponent,
-  TemplateMarker,
+  CarouselSlide,
 } from './components/carousel/carousel.component';
 import {
   MatSnackBarModule,
@@ -92,7 +92,7 @@ import { ReportComponent } from './components/report/report.component';
     AdminAllEmployeesComponent,
     AllCompaniesComponent,
     CarouselComponent,
-    TemplateMarker,
+    CarouselSlide,
     EmployeeCardComponent,
     ProfilePageComponent,
     BarChartComponent,
