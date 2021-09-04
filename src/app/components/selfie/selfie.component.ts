@@ -24,8 +24,8 @@ export class SelfieComponent {
   @ViewChild('video')
   public video: any;
   @ViewChild('canvas')
+
   public canvas: any;
-  loading!:boolean;
   public stream: any;
   public captured: boolean;
   public camera: boolean;
@@ -74,9 +74,7 @@ export class SelfieComponent {
 
   async startCamera() {
     this.camera = true;
-    this.loading=true;
     await this.setupDevices();
-    this.loading=false;
   }
 
   capture() {
@@ -94,10 +92,8 @@ export class SelfieComponent {
   }
 
   async save() {
-    this.loading=true;
     const response = await fetch(this.image);
     const blob =  await response.blob();
-    this.loading=false;
     const imageFile = new File([blob], 'name.png', { type: 'image/png' });
     let selfie = {} as Selfie;
     selfie.image = imageFile;
@@ -114,11 +110,9 @@ export class SelfieComponent {
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        this.loading=true;
         this.stream = await navigator.mediaDevices.getUserMedia({
           video: true,
         });
-        this.loading=false;
         this.video.nativeElement.srcObject = this.stream;
         this.video.nativeElement.play();
       } catch (e) {
