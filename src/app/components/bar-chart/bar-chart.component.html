@@ -1,1 +1,24 @@
-<p>bar-chart works!</p>
+<!-- <div style="width: 100%;">Recently Added Companies</div> -->
+<div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+<ngx-charts-bar-vertical-2d
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="barChartData"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [legendPosition]="legendPosition"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [legendTitle]="legendTitle"
+  [showDataLabel]="showDataLabel"
+  [groupPadding]="30"
+  [tooltipDisabled]="false"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)">
+</ngx-charts-bar-vertical-2d>
+</div>

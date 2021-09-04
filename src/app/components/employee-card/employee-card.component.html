@@ -7,7 +7,8 @@
   fxLayoutAlign.xs="space-between start"
 >
   <mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
-    <img mat-card-avatar [src]="formatImage(employee.capturedImage)" />
+    <img mat-card-avatar *ngIf="employee.status==='Registered' || employee.status==='Reported'" src="assets/images/employee-avatar.png" />
+    <img mat-card-avatar *ngIf="employee.status!=='Registered'  && employee.status!=='Reported'" [src]="formatImage(employee.capturedImage)" />
     <mat-card-title class="employee-name">
       {{ employee.firstName }} {{ employee.lastName }}
     </mat-card-title>
@@ -83,20 +84,30 @@
 
   </div>
 
+    <div
+
+    matTooltip="Please Wait for the Employee to fill details"
+    [matTooltipDisabled] = "employee.status!=='Registered'"
+    >
+
     <button
       mat-raised-button
       color="primary"
       routerLink="/{{ user }}/employee/profile/{{ employee.employeeId }}"
       [ngClass.xs]="'employee-buttons-mobile'"
       [ngClass.gt-xs]="'employee-buttons'"
-    >
+      [disabled]="employee.status==='Registered'"
+      >
       View Profile
     </button>
+
+  </div>
 
     <button
       mat-button
       color="primary"
-      [matMenuTriggerFor]="menu">
+      [matMenuTriggerFor]="menu"
+      *ngIf="user==='company'">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

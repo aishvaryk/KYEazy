@@ -23,8 +23,6 @@ export class CompanyCardComponent implements OnInit {
         this.isSmall = false;
       }
     });
-
-    // this.noOfRegisteredEmployees=this.company.
   }
 
 
