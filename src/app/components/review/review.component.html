@@ -9,7 +9,6 @@
 
 <div
   *ngIf="!employeeLoading && !videoLoading && !imageLoading && !documentLoading"
-  class="card"
 >
   <app-profile
     [employee]="details"
@@ -18,6 +17,7 @@
     [selfie]="selfie"
     company=""
     userType="employee"
+    style="margin-top:100px"
   ></app-profile>
   <button mat-raised-button (click)="submitKYC()">Submit</button>
 </div>

@@ -201,6 +201,14 @@
       </mat-error>
     </mat-form-field>
 
+    <div fxFlex>
+      {{fileName}}
+      <input #input type="file" hidden (change)="onChange($event)" />
+      <button mat-stroked-button color="primary" (click)="input.click()">
+        Upload Document
+      </button>
+    </div>
+
     <br />
     <button
       mat-flat-button

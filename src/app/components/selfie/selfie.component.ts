@@ -49,25 +49,24 @@ export class SelfieComponent {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       this.breakpoint = breakpoint;
       if (breakpoint.isXs) {
-        console.log(breakpoint.isXs);
+        this.height = 200;
+        this.width = 200;
+      }
+      if (breakpoint.isSm) {
         this.height = 250;
         this.width = 250;
       }
-      if (breakpoint.isSm) {
-        this.height = 400;
-        this.width = 350;
-      }
       if (breakpoint.isMd) {
-        this.height = 500;
-        this.width = 350;
+        this.height = 250;
+        this.width = 300;
       }
       if (breakpoint.isLg) {
-        this.height = 0;
-        this.width = 0;
+        this.height = 270;
+        this.width = 300;
       }
       if (breakpoint.isXl) {
-        this.height = 0;
-        this.width = 0;
+        this.height = 300;
+        this.width = 300;
       }
     });
   }
@@ -105,7 +104,7 @@ export class SelfieComponent {
   }
 
   draw(image: any) {
-    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, 500, 300);
+    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, this.width, this.height);
     this.image = this.canvas.nativeElement.toDataURL('image/png');
   }
 

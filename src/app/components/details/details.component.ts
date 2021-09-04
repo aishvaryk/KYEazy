@@ -63,7 +63,7 @@ export class DetailsComponent implements OnInit {
           Validators.required
         ),
         email: new FormControl(
-          { value: this.employee.employeeId, disabled: true },
+          { value: this.employee.emailID, disabled: true },
           [Validators.required, Validators.email]
         ),
         addressLine1: new FormControl(null, Validators.required),

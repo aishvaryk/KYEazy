@@ -1,36 +1,69 @@
-<mat-card style="width: 100%; height: 100%">
+<!-- <mat-card style="width: 100%; height: 100%"> -->
   <div
-    style="width: 100%; height: 100%"
-    fxLayout="column"
-    fxLayoutAlign="center center"
+    style="width: 100%; height: 100%;"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayout.sm="column"
+    fxLayoutAlign.xs="start center"
+    fxLayoutAlign.sm="start center"
+    fxLayoutAlign="space-evenly center"
   >
+
+  <div fxFlex.gt-sm="50">
+    <div style="color:teal;font-size: 2.5rem;">Instruction</div>.
+    <br/>
+    <mat-divider></mat-divider>
+    <span
+      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
+      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
+      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
+      perferendis.</span
+    >
+    <mat-divider></mat-divider>
+    <span
+      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
+      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
+      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
+      perferendis.</span
+    >
+    <mat-divider></mat-divider>
+    <span
+      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
+      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
+      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
+      perferendis.</span
+    >
+    <mat-divider></mat-divider>
+    <span
+      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
+      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
+      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
+      perferendis.</span
+    >
+    <mat-divider></mat-divider>
+    <span
+      >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit ullam
+      atque id, quis voluptatibus eum molestias repudiandae doloremque numquam
+      adipisci nostrum obcaecati ad commodi minima debitis libero illum vero
+      perferendis.</span
+    >
+    <mat-divider></mat-divider>
+    <br/>
+  </div>
+
     <div
+      fxFlex.gt-sm="40"
+      fxLayoutAlign="center center"
       fxLayout="column"
-      [ngStyle.xs]="{ width: '90%' }"
-      [ngStyle.sm]="{ width: '70%' }"
-      [ngStyle.md]="{ width: '50%' }"
-      [ngStyle.lg]="{ width: '40%' }"
-      [ngStyle.xl]="{ width: '40%' }"
     >
       <!-- icon conainer -->
       <div [ngClass]="{ show: !camera, hide: camera }">
-        <p fxLayout="column" fxLayoutAlign="center center">
-          <span style="text-align: center">{{ question }}</span>
-          <button
-            style="width: 35%"
-            mat-raised-button
-            color="primary"
-            (click)="getQuestion()"
-          >
-            new
-          </button>
-        </p>
         <img
           class="video-camera-icon"
           (click)="startCamera()"
-          height="200"
-          width="200"
-          src="/assets/images/video-camera-icon.png"
+          src="/assets/images/video.gif"
+          [height]="height"
+          [width]="width"
         />
       </div>
 
@@ -38,45 +71,62 @@
       <div [class.show]="camera" [class.hide]="!camera" fxFlex>
         <p>{{ question }}</p>
         <p *ngIf="timeleft > 0">Timeleft: {{ timeleft }}</p>
+
         <!-- to capture video -->
         <video
           #toCapture
           [class.show]="!captured"
           [class.hide]="captured"
-          [width]="500"
-          [height]="300"
           autoplay
+          [width]="width"
+          [height]="height"
         ></video>
 
         <!-- to play video -->
         <video
           #toPlay
+          controls
           [class.show]="captured"
           [class.hide]="!captured"
-          controls
-          [width]="500"
-          [height]="300"
+          [width]="width"
+          [height]="height"
         ></video>
 
         <!-- while recording the video -->
         <div [class.show]="!captured" [class.hide]="captured">
-          <button mat-raised-button color="primary" (click)="stopCamera()">
+          <button mat-stroked-button color="primary" (click)="stopCamera()">
             Stop
           </button>
         </div>
 
         <!-- after recording the video -->
         <div [class.show]="captured" [class.hide]="!captured">
-          <button mat-raised-button color="primary" (click)="save()">
-            Save
-          </button>
           <button mat-stroked-button color="primary" (click)="retry()">
             Retry
           </button>
         </div>
       </div>
 
-      <button mat-stroked-button color="warn" (click)="back()">Back</button>
+      <div fxFlex [ngStyle]="{'width.px': width }" >
+        <button
+          style="float: left; width: 30%"
+          mat-stroked-button
+          color="warn"
+          (click)="back()"
+        >
+          Back
+        </button>
+        <button
+          style="float: right; width: 30%"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="save()"
+        >
+          Next
+        </button>
+      </div>
+
     </div>
   </div>
-</mat-card>
+<!-- </mat-card> -->
