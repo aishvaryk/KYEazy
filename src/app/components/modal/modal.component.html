@@ -6,7 +6,7 @@
 
   <div class="modal-body">
 
-    <mat-tab-group *ngIf="data.type !== 'REPORT'" mat-align-tabs="center">
+    <mat-tab-group *ngIf="data.type === 'LOGIN'" mat-align-tabs="center">
       <mat-tab label="Company Login" class="company">
         <app-login [type]="'COMPANY_LOGIN'" [dialog]="dialog"></app-login>
       </mat-tab>

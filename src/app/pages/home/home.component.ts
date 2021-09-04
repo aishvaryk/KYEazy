@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -11,7 +18,13 @@ import { LoginService } from 'src/app/services/login/login.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('top')
+  public top: any;
+  @ViewChild('scrollToTop')
+  public scrollToTop: any;
+
+  public showScrollToTop: any;
   public isSmall: any;
   public flexDirection: any;
   public user: any;
@@ -33,38 +46,84 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    this.loginService.logout();
-  }
+  ngOnInit(): void {}
 
-  showEmployeeLoginModal(): void {
+  ngAfterViewInit() {}
+
+  showLoginModal(): void {
     this.dialog.open(ModalComponent, {
       data: {
-        type: 'EMPLOYEE_LOGIN',
-      },
-    });
-  }
-
-  showCompanyLoginModal(): void {
-    this.dialog.open(ModalComponent, {
-      data: {
-        type: 'COMPANY_LOGIN',
+        type: 'LOGIN',
       },
     });
   }
 
   ngOnDestroy(): void {}
 
-  next() {
-    document.getElementById('3')?.scrollIntoView({
+  scrollToServices() {
+    document.getElementById('service')?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',
     });
   }
 
-  prev() {
-    document.getElementById('2')?.scrollIntoView({
+  scrollToProduct() {
+    document.getElementById('product')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+
+  scrollToSolutions() {
+    document.getElementById('solution')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+
+  getViewportSize() {
+    let w = window;
+    if (w.innerWidth != null) return {
+      w: w.innerWidth,
+      h: w.innerHeight
+    };
+    var d = w.document;
+    if (document.compatMode == 'CSS1Compat') {
+      return {
+        w: d.documentElement.clientWidth,
+        h: d.documentElement.clientHeight
+      };
+    }
+    return {
+      w: d.body.clientWidth,
+      h: d.body.clientWidth
+    };
+  }
+
+  isInViewport(element: any) {
+    const box = element.nativeElement.getBoundingClientRect();
+    var height = box.height || box.bottom - box.top;
+    var width = box.width || box.right - box.left;
+    var viewport = this.getViewportSize();
+    if (!height || !width) return false;
+    if (box.top > viewport.h || box.bottom < 0) return false;
+    if (box.right < 0 || box.left > viewport.w) return false;
+    return true;
+  }
+
+  onScroll() {
+    if (!this.isInViewport(this.top)) {
+      this.showScrollToTop = true;
+    } else {
+      this.showScrollToTop = false;
+    }
+  }
+
+  onScrollToTop() {
+    document.getElementById('top')?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',

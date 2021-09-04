@@ -4,9 +4,7 @@
   [ngClass]="'carousel-container'"
 >
   <div style="text-align: center" fxFlex="7">
-    <button mat-stroked-button (click)="onPrevClick()" color="black">
-      <mat-icon>arrow_back_ios</mat-icon>
-    </button>
+    <mat-icon (click)="onPrevClick()"> arrow_back_ios_outline</mat-icon>
   </div>
 
   <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
@@ -22,8 +20,6 @@
   </div>
 
   <div style="text-align: center" fxFlex="7">
-    <button mat-stroked-button (click)="onNextClick()" color="black">
-      <mat-icon>arrow_forward_ios</mat-icon>
-    </button>
+      <mat-icon (click)="onNextClick()">arrow_forward_ios</mat-icon>
   </div>
 </div>

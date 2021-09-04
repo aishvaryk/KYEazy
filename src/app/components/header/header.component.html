@@ -27,8 +27,8 @@
 
     <div class="buttons">
       <div class="large-header-buttons" *ngIf="!deviceSmall">
-        <button mat-button *ngIf="isHome">About</button>
-        <button mat-button *ngIf="isHome">Contact Us</button>
+        <button mat-button (click)="scrollToAbout()" *ngIf="isHome">About</button>
+        <button mat-button (click)="openBottomSheet()" *ngIf="isHome">Contact Us</button>
         <button
           mat-stroked-button
           (click)="doLogout()"
@@ -41,10 +41,10 @@
       </div>
       <div class="small-header-buttons" *ngIf="deviceSmall">
         <button mat-icon-button color="primary" *ngIf="isHome">
-          <mat-icon>info_outlined</mat-icon>
+          <mat-icon (click)="scrollToAbout()">info_outlined</mat-icon>
         </button>
         <button mat-icon-button color="primary" *ngIf="isHome">
-          <mat-icon>contact_support</mat-icon>
+          <mat-icon (click)="openBottomSheet()">contact_support</mat-icon>
         </button>
         <button
           mat-icon-button

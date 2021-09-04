@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {
   MatRadioModule,
   MAT_RADIO_DEFAULT_OPTIONS,
@@ -43,7 +44,8 @@ const MaterialModules = [
   MatPaginatorModule,
   MatInputModule,
   MatTabsModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatBottomSheetModule
 ];
 @NgModule({
   declarations: [],
