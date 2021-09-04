@@ -63,6 +63,7 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("challaaaaa");
     this.observable = this.observer
       .asObservable()
       .pipe(
@@ -118,12 +119,17 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.searchText = event.target.value;
   }
   OnSearchSelect() {
+    console.log('chala');
     this.loading = true;
-    this.adminService.getAllEmployeeByName(
+    let k=localStorage.getItem("Id");
+    if(k!=null){
+    this.adminService.getAllEmployeesByName(
+      parseInt(k),
       this.searchText,
       this.paginator.currentPageSize,
       this.paginator.currentPageIndex
     );
+    }
     this.adminService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
       this.loading = false;
@@ -132,10 +138,12 @@ export class AdminAllEmployeesComponent implements OnInit {
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
-
+    let k=localStorage.getItem("Id");
+    if(k!=null){
     if (this.sortBy === 'name') {
       this.loading = true;
       this.adminService.getAllEmployeesSortedByName(
+        parseInt(k),
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex
       );
@@ -148,15 +156,55 @@ export class AdminAllEmployeesComponent implements OnInit {
     if (this.sortBy === 'date-registration') {
       this.loading = true;
       this.adminService.getAllEmployeesSortedByDate(
+        parseInt(k),
+
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex
       );
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
+        console.log(employees);
         this.loading = false;
       });
     }
   }
+  }
 
-  OnFilterSelect(event: any) {}
+  OnFilterSelect(event: any) {
+    console.log(event.value);
+    this.filter = event.value;
+    if (this.filter === 'verification-failed') {
+      this.adminService.getAllEmployeesByStatus(
+        'Rejected',
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex
+      );
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'verification-completed') {
+      this.adminService.getAllEmployeesByStatus('Accepted', 10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'verification-pending') {
+      // this.paginator.currentPageSize,this.paginator.currentPageIndex
+      this.adminService.getAllEmployeesByStatus('Pending', 10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+    if (this.filter === 'all') {
+      this.adminService.viewAllApplications(10, 1);
+      this.adminService.employeesSubject.subscribe((employees) => {
+        this.employees = employees;
+        console.log(employees);
+      });
+    }
+  }
 }

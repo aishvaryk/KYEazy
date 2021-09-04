@@ -7,7 +7,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
 import { ActivatedRoute } from '@angular/router';
 
-import { pieChartData } from 'src/app/models/pieChartData.model';
+import { pieChartData } from 'src/app/models/pie-chart-data.model';
 
 export interface paginator {
   length: number;
@@ -101,7 +101,6 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
-
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;

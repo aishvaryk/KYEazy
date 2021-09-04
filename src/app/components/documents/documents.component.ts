@@ -14,6 +14,7 @@ export class DocumentsComponent implements OnInit {
   form: any;
   fileName: string;
   @Input() stepper!: MatStepper;
+  loading!:boolean;
 
   constructor(public store: Store<{ documents: Documents }>) {
     this.fileName = "No file choosen"
@@ -29,10 +30,12 @@ export class DocumentsComponent implements OnInit {
   onChange(event: any) {
     let file = event.target.files[0];
     const url = URL.createObjectURL(file);
+    this.loading=true;
     this.form.patchValue({
       document: file,
     });
     this.fileName = file.name;
+    this.loading=false;
   }
 
   onSave() {

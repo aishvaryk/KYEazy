@@ -17,20 +17,27 @@
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
     *ngIf="!zeroEmployees"
+    fxLayout="column"
   >
+  <mat-card-content>
+    <div class="dashboard-heading">Dashboard</div>
     <app-pie-chart
       style="width: 100%"
       [pieChartData]="pieChartData"
     ></app-pie-chart>
+  </mat-card-content>
   </mat-card>
   <mat-card
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
     *ngIf="!zeroEmployees"
   >
-    <h2>Recently Added Employees</h2>
+  <mat-card-content>
+
+    <div class="dashboard-heading">Recently Added Employees</div>
+
     <!-- Employee-Card-Component -->
-    <div *ngFor="let employee of employees" class="employee-card">
+    <div *ngFor="let employee of employees" class="employee-card" fxLayout="row" fxLayoutAlign="center">
       <app-employee-card
         [user]="'company'"
         [employee]="employee"
@@ -46,6 +53,7 @@
         View More <mat-icon aria-label="i"> expand_more </mat-icon>
       </button>
     </div>
+  </mat-card-content>
   </mat-card>
   <app-empty
     style="width: 96%"

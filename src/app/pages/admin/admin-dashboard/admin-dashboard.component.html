@@ -51,19 +51,16 @@
         ></app-company-card>
       </div>
 
-      <button
-        mat-raised-button
-        color="primary"
-        fxLayoutAlign="center"
-        fxLayout="row"
-        [ngClass]="{
-          'view-more-mobile': isSmall,
-          'view-more': !isSmall
-        }"
-        routerLink="/admin/all-companies"
-      >
-        View More
-      </button>
+      <div style="width: 100%" fxLayout="row" fxLayoutAlign="center">
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/admin/all-companies"
+        >
+          View More <mat-icon aria-label="i"> expand_more </mat-icon>
+        </button>
+      </div>
+
     </div>
   </mat-card>
 

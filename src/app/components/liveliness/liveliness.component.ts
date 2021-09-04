@@ -27,7 +27,7 @@ export class LivelinessComponent implements OnInit {
   public toCapture: any;
   @ViewChild('toPlay')
   public toPlay: any;
-
+  loading!:boolean;
   public camera: boolean;
   public captured: boolean;
   public timeleft: number;
@@ -97,8 +97,10 @@ export class LivelinessComponent implements OnInit {
   ngOnDestroy(): void {}
 
   async startCamera() {
+    this.loading=true;
     this.camera = true;
     await this.setupDevices();
+    this.loading=false;
     this.mediaRecorder.start();
     this.timeleft = 10;
     if (this.timeout) clearTimeout(this.timeout);
@@ -144,16 +146,11 @@ export class LivelinessComponent implements OnInit {
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        const videoStream = await navigator.mediaDevices.getUserMedia(
-          this.videoConstraints
-        );
-        const audioStream = await navigator.mediaDevices.getUserMedia(
-          this.audioConstraints
-        );
-        this.stream = new MediaStream([
-          ...videoStream.getVideoTracks(),
-          ...audioStream.getAudioTracks(),
-        ]);
+        this.loading=true;
+        const videoStream = await navigator.mediaDevices.getUserMedia(this.videoConstraints);
+        const audioStream = await navigator.mediaDevices.getUserMedia(this.audioConstraints);
+        this.loading=false;
+        this.stream = new MediaStream([...videoStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
         this.toCapture.nativeElement.srcObject = this.stream;
         this.toCapture.nativeElement.muted = true;
         this.toCapture.nativeElement.play();

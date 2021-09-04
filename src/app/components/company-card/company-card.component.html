@@ -5,14 +5,25 @@
   fxLayout.xs="column"
   fxLayoutAlign="space-between center"
   fxLayoutAlign.xs="space-between start"
-  fxLayoutGap="10%"
 >
-  <mat-card-header fxFlex="60" [ngClass.xs]="'company-card-header-mobile'">
+  <mat-card-header
+    fxFlex="50"
+    [ngClass.xs]="'company-card-header-mobile'"
+    [ngClass.gt-xs]="'company-card-header'"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+  >
     <img mat-card-avatar />
-    <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
-    <mat-card-subtitle class="company-email">{{
-      company.cinNumber
-    }}</mat-card-subtitle>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center"
+      [ngStyle.gt-xs]="'height: 40px;'"
+    >
+      <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
+      <mat-card-subtitle class="company-cin">{{
+        company.cinNumber
+      }}</mat-card-subtitle>
+    </div>
   </mat-card-header>
 
   <mat-card-content
@@ -21,51 +32,83 @@
     fxLayout="row wrap"
     fxLayout.xs="column"
     fxLayoutAlign="space-between enter"
-    fxFlex="40"
+    fxFlex.gt-sm="40"
+    fxFlex.sm="40"
   >
-    <div class="pending">
-      <p [ngClass.xs]="'employee-status-mobile'">Pending</p>
-      <p [ngClass.xs]="'employee-status-mobile'">
-        {{ company.numberOfPendingEmployees }}
-      </p>
-    </div>
-
-    <div class="accepted">
-      <p [ngClass.xs]="'employee-status-mobile'">Accepted</p>
-      <p [ngClass.xs]="'employee-status-mobile'">
-        {{ company.numberOfAcceptedEmployees }}
-      </p>
-    </div>
-    <div class="rejected">
-      <p [ngClass.xs]="'employee-status-mobile'">Rejected</p>
-      <p [ngClass.xs]="'employee-status-mobile'">
-        {{ company.numberOfRejectedEmployees }}
-      </p>
-    </div>
-    <div class="total">
-      <p [ngClass.xs]="'employee-status-mobile'">Total</p>
-      <p [ngClass.xs]="'employee-status-mobile'">
-        {{ company.numberOfTotalEmployees }}
-      </p>
-    </div>
-  </mat-card-content>
-
-  <!-- <div class="company-email-mobile" *ngIf="isSmall">abc@google.com</div> -->
-  <mat-card-content
-    [ngClass.xs]="'status-container-mobile'"
-    [ngClass.gt-xs]="'status-container'"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutAlign="space-between enter"
-  >
-    <button
-      mat-raised-button
-      color="primary"
-      routerLink="/admin/company/employees/{{ company.companyId }}"
-      [ngClass.xs]="'company-buttons-mobile'"
-      [ngClass.gt-xs]="'company-buttons'"
+    <div
+      class="total"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.xs="start center"
+      matTooltip="Total Number of Employees"
+      matTooltipPosition="below"
     >
-      View Employees
-    </button>
+      <span
+        >Total <span *ngIf="isSmall">Employees</span>
+        {{ company.numberOfTotalEmployees }}</span
+      >
+    </div>
+    <div
+      class="pending"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.xs="start center"
+      matTooltip="Pending Employees"
+      matTooltipPosition="below"
+    >
+      <mat-icon>pending_actions</mat-icon>&nbsp;<span *ngIf="isSmall"
+        >Pending Employees&nbsp;</span
+      >{{ company.numberOfPendingEmployees }}
+    </div>
+
+    <div
+      class="accepted"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.xs="start center"
+      matTooltip="Accpeted Employees"
+      matTooltipPosition="below"
+    >
+      <mat-icon>check_circle_outline</mat-icon>&nbsp;
+      <span *ngIf="isSmall">Accepted Employees&nbsp;</span>
+      {{ company.numberOfAcceptedEmployees }}
+    </div>
+    <div
+      class="rejected"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.xs="start center"
+      matTooltip="Rejected Employees"
+      matTooltipPosition="below"
+    >
+      <mat-icon>highlight_off</mat-icon>&nbsp;
+      <span *ngIf="isSmall">Rejected Employees&nbsp;</span>
+      {{ company.numberOfRejectedEmployees }}
+    </div>
+    <div
+      class="registered"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.xs="start center"
+      matTooltip="Registered Employees"
+      matTooltipPosition="below"
+    >
+      <mat-icon>how_to_reg</mat-icon>&nbsp;
+      <span *ngIf="isSmall">Registered Employees&nbsp;</span>
+      {{ company.numberOfPendingEmployees }}
+    </div>
   </mat-card-content>
+
+  <button
+    matTooltip="View Employees"
+    matTooltipPosition="below"
+    mat-raised-button
+    color="primary"
+    routerLink="/admin/company/employees/{{ company.companyId }}"
+    [ngClass.xs]="'company-buttons-mobile'"
+    [ngClass.gt-xs]="'company-buttons'"
+  >
+    <mat-icon *ngIf="!isSmall">arrow_forward_ios</mat-icon>
+    <span *ngIf="isSmall">View Employees</span>
+  </button>
 </mat-card>

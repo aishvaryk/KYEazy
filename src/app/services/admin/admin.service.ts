@@ -60,31 +60,17 @@ export class AdminService {
       });
   }
 
-  viewAcceptedApplications(pageSize: number, pageNumber: number): void {
+  getEmployeeDocument(username: string) {
     this.httpClient
-      .get(
-        `${environment.backendURL}/admin/view-accepted-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
+      .get(`${environment.backendURL}/admin/get-document/${username}`, {
+        responseType: 'arraybuffer',
+      })
+      .subscribe((results: any) => {
+        this.employeeVideoSubject.next(results);
       });
   }
 
-  viewRejectedApplications(pageSize: number, pageNumber: number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/admin/view-rejected-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  viewEmployeeDetails(id: number): void {
+    viewEmployeeDetails(id: number): void {
     this.httpClient
       .get(`${environment.backendURL}/admin/view-employee-details/${id}`)
       .pipe(map((response) => response as Employee))
@@ -104,14 +90,15 @@ export class AdminService {
       });
   }
 
-  getAllEmployeeByName(
+  getAllEmployeesByName(
+    id: number,
     name: string,
     pageSize: number,
     pageNumber: number
   ): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/get-all-employees-by-name/${id}/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
@@ -136,10 +123,10 @@ export class AdminService {
       });
   }
 
-  getAllEmployeesSortedByName(pageSize: number, pageNumber: number): void {
+  getAllEmployeesSortedByName(id:number,pageSize: number, pageNumber: number): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/get-all-employees-sorted-by-name/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/get-all-employees-sorted-by-name/${id}/?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
@@ -148,22 +135,10 @@ export class AdminService {
       });
   }
 
-  getAllEmployeesSortedByDate(pageSize: number, pageNumber: number): void {
+  getAllEmployeesSortedByDate(id:number,pageSize: number, pageNumber: number): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/get-all-employees-sorted-by-date/?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  viewPendingApplications(pageSize: number, pageNumber: number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/admin/view-pending-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/get-all-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
@@ -182,7 +157,24 @@ export class AdminService {
         this.companies = results;
         this.companiesSubject.next(this.companies);
       });
-  }
+    }
+
+    getAllEmployeesByStatus(
+      status: string,
+      pageSize: number,
+      pageNumber: number
+    ): void {
+      this.httpClient
+        .get(
+          `${environment.backendURL}/admin/all-employees-by-status/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        )
+        .pipe(map((response) => response as Employee[]))
+        .subscribe((results: Employee[]) => {
+          console.log(results);
+          this.employees = results;
+          this.employeesSubject.next(this.employees);
+        });
+    }
 
   getNoOfAcceptedEmployees(): any {
     return this.httpClient

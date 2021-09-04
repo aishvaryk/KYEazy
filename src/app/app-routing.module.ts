@@ -1,6 +1,4 @@
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
-import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
-import { ViewEmployessComponent } from './pages/admin/view-employess/view-employess.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NgModule } from '@angular/core';
@@ -17,6 +15,7 @@ import { CompanyGuard } from './company.guard';
 import { AdminGuard } from './admin.guard';
 import { EmployeeGuard } from './employee.guard';
 import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
+import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 
 const routes: Routes = [
   {
@@ -79,7 +78,7 @@ const routes: Routes = [
       },
       {
         path: 'company/employees/:companyId',
-        component: ViewEmployessComponent,
+        component: EmployeesComponent,
         canActivate: [AdminGuard],
       },
       {
