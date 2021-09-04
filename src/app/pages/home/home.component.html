@@ -76,7 +76,7 @@
     <div fxFlex="5"></div>
   </div>
 
-  <!-- <div class="about">
+  <div class="about">
     <div
       [ngClass.xs]="'about-heading'"
       [ngClass.sm]="'about-heading'"
@@ -86,15 +86,20 @@
     >
       <b>About us</b>
     </div>
+
     <div
-      [ngClass.lt-md]="'card-container-small'"
+      [ngStyle.lt-md]="{'display': 'none'}"
       [ngClass.gt-sm]="'card-container'"
     >
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
+      <div [ngClass.gt-sm]="'card'"></div>
+      <div [ngClass.gt-sm]="'card'"></div>
+      <div [ngClass.gt-sm]="'card'"></div>
     </div>
-  </div> -->
+
+    <div>
+    </div>
+
+  </div>
 
   <!-- <div class="service">
 

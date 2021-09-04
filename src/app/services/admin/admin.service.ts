@@ -170,7 +170,6 @@ export class AdminService {
         )
         .pipe(map((response) => response as Employee[]))
         .subscribe((results: Employee[]) => {
-          console.log(results);
           this.employees = results;
           this.employeesSubject.next(this.employees);
         });

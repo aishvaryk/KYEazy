@@ -43,7 +43,6 @@ export class CompanyDashboardComponent implements OnInit {
     this.employees = [{}] as Employee[];
     this.company = {} as Company;
     let k = localStorage.getItem('Id');
-    console.log(k);
     if (k != null) {
       this.loading = true;
       this.companyService.getCompanyDetails(parseInt(k));
@@ -57,7 +56,6 @@ export class CompanyDashboardComponent implements OnInit {
       } else {
         this.zeroEmployees = false;
       }
-      console.log(this.company.numberOfTotalEmployees , this.zeroEmployees, "afafafaf")
       pieChartData[0].value =
         this.company.numberOfTotalEmployees -
         this.company.numberOfAcceptedEmployees -
@@ -73,7 +71,6 @@ export class CompanyDashboardComponent implements OnInit {
   ngOnInit(): void {
 
     let k = localStorage.getItem('Id');
-    console.log(k);
     if (k != null) {
       this.loading = true;
       this.companyService.getEmployeesSortedByDate(parseInt(k), 2, 1);

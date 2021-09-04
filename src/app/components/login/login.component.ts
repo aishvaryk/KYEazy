@@ -72,14 +72,12 @@ export class LoginComponent implements OnInit {
       this.loading=true;
       this.employeeService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,response.id)
          //this.loginService.setUserId(response.id)
          this.router.navigate(['/employee/kyc'])
          this.loading=false;
         },
         (error:any)=>{
-          console.log(error);
           this.openSnackBar("Invalid Employee Credentials","Retry");
           this.loading=false;
         })
@@ -91,13 +89,11 @@ export class LoginComponent implements OnInit {
       this.loading=true;
       this.adminService.login(this.credentials).subscribe(
         (response:any)=>{
-         console.log(response.token)
          this.loginService.loginUser(response.token,"")
          this.router.navigate(['/admin/dashboard'])
          this.loading=false;
         },
         (error:any)=>{
-          console.log(error);
           this.loading=false;
           this.errorDialog.open(ModalComponent,{
             data: {

@@ -63,7 +63,6 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("challaaaaa");
     this.observable = this.observer
       .asObservable()
       .pipe(
@@ -119,7 +118,6 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.searchText = event.target.value;
   }
   OnSearchSelect() {
-    console.log('chala');
     this.loading = true;
     let k=localStorage.getItem("Id");
     if(k!=null){
@@ -163,7 +161,6 @@ export class AdminAllEmployeesComponent implements OnInit {
       );
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
         this.loading = false;
       });
     }
@@ -171,7 +168,6 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
 
   OnFilterSelect(event: any) {
-    console.log(event.value);
     this.filter = event.value;
     if (this.filter === 'verification-failed') {
       this.adminService.getAllEmployeesByStatus(
@@ -181,14 +177,12 @@ export class AdminAllEmployeesComponent implements OnInit {
       );
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
     if (this.filter === 'verification-completed') {
       this.adminService.getAllEmployeesByStatus('Accepted', 10, 1);
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
     if (this.filter === 'verification-pending') {
@@ -196,14 +190,12 @@ export class AdminAllEmployeesComponent implements OnInit {
       this.adminService.getAllEmployeesByStatus('Pending', 10, 1);
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
     if (this.filter === 'all') {
       this.adminService.viewAllApplications(10, 1);
       this.adminService.employeesSubject.subscribe((employees) => {
         this.employees = employees;
-        console.log(employees);
       });
     }
   }

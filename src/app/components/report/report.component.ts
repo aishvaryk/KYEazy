@@ -37,7 +37,6 @@ export class ReportComponent implements OnInit {
     if (this.form.status==='INVALID') {
       return;
     }
-    console.log(this.form.value);
     this.reason =this.form.value.reason;
     this.companyService.reportEmployee(this.reason, this.employeeId);
   }
