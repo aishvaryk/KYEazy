@@ -114,13 +114,17 @@ export class AdminService {
   ): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/companies-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/get-all-companies-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
       )
       .pipe(map((response) => response as Company[]))
       .subscribe((results: Company[]) => {
         this.companies = results;
         this.companiesSubject.next(this.companies);
       });
+  }
+
+  getSearchedCompaniesSize(name: string) {
+    return this.httpClient.get(`${environment.backendURL}/admin/get-searched-companies-size/${name}`);
   }
 
   getAllEmployeesSortedByName(id:number,pageSize: number, pageNumber: number): void {
@@ -178,6 +182,12 @@ export class AdminService {
   getNoOfAcceptedEmployees(): any {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-accepted-employee`)
+      .pipe(map((response) => response as number));
+  }
+
+  getTotalNumberOfCompanies(): any {
+    return this.httpClient
+      .get(`${environment.backendURL}/admin/get-total-number-of-companies`)
       .pipe(map((response) => response as number));
   }
 

@@ -16,4 +16,5 @@ export interface Company {
   numberOfTotalEmployees: number;
   numberOfRegisteredEmployees:number;
   coins:number
+  plan:number
 }

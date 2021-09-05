@@ -17,6 +17,8 @@ export class PaymentService {
 
 orderId!:any
 orderSubject:Subject<any>=new Subject();
+orders=[]
+orderHistory:Subject<any>=new Subject();
   get nativeWindow():any
   {
     return _window()
@@ -39,14 +41,27 @@ orderSubject:Subject<any>=new Subject();
       })
 }
 
-paymentSuccess(orderId:string,paymentId:string,razorpaySignature:string)
+paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string)
 {
-this.httpClient.get(`/payment-success/${orderId}/${paymentId}/${razorpaySignature}`).subscribe((response:any)=>{
-  console.log(response)
- })
+ return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}`);
 }
 
+getOrderHistory(id:number)
+{
+
+  this.httpClient
+    .get(
+      `${environment.backendURL}/payment/payment-history/${id}`
+    ).
+    subscribe((response:any)=>{
+      console.log(response)
+      this.orders=response;
+      this.orderHistory.next(this.orders);
+
+    })
 }
 
+
+}
 
 

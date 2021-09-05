@@ -29,6 +29,5 @@ export class CompanyCardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.company);
   }
 }

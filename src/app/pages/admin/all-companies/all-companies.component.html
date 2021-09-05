@@ -1,19 +1,24 @@
-<div
+<!-- <div
   fxLayout="column"
-  *ngIf="loading"
+  *ngIf="companiesLoading || numberOfCompaniesLoading"
   fxLayoutAlign="center center"
   class="loader"
 >
   <mat-spinner></mat-spinner>
-</div>
+</div> -->
 
-<div fxLayout="column" *ngIf="!loading" fxLayoutAlign="start center" style="
-min-height: 90%;">
+<div
+  fxLayout="column"
+  fxLayoutAlign="start center"
+  style="min-height: 90%;"
+  >
   <mat-card
     *ngIf="!zeroCompanies"
     [ngClass.gt-xs]="'container-card'"
     [ngClass.xs]="'container-card-mobile'"
   >
+  <!-- *ngIf="!companiesLoading && !numberOfCompaniesLoading" -->
+
     <div
       [ngClass]="{
         'company-container-mobile': isSmall,
@@ -26,7 +31,6 @@ min-height: 90%;">
     >
       <div
         [ngClass.xs]="'search-comapny-mobile'"
-
         [ngClass.gt-xs]="'search-comapny'"
         fxLayout="row"
         fxLayoutAlign="end"
@@ -84,12 +88,13 @@ min-height: 90%;">
 
     <div fxLayout="row" fxLayoutAlign="end" class="company-paginator">
       <mat-paginator
-        [length]="paginator.length"
-        [pageSize]="paginator.currentPageSize"
-        [pageSizeOptions]="paginator.pageSizeOptions"
-        (page)="OnPageChange($event)"
-        [hidePageSize]="isSmall"
-      >
+      #matPaginator
+      [length]="this.paginator.length"
+      [pageSize]="this.paginator.currentPageSize"
+      [pageSizeOptions]="this.paginator.pageSizeOptions"
+      (page)="OnPageChange($event)"
+      [hidePageSize]="isSmall"
+    >
       </mat-paginator>
     </div>
   </mat-card>

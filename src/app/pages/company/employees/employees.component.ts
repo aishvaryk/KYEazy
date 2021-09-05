@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-
-import { filter, map } from 'rxjs/operators';
-
 import {
   FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
 } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
@@ -16,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Company } from 'src/app/models/company.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Store } from '@ngrx/store';
-import { paginator } from '../../admin/all-companies/all-companies.component';
 import { Paginator } from 'src/app/models/paginator.model';
 
 @Component({
@@ -55,6 +46,10 @@ export class EmployeesComponent implements OnInit {
     this.companyId = 0;
     this.company = {} as Company;
     this.paginator = {} as Paginator;
+    this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
+    this.paginator.currentPageIndex = 0;
+    this.paginator.currentPageSize = 5;
+
   }
 
   ngOnInit(): void {
@@ -88,12 +83,10 @@ export class EmployeesComponent implements OnInit {
     });
 
     this.companyService.getCompanyDetails(this.companyId);
+
     this.companyService.companySubject.subscribe((company) => {
       this.company = company;
       this.paginator.length = company.numberOfTotalEmployees;
-      this.paginator.currentPageIndex = 0;
-      this.paginator.currentPageSize = 5;
-      this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
       if (company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
       } else {
@@ -103,7 +96,6 @@ export class EmployeesComponent implements OnInit {
   }
 
   OnPageChange(event: any) {
-
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
     this.companyService.getEmployees(

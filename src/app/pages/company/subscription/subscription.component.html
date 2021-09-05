@@ -1,8 +1,3 @@
-<div
-  fxLayout="column"
-  fxLayoutAlign="start center"
-  class="employee-form-container"
->
   <mat-card
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
@@ -20,7 +15,7 @@
         Your current Coin Balance is
       </div>
       <div class="coins" fxLayout="row" fxLayoutAlign="center center">
-        {{coinBalance}}200 <mat-icon style="color: gold;">paid</mat-icon>
+        {{coinBalance}}<mat-icon style="color: gold;">paid</mat-icon>
       </div>
       <div class="coin-balance-details">
         You can do KYC of 10 more employees!
@@ -53,7 +48,7 @@
     [matTooltipDisabled] = "!invalidForm">
     <button mat-stroked-button color="primary"
     [disabled]="invalidForm"
-    (click)="pay(400)" type="submit">Pay</button>
+    type="submit">Pay</button>
     </div>
   </div>
 
@@ -61,4 +56,3 @@
 </form>
 
   </mat-card>
-</div>
