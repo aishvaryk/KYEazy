@@ -23,6 +23,17 @@
       [pieChartData]="pieChartData"
     ></app-pie-chart>
   </mat-card>
+
+  <mat-card
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.lt-sm]="'container-card-mobile'"
+    *ngIf="!zeroEmployees && !isSmall"
+  >
+    <app-bar-chart
+      style="width: 100%"
+    ></app-bar-chart>
+  </mat-card>
+
   <mat-card
     [ngClass.gt-xs]="'container-card'"
     [ngClass.xs]="'container-card-mobile'"

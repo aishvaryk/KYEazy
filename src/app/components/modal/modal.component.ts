@@ -11,14 +11,18 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: {
       type: string;
-      error: string;
+      employeeId: number;
     },
     public dialog: MatDialogRef<ModalComponent>
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dialog.afterClosed().subscribe(() => {
+  });
+  }
 
   onClose(): void {
     this.dialog.close();
   }
+
 }

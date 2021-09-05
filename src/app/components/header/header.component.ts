@@ -5,6 +5,8 @@ import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { updateMenu } from 'src/app/redux/actions/menu.action';
 import { LoginService } from 'src/app/services/login/login.service';
 import { environment } from 'src/environments/environment';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ContactUsComponent } from '../contact-us/contact-us.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit {
       menu: boolean;
       route: string;
     }>,
+    public bottomSheet: MatBottomSheet,
     loginService: LoginService
   ) {
     this.breakpoint$ = store.select('breakpoint');
@@ -53,6 +56,21 @@ export class HeaderComponent implements OnInit {
   toggleMenu() {
     this.store.dispatch(updateMenu(!this.isOpen));
   }
+
+  openBottomSheet() {
+    this.bottomSheet.open(ContactUsComponent);
+  }
+
+  scrollToAbout() {
+    document
+    .getElementById("about")
+    ?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+
   doLogout() {
     this.loginService.logout();
   }

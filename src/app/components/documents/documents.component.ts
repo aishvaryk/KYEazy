@@ -12,10 +12,12 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
 })
 export class DocumentsComponent implements OnInit {
   form: any;
+  fileName: string;
+  @Input() stepper!: MatStepper;
   loading!:boolean;
-  @Input() stepper!:MatStepper;
 
   constructor(public store: Store<{ documents: Documents }>) {
+    this.fileName = "No file choosen"
     this.form = new FormGroup({
       document: new FormControl('', [Validators.required]),
       documentNumber: new FormControl('', [Validators.required]),
@@ -32,6 +34,7 @@ export class DocumentsComponent implements OnInit {
     this.form.patchValue({
       document: file,
     });
+    this.fileName = file.name;
     this.loading=false;
   }
 

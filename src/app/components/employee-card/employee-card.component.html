@@ -7,7 +7,8 @@
   fxLayoutAlign.xs="space-between start"
 >
   <mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
-    <img mat-card-avatar [src]="formatImage(employee.capturedImage)" />
+    <img mat-card-avatar *ngIf="employee.status==='Registered' || employee.status==='Reported'" src="assets/images/employee-avatar.png" />
+    <img mat-card-avatar *ngIf="employee.status!=='Registered'  && employee.status!=='Reported'" [src]="formatImage(employee.capturedImage)" />
     <mat-card-title class="employee-name">
       {{ employee.firstName }} {{ employee.lastName }}
     </mat-card-title>
@@ -21,13 +22,16 @@
   </div>
 
   <mat-card-content
-    [ngClass.xs]="'status-container-mobile'"
-    [ngClass.gt-xs]="'status-container'"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutAlign="space-between enter"
-    fxFlex="40"
+
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-between enter"
   >
+  <div
+  [ngClass.xs]="'status-container-mobile'"
+    [ngClass.gt-xs]="'status-container'"
+    fxFlex="40"
+    >
     <div
       class="verification-done"
       *ngIf="employee.status === 'Accepted'"
@@ -59,6 +63,16 @@
     </div>
 
     <div
+      class="reported"
+      *ngIf="employee.status === 'Reported'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">report</mat-icon>
+      <div class="verification-text">Reported</div>
+    </div>
+
+    <div
       class="verification-pending"
       *ngIf="employee.status === 'Pending'"
       fxLayout="row"
@@ -68,14 +82,37 @@
       <div class="verification-text">Pending</div>
     </div>
 
+  </div>
+
+    <div
+
+    matTooltip="Please Wait for the Employee to fill details"
+    [matTooltipDisabled] = "employee.status!=='Registered'"
+    >
+
     <button
       mat-raised-button
       color="primary"
       routerLink="/{{ user }}/employee/profile/{{ employee.employeeId }}"
       [ngClass.xs]="'employee-buttons-mobile'"
       [ngClass.gt-xs]="'employee-buttons'"
-    >
+      [disabled]="employee.status==='Registered'"
+      >
       View Profile
     </button>
+
+  </div>
+
+    <button
+      mat-button
+      color="primary"
+      [matMenuTriggerFor]="menu"
+      *ngIf="user==='company'">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="OnReport()"><mat-icon color="warn" style="margin-right: 3px;" >report</mat-icon>Report</button>
+      <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
+    </mat-menu>
   </mat-card-content>
 </mat-card>

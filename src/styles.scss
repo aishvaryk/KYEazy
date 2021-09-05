@@ -21,6 +21,27 @@ body {
   overflow-y: hidden;
 }
 
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%
+}
+
+.full-size {
+  width: 100%;
+  height: 100%;
+}
+
 .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
   border-color: teal;
 }
@@ -50,6 +71,9 @@ $my-theme: mat.define-light-theme(
 @include mat.input-theme($my-theme);
 @include mat.form-field-theme($my-theme);
 @include mat.tabs-theme($my-theme);
+@include mat.icon-theme($my-theme);
+@include mat.progress-spinner-theme($my-theme);
+
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -66,7 +90,7 @@ $my-theme: mat.define-light-theme(
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b30000;
+  background:lightblue;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline {
@@ -82,11 +106,6 @@ $my-theme: mat.define-light-theme(
 .mat-form-field-type-mat-native-select.mat-form-field-disabled
   .mat-form-field-infix::after {
   color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.mat-progress-spinner circle,
-.mat-spinner circle {
-  stroke: teal !important;
 }
 
 .loader {

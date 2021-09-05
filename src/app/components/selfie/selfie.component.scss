@@ -7,7 +7,7 @@
 }
 
 .camera-icon {
-  border-radius: 10px;
+  border-radius: 1rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -15,23 +15,12 @@
 
 .mat-raised-button {
   width: 100%;
-  margin-top: 2vh;
+  margin-top: 1%;
 }
 
 .mat-stroked-button {
   width: 100%;
-  margin-top: 2vh;
+  margin-top: 1%;
 }
 
-.card {
-  background: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
 
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}

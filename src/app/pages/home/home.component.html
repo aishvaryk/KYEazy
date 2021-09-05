@@ -1,7 +1,6 @@
-<div class="home">
-  <div class="login" fxLayout="row" fxLayoutAlign="center center">
+<div (scroll)="onScroll()" class="home">
+  <div id="top" #top class="full-size" fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="10"></div>
-
     <div
       class="left"
       fxFlex="40"
@@ -20,9 +19,7 @@
         Verifying employees <br />
         for great companies.
       </div>
-
       <br />
-
       <div
         [ngClass.xs]="'sub-heading-small'"
         [ngClass.sm]="'sub-heading-small'"
@@ -34,9 +31,7 @@
         industries, our suite of solutions will help you hire with confidence,
         stay compliant and manage the entire process.
       </div>
-
       <br />
-
       <div
         [ngClass.xs]="'login-small'"
         [ngClass.sm]="'login-small'"
@@ -46,7 +41,7 @@
         style="width: 30%"
       >
         <button
-          (click)="showCompanyLoginModal()"
+          (click)="showLoginModal()"
           style="width: 100%"
           mat-raised-button
           color="primary"
@@ -54,29 +49,21 @@
           Log In
         </button>
       </div>
-
       <br />
-
       <div>
-        Don't have account ?<a
-          style="text-decoration: none; color: teal"
-          routerLink="/company/signup"
-        >
+        Don't have account ?<a class="link" routerLink="/company/signup">
           Sign up</a
         >
       </div>
     </div>
-
     <div fxFlex="5"></div>
-
     <div class="right" fxFlex="40" *ngIf="!isSmall">
       <img src="/assets/images/homepage.gif" alt="homepage" />
     </div>
-
     <div fxFlex="5"></div>
   </div>
 
-  <!-- <div class="about">
+  <div id="about" #about class="about">
     <div
       [ngClass.xs]="'about-heading'"
       [ngClass.sm]="'about-heading'"
@@ -86,96 +73,126 @@
     >
       <b>About us</b>
     </div>
-    <div
-      [ngClass.lt-md]="'card-container-small'"
-      [ngClass.gt-sm]="'card-container'"
-    >
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
-      <div [ngClass.lt-md]="'card-small'" [ngClass.gt-sm]="'card'"></div>
+    <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'card-container'">
+      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
+      <div
+        [ngClass.lt-sm]="'hide'"
+        [ngClass.gt-xs]="'card-container'"
+        fxFlex="86"
+      >
+        <div [ngClass.gt-xs]="'card'" (click)="scrollToProduct()">
+          Our Product
+        </div>
+        <div [ngClass.gt-xs]="'card'" (click)="scrollToServices()">
+          Our Services
+        </div>
+        <div [ngClass.gt-xs]="'card'" (click)="scrollToSolutions()">
+          Our Solutions
+        </div>
+      </div>
+      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
     </div>
-  </div> -->
 
-  <!-- <div class="service">
-
-    <div
-      [ngClass.xs]="'service-heading'"
-      [ngClass.sm]="'service-heading'"
-      [ngClass.md]="'service-heading'"
-      [ngClass.lg]="'service-heading'"
-      [ngClass.xl]="'service-heading'"
-    >
-      <b>Our Services</b>
-    </div>
-    <br/>
-
-    <app-carousel name="service">
-      <div *templateMarker>1</div>
-      <div *templateMarker>2</div>
-      <div *templateMarker>asdfasdff</div>
-    </app-carousel>
-
-    <br/> -->
-
-  <!-- transform:rotate(5deg) skew(5deg) translateY(5rem) -->
-
-  <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width:100%;height:80%;">
-
-      <div style="text-align: center;" fxFlex="10">
-        <img (click)="prev()" style="width: 32px; height: 32px;" src="/assets/images/left-arrow.png">
-      </div>
-
-      <div fxFlex="80" style="display:flex; flex-direction:column; width: 100%; height: 100%; flex-wrap: wrap; justify-content: space-around; align-items: center; overflow-x: scroll; overflow-y: hidden;">
-        <div id="2" style="width: 100%;height: 100%;border: 1px solid black">
-          1
+    <div [ngClass.gt-xs]="'hide'" [ngClass.lt-sm]="'show'" class="full-size">
+      <app-carousel name="about">
+        <div class="full-size" *carousel-slide>
+          <div class="full-size" (click)="scrollToProduct()">Our Product</div>
         </div>
-        <div id="2" style="width: 100%;height: 100%;border: 1px solid black">
-          2
+        <div class="full-size" *carousel-slide>
+          <div class="full-size" (click)="scrollToServices()">Our Services</div>
         </div>
-        <div id="3" style="width: 100%;height: 100%;border: 1px solid black">
-          3
+        <div class="full-size" *carousel-slide>
+          <div class="full-size" (click)="scrollToSolutions()">
+            Our Solutions
+          </div>
         </div>
-      </div>
-
-      <div style="text-align: center;" fxFlex="10">
-        <img (click)="next()" style="width: 32px; height: 32px;" src="/assets/images/right-arrow.png">
-      </div>
-
-    </div> -->
-
-  <!-- </div> -->
-
-  <!-- <div class="team">
-    <div
-      [ngClass.xs]="'team-heading'"
-      [ngClass.sm]="'team-heading'"
-      [ngClass.md]="'team-heading'"
-      [ngClass.lg]="'team-heading'"
-      [ngClass.xl]="'team-heading'"
-    >
-      <b>Our Team</b>
+      </app-carousel>
     </div>
   </div>
 
-  <div class="product">
-    <div
-      [ngClass.xs]="'product-heading'"
-      [ngClass.sm]="'product-heading'"
-      [ngClass.md]="'product-heading'"
-      [ngClass.lg]="'product-heading'"
-      [ngClass.xl]="'product-heading'"
-    >
+  <div id="product" #product class="product">
+    <div [ngClass]="'product-heading'">
       <b>Our Product</b>
     </div>
   </div>
 
-  <div class="solution">
-    <div class="solution-heading">
-      <b>Our Solutions</b>
+  <div id="service" #services class="service">
+    <div [ngClass]="'service-heading'">
+      <b>Our Services</b>
     </div>
-  </div> -->
+    <div class="full-size">
+      <app-carousel name="service">
+        <div *carousel-slide>Think of Serivce 1</div>
+        <div *carousel-slide>Think of Service 2</div>
+        <div *carousel-slide>Think of Service 3</div>
+      </app-carousel>
+    </div>
+  </div>
 
-  <div class="home-footer">
+  <div id="solution" #solutions class="solution">
+    <div [ngClass]="'solution-heading'">
+      <b>Our Prices</b>
+    </div>
+    <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'card-container'">
+      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
+      <div
+        [ngClass.lt-sm]="'hide'"
+        [ngClass.gt-xs]="'card-container'"
+        fxFlex="86"
+      >
+        <div [ngClass.gt-xs]="'card'">Global International</div>
+        <div [ngClass.gt-xs]="'card'">Enterprise</div>
+        <div [ngClass.gt-xs]="'card'">Mid Market</div>
+        <div [ngClass.gt-xs]="'card'">Small Business</div>
+      </div>
+      <div [ngClass.lt-sm]="'hide'" fxFlex="7"></div>
+    </div>
+    <div [ngClass.gt-xs]="'hide'" [ngClass.lt-sm]="'show'" class="full-size">
+      <app-carousel name="price">
+        <div *carousel-slide>Global International</div>
+        <div *carousel-slide>Enterprise</div>
+        <div *carousel-slide>Mid Market</div>
+        <div *carousel-slide>Small Business</div>
+      </app-carousel>
+    </div>
+  </div>
+
+  <div id="team" #team class="team">
+    <div [ngClass]="'team-heading'">
+      <b>Our Team</b>
+    </div>
+    <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'card-container'">
+      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
+      <div
+        [ngClass.lt-sm]="'hide'"
+        [ngClass.gt-xs]="'card-container'"
+        fxFlex="86"
+      >
+        <div [ngClass.gt-xs]="'card'">Akshat</div>
+        <div [ngClass.gt-xs]="'card'">Aishwary</div>
+        <div [ngClass.gt-xs]="'card'">Kartikey</div>
+        <div [ngClass.gt-xs]="'card'">Riya</div>
+        <div [ngClass.gt-xs]="'card'">Shekhar</div>
+      </div>
+      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
+    </div>
+    <div [ngClass.gt-xs]="'hide'" [ngClass.lt-sm]="'show'" class="full-size">
+      <app-carousel name="team">
+        <div *carousel-slide>Akshat</div>
+        <div *carousel-slide>Aishwary</div>
+        <div *carousel-slide>Kartikey</div>
+        <div *carousel-slide>Riya</div>
+        <div *carousel-slide>Shekhar</div>
+      </app-carousel>
+    </div>
+  </div>
+
+  <button class="scroll-to-top" [ngClass]="{'show':showScrollToTop,'hide':!showScrollToTop}" (click)="onScrollToTop()" >
+    <mat-icon> arrow_upward </mat-icon>
+  </button>
+
+  <div #footer class="home-footer">
     <app-footer></app-footer>
   </div>
+
 </div>

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-employee-card',
@@ -10,7 +12,7 @@ export class EmployeeCardComponent implements OnInit {
   @Input() isSmall: any;
   @Input() user: any;
 
-  constructor() {}
+  constructor(public dialog:MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -19,5 +21,14 @@ export class EmployeeCardComponent implements OnInit {
       return null;
     }
     return 'data:image/jpeg;base64,' + img;
+  }
+
+  OnReport() {
+    this.dialog.open(ModalComponent, {
+      data: {
+        type: 'REPORT',
+        employeeId: this.employee.employeeId
+      },
+    });
   }
 }

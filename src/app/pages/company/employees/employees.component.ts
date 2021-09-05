@@ -94,7 +94,6 @@ export class EmployeesComponent implements OnInit {
       this.paginator.currentPageIndex = 0;
       this.paginator.currentPageSize = 5;
       this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
-
       if (company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
       } else {

@@ -57,7 +57,6 @@ export class ProfilePageComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params) => {
       this.employeeId = params.employeeId;
-      console.log(this.employeeId)
       this.employeeLoading = true;
       this.adminService.viewEmployeeDetails(this.employeeId);
 
@@ -65,10 +64,8 @@ export class ProfilePageComponent implements OnInit {
 
 
     this.adminService.employeeSubject.subscribe((employee) => {
-    console.log(employee)
       this.employeeLoading = false;
       this.employee = employee;
-      // Parsing Personal Details
       this.details.addressLine1 = employee.address.streetNumber;
       this.details.addressLine2 = employee.address.street;
       this.details.city = employee.address.city;

@@ -25,12 +25,12 @@ min-height: 90%;">
       style="margin: auto"
     >
       <div
-        [ngClass]="{
-          'search-comapny-mobile': isSmall,
-          'search-comapny': !isSmall
-        }"
+        [ngClass.xs]="'search-comapny-mobile'"
+
+        [ngClass.gt-xs]="'search-comapny'"
         fxLayout="row"
         fxLayoutAlign="end"
+
       >
         <mat-form-field
           [ngClass]="{
@@ -38,6 +38,7 @@ min-height: 90%;">
             'search-form-field': !isSmall
           }"
           appearance="outline"
+          fxFlex.gt-xs="30"
         >
           <mat-label
             [ngClass]="{
@@ -70,7 +71,7 @@ min-height: 90%;">
 
       <div
         *ngFor="let company of companies"
-        style="width: 100%"
+        style="width: 100%; margin-top: 10px"
         fxLayout="row"
         fxLayoutAlign="center"
       >
@@ -81,7 +82,7 @@ min-height: 90%;">
       </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="center" class="company-paginator">
+    <div fxLayout="row" fxLayoutAlign="end" class="company-paginator">
       <mat-paginator
         [length]="paginator.length"
         [pageSize]="paginator.currentPageSize"

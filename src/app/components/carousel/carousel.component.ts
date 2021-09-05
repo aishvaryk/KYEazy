@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[templateMarker]',
+  selector: '[carousel-slide]',
 })
-export class TemplateMarker {
+export class CarouselSlide {
   constructor(public template: TemplateRef<any>) {}
 }
 
@@ -27,7 +27,7 @@ export class TemplateMarker {
 export class CarouselComponent
   implements OnInit, AfterContentInit, AfterViewInit
 {
-  @ContentChildren(TemplateMarker) slides!: QueryList<TemplateMarker>;
+  @ContentChildren(CarouselSlide) slides!: QueryList<CarouselSlide>;
   @Input() name!: string;
 
   public currentSlide: number;

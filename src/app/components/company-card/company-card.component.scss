@@ -56,19 +56,30 @@
   margin-bottom: 0;
   cursor: default;
 .total {
+
   font-size: 16px;
 }
 .accepted {
-  color: green;
+  mat-icon {
+    color: green;
+  }
+
 }
 .rejected {
-  color: red;
+  mat-icon {
+    color: red;
+  }
 }
 .pending {
-  color: sandybrown;
+  mat-icon {
+    color: sandybrown;
+  }
+
 }
 .registered {
-  color: #677e9a;
+  mat-icon {
+    color: #677e9a;
+  }
 }
 }
 

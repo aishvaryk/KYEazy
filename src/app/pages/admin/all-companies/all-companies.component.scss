@@ -2,7 +2,7 @@
   margin-top: 1%;
 
   .search-comapny {
-    width: 90%;
+    width: 95%;
     font-size: 12px;
     display: block;
 
@@ -20,11 +20,10 @@
   margin-top: 1%;
 
   .search-comapny-mobile {
-    width: 90%;
+    width: 95%;
     font-size: 12px;
 
     .search-form-field-mobile {
-      width: 50%;
       width: 90%;
     }
     .search-button-mobile {
@@ -38,10 +37,21 @@
   width: 96%;
   margin-top: 2%;
   min-height: 100%;
+  background-color: rgb(253, 253, 253);
 }
 
 .container-card-mobile {
   width: 100%;
   margin-top: 0.5%;
   padding: 8px;
+  background-color: rgb(253, 253, 253);
+}
+
+.company-paginator {
+  width: 95%;
+}
+
+
+::ng-deep .mat-paginator {
+  background-color: rgba($color: #ffffff, $alpha: 0);
 }

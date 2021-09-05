@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { id } from '@swimlane/ngx-charts';
+import { ActionDTO } from 'src/app/models/action.model';
 import { Address } from 'src/app/models/address.model';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -13,6 +15,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+
   companyName: string = '';
   userName: string = '';
   hide: boolean = true;
@@ -22,6 +25,9 @@ export class SignupComponent implements OnInit {
   newCompany: Company;
   companyAddress: Address;
   companyService: CompanyService;
+  fileName: string;
+  companyId!: number;
+  file!: any;
 
   constructor(
     companyService: CompanyService,
@@ -32,6 +38,7 @@ export class SignupComponent implements OnInit {
     this.newCompany = {} as Company;
     this.companyAddress = {} as Address;
     this.companyService = companyService;
+    this.fileName = "No File Choosen"
   }
 
   ngOnInit(): void {
@@ -51,6 +58,11 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  onChange(event: any) {
+    this.file = event.target.files[0];
+    this.fileName = this.file.name;
+  }
+
   onSubmit() {
     if (this.form.status === 'INVALID') return;
     this.newCompany.username = this.form.value.userName;
@@ -67,15 +79,22 @@ export class SignupComponent implements OnInit {
     this.newCompany.address = this.companyAddress;
     this.loading = true;
     this.companyService.register(this.newCompany).subscribe(
-      (data: any) => {
+      (data: ActionDTO) => {
+        this.companyId = data.id;
         this.snackbar.open('Sucessfully Submitted', 'Okay');
         this.loading = false;
         this.router.navigate(['/']);
       },
       (error: any) => {
         this.snackbar.open('Company Already Exists', 'Okay');
-        this.loading = false;
       }
     );
+
+    const imageData = new FormData();
+    imageData.append('companyIcon', this.file);
+    this.companyService.uploadIcon(this.companyId,this.file).subscribe(() => {
+      this.loading = false;
+    });
+
   }
 }

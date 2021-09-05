@@ -49,7 +49,7 @@ import { MaterialModule } from './app-material.module';
 import { CompanyGuard } from './company.guard';
 import {
   CarouselComponent,
-  TemplateMarker,
+  CarouselSlide,
 } from './components/carousel/carousel.component';
 import {
   MatSnackBarModule,
@@ -63,6 +63,8 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { CompanyCardComponent } from './components/company-card/company-card.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
 import { SubscriptionComponent } from './pages/company/subscription/subscription.component';
+import { ReportComponent } from './components/report/report.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,7 @@ import { SubscriptionComponent } from './pages/company/subscription/subscription
     AdminAllEmployeesComponent,
     AllCompaniesComponent,
     CarouselComponent,
-    TemplateMarker,
+    CarouselSlide,
     EmployeeCardComponent,
     ProfilePageComponent,
     BarChartComponent,
@@ -100,6 +102,8 @@ import { SubscriptionComponent } from './pages/company/subscription/subscription
     PieChartComponent,
     CompanyCardComponent,
     SubscriptionComponent,
+    ReportComponent,
+    ContactUsComponent,
   ],
   imports: [
     StoreModule.forRoot({

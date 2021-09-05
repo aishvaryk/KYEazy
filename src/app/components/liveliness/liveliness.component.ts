@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Liveliness } from 'src/app/models/liveliness.model';
 import { setLiveliness } from 'src/app/redux/actions/liveliness.actions';
 declare var MediaRecorder: any;
@@ -39,8 +40,11 @@ export class LivelinessComponent implements OnInit {
   public interval: any;
   public timeout: any;
   public question: string;
+  public height!: number;
+  public width!: number;
 
-  constructor(public store: Store<{ documents: Liveliness }>) {
+
+  constructor(public store: Store<{ documents: Liveliness,breakpoint: Breakpoint }>) {
     this.camera = false;
     this.captured = false;
     this.chunks = [];
@@ -57,17 +61,44 @@ export class LivelinessComponent implements OnInit {
       },
     };
     this.getQuestion();
+
+    this.height = 300;
+    this.width = 300;
+
+    this.store.select('breakpoint').subscribe((breakpoint) => {
+      if (breakpoint.isXs) {
+        this.height = 200;
+        this.width = 200;
+      }
+      if (breakpoint.isSm) {
+        this.height = 250;
+        this.width = 250;
+      }
+      if (breakpoint.isMd) {
+        this.height = 250;
+        this.width = 300;
+      }
+      if (breakpoint.isLg) {
+        this.height = 270;
+        this.width = 300;
+      }
+      if (breakpoint.isXl) {
+        this.height = 300;
+        this.width = 300;
+      }
+    });
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   ngOnDestroy(): void {}
 
   async startCamera() {
-    this.loading=true;
     this.camera = true;
     await this.setupDevices();
-    this.loading=false;
     this.mediaRecorder.start();
     this.timeleft = 10;
     if (this.timeout) clearTimeout(this.timeout);
@@ -113,10 +144,8 @@ export class LivelinessComponent implements OnInit {
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        this.loading=true;
         const videoStream = await navigator.mediaDevices.getUserMedia(this.videoConstraints);
         const audioStream = await navigator.mediaDevices.getUserMedia(this.audioConstraints);
-        this.loading=false;
         this.stream = new MediaStream([...videoStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
         this.toCapture.nativeElement.srcObject = this.stream;
         this.toCapture.nativeElement.muted = true;
