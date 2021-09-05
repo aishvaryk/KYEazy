@@ -68,5 +68,4 @@ export class SubscriptionComponent implements OnInit {
     this.rzp.open();
   }
 
-
 }
