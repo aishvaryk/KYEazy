@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
@@ -11,9 +12,13 @@ import { PaymentService } from 'src/app/services/payment/payment.service';
 export class SubscriptionComponent implements OnInit {
 
   rzp:any;
-  pack!:string
-  amount!:string
-  coinBalance!:number
+  pack!:string;
+  amount!:string;
+  coinBalance!:number;
+  addCoinsText!:string;
+  form: any;
+  pricePerCoin!:number;
+  invalidForm:boolean=true;
 
   constructor(private paymentService:PaymentService,private companyService:CompanyService) { }
 
@@ -24,14 +29,22 @@ export class SubscriptionComponent implements OnInit {
       this.coinBalance=company.coins;
     })
 
+    const addCoinsFormControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern("^[0-9]*$")
+      ])
+
+      this.form = new FormGroup({
+        coinsCount: new FormControl(null, [Validators.required,Validators.pattern("^[0-9]*$")])
+      });
   }
   options = {
     "key": "rzp_test_51mlvZBHt5Cbjq", // Enter the Key ID generated from the Dashboard
     "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "Kyeazzy",
-    "description": "Subscription",
-    "image": "https://example.com/your_logo",
+    "name": "KYEazy",
+    "description": "Buy Coins",
+    "image": "/assets/images/logo.png",
     "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler":  (response:any)=>{
         // alert(response.razorpay_payment_id);
@@ -68,4 +81,18 @@ export class SubscriptionComponent implements OnInit {
     this.rzp.open();
   }
 
+
+  onKey(event:any){
+    if (this.form.status==="VALID") {
+    this.addCoinsText = "Rs" + event.target.value;
+    this.invalidForm=false;
+    }
+    else {
+      this.addCoinsText="";
+      this.invalidForm=true;
+    }
+  }
+  onSubmit(){
+    console.log(this.form.value.coinsCount);
+  }
 }

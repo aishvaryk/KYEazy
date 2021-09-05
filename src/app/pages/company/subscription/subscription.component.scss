@@ -1,0 +1,40 @@
+.container-card {
+  width: 96%;
+  margin-top: 2%;
+}
+
+.container-card-mobile {
+  width: 100%;
+  margin-top: 0.5%;
+  padding: 8px;
+}
+
+.subscription-heading{
+  margin-left: 2rem;
+  margin-top: 20px !important;
+  // width: 100%;
+  h1{
+    font-size: 3rem;
+    font-weight: lighter;
+  }
+}
+.coins-image-container{
+  // width: 40%;
+  .coins-image{
+    width: 100%;
+  }
+}
+
+.coin-balance{
+  .coin-balance-heading{
+    font-size: 25px;
+  }
+  .coins{
+    margin-top: 2rem;
+    font-size: 2.4rem;
+    color: teal;
+  }
+  .coin-balance-details{
+    color: rgba($color: #000000, $alpha: 0.5);
+  }
+}

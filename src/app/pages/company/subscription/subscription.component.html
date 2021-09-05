@@ -1,3 +1,64 @@
-<button (click)="pay(400)">Pay</button>
+<div
+  fxLayout="column"
+  fxLayoutAlign="start center"
+  class="employee-form-container"
+>
+  <mat-card
+    [ngClass.gt-xs]="'container-card'"
+    [ngClass.lt-sm]="'container-card-mobile'"
+  >
 
-<p>{{coinBalance}}</p>
+  <div class="subscription-heading" fxLayout="row" fxLayoutAlign="start">
+    <h1>Manage Subscription</h1>
+  </div>
+  <div class="coin-balance-container" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-around center">
+    <div class="coins-image-container" fxFlex="40">
+      <img class="coins-image" src="/assets/images/coins.gif" alt="homepage" />
+    </div>
+    <div fxFlex="40" class="coin-balance" fxLayout="column" fxLayoutAlign="center center">
+      <div class="coin-balance-heading">
+        Your current Coin Balance is
+      </div>
+      <div class="coins" fxLayout="row" fxLayoutAlign="center center">
+        {{coinBalance}}200 <mat-icon style="color: gold;">paid</mat-icon>
+      </div>
+      <div class="coin-balance-details">
+        You can do KYC of 10 more employees!
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="form"
+  (ngSubmit)="onSubmit()" >
+  <div class="add-coins-container" fxLayout="row" fxLayoutAlign="start center">
+    <div class="add-coins-text">
+      Want to Add More? Add Now!
+    </div>
+    <div class="add-coins-form">
+
+      <mat-form-field appearance="standard">
+        <mat-label>Add Coins</mat-label>
+        <input matInput placeholder="Eg.100" (keyup)="onKey($event)"
+        formControlName="coinsCount">
+        <mat-error>Enter an integer value.</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="add-coins-form-text">
+      <span>{{addCoinsText}}</span>
+
+    </div>
+    <div
+
+    matTooltip="Add Coins to Pay"
+    [matTooltipDisabled] = "!invalidForm">
+    <button mat-stroked-button color="primary"
+    [disabled]="invalidForm"
+    (click)="pay(400)" type="submit">Pay</button>
+    </div>
+  </div>
+
+
+</form>
+
+  </mat-card>
+</div>
