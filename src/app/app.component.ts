@@ -7,6 +7,7 @@ import { Breakpoint } from './models/breakpoint.model';
 import { update } from './redux/actions/breakpoint.action';
 import { Router, NavigationEnd, NavigationStart, Event } from '@angular/router';
 import { updateRoute } from './redux/actions/route.action';
+import { PaymentService } from './services/payment/payment.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,6 @@ import { updateRoute } from './redux/actions/route.action';
 })
 export class AppComponent implements OnInit, OnDestroy {
   mediaSubscriber: any;
-
   event$: any;
 
   constructor(
@@ -91,9 +91,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.store.dispatch(update(breakpoint));
       });
+
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void{
     this.mediaSubscriber.unsubscribe();
   }
 }

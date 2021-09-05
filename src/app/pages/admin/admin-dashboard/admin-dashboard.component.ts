@@ -3,18 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
-import { CompanyService } from 'src/app/services/company/company.service';
-import { Employee } from 'src/app/models/employee.model';
-import { ActivatedRoute } from '@angular/router';
-
 import { pieChartData } from 'src/app/models/pie-chart-data.model';
-
-export interface paginator {
-  length: number;
-  currentPageIndex: number;
-  currentPageSize: number;
-  pageSizeOptions: Array<number>;
-}
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,11 +12,8 @@ export interface paginator {
 })
 export class AdminDashboardComponent implements OnInit {
   public isSmall: any;
-  public paginator: paginator;
   public companies: Company[];
   public adminService: AdminService;
-  public companyService: CompanyService;
-  public employees: Employee[];
   public numOfPendingEmployees: number = 0;
   public numOfAcceptedEmployees: number = 0;
   public companyId: number = 0;
@@ -40,8 +26,8 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService,
-    companyService: CompanyService
   ) {
+
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -50,16 +36,8 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
 
-    this.paginator = {
-      length: 100,
-      currentPageSize: 10,
-      pageSizeOptions: [5, 10, 25, 100],
-      currentPageIndex: 0,
-    };
     this.companies = [{}] as Company[];
     this.adminService = adminService;
-    this.companyService = companyService;
-    this.employees = {} as Employee[];
     this.adminService.getTotalNoOfEmployees().subscribe((response: number) => {
       if (response === 0) {
         this.zeroEmployees = true;
@@ -67,7 +45,6 @@ export class AdminDashboardComponent implements OnInit {
         this.zeroEmployees = false;
       }
     });
-
     this.adminService
       .getNoOfRegisteredEmployees()
       .subscribe((response: number) => (pieChartData[0].value = response));
@@ -80,7 +57,6 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService
       .getNoOfPendingEmployees()
       .subscribe((response: number) => (pieChartData[3].value = response));
-
     Object.assign(this, { pieChartData });
   }
 
@@ -90,7 +66,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.adminService.getCompanies(5, 1);
+    this.adminService.getCompanies(2, 1);
     this.adminService.companiesSubject.subscribe((companies) => {
       this.companies = companies;
       this.loading = false;
@@ -101,10 +77,5 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
-  OnPageChange(event: any) {
-    this.paginator.currentPageIndex = event.pageIndex;
-    this.paginator.currentPageSize = event.pageSize;
-  }
 
-  OnSearchSelect() {}
 }

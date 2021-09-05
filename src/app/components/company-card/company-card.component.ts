@@ -11,9 +11,11 @@ import { Company } from 'src/app/models/company.model';
 })
 export class CompanyCardComponent implements OnInit {
   @Input() company!: Company;
+
   breakpoint$: Observable<Breakpoint>;
   isSmall:any;
   noOfRegisteredEmployees:any;
+
   constructor(public store: Store<{ breakpoint: Breakpoint }>) {
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
@@ -26,5 +28,7 @@ export class CompanyCardComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.company);
+  }
 }

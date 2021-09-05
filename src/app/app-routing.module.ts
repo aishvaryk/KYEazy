@@ -16,6 +16,7 @@ import { AdminGuard } from './admin.guard';
 import { EmployeeGuard } from './employee.guard';
 import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
+import { SubscriptionComponent } from './pages/company/subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,12 @@ const routes: Routes = [
         component: ProfilePageComponent,
         canActivate: [CompanyGuard],
       },
+      {
+        path: 'subscription',
+        component: SubscriptionComponent,
+        canActivate: [CompanyGuard],
+      },
+
     ],
   },
   {
