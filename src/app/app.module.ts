@@ -62,6 +62,7 @@ import { EmptyComponent } from './components/empty/empty.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { CompanyCardComponent } from './components/company-card/company-card.component';
 import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/admin-all-employees.component';
+import { SubscriptionComponent } from './pages/company/subscription/subscription.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/ad
     EmptyComponent,
     PieChartComponent,
     CompanyCardComponent,
+    SubscriptionComponent,
   ],
   imports: [
     StoreModule.forRoot({

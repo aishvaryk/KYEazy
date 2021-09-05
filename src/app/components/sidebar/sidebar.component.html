@@ -37,6 +37,15 @@
       >
 
       <a
+      mat-list-item
+      routerLink="/company/subscription"
+      class="sidenav-list-item"
+      *ngIf="currentRoute.substring(1, 4) === 'com'"
+    >
+    Subscription</a
+    >
+
+      <a
         mat-list-item
         class="sidenav-list-item"
         routerLink="/admin/dashboard"

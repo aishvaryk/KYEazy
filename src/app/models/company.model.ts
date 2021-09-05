@@ -12,4 +12,5 @@ export interface Company {
   numberOfRejectedEmployees: number;
   numberOfAcceptedEmployees: number;
   numberOfTotalEmployees: number;
+  coins:number
 }
