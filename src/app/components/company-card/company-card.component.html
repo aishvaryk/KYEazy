@@ -14,11 +14,12 @@
     fxLayout="row"
     fxLayoutAlign="start center"
   >
-    <img mat-card-avatar src="assets/images/company-avatar.png"/>
+    <img *ngIf="company.icon === null" mat-card-avatar src="assets/images/company-avatar.png"/>
+    <img *ngIf="company.icon !== null" mat-card-avatar [src]="'data:image/jpeg;base64,'+company.icon"/>
     <div
       fxLayout="column"
       fxLayoutAlign="center"
-      [ngStyle.gt-xs]="'height: 40px;'"
+      [ngStyle.gt-xs]="'height: 4rem;'"
     >
       <mat-card-title class="company-name">{{ company.name }}</mat-card-title>
       <mat-card-subtitle class="company-cin">{{
@@ -49,6 +50,7 @@
         {{ company.numberOfTotalEmployees }}</span
       >
     </div>
+
     <div
       class="pending"
       fxLayout="row"
@@ -96,7 +98,7 @@
     >
       <mat-icon>how_to_reg</mat-icon>&nbsp;
       <span *ngIf="isSmall">Registered Employees&nbsp;</span>
-      {{ company.numberOfPendingEmployees }}
+      {{ company.numberOfRegisteredEmployees }}
     </div>
   </mat-card-content>
 

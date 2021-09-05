@@ -46,9 +46,11 @@ export class SignupComponent implements OnInit {
       companyName: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
+      organizationType: new FormControl("small", Validators.required),
       companyDescription: new FormControl(null, Validators.required),
       cin: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
+      icon: new FormControl(null, [Validators.required]),
       address: new FormControl(null, Validators.required),
       address2: new FormControl(null),
       city: new FormControl(null, Validators.required),
@@ -61,10 +63,14 @@ export class SignupComponent implements OnInit {
   onChange(event: any) {
     this.file = event.target.files[0];
     this.fileName = this.file.name;
+    this.form.patchValue({
+      icon: this.file,
+    });
   }
 
   onSubmit() {
     if (this.form.status === 'INVALID') return;
+
     this.newCompany.username = this.form.value.userName;
     this.newCompany.password = this.form.value.password;
     this.newCompany.companyDescription = this.form.value.companyDescription;
@@ -77,24 +83,25 @@ export class SignupComponent implements OnInit {
     this.companyAddress.streetNumber = this.form.value.address;
     this.companyAddress.street = this.form.value.address2;
     this.newCompany.address = this.companyAddress;
+
     this.loading = true;
+
     this.companyService.register(this.newCompany).subscribe(
-      (data: ActionDTO) => {
-        this.companyId = data.id;
-        this.snackbar.open('Sucessfully Submitted', 'Okay');
-        this.loading = false;
-        this.router.navigate(['/']);
+      (data: any) => {
+        this.companyId = data.companyId;
+        const imageData = new FormData();
+        imageData.append('companyIcon', this.file);
+        this.companyService.addIcon(this.companyId, imageData).subscribe(() => {
+          this.loading = false;
+          this.router.navigate(['/']);
+          this.snackbar.open('Sucessfully Submitted', 'Okay');
+        });
       },
       (error: any) => {
         this.snackbar.open('Company Already Exists', 'Okay');
+        this.loading = false;
       }
     );
-
-    const imageData = new FormData();
-    imageData.append('companyIcon', this.file);
-    this.companyService.uploadIcon(this.companyId,this.file).subscribe(() => {
-      this.loading = false;
-    });
-
   }
+
 }

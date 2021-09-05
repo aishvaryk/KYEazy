@@ -8,9 +8,12 @@ export interface Company {
   companyDescription: string;
   cinNumber: string;
   address: Address;
+  icon: string;
   numberOfPendingEmployees: number;
   numberOfRejectedEmployees: number;
   numberOfAcceptedEmployees: number;
+  numberOfRegisteredEmployees: number;
+  numberOfReportedEmployees: number;
   numberOfTotalEmployees: number;
   numberOfRegisteredEmployees:number;
   coins:number
