@@ -26,6 +26,8 @@ export class BarChartComponent implements OnInit {
   legendTitle: string = 'Status';
   showDataLabel:boolean = false;
   legendPosition:any="right";
+  isSmall:boolean=false;
+  schemeType: any = 'ordinal';
 
   colorScheme:any = {
     domain: ['slategrey', 'green', 'red', '#FC9A1D'],
@@ -35,22 +37,26 @@ export class BarChartComponent implements OnInit {
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.legendPosition="below";
-        this.view = [300,200];
+        this.view = [330,300];
         this.showYAxisLabel=false;
+        this.isSmall=true;
       } else if (change.isSm){
         this.view = [600,300];
         this.legendPosition="below";
         this.showYAxisLabel=true;
+        this.isSmall=false;
       }
       else if (change.isMd){
         this.view = [700,400];
         this.legendPosition="right";
         this.showYAxisLabel=true;
+        this.isSmall=false;
       }
       else {
         this.view = [900,400];
         this.legendPosition="right";
         this.showYAxisLabel=true;
+        this.isSmall=false;
       }
     });
 
@@ -58,15 +64,15 @@ export class BarChartComponent implements OnInit {
   }
 
   onSelect(data:any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data:any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+    // console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data:any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
   ngOnInit(): void {}

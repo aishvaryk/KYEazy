@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -12,7 +14,15 @@ export class EmployeeCardComponent implements OnInit {
   @Input() isSmall: any;
   @Input() user: any;
 
-  constructor(public dialog:MatDialog) {}
+  constructor(public store:Store<{breakpoint:Breakpoint}>,public dialog:MatDialog) {
+    this.store.select('breakpoint').subscribe((change: Breakpoint) => {
+      if (change.isXs) {
+        this.isSmall = true;
+      } else {
+        this.isSmall = false;
+      }
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -30,5 +40,7 @@ export class EmployeeCardComponent implements OnInit {
         employeeId: this.employee.employeeId
       },
     });
+
+
   }
 }
