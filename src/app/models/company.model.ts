@@ -12,7 +12,6 @@ export interface Company {
   numberOfPendingEmployees: number;
   numberOfRejectedEmployees: number;
   numberOfAcceptedEmployees: number;
-  numberOfRegisteredEmployees: number;
   numberOfReportedEmployees: number;
   numberOfTotalEmployees: number;
   numberOfRegisteredEmployees:number;
