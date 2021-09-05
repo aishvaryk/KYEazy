@@ -11,9 +11,9 @@ import { setDocuments } from 'src/app/redux/actions/documents.actions';
   styleUrls: ['./documents.component.scss'],
 })
 export class DocumentsComponent implements OnInit {
+  @Input() stepper!: MatStepper;
   form: any;
   fileName: string;
-  @Input() stepper!: MatStepper;
   loading!:boolean;
 
   constructor(public store: Store<{ documents: Documents }>) {

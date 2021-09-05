@@ -160,8 +160,8 @@ export class CompanyService {
       });
   }
 
-  uploadIcon(id:number, icon:FormData) {
-    return this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/icon/{id}`,icon).pipe(map((response) => response as ActionDTO))
+  addIcon(id:number, icon:FormData) {
+    return this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/add-icon/${id}`,icon)
   }
 
   updateProfile(newCompany: Company): void {
