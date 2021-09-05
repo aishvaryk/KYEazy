@@ -1,3 +1,6 @@
-<button (click)="pay(400)">Pay</button>
+<button (click)="pay()">Pay</button>
+<b>Enter Coins</b>
+  <input (input)="setCoins($event)"
+  type="text" />
 
 <p>{{coinBalance}}</p>
