@@ -23,28 +23,35 @@ export class SubscriptionComponent implements OnInit {
   planToActivate!: number;
   companyId!: number;
   orderHistory = [];
+  displayedColumns: string[] = [];
   constructor(
     private paymentService: PaymentService,
     private companyService: CompanyService
   ) {}
 
   ngOnInit(): void {
+    this.displayedColumns = [
+      'amount',
+      'companyOrderId',
+      'orderId',
+      'orderUniqueId',
+      'paymentId',
+    ];
     let k = localStorage.getItem('Id');
-    console.log(k);
     if (k != null) {
       this.companyId = parseInt(k);
-      console.log(this.companyId);
       this.companyService.getCompanyDetails(this.companyId);
-    }
-    this.companyService.companySubject.subscribe((company) => {
-      //  this.companyId=company.companyId;
-      console.log(company.coins);
-      this.coinBalance = company.coins;
-      this.options.prefill.name = company.name;
-      this.planToActivate = company.plan;
-      //this.options.prefill.contact=company.;
-    });
 
+      this.companyService.companySubject.subscribe((company) => {
+        this.coinBalance = company.coins;
+        this.options.prefill.name = company.name;
+        this.planToActivate = company.plan;
+      });
+      this.paymentService.getOrderHistory(this.companyId);
+      this.paymentService.orderHistory.subscribe((p) => {
+        this.orderHistory = p;
+      });
+    }
     this.form = new FormGroup({
       coinsCount: new FormControl(null, [
         Validators.required,
@@ -73,13 +80,7 @@ export class SubscriptionComponent implements OnInit {
         .subscribe((response: any) => {
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
-          this.paymentService.orderHistory.subscribe((p) => {
-            console.log(p);
-            this.orderHistory = p;
-          });
         });
-
-      // this.companyService.getCompanyDetails(this.companyId);
     },
     prefill: {
       name: 'Gaurav Kumar',

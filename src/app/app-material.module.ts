@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
 
 const MaterialModules = [
   MatStepperModule,
@@ -45,7 +46,8 @@ const MaterialModules = [
   MatInputModule,
   MatTabsModule,
   MatTooltipModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MatTableModule
 ];
 @NgModule({
   declarations: [],
