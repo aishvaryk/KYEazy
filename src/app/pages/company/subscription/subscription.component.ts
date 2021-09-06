@@ -34,8 +34,8 @@ export class SubscriptionComponent implements OnInit {
     if (k != null) {
       this.companyId = parseInt(k);
       console.log(this.companyId);
-      this.companyService.getCompanyDetails(this.companyId);
     }
+    this.companyService.getCompanyDetails(this.companyId);
     this.companyService.companySubject.subscribe((company) => {
       //  this.companyId=company.companyId;
       console.log(company.coins);
@@ -71,6 +71,7 @@ export class SubscriptionComponent implements OnInit {
           this.options.order_id
         )
         .subscribe((response: any) => {
+          console.log(response)
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
           this.paymentService.orderHistory.subscribe((p) => {
