@@ -65,6 +65,7 @@ import { AdminAllEmployeesComponent } from './pages/admin/admin-all-employees/ad
 import { SubscriptionComponent } from './pages/company/subscription/subscription.component';
 import { ReportComponent } from './components/report/report.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { AddCoinsComponent } from './components/add-coins/add-coins.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     SubscriptionComponent,
     ReportComponent,
     ContactUsComponent,
+    AddCoinsComponent,
   ],
   imports: [
     StoreModule.forRoot({
