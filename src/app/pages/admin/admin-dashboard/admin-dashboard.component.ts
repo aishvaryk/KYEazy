@@ -38,7 +38,7 @@ export class AdminDashboardComponent implements OnInit {
 
     this.companies = [{}] as Company[];
     this.adminService = adminService;
-    this.adminService.getTotalNoOfEmployees().subscribe((response: number) => {
+    this.adminService.getNoOfEmployees().subscribe((response: number) => {
       if (response === 0) {
         this.zeroEmployees = true;
       } else {

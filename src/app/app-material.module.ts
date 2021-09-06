@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -12,8 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
+import {
   MatRadioModule,
-  MAT_RADIO_DEFAULT_OPTIONS,
 } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,6 +41,7 @@ const MaterialModules = [
   MatExpansionModule,
   MatCardModule,
   MatListModule,
+  MatSnackBarModule,
   MatPaginatorModule,
   MatInputModule,
   MatTabsModule,

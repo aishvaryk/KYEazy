@@ -25,8 +25,10 @@ export class AllCompaniesComponent implements OnInit {
   public companyRoute: any;
   public searchText: any = '';
   public companiesLoading: boolean
-  public numberOfCompaniesLoading : boolean;
+  public numberOfCompaniesLoading: boolean;
   public zeroCompanies: any;
+  public totalC: any;
+
   @ViewChild('matPaginator') matPaginator!: MatPaginator
 
   constructor(
@@ -42,7 +44,7 @@ export class AllCompaniesComponent implements OnInit {
     this.employees = {} as Employee[];
     this.paginator.currentPageIndex = 0;
     this.paginator.currentPageSize = 5;
-    this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
+    this.paginator.pageSizeOptions = [1, 2, 5, 10, 15, 20, 25];
   }
 
   onViewEmployees(companyId: number) {
@@ -64,14 +66,13 @@ export class AllCompaniesComponent implements OnInit {
     //this.companiesLoading = true;
     this.adminService.companiesSubject.subscribe((companies) => {
 
-      if(this.searchText) {
-        if(companies.length == 0) {
-          this.snackBar.open('No Companies Found',"Retry");
+      if (this.searchText) {
+        if (companies.length == 0) {
+          this.snackBar.open('No Companies Found', "Retry");
           return;
         }
         this.adminService.getSearchedCompaniesSize(this.searchText).subscribe((res: any) => {
           this.matPaginator.length = res;
-          this.matPaginator.pageIndex = 0;
         })
       }
 
@@ -88,8 +89,9 @@ export class AllCompaniesComponent implements OnInit {
     });
 
     // this.numberOfCompaniesLoading = true;
-    this.adminService.getTotalNumberOfCompanies().subscribe((res: any) => {
+    this.adminService.getCompaniesSize().subscribe((res: any) => {
       this.paginator.length = res;
+      this.totalC = res;
       // this.numberOfCompaniesLoading = false;
     });
 
@@ -98,9 +100,9 @@ export class AllCompaniesComponent implements OnInit {
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    this.companiesLoading = true;
-    if(this.searchText.length === 0) this.adminService.getCompanies(this.paginator.currentPageSize,this.paginator.currentPageIndex + 1);
-    else this.adminService.getAllCompanyByName(this.searchText,this.paginator.currentPageSize,this.paginator.currentPageIndex + 1)
+    //this.companiesLoading = true;
+    if (this.searchText.length === 0) this.adminService.getCompanies(this.paginator.currentPageSize, this.paginator.currentPageIndex + 1);
+    else this.adminService.getAllCompaniesByName(this.searchText, this.paginator.currentPageSize, this.paginator.currentPageIndex + 1)
   }
 
   onSearchText(event: any) {
@@ -108,11 +110,13 @@ export class AllCompaniesComponent implements OnInit {
   }
 
   OnSearchSelect() {
-    if(this.searchText.length === 0) {
-      this.adminService.getCompanies(5,1);
-    }
-    else {
-    this.adminService.getAllCompanyByName(this.searchText, 5, 1);
+    if (this.searchText.trim().length === 0) {
+      this.matPaginator.pageIndex = 0;
+      this.matPaginator.length = this.totalC;
+      this.adminService.getCompanies(5, 1);
+    } else {
+      this.matPaginator.pageIndex = 0;
+      this.adminService.getAllCompaniesByName(this.searchText, 5, 1);
     }
   }
 

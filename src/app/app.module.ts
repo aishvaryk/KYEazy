@@ -42,17 +42,16 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { selfieReducer } from './redux/reducers/selfie.reducer';
 import { livelinessReducer } from './redux/reducers/liveliness.reducer';
 import { LoginService } from './services/login/login.service';
-import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AllCompaniesComponent } from './pages/admin/all-companies/all-companies.component';
 import { MaterialModule } from './app-material.module';
-import { CompanyGuard } from './company.guard';
+import { CompanyGuard } from './guards/company/company.guard';
 import {
   CarouselComponent,
   CarouselSlide,
 } from './components/carousel/carousel.component';
 import {
-  MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
@@ -123,9 +122,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule,
     NgxChartsModule,
-    MatSnackBarModule,
+    MaterialModule,
   ],
   providers: [
     LoginService,
@@ -141,7 +139,10 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
     },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 5000 }
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -38,15 +38,30 @@ export class AdminService {
     return this.loginService.doLogin(credentials);
   }
 
-  viewAllApplications(pageSize: number, pageNumber: number): void {
+  viewAllApplications(
+    pageSize: number,
+    pageNumber: number,
+    sort: string,
+    filter: string,
+    ): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
         this.employees = results;
         this.employeesSubject.next(this.employees);
+      });
+  }
+
+  viewEmployeeDetails(id: number): void {
+    this.httpClient
+      .get(`${environment.backendURL}/admin/view-employee-details/${id}`)
+      .pipe(map((response) => response as Employee))
+      .subscribe((results: Employee) => {
+        this.employee = results;
+        this.employeeSubject.next(this.employee);
       });
   }
 
@@ -70,16 +85,6 @@ export class AdminService {
       });
   }
 
-    viewEmployeeDetails(id: number): void {
-    this.httpClient
-      .get(`${environment.backendURL}/admin/view-employee-details/${id}`)
-      .pipe(map((response) => response as Employee))
-      .subscribe((results: Employee) => {
-        this.employee = results;
-        this.employeeSubject.next(this.employee);
-      });
-  }
-
   verifyEmployeeDetails(id: number, status: string): void {
     this.httpClient
       .get(`${environment.backendURL}/admin/verify/${id}/${status}`)
@@ -91,14 +96,15 @@ export class AdminService {
   }
 
   getAllEmployeesByName(
-    id: number,
     name: string,
     pageSize: number,
-    pageNumber: number
+    pageNumber: number,
+    sort: string,
+    filter: string
   ): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/admin/get-all-employees-by-name/${id}/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/admin/get-all-employees-by-name/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
@@ -107,10 +113,22 @@ export class AdminService {
       });
   }
 
-  getAllCompanyByName(
+  getCompanies(pageSize: number, pageNumber: number): void {
+    this.httpClient
+      .get(
+        `${environment.backendURL}/admin/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      )
+      .pipe(map((response) => response as Company[]))
+      .subscribe((results: Company[]) => {
+        this.companies = results;
+        this.companiesSubject.next(this.companies);
+      });
+    }
+
+  getAllCompaniesByName(
     name: string,
     pageSize: number,
-    pageNumber: number
+    pageNumber: number,
   ): void {
     this.httpClient
       .get(
@@ -127,89 +145,47 @@ export class AdminService {
     return this.httpClient.get(`${environment.backendURL}/admin/get-searched-companies-size/${name}`);
   }
 
-  getAllEmployeesSortedByName(id:number,pageSize: number, pageNumber: number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/admin/get-all-employees-sorted-by-name/${id}/?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
+  getCompaniesSize(){
+    return this.httpClient.get(`${environment.backendURL}/admin/get-total-number-of-companies`);
   }
 
-  getAllEmployeesSortedByDate(id:number,pageSize: number, pageNumber: number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/admin/get-all-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
+  getEmployeesSize(status: string) {
+    return this.httpClient.get(`${environment.backendURL}/admin/get-employees-size/${status}`);
   }
 
-  getCompanies(pageSize: number, pageNumber: number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/admin/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Company[]))
-      .subscribe((results: Company[]) => {
-        this.companies = results;
-        this.companiesSubject.next(this.companies);
-      });
-    }
+  getSearchedEmployeesSize(name: string, status: string){
+    return this.httpClient.get(`${environment.backendURL}/admin/get-searched-employees/${name}/${status}`);
+  }
 
-    getAllEmployeesByStatus(
-      status: string,
-      pageSize: number,
-      pageNumber: number
-    ): void {
-      this.httpClient
-        .get(
-          `${environment.backendURL}/admin/all-employees-by-status/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-        )
-        .pipe(map((response) => response as Employee[]))
-        .subscribe((results: Employee[]) => {
-          this.employees = results;
-          this.employeesSubject.next(this.employees);
-        });
-    }
+
+  getNoOfEmployees(): any {
+    return this.httpClient
+      .get(`${environment.backendURL}/admin/get-number-of-employees`)
+      .pipe(map((response) => response as number));
+  }
 
   getNoOfAcceptedEmployees(): any {
     return this.httpClient
-      .get(`${environment.backendURL}/admin/get-number-of-accepted-employee`)
-      .pipe(map((response) => response as number));
-  }
-
-  getTotalNumberOfCompanies(): any {
-    return this.httpClient
-      .get(`${environment.backendURL}/admin/get-total-number-of-companies`)
-      .pipe(map((response) => response as number));
-  }
-
-  getTotalNoOfEmployees(): any {
-    return this.httpClient
-      .get(`${environment.backendURL}/admin/get-number-of-employee`)
+      .get(`${environment.backendURL}/admin/get-number-of-accepted-employees`)
       .pipe(map((response) => response as number));
   }
 
   getNoOfRejectedEmployees(): any {
     return this.httpClient
-      .get(`${environment.backendURL}/admin/get-number-of-rejected-employee`)
+      .get(`${environment.backendURL}/admin/get-number-of-rejected-employees`)
       .pipe(map((response) => response as number));
   }
+
   getNoOfPendingEmployees(): any {
     return this.httpClient
-      .get(`${environment.backendURL}/admin/get-number-of-pending-employee`)
+      .get(`${environment.backendURL}/admin/get-number-of-pending-employees`)
       .pipe(map((response) => response as number));
   }
+
   getNoOfRegisteredEmployees(): any {
     return this.httpClient
-      .get(`${environment.backendURL}/admin/get-number-of-registered-employee`)
+      .get(`${environment.backendURL}/admin/get-number-of-registered-employees`)
       .pipe(map((response) => response as number));
   }
+
 }

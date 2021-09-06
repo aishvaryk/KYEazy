@@ -34,13 +34,8 @@ export class SubscriptionComponent implements OnInit {
     "image": "https://example.com/your_logo",
     "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler":  (response:any)=>{
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature)
-        console.log(response)
-//        this.paymentService.paymentSuccess(response.razorpay_payment_id,response.razorpay_order_id,response.razorpay_signature)
-
-      },
+      console.log(response);
+    },
     "prefill": {
         "name": "Gaurav Kumar",
         "email": "gaurav.kumar@example.com",

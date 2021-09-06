@@ -31,19 +31,16 @@ orderSubject:Subject<any>=new Subject();
         `${environment.backendURL}/payment/create-order/${amount}`
       ).
       subscribe((response:any)=>{
-        console.log(response)
         this.orderId=response.orderId;
-         this.orderSubject.next(this.orderId)
-         console.log(this.orderId)
-
+        this.orderSubject.next(this.orderId)
       })
 }
 
-paymentSuccess(orderId:string,paymentId:string,razorpaySignature:string)
-{
-this.httpClient.get(`/payment-success/${orderId}/${paymentId}/${razorpaySignature}`).subscribe((response:any)=>{
-  console.log(response)
- })
+  paymentSuccess(orderId:string,paymentId:string,razorpaySignature:string)
+  {
+    this.httpClient.get(`/payment-success/${orderId}/${paymentId}/${razorpaySignature}`).subscribe((response:any)=>{
+  })
+
 }
 
 }

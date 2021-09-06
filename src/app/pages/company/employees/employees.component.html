@@ -44,13 +44,13 @@
             <mat-label>Filter Status</mat-label>
             <mat-select (selectionChange)="OnFilterSelect($event)">
               <mat-option value="all">All Employees</mat-option>
-              <mat-option value="verification-completed" style="color: green"
+              <mat-option value="Accepted" style="color: green"
                 >Verification Completed</mat-option
               >
-              <mat-option value="verification-failed" style="color: red"
+              <mat-option value="Rejected" style="color: red"
                 >Verification Failed</mat-option
               >
-              <mat-option value="verification-pending" style="color: sandybrown"
+              <mat-option value="Pending" style="color: sandybrown"
                 >Verification Pending</mat-option
               >
             </mat-select>
@@ -59,10 +59,8 @@
           <mat-form-field appearance="outline">
             <mat-label>Sort By</mat-label>
             <mat-select (selectionChange)="OnSortSelect($event)">
-              <mat-option value="name">Name</mat-option>
-              <mat-option value="date-registration"
-                >Date of Registration</mat-option
-              >
+              <mat-option value="firstName"> Name </mat-option>
+              <mat-option value="dateTimeOfApplication"> Date of Registration </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -115,6 +113,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
         <mat-paginator
+          #matPaginator
           [length]="paginator.length"
           [pageSize]="paginator.currentPageSize"
           [pageSizeOptions]="paginator.pageSizeOptions"

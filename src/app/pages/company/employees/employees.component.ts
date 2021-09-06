@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormControl,
 } from '@angular/forms';
@@ -9,6 +9,8 @@ import { Company } from 'src/app/models/company.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Store } from '@ngrx/store';
 import { Paginator } from 'src/app/models/paginator.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employees',
@@ -22,7 +24,6 @@ export class EmployeesComponent implements OnInit {
   public companyService: CompanyService;
   public filter: string;
   public sortBy: string;
-  public search: string;
   public employees: Employee[];
   public companyId: any;
   public company: Company;
@@ -31,16 +32,18 @@ export class EmployeesComponent implements OnInit {
   searchText: string;
   currentUser!: string;
 
+  @ViewChild('matPaginator') matPaginator!: MatPaginator
+
   constructor(
     public store: Store<{ breakpoint: Breakpoint; route: string }>,
     companyService: CompanyService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
   ) {
     this.isSmall = false;
     this.searchText = '';
-    this.filter = '';
-    this.sortBy = '';
-    this.search = '';
+    this.filter = 'all';
+    this.sortBy = 'dateTimeOfApplication';
     this.companyService = companyService;
     this.employees = [{}] as Employee[];
     this.companyId = 0;
@@ -56,10 +59,10 @@ export class EmployeesComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params) => {
       this.companyId = params.companyId;
-      if(params.companyId==undefined)
+      if(params.companyId == undefined)
       {
         let k=localStorage.getItem("Id");
-        if(k!=null)this.companyId= parseInt(k)
+        if (k!=null) this.companyId= parseInt(k)
       }
 
     });
@@ -77,13 +80,27 @@ export class EmployeesComponent implements OnInit {
       else this.currentUser = 'admin';
     });
 
-    this.companyService.getEmployees(this.companyId, 5, 1);
+    this.companyService.getEmployees(this.companyId, 5, 1,this.sortBy,this.filter);
     this.companyService.employeesSubject.subscribe((employees) => {
+      console.log(employees);
+      if (this.searchText) {
+        if (employees.length == 0) {
+          this.snackBar.open('No Employees Found', "Retry");
+          return;
+        }
+        this.companyService.getSearchedEmployeesSize(
+          this.companyId,
+          this.searchText,
+          this.sortBy,
+          this.filter,
+          ).subscribe((res: any) => {
+          this.matPaginator.length = res;
+        })
+      }
       this.employees = employees;
     });
 
     this.companyService.getCompanyDetails(this.companyId);
-
     this.companyService.companySubject.subscribe((company) => {
       this.company = company;
       this.paginator.length = company.numberOfTotalEmployees;
@@ -98,11 +115,25 @@ export class EmployeesComponent implements OnInit {
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    this.companyService.getEmployees(
-      this.companyId,
-      this.paginator.currentPageSize,
-      this.paginator.currentPageIndex + 1
-    );
+    if(this.searchText.trim().length === 0 ) {
+      this.companyService.getEmployees(
+        this.companyId,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1,
+        this.sortBy,
+        this.filter,
+      );
+    }
+    else {
+      this.companyService.getEmployeesByName(
+        this.companyId,
+        this.searchText,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1,
+        this.sortBy,
+        this.filter
+      );
+    }
   }
 
   onSearchText(event: any) {
@@ -110,79 +141,52 @@ export class EmployeesComponent implements OnInit {
   }
 
   OnSearchSelect() {
-    this.companyService.getEmployeeByName(
-      this.companyId,
-      this.searchText,
-      this.paginator.currentPageSize,
-      this.paginator.currentPageIndex + 1
-    );
+    if (this.searchText.trim().length === 0) {
+      this.matPaginator.pageIndex = 0;
+      this.matPaginator.length = this.company.numberOfTotalEmployees;
+      this.companyService.getEmployees(
+        this.companyId,
+        5,
+        1,
+        this.sortBy,
+        this.filter,
+      );
+    } else {
+      this.matPaginator.pageIndex = 0;
+      this.companyService.getEmployeesByName(
+        this.companyId,
+        this.searchText,
+        5,
+        1,
+        this.sortBy,
+        this.filter
+      );
+    }
   }
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
-
-    if (this.sortBy === 'name') {
-      this.companyService.getEmployeesSortedByName(
+      this.matPaginator.pageIndex = 0;
+      this.matPaginator.length = this.company.numberOfTotalEmployees;
+      this.companyService.getEmployees(
         this.companyId,
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
+        5,
+        1,
+        this.sortBy,
+        this.filter,
       );
-    }
-
-    if (this.sortBy === 'date-registration') {
-      this.companyService.getEmployeesSortedByDate(
-        this.companyId,
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
   }
 
   OnFilterSelect(event: any) {
     this.filter = event.value;
-
-    if (this.filter === 'verification-failed') {
-      this.companyService.getEmployeesByStatus(
-        this.companyId,
-        'Rejected',
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
-
-    if (this.filter === 'verification-completed') {
-      this.companyService.getEmployeesByStatus(
-        this.companyId,
-        'Accepted',
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
-
-    if (this.filter === 'verification-pending') {
-      this.companyService.getEmployeesByStatus(
-        this.companyId,
-        'Pending',
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
-
-    if (this.filter === 'verification-pending') {
-      this.companyService.getEmployeesByStatus(
-        this.companyId,
-        'Pending',
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
-
-    if (this.filter === 'all') {
-      this.companyService.getEmployees(
-        this.companyId,
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1
-      );
-    }
+    this.matPaginator.pageIndex = 0;
+    this.matPaginator.length = this.company.numberOfTotalEmployees;
+    this.companyService.getEmployees(
+      this.companyId,
+      5,
+      1,
+      this.sortBy,
+      this.filter,
+    );
   }
 }
