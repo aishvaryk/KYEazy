@@ -1,21 +1,27 @@
-  <mat-card
-    [ngClass.gt-xs]="'container-card'"
-    [ngClass.lt-sm]="'container-card-mobile'"
-  >
-
+<mat-card
+  [ngClass.gt-xs]="'container-card'"
+  [ngClass.lt-sm]="'container-card-mobile'"
+>
   <div class="subscription-heading" fxLayout="row" fxLayoutAlign="start">
     <h1>Manage Subscription</h1>
   </div>
-  <div class="coin-balance-container" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-around center">
+  <div
+    class="coin-balance-container"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="space-around center"
+  >
     <div class="coins-image-container" fxFlex="40">
       <img class="coins-image" src="/assets/images/coins.gif" alt="homepage" />
     </div>
-    <div fxFlex="40" class="coin-balance" fxLayout="column" fxLayoutAlign="center center">
-      <div class="coin-balance-heading">
-        Your current Coin Balance is
-      </div>
+    <div
+      fxFlex="40"
+      class="coin-balance"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <div class="coin-balance-heading">Your current Coin Balance is</div>
       <div class="coins" fxLayout="row" fxLayoutAlign="center center">
-        {{coinBalance}}<mat-icon style="color: gold;">paid</mat-icon>
+        {{ coinBalance }}<mat-icon style="color: gold">paid</mat-icon>
       </div>
       <div class="coin-balance-details">
         You can do KYC of 10 more employees!
@@ -23,76 +29,74 @@
     </div>
   </div>
 
-  <form [formGroup]="form"
-  (ngSubmit)="onSubmit()" >
-  <div class="add-coins-container" fxLayout="row" fxLayoutAlign="start center">
-    <div class="add-coins-text">
-      Want to Add More? Add Now!
-    </div>
-    <div class="add-coins-form">
-
-      <mat-form-field appearance="standard">
-        <mat-label>Add Coins</mat-label>
-        <input matInput placeholder="Eg.100" (keyup)="onKey($event)"
-        formControlName="coinsCount">
-        <mat-error>Enter an integer value.</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="add-coins-form-text">
-      <span>{{addCoinsText}}</span>
-
-    </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div
-
-    matTooltip="Add Coins to Pay"
-    [matTooltipDisabled] = "!invalidForm">
-    <button mat-stroked-button color="primary"
-    [disabled]="invalidForm"
-    type="submit">Pay</button>
+      class="add-coins-container"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <div class="add-coins-text">Want to Add More? <button (click)="openBottomSheet()">Add Now!</button></div>
+      <div class="add-coins-form">
+        <mat-form-field appearance="standard">
+          <mat-label>Add Coins</mat-label>
+          <input
+            matInput
+            placeholder="Eg.100"
+            (keyup)="onKey($event)"
+            formControlName="coinsCount"
+          />
+          <mat-error>Enter an integer value.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="add-coins-form-text">
+        <span>{{ addCoinsText }}</span>
+      </div>
+      <div matTooltip="Add Coins to Pay" [matTooltipDisabled]="!invalidForm">
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="invalidForm"
+          type="submit"
+        >
+          Pay
+        </button>
+      </div>
     </div>
-  </div>
+  </form>
 
+  <table mat-table [dataSource]="orderHistory" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
 
-</form>
+    <!-- Position Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+    </ng-container>
 
+    <!-- Name Column -->
+    <ng-container matColumnDef="companyOrderId">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.companyOrderId }}</td>
+    </ng-container>
 
-<table mat-table [dataSource]="orderHistory" class="mat-elevation-z8">
+    <!-- Weight Column -->
+    <ng-container matColumnDef="orderId">
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
+      <td mat-cell *matCellDef="let element">{{ element.orderId }}</td>
+    </ng-container>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="orderUniqueId">
+      <th mat-header-cell *matHeaderCellDef>Symbol</th>
+      <td mat-cell *matCellDef="let element">{{ element.orderUniqueId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="paymentId">
+      <th mat-header-cell *matHeaderCellDef>Symbol</th>
+      <td mat-cell *matCellDef="let element">{{ element.paymentId }}</td>
+    </ng-container>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="amount">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-  </ng-container>
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="companyOrderId">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.companyOrderId}} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="orderId">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="orderUniqueId">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.orderUniqueId}} </td>
-  </ng-container>
-  <ng-container matColumnDef="paymentId">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.paymentId}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-  </mat-card>
-
-
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</mat-card>
