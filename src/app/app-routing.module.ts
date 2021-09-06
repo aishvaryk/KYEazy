@@ -53,7 +53,7 @@ const routes: Routes = [
         canActivate: [CompanyGuard],
       },
       {
-        path: 'subscription',
+        path: 'wallet',
         component: SubscriptionComponent,
         canActivate: [CompanyGuard],
       },

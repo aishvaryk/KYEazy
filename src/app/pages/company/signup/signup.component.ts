@@ -3,9 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { id } from '@swimlane/ngx-charts';
 import { ActionDTO } from 'src/app/models/action.model';
 import { Address } from 'src/app/models/address.model';
+import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
 
@@ -28,17 +30,28 @@ export class SignupComponent implements OnInit {
   fileName: string;
   companyId!: number;
   file!: any;
+  isSmall!:boolean;
 
   constructor(
     companyService: CompanyService,
     private snackbar: MatSnackBar,
     public router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public store:Store<{breakpoint:Breakpoint}>
   ) {
+
     this.newCompany = {} as Company;
     this.companyAddress = {} as Address;
     this.companyService = companyService;
     this.fileName = "No File Choosen"
+    this.store.select('breakpoint').subscribe((change: Breakpoint) => {
+      if (change.isXs) {
+        this.isSmall = true;
+      } else {
+        this.isSmall = false;
+      }
+    });
+
   }
 
   ngOnInit(): void {

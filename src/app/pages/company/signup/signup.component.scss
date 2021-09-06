@@ -1,3 +1,8 @@
+.signup-container{
+  height: 100%;
+  width: 100%;
+}
+
 .pwdField {
   width: 23%;
 }
@@ -15,14 +20,33 @@ textarea {
 }
 
 .card {
+  height: 100%;
   background: white;
-  box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
+  // box-shadow: 20px 10px 30px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
-  margin-left: 80px;
-  margin-right: 80px;
-  margin-top: 50px;
-  padding-top: 10px;
-
+  // margin-left: 20px;
+  // margin-right: 10px;
+  margin-top: 10px;
   padding-bottom: 20px;
   margin-bottom: 20px;
+  overflow-y:scroll;
 }
+
+.signup-image-container{
+  background-color: white;
+  height: 100%;
+  width: 40%;
+  overflow-y:hidden;
+  img{
+    width:100%;
+  }
+}
+
+.signup-form-field {
+  width: 70%;
+}
+
+.signup-form-field-mobile {
+  width: 80%;
+}
+

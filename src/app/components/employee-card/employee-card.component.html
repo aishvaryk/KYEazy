@@ -6,7 +6,8 @@
   fxLayoutAlign="space-between center"
   fxLayoutAlign.xs="space-between start"
 >
-  <mat-card-header fxFlex="60" [ngClass.xs]="'employee-card-header-mobile'">
+<div  fxFlex="60" fxLayout.xs="row" fxLayoutAlign.xs="space-between" [ngStyle.xs]="{'width': '100%;'}">
+  <mat-card-header [ngClass.xs]="'employee-card-header-mobile'">
     <img mat-card-avatar *ngIf="employee.status==='Registered' || employee.status==='Reported'" src="assets/images/employee-avatar.png" />
     <img mat-card-avatar *ngIf="employee.status!=='Registered'  && employee.status!=='Reported'" [src]="formatImage(employee.capturedImage)" />
     <mat-card-title class="employee-name">
@@ -17,20 +18,37 @@
     </mat-card-subtitle>
   </mat-card-header>
 
+
+    <button
+      mat-icon-button
+      color="primary"
+      [matMenuTriggerFor]="menu"
+      *ngIf="user==='company' && isSmall"
+      >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="OnReport()"><mat-icon color="warn" style="margin-right: 3px;" >report</mat-icon>Report</button>
+      <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
+    </mat-menu>
+  </div>
+
   <div class="employee-email-mobile" *ngIf="isSmall">
     {{ employee.emailID }}
   </div>
 
   <mat-card-content
-
   fxLayout="row"
   fxLayout.xs="column"
   fxLayoutAlign="space-between enter"
+  fxFlex="40"
+  [ngClass.xs]="'mat-card-content-mobile'"
   >
   <div
   [ngClass.xs]="'status-container-mobile'"
     [ngClass.gt-xs]="'status-container'"
-    fxFlex="40"
+    fxFlexLayout="row"
+    fxLayoutAlign="start center"
     >
     <div
       class="verification-done"
@@ -39,7 +57,7 @@
       fxLayoutAlign="start center"
     >
       <mat-icon aria-label="i">check_circle_outline</mat-icon>
-      <div class="verification-text">Verified</div>
+      <div class="verification-text">Employee Verified</div>
     </div>
 
     <div
@@ -49,7 +67,7 @@
       fxLayoutAlign="start center"
     >
       <mat-icon aria-label="i">cancel</mat-icon>
-      <div class="verification-text">Rejected</div>
+      <div class="verification-text">Employee Rejected</div>
     </div>
 
     <div
@@ -59,7 +77,7 @@
       fxLayoutAlign="start center"
     >
       <mat-icon aria-label="i">how_to_reg</mat-icon>
-      <div class="verification-text">Registered</div>
+      <div class="verification-text">Employee Registered</div>
     </div>
 
     <div
@@ -69,7 +87,7 @@
       fxLayoutAlign="start center"
     >
       <mat-icon aria-label="i">report</mat-icon>
-      <div class="verification-text">Reported</div>
+      <div class="verification-text">Employee Reported</div>
     </div>
 
     <div
@@ -79,13 +97,14 @@
       fxLayoutAlign="start center"
     >
       <mat-icon aria-label="i">pending</mat-icon>
-      <div class="verification-text">Pending</div>
+      <div class="verification-text">Verification Pending</div>
     </div>
 
   </div>
 
+  <div fxLayout="row" fxLayoutAlign="center center" [ngClass.xs]="'employee-buttons-container'">
     <div
-
+    [ngClass.xs]="'tootltip-container-mobile'"
     matTooltip="Please Wait for the Employee to fill details"
     [matTooltipDisabled] = "employee.status!=='Registered'"
     >
@@ -104,15 +123,17 @@
   </div>
 
     <button
-      mat-button
+      mat-icon-button
       color="primary"
       [matMenuTriggerFor]="menu"
-      *ngIf="user==='company'">
+      *ngIf="user==='company' && !isSmall"
+      >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="OnReport()"><mat-icon color="warn" style="margin-right: 3px;" >report</mat-icon>Report</button>
       <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
     </mat-menu>
+  </div>
   </mat-card-content>
 </mat-card>

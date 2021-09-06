@@ -27,7 +27,7 @@
   <mat-card
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
-    *ngIf="!zeroEmployees && !isSmall"
+    *ngIf="!zeroEmployees"
   >
     <app-bar-chart
       style="width: 100%"

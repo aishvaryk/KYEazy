@@ -128,6 +128,9 @@ export class ReviewComponent implements OnInit {
     videoData.append('employeeVideo', this.liveliness.video);
     this.employeeService.updateEmployeeVideo(id, videoData);
 
+
+    this.employeeService.updateEmployeeStatus(this.employee);
+
     this.snackbar.open('Sucessfully Submitted', 'Okay');
     this.loginService.logout();
   }

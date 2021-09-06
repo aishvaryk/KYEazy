@@ -7,224 +7,228 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<div *ngIf="!loading" class="card">
-  <h1 class="signupHeading">Sign up your Company</h1>
+<div class="signup-container" *ngIf="!loading" fxLayout="row"fxLayoutAlign="space-between center">
+  <div class="signup-image-container" fxFlex="40" *ngIf="!isSmall" fxLayout="row"fxLayoutAlign="center center">
+    <img src="/assets/images/signup.gif" />
+  </div>
+  <div  class="card" fxFlex.gt-xs="60" fxFlex.xs="100">
+    <h1 class="signupHeading">Sign up your Company</h1>
 
-  <form
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    [formGroup]="form"
-    (ngSubmit)="onSubmit()"
-  >
-    <mat-form-field appearance="outline">
-      <mat-label>Company Name</mat-label>
-      <input
-        matInput
-        placeholder="Eg. Google"
-        type="text"
-        name="company-name"
-        formControlName="companyName"
-        required
-      />
-      <mat-error
-        *ngIf="
-          !form.get('companyName')?.valid && form.get('companyName')?.touched
-        "
-      >
-        You must provide <strong>company name</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input
-        matInput
-        placeholder=""
-        type="text"
-        name="username"
-        formControlName="userName"
-        required
-      />
-      <mat-error
-        *ngIf="!form.get('userName')?.valid && form.get('userName')?.touched"
-      >
-        You must provide <strong>username</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="pwdField">
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        [type]="hide ? 'password' : 'text'"
-        formControlName="password"
-        required
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
-      >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </button>
-      <mat-error
-        *ngIf="!form.get('password')?.valid && form.get('password')?.touched"
-      >
-        To login company must provide <strong>password</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Company Description</mat-label>
-      <textarea
-        draggable="false"
-        matInput
-        placeholder="Write About Company"
-        formControlName="companyDescription"
-        required
-      ></textarea>
-      <mat-error
-        *ngIf="
-          !form.get('companyDescription')?.valid &&
-          form.get('companyDescription')?.touched
-        "
-      >
-        Company must have some <strong>description</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>CIN Number</mat-label>
-      <input
-        matInput
-        type="text"
-        style="text-transform: uppercase"
-        formControlName="cin"
-        required
-      />
-      <mat-error *ngIf="!form.get('cin')?.valid && form.get('cin')?.touched">
-        Company must have <strong> CIN Number </strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Enter your email</mat-label>
-      <input
-        matInput
-        placeholder="pat@example.com"
-        formControlName="email"
-        required
-      />
-      <mat-error
-        *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
-      >
-        Invalid
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Address Line 1</mat-label>
-      <input
-        matInput
-        placeholder="Ex. 100 Main St"
-        formControlName="address"
-        required
-      />
-      <mat-error
-        *ngIf="form.get('address1')?.valid && form.get('address1')?.touched"
-      >
-        Company must prvoide <strong>address</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Address Line 2</mat-label>
-      <input matInput formControlName="address2" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>City</mat-label>
-      <input
-        matInput
-        placeholder="Ex. San Francisco"
-        formControlName="city"
-        required
-      />
-      <mat-error *ngIf="form.get('city')?.valid && form.get('city')?.touched">
-        Company must give its <strong>city name</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>State</mat-label>
-      <input
-        matInput
-        placeholder="Ex. California"
-        formControlName="state"
-        required
-      />
-      <mat-error *ngIf="form.get('state')?.valid && form.get('state')?.touched">
-        Company must give its <strong>state name</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Postal Code</mat-label>
-      <input
-        matInput
-        maxlength="5"
-        placeholder="Ex. 94105"
-        formControlName="postalCode"
-        required
-      />
-      <mat-error
-        *ngIf="form.get('postalCode')?.valid && form.get('postalCode')?.touched"
-      >
-        Company must give its <strong>city postal code</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Country</mat-label>
-      <input
-        matInput
-        placeholder="Ex. India"
-        formControlName="country"
-        required
-      />
-      <mat-error
-        *ngIf="form.get('country')?.valid && form.get('country')?.touched"
-      >
-        Company must give its <strong>country name</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <div fxFlex>
-      {{fileName}}
-      <input #input type="file" hidden (change)="onChange($event)" />
-      <button mat-stroked-button color="primary" (click)="input.click()">
-        Upload Document
-      </button>
-    </div>
-
-    <br />
-    <button
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="btn-width"
+    <form
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
     >
-      Submit
-    </button>
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Company Name</mat-label>
+        <input
+          matInput
+          placeholder="Eg. Google"
+          type="text"
+          name="company-name"
+          formControlName="companyName"
+          required
+        />
+        <mat-error
+          *ngIf="
+            !form.get('companyName')?.valid && form.get('companyName')?.touched
+          "
+        >
+          You must provide <strong>company name</strong>
+        </mat-error>
+      </mat-form-field>
 
-    <br />
-    <span
-      *ngIf="!form.valid && form.touched && isSubmitted"
-      class="submit-error"
-    >
-      Please Enter correct details
-    </span>
-  </form>
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder=""
+          type="text"
+          name="username"
+          formControlName="userName"
+          required
+        />
+        <mat-error
+          *ngIf="!form.get('userName')?.valid && form.get('userName')?.touched"
+        >
+          You must provide <strong>username</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="pwdField" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error
+          *ngIf="!form.get('password')?.valid && form.get('password')?.touched"
+        >
+          To login company must provide <strong>password</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Company Description</mat-label>
+        <textarea
+          draggable="false"
+          matInput
+          placeholder="Write About Company"
+          formControlName="companyDescription"
+          required
+        ></textarea>
+        <mat-error
+          *ngIf="
+            !form.get('companyDescription')?.valid &&
+            form.get('companyDescription')?.touched
+          "
+        >
+          Company must have some <strong>description</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>CIN Number</mat-label>
+        <input
+          matInput
+          type="text"
+          style="text-transform: uppercase"
+          formControlName="cin"
+          required
+        />
+        <mat-error *ngIf="!form.get('cin')?.valid && form.get('cin')?.touched">
+          Company must have <strong> CIN Number </strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          formControlName="email"
+          required
+        />
+        <mat-error
+          *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
+        >
+          Invalid
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Address Line 1</mat-label>
+        <input
+          matInput
+          placeholder="Ex. 100 Main St"
+          formControlName="address"
+          required
+        />
+        <mat-error
+          *ngIf="form.get('address1')?.valid && form.get('address1')?.touched"
+        >
+          Company must prvoide <strong>address</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Address Line 2</mat-label>
+        <input matInput formControlName="address2" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>City</mat-label>
+        <input
+          matInput
+          placeholder="Ex. San Francisco"
+          formControlName="city"
+          required
+        />
+        <mat-error *ngIf="form.get('city')?.valid && form.get('city')?.touched">
+          Company must give its <strong>city name</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>State</mat-label>
+        <input
+          matInput
+          placeholder="Ex. California"
+          formControlName="state"
+          required
+        />
+        <mat-error
+          *ngIf="form.get('state')?.valid && form.get('state')?.touched"
+        >
+          Company must give its <strong>state name</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Postal Code</mat-label>
+        <input
+          matInput
+          maxlength="5"
+          placeholder="Ex. 94105"
+          formControlName="postalCode"
+          required
+        />
+        <mat-error
+          *ngIf="
+            form.get('postalCode')?.valid && form.get('postalCode')?.touched
+          "
+        >
+          Company must give its <strong>city postal code</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
+        <mat-label>Country</mat-label>
+        <input
+          matInput
+          placeholder="Ex. India"
+          formControlName="country"
+          required
+        />
+        <mat-error
+          *ngIf="form.get('country')?.valid && form.get('country')?.touched"
+        >
+          Company must give its <strong>country name</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div fxFlex>
+        {{ fileName }}
+        <input #input type="file" hidden (change)="onChange($event)" />
+        <button mat-stroked-button color="primary" (click)="input.click()">
+          Upload Document
+        </button>
+      </div>
+
+      <br />
+      <button mat-flat-button color="primary" type="submit" class="btn-width">
+        Submit
+      </button>
+
+      <br />
+      <span
+        *ngIf="!form.valid && form.touched && isSubmitted"
+        class="submit-error"
+      >
+        Please Enter correct details
+      </span>
+    </form>
+  </div>
 </div>
