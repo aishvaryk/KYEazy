@@ -73,7 +73,7 @@ export class CompanyDashboardComponent implements OnInit {
     let k = localStorage.getItem('Id');
     if (k != null) {
       this.loading = true;
-      this.companyService.getEmployeesSortedByDate(parseInt(k), 2, 1);
+      this.companyService.getEmployees(parseInt(k), 2, 1,"dateTimeOfApplication","all");
       this.loading = false;
     }
     this.companyService.employeesSubject.subscribe((employees) => {

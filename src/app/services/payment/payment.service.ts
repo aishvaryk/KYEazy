@@ -33,17 +33,14 @@ orderHistory:Subject<any>=new Subject();
         `${environment.backendURL}/payment/create-order/${amount}`
       ).
       subscribe((response:any)=>{
-        console.log(response)
         this.orderId=response.orderId;
-         this.orderSubject.next(this.orderId)
-         console.log(this.orderId)
-
+        this.orderSubject.next(this.orderId)
       })
 }
 
-paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string)
+paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string,amount:number)
 {
- return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}`);
+ return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}/${amount}`);
 }
 
 getOrderHistory(id:number)

@@ -1,8 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ActionDTO } from 'src/app/models/action.model';
@@ -25,11 +23,11 @@ export class CompanyService {
   public actionDTOSubject: Subject<ActionDTO>;
   public registrationStatus: ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
+  public reportedSubject: Subject<Boolean>;
 
   constructor(
     private loginService: LoginService,
     private httpClient: HttpClient,
-    public dialog: MatDialog
   ) {
     this.employees = [];
     this.registrationStatus = {} as ActionDTO;
@@ -40,6 +38,7 @@ export class CompanyService {
     this.companySubject = new Subject();
     this.company = {} as Company;
     this.APIResponse = {} as ActionDTO | exceptionDTO;
+    this.reportedSubject=new Subject();
   }
 
   login(credentials: any): any {
@@ -55,16 +54,40 @@ export class CompanyService {
       .pipe(map((response) => response as Company | exceptionDTO));
   }
 
-  getEmployees(id: number, pageSize: number, pageNumber: number): void {
-    let token = this.loginService.getToken();
+  getEmployees(
+    id: number,
+    pageSize: number,
+    pageNumber: number,
+    sort: string,
+    filter: string
+    ): void {
     this.httpClient
       .get(
-        `${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
+        `${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
       )
       .pipe(map((response) => response as Employee[]))
       .subscribe((results: Employee[]) => {
         this.employees = results;
         this.employeesSubject.next(this.employees);
+      });
+  }
+
+  getEmployeesByName(
+    id: number,
+    name: string,
+    pageSize: number,
+    pageNumber: number,
+    sort: string,
+    filter: string,
+  ): void {
+    this.httpClient
+      .get(
+        `${environment.backendURL}/company/get-employees-by-name/${id}/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
+      )
+      .pipe(map((response) => response as Employee[]))
+      .subscribe((results: Employee[]) => {
+        this.employees = results;
+        this.employeesSubject.next(results);
       });
   }
 
@@ -90,69 +113,8 @@ export class CompanyService {
       });
   }
 
-  getEmployeeByName(id: number, name: string,pageSize:number,pageNumber:number): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-by-name/${id}/${name}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(results);
-      });
-    }
-
-  getEmployeesByStatus(
-    companyId: number,
-    status: string,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/employees-by-status/${companyId}/${status}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getEmployeesSortedByName(
-    id: number,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-sorted-by-name/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getEmployeesSortedByDate(
-    id: number,
-    pageSize: number,
-    pageNumber: number
-  ): void {
-    this.httpClient
-      .get(
-        `${environment.backendURL}/company/get-employees-sorted-by-date/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((results: Employee[]) => {
-        this.employees = results;
-        this.employeesSubject.next(this.employees);
-      });
-  }
-
-  getCompanyDetails(id: number): void {
-    this.httpClient
+  getCompanyDetails(id: number) {
+    return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)
       .pipe(map((response) => response as Company))
       .subscribe((results: Company) => {
@@ -160,8 +122,11 @@ export class CompanyService {
       });
   }
 
-  addIcon(id:number, icon:FormData) {
-    return this.httpClient.patch<ActionDTO>(`${environment.backendURL}/company/add-icon/${id}`,icon)
+  addIcon(id: number, icon: FormData) {
+    return this.httpClient.patch<ActionDTO>(
+      `${environment.backendURL}/company/add-icon/${id}`,
+      icon
+    );
   }
 
   updateProfile(newCompany: Company): void {
@@ -183,10 +148,25 @@ export class CompanyService {
         `${environment.backendURL}/company/report-employee/${employeeId}`,
         message
       )
-      .pipe(map((response) => response as Employee[])).subscribe((employees: Employee[])=>
-      {
-        this.employees = employees;
-        this.employeesSubject.next(this.employees);
-      });
+       .subscribe((data:any) => {
+         this.reportedSubject.next(data.success);
+       });
   }
+  reKyc( employeeId: number): any {
+    return this.httpClient.get(`${environment.backendURL}/company/re-kyc/${employeeId}`);
+}
+
+
+  getEmployeesSize(id: any, filter: any) {
+    return this.httpClient.get(
+      `${environment.backendURL}/company/get-employees-size/${id}/${filter}`
+    );
+  }
+
+  getSearchedEmployeesSize(id: any,name: string, sort: any, filter: any) {
+    return this.httpClient.get(
+      `${environment.backendURL}/company/get-searched-employees-size/${id}/${name}?sort=${sort}&filter=${filter}`
+    );
+  }
+
 }

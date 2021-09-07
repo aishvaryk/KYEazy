@@ -5,11 +5,15 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Admin } from 'src/app/models/admin.model';
 import { Details } from 'src/app/models/details.model';
 import { Documents } from 'src/app/models/documents.model';
 import { Employee } from 'src/app/models/employee.model';
 import { Liveliness } from 'src/app/models/liveliness.model';
 import { Selfie } from 'src/app/models/selfie.model';
+import { AdminService } from 'src/app/services/admin/admin.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -24,16 +28,22 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   @Input() document!: Documents;
   @Input() employee!: Details;
   @Input() status!: string;
+  @Input() employeeId!:number;
 
   @ViewChild('image') image!: any;
   @ViewChild('video') video!: any;
 
   documentURL: any;
 
-  constructor() {
+  constructor(private dialog: MatDialog,private adminService:AdminService) {
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.adminService.statusSubject.subscribe((response)=>{
+      this.status=response;
+    })
+}
 
   ngAfterViewInit() {
     // Prase Image
@@ -55,5 +65,21 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   viewDocument() {
     window.open(this.documentURL);
+  }
+  acceptEmployee()
+  {
+    this.adminService.acceptEmployee(this.employeeId);
+
+  }
+  rejectEmployee()
+  {
+    console.log(this.employeeId)
+    this.dialog.open(ModalComponent, {
+      data: {
+        type: 'REJECT',
+        employeeId: this.employeeId
+      },
+    });
+
   }
 }

@@ -162,8 +162,12 @@
             fxLayoutAlign="start center"
           >
             <video #video controls [width]="320" [height]="180"></video>
-            <div class="profile-component-detail">Live Video</div>
+            <br />
+          <div fxLayout="row" fxLayoutAlign="start center"><b>Question : &nbsp; </b><div class="profile-component-detail"> {{liveliness.question}}</div>
           </div>
+          </div>
+
+
         </div>
 
         <div
@@ -172,10 +176,10 @@
           fxLayout="row"
           fxLayoutAlign="space-between center"
         >
-          <button mat-stroked-button color="primary">
+          <button (click)="acceptEmployee()" mat-stroked-button color="primary">
             <mat-icon>check</mat-icon>&nbsp;Accept
           </button>
-          <button mat-stroked-button color="warn">
+          <button (click)="rejectEmployee()" mat-stroked-button color="warn">
             <mat-icon>clear</mat-icon>&nbsp;Reject
           </button>
         </div>

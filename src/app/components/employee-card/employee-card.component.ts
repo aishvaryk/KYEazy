@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
+import { CompanyService } from 'src/app/services/company/company.service';
+
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -14,7 +16,11 @@ export class EmployeeCardComponent implements OnInit {
   @Input() isSmall: any;
   @Input() user: any;
 
-  constructor(public store:Store<{breakpoint:Breakpoint}>,public dialog:MatDialog) {
+  @Output() rekyc = new EventEmitter<number>();
+
+
+
+  constructor(public companyService:CompanyService,public store:Store<{breakpoint:Breakpoint}>,public dialog:MatDialog) {
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.isSmall = true;
@@ -24,7 +30,11 @@ export class EmployeeCardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+
+
+  }
 
   formatImage(img: any): any {
     if (img == null) {
@@ -40,7 +50,11 @@ export class EmployeeCardComponent implements OnInit {
         employeeId: this.employee.employeeId
       },
     });
+    }
 
+    onReKyc()
+    {
+      this.rekyc.emit(this.employee.employeeId);
+    }
 
-  }
 }

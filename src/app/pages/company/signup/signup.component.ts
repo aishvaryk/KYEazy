@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { Address } from 'src/app/models/address.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
+import Validation from 'src/app/validators/passoword-matcher.validator';
 
 @Component({
   selector: 'app-signup',
@@ -18,6 +19,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 })
 export class SignupComponent implements OnInit {
 
+  passwordMatch=false
   companyName: string = '';
   userName: string = '';
   hide: boolean = true;
@@ -58,9 +60,11 @@ export class SignupComponent implements OnInit {
     this.form = new FormGroup({
       companyName: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+
+       password: new FormControl(null, Validators.required),
+       confirmPassword: new FormControl(null,[Validators.required]),
       companyDescription: new FormControl(null, Validators.required),
-      cin: new FormControl(null, Validators.required),
+      cin: new FormControl(null,[ Validators.required,Validators.minLength(8)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       icon: new FormControl(null, [Validators.required]),
       address: new FormControl(null, Validators.required),
@@ -69,10 +73,12 @@ export class SignupComponent implements OnInit {
       state: new FormControl(null, Validators.required),
       postalCode: new FormControl(null, Validators.required),
       country: new FormControl(null, Validators.required),
-    });
+    },//{validators : Validation.match('password', 'confirmPassword')}
+    );
   }
 
-  onChange(event: any) {
+
+ onChange(event: any) {
     this.file = event.target.files[0];
     this.fileName = this.file.name;
     this.form.patchValue({
@@ -80,8 +86,11 @@ export class SignupComponent implements OnInit {
     });
   }
 
+
   onSubmit() {
+
     if (this.form.status === 'INVALID') return;
+
 
     this.newCompany.username = this.form.value.userName;
     this.newCompany.password = this.form.value.password;

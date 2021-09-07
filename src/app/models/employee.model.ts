@@ -19,4 +19,5 @@ export interface Employee {
   address: Address;
   gender: string;
   employeeVideo: string;
+  question:String;
 }

@@ -79,6 +79,7 @@ export class ProfilePageComponent implements OnInit {
       // Parsing Documents Details
       this.documents.documentNumber = employee.documentNumber;
       this.documents.documentType = employee.documentType;
+      this.liveliness.question=employee.question;
       // Parsing Image
       this.imageLoading = true;
       fetch('data:image/png;base64,' + this.employee.capturedImage)
@@ -109,6 +110,7 @@ export class ProfilePageComponent implements OnInit {
       this.videoLoading = false;
       // Parsing Video
       this.liveliness.video = video;
+
     });
   }
 }

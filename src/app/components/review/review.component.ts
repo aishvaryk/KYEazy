@@ -13,6 +13,9 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/login/login.service';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { Router } from '@angular/router';
+import { CompanyService } from 'src/app/services/company/company.service';
+import { Company } from 'src/app/models/company.model';
 
 @Component({
   selector: 'app-review',
@@ -27,6 +30,7 @@ export class ReviewComponent implements OnInit {
   public documents: Documents;
   public selfie: Selfie;
   public liveliness: Liveliness;
+  public company!:string;
 
   public employeeLoading: any;
   public companyLoading: any;
@@ -34,10 +38,13 @@ export class ReviewComponent implements OnInit {
   public imageLoading: any;
   public documentLoading: any;
 
+
   constructor(
+    public companyService:CompanyService,
     public snackbar: MatSnackBar,
     public loginService: LoginService,
     private employeeService: EmployeeService,
+    private router:Router,
     public store: Store<{
       details: Details;
       documents: Documents;
@@ -56,9 +63,24 @@ export class ReviewComponent implements OnInit {
     this.documentLoading = false;
     this.employee = {} as Employee;
     this.address = {} as Address;
+
   }
 
   ngOnInit(): void {
+
+    let k=localStorage.getItem("Id")
+    if(k!=null){
+    this.employeeService.getEmployee(parseInt(k)).subscribe((employee)=>
+    {
+      this.companyService.getCompanyDetails(employee.companyId);
+      this.companyService.companySubject.subscribe((company)=>{
+        this.company=company.name;
+      })
+
+
+    });
+    }
+    //this.company=
     this.employeeLoading = true;
     this.store.select('details').subscribe((details) => {
       if (JSON.stringify(details) === '{}') return;
@@ -113,6 +135,7 @@ export class ReviewComponent implements OnInit {
     this.employee.address = this.address;
     this.employee.documentNumber = this.documents.documentNumber;
     this.employee.documentType = this.documents.documentType;
+    this.employee.question=this.liveliness.question;
 
     let id = parseInt(localStorage.getItem('Id')!);
     const documentData = new FormData();
@@ -127,7 +150,6 @@ export class ReviewComponent implements OnInit {
     const videoData = new FormData();
     videoData.append('employeeVideo', this.liveliness.video);
     this.employeeService.updateEmployeeVideo(id, videoData);
-
 
     this.employeeService.updateEmployeeStatus(this.employee);
 
