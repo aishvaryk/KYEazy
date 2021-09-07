@@ -16,6 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let newReq = req;
+
     let token = this.loginService.getToken();
     if (token != null) {
       if (localStorage.getItem('userType') === 'COMPANY')

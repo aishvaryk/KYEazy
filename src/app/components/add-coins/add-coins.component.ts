@@ -1,5 +1,5 @@
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -23,7 +23,7 @@ export class AddCoinsComponent implements OnInit {
   employeesAddable:number=0;
   perEmployeePrice:number=0;
   numberOfEmployees=0;
-
+  // @Output() paymentSuccess:EventEmitter<boolean>=new EventEmitter();
 
   constructor(private companyService:CompanyService, private paymentService:PaymentService,
     public bottomSheet:MatBottomSheetRef<AddCoinsComponent>) {
@@ -77,8 +77,10 @@ export class AddCoinsComponent implements OnInit {
           this.amount
         )
         .subscribe((response: any) => {
+
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
+          // this.paymentSuccess.emit(true);
         });
     },
 
@@ -120,7 +122,6 @@ export class AddCoinsComponent implements OnInit {
     });
     this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
     this.rzp.open();
-
     this.bottomSheet.dismiss();
   }
 

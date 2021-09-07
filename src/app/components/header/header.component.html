@@ -11,13 +11,6 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <!-- <button mat-icon-button color="primary"
-        (click)="toggleMenu()"
-        *ngIf="deviceSmall && isOpen"
-        class="menu-button">
-        <mat-icon>clear</mat-icon>
-      </button> -->
-
       <div class="logo">
         <a routerLink="/">
           <img src="/assets/images/logo.png" />
@@ -27,8 +20,18 @@
 
     <div class="buttons">
       <div class="large-header-buttons" *ngIf="!deviceSmall">
-        <button mat-button (click)="scrollToAbout()" *ngIf="isHome">About</button>
-        <button mat-button (click)="openBottomSheet()" *ngIf="isHome">Contact Us</button>
+        <button mat-button (click)="scrollToAbout()" *ngIf="isHome">
+          About
+        </button>
+        <button mat-button (click)="openBottomSheet()" *ngIf="isHome">
+          Contact Us
+        </button>
+        <button mat-button href="/company/wallet" *ngIf="isCompany">
+          <div class="coins" fxLayout="row" fxLayoutAlign="center center">
+            {{ coins }}<mat-icon style="color: gold">paid</mat-icon>
+          </div>
+        </button>
+
         <button
           mat-stroked-button
           (click)="doLogout()"
@@ -39,6 +42,7 @@
           Log Out
         </button>
       </div>
+
       <div class="small-header-buttons" *ngIf="deviceSmall">
         <button mat-icon-button color="primary" *ngIf="isHome">
           <mat-icon (click)="scrollToAbout()">info_outlined</mat-icon>

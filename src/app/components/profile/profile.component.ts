@@ -81,7 +81,6 @@ this.matBottomSheet.open(ReasonComponent, {
   }
   rejectEmployee()
   {
-    console.log(this.employeeId)
     this.dialog.open(ModalComponent, {
       data: {
         type: 'REJECT',

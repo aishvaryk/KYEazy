@@ -7,6 +7,8 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { environment } from 'src/environments/environment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ContactUsComponent } from '../contact-us/contact-us.component';
+import { Company } from 'src/app/models/company.model';
+import { CompanyService } from 'src/app/services/company/company.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -20,6 +22,8 @@ export class HeaderComponent implements OnInit {
   isHome: any;
   backendURL = environment.backendURL;
   isAdminLogin: any;
+  isCompany:boolean=false;
+  coins=0;
 
   breakpoint$: Observable<Breakpoint>;
 
@@ -29,9 +33,11 @@ export class HeaderComponent implements OnInit {
       menu: boolean;
       route: string;
     }>,
+    private companyService :CompanyService,
     public bottomSheet: MatBottomSheet,
     loginService: LoginService
   ) {
+
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isSm || breakpoint.isXs) {
@@ -44,6 +50,9 @@ export class HeaderComponent implements OnInit {
     });
     this.store.select('menu').subscribe((menu) => (this.isOpen = menu));
     this.loginService = loginService;
+    if(this.loginService.isLoggedIn() && localStorage.getItem("userType")==="COMPANY") this.isCompany=true;
+    else this.isCompany=false;
+
     this.store.select('route').subscribe((route) => {
       if (route === '/') this.isHome = true;
       else if (route === '/admin/login') this.isAdminLogin = true;
@@ -51,7 +60,10 @@ export class HeaderComponent implements OnInit {
       this.isAdminLogin = false;
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.companyService.coinSubject.subscribe((coins)=>{this.coins=coins})
+
+  }
 
   toggleMenu() {
     this.store.dispatch(updateMenu(!this.isOpen));

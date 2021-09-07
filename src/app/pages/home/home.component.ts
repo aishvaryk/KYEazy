@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     public observer: MediaObserver,
     public dialog: MatDialog,
     public store: Store<{ breakpoint: Breakpoint }>,
-    public loginService: LoginService
+    public loginService: LoginService,
+    private router:Router
   ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs || breakpoint.isSm) {
@@ -46,7 +48,16 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(localStorage.getItem("token"))
+    if(this.loginService.isLoggedIn())
+    {
+      if(localStorage.getItem("userType")==="ADMIN") this.router.navigate(["admin/dashboard"])
+      if(localStorage.getItem("userType")==="COMPANY") this.router.navigate(["company/dashboard"])
+      if(localStorage.getItem("userType")==="EMPLOYEE") this.router.navigate(["employee/dashboard"])
+
+    }
+  }
 
   ngAfterViewInit() {}
 

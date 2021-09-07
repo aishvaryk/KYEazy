@@ -6,22 +6,25 @@ import { Subject } from 'rxjs';
 import { Company } from 'src/app/models/company.model';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
+import { CompanyService } from '../company/company.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  employees: Employee[];
+  public employees: Employee[];
   public employee: Employee;
-  public employeeSubject: Subject<Employee>;
   public companies: Company[];
+  public employeeSubject: Subject<Employee>;
   public companiesSubject: Subject<Company[]>;
   public companySubject: Subject<Company[]>;
   public employeeVideoSubject: Subject<ArrayBuffer>;
-  employeesSubject: Subject<Employee[]>;
-  statusSubject:Subject<string>=new Subject();
+  public employeesSubject: Subject<Employee[]>;
+  public statusSubject: Subject<string>;
+
   constructor(
     private httpClient: HttpClient,
+    private companyService: CompanyService,
     private loginService: LoginService
   ) {
     this.employees = [];
@@ -32,6 +35,7 @@ export class AdminService {
     this.companiesSubject = new Subject();
     this.companySubject = new Subject();
     this.employeeVideoSubject = new Subject();
+    this.statusSubject= new Subject();
   }
 
   login(credentials: any): any {
@@ -42,8 +46,8 @@ export class AdminService {
     pageSize: number,
     pageNumber: number,
     sort: string,
-    filter: string,
-    ): void {
+    filter: string
+  ): void {
     this.httpClient
       .get(
         `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
@@ -90,18 +94,17 @@ export class AdminService {
       .get(`${environment.backendURL}/admin/accept/${id}`)
       .pipe(map((response) => response as Employee))
       .subscribe((results: Employee) => {
-        this.statusSubject.next("Accepted");
-        // this.employee = results;
-        // this.employeeSubject.next(this.employee);
+        this.statusSubject.next('Accepted');
+        this.companyService.getCompanyDetails(results.companyId);
       });
   }
-  rejectEmployee(reason:string,employeeId:number):any{
+  rejectEmployee(reason: string, employeeId: number): any {
     return this.httpClient
-      .patch(`${environment.backendURL}/admin/reject/${employeeId}`,reason).subscribe((response:any)=>{
-        //console.log(response)
-        this.statusSubject.next("Rejected");
-      })
-
+      .patch(`${environment.backendURL}/admin/reject/${employeeId}`, reason)
+      .subscribe((results: any) => {
+        this.statusSubject.next('Rejected');
+        this.companyService.getCompanyDetails(results.companyId);
+      });
   }
   getAllEmployeesByName(
     name: string,
@@ -131,12 +134,12 @@ export class AdminService {
         this.companies = results;
         this.companiesSubject.next(this.companies);
       });
-    }
+  }
 
   getAllCompaniesByName(
     name: string,
     pageSize: number,
-    pageNumber: number,
+    pageNumber: number
   ): void {
     this.httpClient
       .get(
@@ -150,21 +153,28 @@ export class AdminService {
   }
 
   getSearchedCompaniesSize(name: string) {
-    return this.httpClient.get(`${environment.backendURL}/admin/get-searched-companies-size/${name}`);
+    return this.httpClient.get(
+      `${environment.backendURL}/admin/get-searched-companies-size/${name}`
+    );
   }
 
-  getCompaniesSize(){
-    return this.httpClient.get(`${environment.backendURL}/admin/get-total-number-of-companies`);
+  getCompaniesSize() {
+    return this.httpClient.get(
+      `${environment.backendURL}/admin/get-total-number-of-companies`
+    );
   }
 
   getEmployeesSize(status: string) {
-    return this.httpClient.get(`${environment.backendURL}/admin/get-employees-size/${status}`);
+    return this.httpClient.get(
+      `${environment.backendURL}/admin/get-employees-size/${status}`
+    );
   }
 
-  getSearchedEmployeesSize(name: string, status: string){
-    return this.httpClient.get(`${environment.backendURL}/admin/get-searched-employees/${name}/${status}`);
+  getSearchedEmployeesSize(name: string, status: string) {
+    return this.httpClient.get(
+      `${environment.backendURL}/admin/get-searched-employees/${name}/${status}`
+    );
   }
-
 
   getNoOfEmployees(): any {
     return this.httpClient
@@ -195,5 +205,4 @@ export class AdminService {
       .get(`${environment.backendURL}/admin/get-number-of-registered-employees`)
       .pipe(map((response) => response as number));
   }
-
 }

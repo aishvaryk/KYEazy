@@ -51,7 +51,6 @@ getOrderHistory(id:number)
       `${environment.backendURL}/payment/payment-history/${id}`
     ).
     subscribe((response:any)=>{
-      console.log(response)
       this.orders=response;
       this.orderHistory.next(this.orders);
 

@@ -12,6 +12,7 @@ import { AddCoinsComponent } from 'src/app/components/add-coins/add-coins.compon
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
+
   rzp: any;
   pack!: string;
   amount!: string;
@@ -19,7 +20,6 @@ export class SubscriptionComponent implements OnInit {
   addCoinsText!: string;
   pricePerCoin!: number;
   invalidForm: boolean = true;
-
   coinsToAdd!: number;
   companyId!: number;
   orderHistory = [];
@@ -39,17 +39,17 @@ export class SubscriptionComponent implements OnInit {
     ];
     let k = localStorage.getItem('Id');
     if (k != null) {
-
       this.companyId = parseInt(k);
-      console.log(this.companyId);
     }
 
     this.companyService.getCompanyDetails(this.companyId);
-    this.companyService.companySubject.subscribe((company) => {
+    this.companyService.coinSubject.subscribe((coins)=>{
+      this.coinBalance=coins;
+    });
+     this.companyService.companySubject.subscribe((company) => {
     this.coinBalance = company.coins;
     this.paymentService.getOrderHistory(this.companyId);
     this.paymentService.orderHistory.subscribe((p) => {
-      console.log(p);
       this.orderHistory = p;
     });
     });
