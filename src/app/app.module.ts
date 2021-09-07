@@ -65,6 +65,7 @@ import { SubscriptionComponent } from './pages/company/subscription/subscription
 import { ReportComponent } from './components/report/report.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { AddCoinsComponent } from './components/add-coins/add-coins.component';
+import { LearnMoreComponent } from './components/learn-more/learn-more.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { AddCoinsComponent } from './components/add-coins/add-coins.component';
     ReportComponent,
     ContactUsComponent,
     AddCoinsComponent,
+    LearnMoreComponent,
   ],
   imports: [
     StoreModule.forRoot({
