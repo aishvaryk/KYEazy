@@ -17,12 +17,10 @@ export class ModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dialog.afterClosed().subscribe(() => {
-  });
   }
 
   onClose(): void {
-    this.dialog.close();
+    this.dialog?.close();
   }
 
 }
