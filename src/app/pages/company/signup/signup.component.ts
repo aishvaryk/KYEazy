@@ -62,7 +62,6 @@ export class SignupComponent implements OnInit {
       userName: new FormControl(null, Validators.required),
 
        password: new FormControl(null, Validators.required),
-       confirmPassword: new FormControl(null,[Validators.required]),
       companyDescription: new FormControl(null, Validators.required),
       cin: new FormControl(null,[ Validators.required,Validators.minLength(8)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -89,8 +88,9 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
 
+    console.log("invalid")
     if (this.form.status === 'INVALID') return;
-
+    console.log("valid")
 
     this.newCompany.username = this.form.value.userName;
     this.newCompany.password = this.form.value.password;

@@ -80,30 +80,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!--Confirm Password-->
-      <mat-form-field appearance="outline" class="pwdField" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
-        <mat-label>Confirm Password</mat-label>
-        <input
-          matInput
-          [type]="hide ? 'password' : 'text'"
-          formControlName="confirmPassword"
-          required
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="hide = !hide"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide"
-        >
-          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-        </button>
-        <mat-error >
-          Confirm Password does not match
-        </mat-error>
-      </mat-form-field>
-
-
       <mat-form-field appearance="outline" [ngClass.gt-xs]="'signup-form-field'" [ngClass.xs]="'signup-form-field-mobile'">
         <mat-label>Company Description</mat-label>
         <textarea
@@ -236,9 +212,9 @@
 
       <div fxFlex>
         {{ fileName }}
-        <input #input type="file" hidden (change)="onChange($event)" />
+        <input #input type="file" hidden (change)="onChange($event)" formControlName="icon" />
         <button mat-stroked-button color="primary" (click)="input.click()">
-          Upload Document
+          Upload Logo
         </button>
       </div>
 
@@ -247,13 +223,6 @@
         Submit
       </button>
 
-      <br />
-      <span
-        *ngIf="!form.valid && form.touched && isSubmitted"
-        class="submit-error"
-      >
-        Please Enter correct details
-      </span>
     </form>
   </div>
 </div>
