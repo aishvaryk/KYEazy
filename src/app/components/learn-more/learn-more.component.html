@@ -1,1 +1,29 @@
-<p>learn-more works!</p>
+<div class="container">
+  <h1 class="heading">Learn More about Pricing</h1>
+
+  <mat-list>
+    <mat-list-item>
+      KYC per employee costs &nbsp; <b> 50 coins </b>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item *ngIf="data.companyType === 'SMALL'">
+      Price of one coin is 4 Rupees.
+    </mat-list-item>
+    <!-- <mat-divider></mat-divider> -->
+
+    <mat-list-item *ngIf="data.companyType === 'MID'">
+      Price of one coin is 6 Rupees.
+    </mat-list-item>
+    <!-- <mat-divider></mat-divider> -->
+
+    <mat-list-item *ngIf="data.companyType === 'ENTERPRICE'">
+      Price of one coin is 8 Rupees
+    </mat-list-item>
+    <!-- <mat-divider></mat-divider> -->
+
+    <mat-list-item *ngIf="data.companyType === 'INTERNATIONAL'">
+      Price of one coin is 10 Rupees.
+    </mat-list-item>
+  </mat-list>
+</div>
