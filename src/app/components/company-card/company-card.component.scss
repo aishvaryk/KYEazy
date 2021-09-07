@@ -1,10 +1,10 @@
 .company-card {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
 }
 
 .company-card-mobile {
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
 }
 
 .employee-status-mobile {
@@ -13,7 +13,7 @@
 
 .company-card-header {
   .company-name{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
   .company-cin{
     margin-bottom: 0;
@@ -22,7 +22,7 @@
 
 .company-card-header-mobile {
   .company-name{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
   .company-cin{
     margin-bottom: 0;
@@ -30,11 +30,11 @@
 }
 
 .status-container {
-  font-size: 16px;
+  font-size: 1.6rem;
   margin-bottom: 0;
   cursor: default;
 .total {
-  font-size: 18px;
+  font-size: 1.8rem;
 }
 .accepted {
   color: green;
@@ -51,13 +51,13 @@
 }
 
 .status-container-mobile {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 1rem;
+  font-size: 1rem;
   margin-bottom: 0;
   cursor: default;
 .total {
 
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 .accepted {
   mat-icon {
@@ -85,7 +85,7 @@
 
 
 .status-container-mobile > div {
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .company-buttons-mobile {

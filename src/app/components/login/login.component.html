@@ -1,7 +1,7 @@
 `<div fxLayout="column" *ngIf="loading" fxLayoutAlign="center center" class="loader">
   <mat-spinner></mat-spinner>
 </div>
-<div fxLayout="row" *ngIf="!loading" fxLayoutAlign="center center" class="form-margin" style="width: 100%;">
+<div fxLayout="row" *ngIf="!loading" fxLayoutAlign="center center" class="form-margin full-width" >
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" [ngClass]="{'admin-form': type === 'ADMIN_LOGIN'}">
     <div fxLayout="column" fxLayoutAlign="center center" [ngClass]="{'admin-login-field-container': type === 'ADMIN_LOGIN'}">
@@ -10,7 +10,7 @@
               <mat-label>Email or Username</mat-label>
         <input
         matInput
-        placeholder=""
+        placeholder="Username"
         formControlName="username"
         />
         <mat-error *ngIf="!form.get('username')?.valid && form.get('username')?.touched">
@@ -25,7 +25,7 @@
         <mat-label>Password</mat-label>
         <input
           matInput
-          placeholder="should be 8 characters long"
+          placeholder="Should be 8 characters long"
           type="password"
           formControlName="password"
         />

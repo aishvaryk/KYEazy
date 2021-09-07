@@ -11,7 +11,7 @@
   fxLayout="column"
   *ngIf="!loading"
   fxLayoutAlign="start center"
-  style="height: 100%"
+  class="full-height"
 >
   <mat-card
     [ngClass.gt-xs]="'container-card'"
@@ -22,7 +22,7 @@
   <mat-card-content>
     <div class="dashboard-heading">Dashboard</div>
     <app-pie-chart
-      style="width: 100%"
+    class="full-width"
       [pieChartData]="pieChartData"
     ></app-pie-chart>
   </mat-card-content>
@@ -44,7 +44,8 @@
         [isSmall]="isSmall"
       ></app-employee-card>
     </div>
-    <div style="width: 100%" fxLayout="row" fxLayoutAlign="center">
+    <div
+    class="full-width" fxLayout="row" fxLayoutAlign="center">
       <button
         mat-stroked-button
         color="primary"

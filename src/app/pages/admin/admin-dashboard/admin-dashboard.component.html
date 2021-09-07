@@ -11,7 +11,7 @@
   fxLayout="column"
   *ngIf="!loading"
   fxLayoutAlign="start center"
-  style="height: 100%"
+  class="full-height"
 >
   <mat-card
     [ngClass.gt-xs]="'container-card'"
@@ -19,7 +19,7 @@
     *ngIf="!zeroEmployees"
   >
     <app-pie-chart
-      style="width: 100%"
+      class="full-width"
       [pieChartData]="pieChartData"
     ></app-pie-chart>
   </mat-card>
@@ -30,7 +30,7 @@
     *ngIf="!zeroEmployees"
   >
     <app-bar-chart
-      style="width: 100%"
+    class="full-width"
     ></app-bar-chart>
   </mat-card>
 
