@@ -80,14 +80,14 @@ export class AddCoinsComponent implements OnInit {
 
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
-          // this.paymentSuccess.emit(true);
         });
+
     },
 
     prefill: {
-      name: 'Gaurav Kumar',
-      email: 'gaurav.kumar@example.com',
-      contact: "9999999999"
+      name: '',
+      email: '',
+      contact: ""
     },
     notes: {
       address: 'Razorpay Corporate Office',
@@ -117,12 +117,18 @@ export class AddCoinsComponent implements OnInit {
     this.options.amount = amount.toString();
 
     this.paymentService.getOrderId(this.options.amount);
+
     this.paymentService.orderSubject.subscribe((orderId) => {
       this.options.order_id = orderId;
-    });
-    this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
-    this.rzp.open();
+
+      this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
+      this.rzp.open();
+
     this.bottomSheet.dismiss();
+
+    });
+
+
   }
 
 }

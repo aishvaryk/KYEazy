@@ -117,7 +117,6 @@ export class CompanyService {
         this.actionDTOSubject.next(results);
       },
       (error:any)=>{
-        console.log(error);
         this.snackbar.open('Not Enough Coins ! Please purchase');
       })
 

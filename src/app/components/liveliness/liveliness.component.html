@@ -2,9 +2,8 @@
   <mat-spinner></mat-spinner>
 </div>
  -->
-<!-- <mat-card style="width: 100%; height: 100%"> -->
   <div
-    style="width: 100%; height: 100%;"
+    class="full-size"
     fxLayout="row"
     fxLayout.xs="column"
     fxLayout.sm="column"
@@ -14,7 +13,7 @@
   >
 
   <div fxFlex.gt-sm="50">
-    <div style="color:teal;font-size: 2.5rem;">Instruction</div>.
+    <div class="instructions-heading">Instruction</div>.
     <br/>
     <mat-divider></mat-divider>
     <div  style="text-align: justify;">
@@ -49,11 +48,11 @@
     <br/>
     <mat-divider></mat-divider>
 
-    <div textAlign="center" fxLayout="row" fxLayoutAlign="start center" style="width:100%;padding: 1rem;">
-      <span style="width: 70%;display: block;">
+    <div textAlign="center" fxLayout="row" fxLayoutAlign="start center"  class="full-width" style="padding: 1rem;">
+      <span style="width: 70%;">
         {{ question }}
       </span>
-      <button style="width: 30%;display: block;margin: 0;" mat-stroked-button color="primary" (click)="getQuestion()">
+      <button class="generate-question" mat-stroked-button color="primary" (click)="getQuestion()">
         Generate New
       </button>
     </div>
@@ -119,7 +118,7 @@
 
       <div fxFlex [ngStyle]="{'width.px': width }" >
         <button
-          style="float: left; width: 30%"
+        class="back-button"
           mat-stroked-button
           color="warn"
           (click)="back()"
@@ -127,7 +126,7 @@
           Back
         </button>
         <button
-          style="float: right; width: 30%"
+        class="next-button"
           mat-raised-button
           color="primary"
           type="submit"
@@ -139,4 +138,3 @@
 
     </div>
   </div>
-<!-- </mat-card> -->

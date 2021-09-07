@@ -27,7 +27,7 @@
 .container-card-mobile {
   width: 100%;
   margin-top: 0.5%;
-  padding: 8px;
+  padding: .8rem;
 }
 
 .mat-paginator {
@@ -36,7 +36,7 @@
 
 .employee-display-options {
   width: 95%;
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 
 .employee-display-options-mobile {
@@ -45,7 +45,7 @@
 
 .filter-sort-employees {
   width: 45%;
-  font-size: 12px;
+  font-size: 1.2rem;
   mat-form-field {
     background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
@@ -55,7 +55,7 @@
 
 .filter-sort-employees-mobile {
   width: 100%;
-  font-size: 12px;
+  font-size: 1.2rem;
   mat-form-field {
     background-color: rgba(0, 0, 0, 0);
     padding-bottom: 0;
@@ -64,19 +64,19 @@
 }
 
 .search-employees {
-  font-size: 12px;
+  font-size: 1.2rem;
   width: 100%;
   .search-form-field {
     width: 50%;
   }
   .search-button {
     margin-top: 0.2em;
-    height: 43px;
+    height: 4.3rem;
   }
 }
 
 .search-employees-mobile {
-  font-size: 12px;
+  font-size: 1.2rem;
   width: 100%;
   .search-form-field-mobile {
     width: 100%;
@@ -84,6 +84,6 @@
   }
   .search-button {
     margin-top: 0.2em;
-    height: 43px;
+    height: 4.3rem;
   }
 }

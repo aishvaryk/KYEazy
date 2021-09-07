@@ -125,7 +125,6 @@ export class EmployeesComponent implements OnInit {
   }
 rekyc(s:any)
 {
-  console.log(s)
   this.companyService.reKyc(s).subscribe((response:any)=>{
   this.companyService.getCompanyDetails(response.companyId);
   this.companyService.getEmployees(

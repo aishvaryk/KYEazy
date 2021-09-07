@@ -6,28 +6,26 @@
 }
 .pie-chart-legend {
   ::ng-deep .advanced-pie-legend {
-    // margin-top: 20px;
     .total-value {
-      height: 40px;
+      height: 4rem;
     }
 
     .legend-items {
       overflow: visible !important;
-      // background-color: yellow;
       font-family: Montserrat;
-      line-height: 25px;
+      line-height: 2.5rem;
       .legend-item {
         height: 100%;
         cursor: unset !important;
         .item-value {
-          font-size: 18px !important;
+          font-size: 1.8rem !important;
         }
         .item-percent {
-          font-size: 18px !important;
+          font-size: 1.8rem !important;
         }
       }
       .item-color {
-        height: 65px !important;
+        height: 6.5rem !important;
       }
     }
   }
@@ -35,37 +33,37 @@
 
 .pie-chart-legend-mobile {
   ::ng-deep .advanced-pie-legend {
-    margin-left: -75px;
+    margin-left: -7.5rem;
     .total-value {
-      height: 30px;
-      font-size: 20px !important;
+      height: 3rem;
+      font-size: 2rem !important;
     }
     .total-label {
-      font-size: 15px !important;
+      font-size: 1.5rem !important;
     }
 
     .legend-items {
       overflow: visible !important;
       // background-color: yellow;
       font-family: Montserrat;
-      line-height: 25px;
+      line-height: 2.5rem;
 
       .legend-item {
         height: 100%;
-        margin-right: 9px !important;
+        margin-right: .9rem !important;
         cursor: unset !important;
         .item-value {
-          font-size: 14px !important;
+          font-size: 1.4rem !important;
         }
         .item-label {
-          font-size: 12px !important;
+          font-size: 1.2rem !important;
         }
         .item-percent {
-          font-size: 14px !important;
+          font-size: 1.4rem !important;
         }
       }
       .item-color {
-        height: 65px !important;
+        height: 6.5rem !important;
       }
     }
   }

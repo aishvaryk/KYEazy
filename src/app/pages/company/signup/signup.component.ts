@@ -60,20 +60,18 @@ export class SignupComponent implements OnInit {
     this.form = new FormGroup({
       companyName: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
-
-       password: new FormControl(null, Validators.required),
-       confirmPassword: new FormControl(null,[Validators.required]),
+      password: new FormControl(null,[Validators.required,Validators.minLength(8)]),
       companyDescription: new FormControl(null, Validators.required),
-      cin: new FormControl(null,[ Validators.required,Validators.minLength(8)]),
+      cin: new FormControl(null,[ Validators.required,Validators.minLength(21),Validators.maxLength(21)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       icon: new FormControl(null, [Validators.required]),
       address: new FormControl(null, Validators.required),
       address2: new FormControl(null),
       city: new FormControl(null, Validators.required),
       state: new FormControl(null, Validators.required),
-      postalCode: new FormControl(null, Validators.required),
+      postalCode: new FormControl(null, [Validators.required,Validators.minLength(8)]),
       country: new FormControl(null, Validators.required),
-    },//{validators : Validation.match('password', 'confirmPassword')}
+    },
     );
   }
 
@@ -88,10 +86,7 @@ export class SignupComponent implements OnInit {
 
 
   onSubmit() {
-
     if (this.form.status === 'INVALID') return;
-
-
     this.newCompany.username = this.form.value.userName;
     this.newCompany.password = this.form.value.password;
     this.newCompany.companyDescription = this.form.value.companyDescription;

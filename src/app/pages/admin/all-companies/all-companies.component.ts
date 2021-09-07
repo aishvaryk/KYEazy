@@ -76,10 +76,8 @@ export class AllCompaniesComponent implements OnInit {
         })
       }
 
-      console.log(companies);
 
       this.companies = companies;
-      //this.companiesLoading = false;
       if (companies.length === 0) {
         this.zeroCompanies = true;
       } else {

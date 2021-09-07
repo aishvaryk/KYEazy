@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -27,7 +27,8 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     private paymentService: PaymentService,
     private companyService: CompanyService,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -43,14 +44,11 @@ export class SubscriptionComponent implements OnInit {
     }
 
     this.companyService.getCompanyDetails(this.companyId);
-    this.companyService.coinSubject.subscribe((coins)=>{
-      this.coinBalance=coins;
-    });
-     this.companyService.companySubject.subscribe((company) => {
-    this.coinBalance = company.coins;
+    this.companyService.companySubject.subscribe((company) => {
+    this.ngZone.run(()=>this.coinBalance=company.coins);
     this.paymentService.getOrderHistory(this.companyId);
     this.paymentService.orderHistory.subscribe((p) => {
-      this.orderHistory = p;
+      this.ngZone.run(()=>this.orderHistory=p);
     });
     });
 
