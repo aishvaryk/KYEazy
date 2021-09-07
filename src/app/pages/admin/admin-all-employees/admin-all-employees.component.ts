@@ -68,8 +68,6 @@ export class AdminAllEmployeesComponent implements OnInit {
 
     this.adminService.employeesSubject.subscribe((employees) => {
       this.employees = employees;
-      console.log(employees);
-      //this.loading = false;
     });
 
     this.adminService.getNoOfEmployees().subscribe((response: number) => {

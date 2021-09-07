@@ -11,7 +11,7 @@
   fxLayout="column"
   *ngIf="!loading"
   fxLayoutAlign="start center"
-  style="height: 100%"
+  class="full-height"
 >
   <mat-card
     *ngIf="!zeroEmployees"
@@ -120,7 +120,7 @@
           [pageSizeOptions]="paginator.pageSizeOptions"
           (page)="OnPageChange($event)"
           [hidePageSize]="isSmall"
-          style="width: 100%"
+          class="full-width"
         >
         </mat-paginator>
       </div>

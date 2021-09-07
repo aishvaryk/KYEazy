@@ -1,13 +1,9 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   Validators,
 } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -16,7 +12,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import {  MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',

@@ -2,9 +2,8 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<!-- <mat-card style="width: 100%; height: 100%"> -->
   <div
-    style="width: 100%; height: 100%"
+    class="full-size"
     fxLayout="column"
     fxLayoutAlign="center center"
   >
@@ -53,7 +52,7 @@
 
       <div fxFlex style="margin-top: 3%">
         <button
-          style="float: left; width: 30%"
+          class="back-button"
           mat-stroked-button
           color="warn"
           (click)="onBack()"
@@ -61,8 +60,8 @@
           Back
         </button>
         <button
-          style="float: right; width: 30%"
           mat-raised-button
+          class="next-button"
           color="primary"
           type="submit"
         >

@@ -9,10 +9,10 @@
 
   <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
     <div
-      style="width: 100%; height: 100%;"
+      class="full-size"
       *ngFor="let slide of slides; let i = index"
     >
-      <div [id]="name + i" style="width: 100%; height: 100%;">
+      <div [id]="name + i" class="full-size">
         <ng-template #template [ngTemplateOutlet]="slide.template">
         </ng-template>
       </div>

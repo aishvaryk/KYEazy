@@ -6,7 +6,7 @@
 .no-employee-container-card-mobile {
   width: 100%;
   margin-top: 0.5%;
-  padding: 8px;
+  padding: .8rem;
   height: 100%;
 }
 
@@ -57,7 +57,7 @@
 .no-employee-image-container {
   width: 40%;
 
-  margin-bottom: 10px !important;
+  margin-bottom: 1rem !important;
   animation: bounce 1s;
   animation-direction: alternate;
   animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
@@ -73,7 +73,7 @@
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(0, 30px, 0);
+    transform: translate3d(0, 3rem, 0);
   }
 }
 
@@ -91,7 +91,7 @@ no-employee-image-container {
     transform: translate3d(0, 0, 0);
   }
   to {
-    -webkit-transform: translate3d(0, 200px, 0);
-    transform: translate3d(0, 200px, 0);
+    -webkit-transform: translate3d(0, 20rem, 0);
+    transform: translate3d(0, 20rem, 0);
   }
 }

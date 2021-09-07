@@ -95,7 +95,6 @@ export class EmployeesComponent implements OnInit {
 
     this.companyService.getEmployees(this.companyId, 5, 1,this.sortBy,this.filter);
     this.companyService.employeesSubject.subscribe((employees) => {
-      console.log(employees);
       if (this.searchText) {
         if (employees.length == 0) {
           this.snackBar.open('No Employees Found', "Retry");
@@ -126,8 +125,8 @@ export class EmployeesComponent implements OnInit {
   }
 rekyc(s:any)
 {
-  console.log(s)
   this.companyService.reKyc(s).subscribe((response:any)=>{
+  this.companyService.getCompanyDetails(response.companyId);
   this.companyService.getEmployees(
     this.companyId,
     this.paginator.currentPageSize,

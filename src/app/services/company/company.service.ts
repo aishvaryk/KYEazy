@@ -9,6 +9,8 @@ import { Employee } from 'src/app/models/employee.model';
 import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +26,12 @@ export class CompanyService {
   public registrationStatus: ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
   public reportedSubject: Subject<Boolean>;
+  public coinSubject:Subject<number>;
 
   constructor(
     private loginService: LoginService,
     private httpClient: HttpClient,
+    public snackbar: MatSnackBar
   ) {
     this.employees = [];
     this.registrationStatus = {} as ActionDTO;
@@ -39,6 +43,7 @@ export class CompanyService {
     this.company = {} as Company;
     this.APIResponse = {} as ActionDTO | exceptionDTO;
     this.reportedSubject=new Subject();
+    this.coinSubject=new Subject();
   }
 
   login(credentials: any): any {
@@ -110,14 +115,19 @@ export class CompanyService {
       .subscribe((results: ActionDTO) => {
         this.registrationStatus = results;
         this.actionDTOSubject.next(results);
-      });
-  }
+      },
+      (error:any)=>{
+        this.snackbar.open('Not Enough Coins ! Please purchase');
+      })
 
+      ;
+  }
   getCompanyDetails(id: number) {
     return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)
       .pipe(map((response) => response as Company))
       .subscribe((results: Company) => {
+        this.coinSubject.next(results.coins)
         this.companySubject.next(results);
       });
   }

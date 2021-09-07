@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -12,6 +12,7 @@ import { AddCoinsComponent } from 'src/app/components/add-coins/add-coins.compon
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
+
   rzp: any;
   pack!: string;
   amount!: string;
@@ -19,7 +20,6 @@ export class SubscriptionComponent implements OnInit {
   addCoinsText!: string;
   pricePerCoin!: number;
   invalidForm: boolean = true;
-
   coinsToAdd!: number;
   companyId!: number;
   orderHistory = [];
@@ -27,7 +27,8 @@ export class SubscriptionComponent implements OnInit {
   constructor(
     private paymentService: PaymentService,
     private companyService: CompanyService,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -39,18 +40,15 @@ export class SubscriptionComponent implements OnInit {
     ];
     let k = localStorage.getItem('Id');
     if (k != null) {
-
       this.companyId = parseInt(k);
-      console.log(this.companyId);
     }
 
     this.companyService.getCompanyDetails(this.companyId);
     this.companyService.companySubject.subscribe((company) => {
-    this.coinBalance = company.coins;
+    this.ngZone.run(()=>this.coinBalance=company.coins);
     this.paymentService.getOrderHistory(this.companyId);
     this.paymentService.orderHistory.subscribe((p) => {
-      console.log(p);
-      this.orderHistory = p;
+      this.ngZone.run(()=>this.orderHistory=p);
     });
     });
 

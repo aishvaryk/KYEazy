@@ -1,5 +1,5 @@
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -23,7 +23,7 @@ export class AddCoinsComponent implements OnInit {
   employeesAddable:number=0;
   perEmployeePrice:number=0;
   numberOfEmployees=0;
-
+  // @Output() paymentSuccess:EventEmitter<boolean>=new EventEmitter();
 
   constructor(private companyService:CompanyService, private paymentService:PaymentService,
     public bottomSheet:MatBottomSheetRef<AddCoinsComponent>) {
@@ -77,15 +77,17 @@ export class AddCoinsComponent implements OnInit {
           this.amount
         )
         .subscribe((response: any) => {
+
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
         });
+
     },
 
     prefill: {
-      name: 'Gaurav Kumar',
-      email: 'gaurav.kumar@example.com',
-      contact: "9999999999"
+      name: '',
+      email: '',
+      contact: ""
     },
     notes: {
       address: 'Razorpay Corporate Office',
@@ -115,13 +117,18 @@ export class AddCoinsComponent implements OnInit {
     this.options.amount = amount.toString();
 
     this.paymentService.getOrderId(this.options.amount);
+
     this.paymentService.orderSubject.subscribe((orderId) => {
       this.options.order_id = orderId;
-    });
-    this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
-    this.rzp.open();
+
+      this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
+      this.rzp.open();
 
     this.bottomSheet.dismiss();
+
+    });
+
+
   }
 
 }

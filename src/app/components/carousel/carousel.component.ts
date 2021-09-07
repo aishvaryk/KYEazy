@@ -1,4 +1,4 @@
-import { AfterContentInit, Input } from '@angular/core';
+import { AfterContentInit, Input, OnDestroy } from '@angular/core';
 import {
   AfterViewInit,
   Component,
@@ -25,7 +25,7 @@ export class CarouselSlide {
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent
-  implements OnInit, AfterContentInit, AfterViewInit
+  implements OnInit, AfterContentInit, AfterViewInit,OnDestroy
 {
   @ContentChildren(CarouselSlide) slides!: QueryList<CarouselSlide>;
   @Input() name!: string;
@@ -36,7 +36,11 @@ export class CarouselComponent
     this.currentSlide = 0;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+  }
 
   ngAfterContentInit() {}
 
