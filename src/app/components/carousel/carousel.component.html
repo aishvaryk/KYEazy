@@ -3,13 +3,13 @@
   fxLayoutAlign="center center"
   [ngClass]="'carousel-container'"
 >
-  <div style="text-align: center" fxFlex="7">
+  <div fxFlex="7" class="center">
     <mat-icon (click)="onPrevClick()"> arrow_back_ios_outline</mat-icon>
   </div>
 
   <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
     <div
-      style="width: 100%; height: 80%; border: 1px solid black;"
+      style="width: 100%; height: 100%;"
       *ngFor="let slide of slides; let i = index"
     >
       <div [id]="name + i" style="width: 100%; height: 100%;">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div style="text-align: center" fxFlex="7">
+  <div fxFlex="7" class="center">
       <mat-icon (click)="onNextClick()">arrow_forward_ios</mat-icon>
   </div>
 </div>
