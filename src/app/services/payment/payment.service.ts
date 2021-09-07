@@ -38,9 +38,9 @@ orderHistory:Subject<any>=new Subject();
       })
 }
 
-paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string)
+paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string,amount:number)
 {
- return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}`);
+ return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}/${amount}`);
 }
 
 getOrderHistory(id:number)

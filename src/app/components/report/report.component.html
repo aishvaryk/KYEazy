@@ -8,18 +8,18 @@
 </div>
 
 <div
-  fxLayout="row"
+  fxLayout="column"
   *ngIf="!loading"
   fxLayoutAlign="center center"
-  class="form-margin"
-  style="width: 100%"
+  class="form-container"
+
 >
 
- <form
+ <form class="reportForm" fxLayout="column" fxLayoutAlign="space-around center"
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
-    <mat-form-field
+    <mat-form-field class="form-field"
       appearance="outline"
     >
       <mat-label>Reason</mat-label>
@@ -36,7 +36,8 @@
         Message is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="warn" type="submit">REPORT</button>
+    <button *ngIf="type==='REPORT'" mat-raised-button color="warn" type="submit">REPORT</button>
+    <button *ngIf="type==='REJECT'" mat-raised-button color="warn" type="submit">REJECT</button>
   </form>
 
 </div>

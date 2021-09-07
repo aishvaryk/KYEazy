@@ -19,7 +19,7 @@ export class AdminService {
   public companySubject: Subject<Company[]>;
   public employeeVideoSubject: Subject<ArrayBuffer>;
   employeesSubject: Subject<Employee[]>;
-
+  statusSubject:Subject<string>=new Subject();
   constructor(
     private httpClient: HttpClient,
     private loginService: LoginService
@@ -85,16 +85,24 @@ export class AdminService {
       });
   }
 
-  verifyEmployeeDetails(id: number, status: string): void {
+  acceptEmployee(id: number): void {
     this.httpClient
-      .get(`${environment.backendURL}/admin/verify/${id}/${status}`)
+      .get(`${environment.backendURL}/admin/accept/${id}`)
       .pipe(map((response) => response as Employee))
       .subscribe((results: Employee) => {
-        this.employee = results;
-        this.employeeSubject.next(this.employee);
+        this.statusSubject.next("Accepted");
+        // this.employee = results;
+        // this.employeeSubject.next(this.employee);
       });
   }
+  rejectEmployee(reason:string,employeeId:number):any{
+    return this.httpClient
+      .patch(`${environment.backendURL}/admin/reject/${employeeId}`,reason).subscribe((response:any)=>{
+        //console.log(response)
+        this.statusSubject.next("Rejected");
+      })
 
+  }
   getAllEmployeesByName(
     name: string,
     pageSize: number,

@@ -42,7 +42,8 @@
   </div>
 </mat-card>
 
-<mat-card
+
+<mat-card *ngIf="orderHistory.length!=0"
 
 [ngClass.gt-xs]="'container-card'"
 [ngClass.lt-sm]="'container-card-mobile'"

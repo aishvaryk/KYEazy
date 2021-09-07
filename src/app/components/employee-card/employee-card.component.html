@@ -8,8 +8,8 @@
 >
 <div  fxFlex="60" fxLayout.xs="row" fxLayoutAlign.xs="space-between" [ngStyle.xs]="{'width': '100%;'}">
   <mat-card-header [ngClass.xs]="'employee-card-header-mobile'">
-    <img mat-card-avatar *ngIf="employee.status==='Registered' || employee.status==='Reported'" src="assets/images/employee-avatar.png" />
-    <img mat-card-avatar *ngIf="employee.status!=='Registered'  && employee.status!=='Reported'" [src]="formatImage(employee.capturedImage)" />
+    <img mat-card-avatar *ngIf="employee.status==='Registered' || employee.capturedImage==null || employee.status==='Reported'" src="assets/images/employee-avatar.png" />
+    <img mat-card-avatar *ngIf="employee.status!=='Registered'  && employee.status!=='Reported' && employee.capturedImage!=null" [src]="formatImage(employee.capturedImage)" />
     <mat-card-title class="employee-name">
       {{ employee.firstName }} {{ employee.lastName }}
     </mat-card-title>
@@ -29,7 +29,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="OnReport()"><mat-icon color="warn" style="margin-right: 3px;" >report</mat-icon>Report</button>
-      <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
+      <button mat-menu-item (click)="onReKyc()" *ngIf="employee.status==='Existed'" ><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
     </mat-menu>
   </div>
 
@@ -78,6 +78,16 @@
     >
       <mat-icon aria-label="i">how_to_reg</mat-icon>
       <div class="verification-text">Employee Registered</div>
+    </div>
+
+    <div
+      class="verification-registered"
+      *ngIf="employee.status === 'Existed'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+    >
+      <mat-icon aria-label="i">how_to_reg</mat-icon>
+      <div class="verification-text">Employee Existed</div>
     </div>
 
     <div
@@ -131,8 +141,9 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+
       <button mat-menu-item (click)="OnReport()"><mat-icon color="warn" style="margin-right: 3px;" >report</mat-icon>Report</button>
-      <button mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
+      <button  *ngIf="employee.status==='Existed'" mat-menu-item><mat-icon color="primary" style="margin-right: 3px;">restart_alt</mat-icon>Re-KYE</button>
     </mat-menu>
   </div>
   </mat-card-content>

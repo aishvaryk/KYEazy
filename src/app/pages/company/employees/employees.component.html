@@ -108,7 +108,8 @@
             [user]="currentUser"
             [employee]="employee"
             [isSmall]="isSmall"
-          ></app-employee-card>
+            (rekyc)="rekyc($event)"
+            ></app-employee-card>
         </div>
       </div>
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">

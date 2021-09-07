@@ -23,6 +23,7 @@ export class CompanyService {
   public actionDTOSubject: Subject<ActionDTO>;
   public registrationStatus: ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
+  public reportedSubject: Subject<Boolean>;
 
   constructor(
     private loginService: LoginService,
@@ -37,6 +38,7 @@ export class CompanyService {
     this.companySubject = new Subject();
     this.company = {} as Company;
     this.APIResponse = {} as ActionDTO | exceptionDTO;
+    this.reportedSubject=new Subject();
   }
 
   login(credentials: any): any {
@@ -111,8 +113,8 @@ export class CompanyService {
       });
   }
 
-  getCompanyDetails(id: number): void {
-    this.httpClient
+  getCompanyDetails(id: number) {
+    return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)
       .pipe(map((response) => response as Company))
       .subscribe((results: Company) => {
@@ -146,12 +148,13 @@ export class CompanyService {
         `${environment.backendURL}/company/report-employee/${employeeId}`,
         message
       )
-      .pipe(map((response) => response as Employee[]))
-      .subscribe((employees: Employee[]) => {
-        this.employees = employees;
-        this.employeesSubject.next(this.employees);
-      });
+       .subscribe((data:any) => {
+         this.reportedSubject.next(data.success);
+       });
   }
+  reKyc( employeeId: number): any {
+    return this.httpClient.get(`${environment.backendURL}/company/re-kyc/${employeeId}`);
+}
 
 
   getEmployeesSize(id: any, filter: any) {

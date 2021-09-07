@@ -29,6 +29,14 @@ export class EmployeeService {
   login(credentials: any): any {
     return this.loginService.doLogin(credentials);
   }
+  getEmployee(employeeId:number)
+  {
+    return this.httpClient
+      .get<Employee>(
+        `${environment.backendURL}/employee/${employeeId}`,
+    )
+
+  }
 
   updateProfile(newEmployee: Employee): void {
     this.httpClient
@@ -45,9 +53,9 @@ export class EmployeeService {
   }
   updateEmployeeStatus(newEmployee: Employee): void {
     this.httpClient
-      .patch<ActionDTO>(
-        `${environment.backendURL}/employee/update-status/{id}`,
-        newEmployee
+      .get<ActionDTO>(
+        `${environment.backendURL}/employee/update-status/${newEmployee.employeeId}`,
+
       )
       .pipe(map((response) => response as ActionDTO))
       .subscribe((results: ActionDTO) => {

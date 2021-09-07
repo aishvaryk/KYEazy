@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import {
   FormControl,
 } from '@angular/forms';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { Paginator } from 'src/app/models/paginator.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {  EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-employees',
@@ -39,6 +40,7 @@ export class EmployeesComponent implements OnInit {
     companyService: CompanyService,
     public activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
+
   ) {
     this.isSmall = false;
     this.searchText = '';
@@ -57,6 +59,17 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.companyService.reportedSubject.subscribe((response)=>{
+      this.companyService.getEmployees(
+        this.companyId,
+
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1,
+        this.sortBy,
+        this.filter
+      );
+
+    })
     this.activatedRoute.params.subscribe((params) => {
       this.companyId = params.companyId;
       if(params.companyId == undefined)
@@ -111,6 +124,20 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
+rekyc(s:any)
+{
+  console.log(s)
+  this.companyService.reKyc(s).subscribe((response:any)=>{
+  this.companyService.getEmployees(
+    this.companyId,
+    this.paginator.currentPageSize,
+    this.paginator.currentPageIndex + 1,
+    this.sortBy,
+    this.filter
+  )});
+
+}
+
 
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;

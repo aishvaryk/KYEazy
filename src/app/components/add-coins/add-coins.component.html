@@ -23,16 +23,17 @@
         <div fxLayout="row" fxLayoutAlign="space-between">
           <span>Amount Payable</span
           >
-          <span><strong>{{ coinsToAdd }}</strong></span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between">
-          <span>No of Employees</span
-          ><span><strong>{{employeesAddable}}</strong></span>
+          <span><strong>{{ amount }}</strong> Rs/-</span>
         </div>
         <div fxLayout="row wrap" class="per-employee-price">
           <span>(Price Applied : </span
-          ><span><strong> {{perEmployeePrice}}</strong> per employee)</span>
+          ><span><strong> {{planToActivate}}</strong> per Coins)</span>
         </div>
+        <div fxLayout="row wrap" class="per-employee-price">
+          <span>(Coins : </span
+          ><span><strong> 50 </strong> per employee)</span>
+        </div>
+
       </div>
       <div
         matTooltip="Add Coins Amount to Pay"

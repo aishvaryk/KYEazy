@@ -21,7 +21,6 @@ export class SubscriptionComponent implements OnInit {
   invalidForm: boolean = true;
 
   coinsToAdd!: number;
-  planToActivate!: number;
   companyId!: number;
   orderHistory = [];
   displayedColumns: string[] = [];
@@ -42,19 +41,20 @@ export class SubscriptionComponent implements OnInit {
     if (k != null) {
 
       this.companyId = parseInt(k);
-      this.companyService.getCompanyDetails(this.companyId);
-      this.companyService.companySubject.subscribe((company) => {
-        this.coinBalance = company.coins;
-      });
-
-
-      this.paymentService.getOrderHistory(this.companyId);
-      this.paymentService.orderHistory.subscribe((p) => {
-        this.orderHistory = p;
-      });
+      console.log(this.companyId);
     }
-  }
 
+    this.companyService.getCompanyDetails(this.companyId);
+    this.companyService.companySubject.subscribe((company) => {
+    this.coinBalance = company.coins;
+    this.paymentService.getOrderHistory(this.companyId);
+    this.paymentService.orderHistory.subscribe((p) => {
+      console.log(p);
+      this.orderHistory = p;
+    });
+    });
+
+  }
   openBottomSheet(){
     this._bottomSheet.open(AddCoinsComponent);
   }

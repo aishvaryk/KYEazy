@@ -1,3 +1,4 @@
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -12,6 +13,7 @@ import { PaymentService } from 'src/app/services/payment/payment.service';
 })
 export class AddCoinsComponent implements OnInit {
 
+  amount:number=0;
   companyId!:number;
   form!: FormGroup;
   planToActivate:any;
@@ -19,7 +21,8 @@ export class AddCoinsComponent implements OnInit {
   invalidForm!:boolean;
   rzp:any;
   employeesAddable:number=0;
-  perEmployeePrice:number=10;
+  perEmployeePrice:number=0;
+  numberOfEmployees=0;
 
 
   constructor(private companyService:CompanyService, private paymentService:PaymentService,
@@ -41,38 +44,48 @@ export class AddCoinsComponent implements OnInit {
 
       this.companyService.companySubject.subscribe((company) => {
         this.options.prefill.name = company.name;
-        this.planToActivate = company.plan;
+        this.numberOfEmployees=company.numberOfTotalEmployees;
+        if(company.numberOfTotalEmployees>10000) this.planToActivate=10;
+        if(company.numberOfTotalEmployees>100 && company.numberOfTotalEmployees<=1000) this.planToActivate=8;
+        if(company.numberOfTotalEmployees>1000) this.planToActivate=6;
+        if(company.numberOfTotalEmployees<100) this.planToActivate=4;
+
       });
-      this.paymentService.getOrderHistory(this.companyId);
+
     }
   }
 
+
   options = {
+
     key: 'rzp_test_51mlvZBHt5Cbjq',
     amount: '',
     currency: 'INR',
     name: 'KYEazy',
     description: 'Buy Coins',
     image: '/assets/images/logo.png',
-    order_id: '', //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    order_id: '',
+
     handler: (response: any) => {
-      alert(response.razorpay_payment_id);
       this.paymentService
         .paymentSuccess(
           this.companyId,
           this.coinsToAdd,
+
           response.razorpay_payment_id,
-          this.options.order_id
+          this.options.order_id,
+          this.amount
         )
         .subscribe((response: any) => {
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
         });
     },
+
     prefill: {
       name: 'Gaurav Kumar',
       email: 'gaurav.kumar@example.com',
-      //"contact": "9999999999"
+      contact: "9999999999"
     },
     notes: {
       address: 'Razorpay Corporate Office',
@@ -83,18 +96,21 @@ export class AddCoinsComponent implements OnInit {
   };
 
   onKey(event: any) {
+
     if (this.form.status === 'VALID') {
       this.coinsToAdd = Math.floor(event.target.value);
-      this.employeesAddable = Math.floor(this.coinsToAdd/this.perEmployeePrice)
+      this.employeesAddable = this.numberOfEmployees;
+      this.amount = this.planToActivate * this.coinsToAdd ;
       this.invalidForm = false;
-    } else {
+    }
+    else {
       this.invalidForm = true;
       this.coinsToAdd = 0;
     }
   }
 
   onSubmit() {
-    let amount = this.planToActivate * this.coinsToAdd * 100;
+    let amount = this.amount * 100;
 
     this.options.amount = amount.toString();
 
