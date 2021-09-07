@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       icon: new FormControl(null, [Validators.required]),
       address: new FormControl(null, Validators.required),
-      address2: new FormControl(null),
+      address2: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       state: new FormControl(null, Validators.required),
       postalCode: new FormControl(null, Validators.required),

@@ -50,6 +50,16 @@ fdescribe('AdminAllEmployeesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('should call service', () => {
+  //   let fixture = TestBed.createComponent(AdminAllEmployeesComponent);
+  //   let adminAllComponent = fixture.debugElement.componentInstance;
+  //   let adminService = fixture.debugElement.injector.get(AdminService);
+  //   adminAllComponent.OnSearchSelect();
+  //   spy=spyOn(adminService,'getAllEmployeesByName').and.returnValue();
+  //   expect(spy).toHaveBeenCalled();
+  // });
+
 });
 
 
