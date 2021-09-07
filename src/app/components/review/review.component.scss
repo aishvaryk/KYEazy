@@ -1,14 +1,14 @@
 .card {
   background: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.06);
+  border-radius: 1.2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
 
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .submit-button{
@@ -16,5 +16,5 @@
 }
 
 .profile-component{
-  margin-top:100px;display: block;
+  margin-top:10rem;display: block;
 }
