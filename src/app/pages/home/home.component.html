@@ -92,7 +92,7 @@
         </div>
 
         <div [ngClass.gt-xs]="'card'" (click)="scrollToProduct()">
-          <div style='width: 100%; height: 80%;'>
+          <div class="full-width" style='height: 80%;'>
             <img class="full-size" style="object-fit: contain;"src="/assets/images/product.gif">
           </div>
           <div style="margin-top: 1.5rem;">
@@ -101,7 +101,7 @@
           </div>
 
         <div [ngClass.gt-xs]="'card'" (click)="scrollToSolutions()">
-          <div style='width: 100%; height: 80%;'>
+          <div class="full-width" style=' height: 80%;'>
             <img class="full-size" style="object-fit: contain;"src="/assets/images/solutions.gif">
           </div>
           <div style="margin-top: 1.5rem;">
@@ -135,9 +135,9 @@
     </div>
     <div class="full-size">
       <app-carousel name="service">
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Serivce 1</div>
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Service 2</div>
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Service 3</div>
+        <div  class="carousel-slides"  *carousel-slide>Think of Serivce 1</div>
+        <div class="carousel-slides"  *carousel-slide>Think of Service 2</div>
+        <div class="carousel-slides"*carousel-slide>Think of Service 3</div>
       </app-carousel>
     </div>
   </div>
@@ -152,17 +152,17 @@
       <div fxFlex="7"></div>
 
       <div fxFlex="45" fxLayout="column" fxLayoutAlign="space-around start">
-        <div style="font-size:3.5rem;line-height: 4.5rem;" class="producnt-title">
+        <div class="product-title">
            We Make KYC Easy for you
         </div>
         <br/>
-        <div style="font-size:1.5rem;line-height: 2rem;text-align: justify;" class="prduct-body">
+        <div class="product-body">
           Employers need much more than just raw data to operate a successful employment screening program,
           we are committed to provide easy KYC solutions for employees and support companies for identifying their employees,
         </div>
         <br/>
         <div>
-          <button mat-stroked-button style="border: 1px solid white; text-decoration: none;"  routerLink="/company/signup"> Start Now </button>
+          <button mat-stroked-button routerLink="/company/signup"> Start Now </button>
         </div>
         <br/>
         <div style="font-size:2rem">
@@ -173,8 +173,8 @@
       <div fxFlex="6"></div>
 
 
-      <div fxFlex="35" style="height: 80%;width: 100%;" fxLayout="column" fxLayoutAlign="center center">
-        <iframe style="width:100%;height: 100%;" src="https://www.youtube.com/embed/hPXzbxB6Tjc">
+      <div fxFlex="35" class="full-width" style="height: 80%;" fxLayout="column" fxLayoutAlign="center center">
+        <iframe class="full-size" src="https://www.youtube.com/embed/hPXzbxB6Tjc">
         </iframe>
       </div>
 
@@ -191,20 +191,18 @@
       Our Solutions
     </div>
 
-    <div [ngClass.lt-sm]="'hide'" style="height: 100%;" [ngClass.gt-xs]="'show'">
+    <div [ngClass.lt-sm]="'hide'" class="full-height" [ngClass.gt-xs]="'show'">
       <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'card-container'" fxFlex="7"></div>
 
       <div
-        style="background-color:#F6F9FC;padding: 1rem;border-radius: 1rem;"
         [ngClass.lt-sm]="'hide'"
         [ngClass.gt-xs]="'card-container'"
         fxFlex="86"
       >
-        <div style="width: 25%;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div class="solution-card-container">
+          <div class="solution-card-wrapper" fxLayout="column" fxLayoutAlign="space-between center">
+            <div class="solution-card">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
               src="/assets/images/global.png">
             </div>
             <div fxFlex>
@@ -218,11 +216,10 @@
           </div>
         </div>
 
-        <div style="width: 25%;text-align: center;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div class="solution-card-container">
+          <div class="solution-card-wrapper" fxLayout="column" fxLayoutAlign="space-between center">
+            <div class="solution-card">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
               src="/assets/images/enterprise.png">
             </div>
             <div fxFlex>
@@ -236,11 +233,10 @@
           </div>
         </div>
 
-        <div style="width: 25%; text-align: center;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div class="solution-card-container">
+          <div class="solution-card-wrapper" fxLayout="column" fxLayoutAlign="space-between center">
+            <div class="solution-card">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
               src="/assets/images/mid-market.png">
             </div>
             <div fxFlex>
@@ -254,11 +250,10 @@
           </div>
         </div>
 
-        <div style="width: 25%;text-align: center;">
+        <div class="solution-card-container">
           <div fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+            <div class="solution-card">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
               src="/assets/images/small-business.gif">
             </div>
             <div>
