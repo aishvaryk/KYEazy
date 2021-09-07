@@ -135,7 +135,42 @@
             <div class="profile-component-detail">Document No.</div>
           </div>
         </div>
+        <!--New Paste-->
         <div
+        class="profile-content-row contact info"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        fxLayout.xs="column"
+        fxLayoutAlign.xs="center center"
+      >
+        <div
+          class="profile-element document-type"
+          fxLayout="column"
+          fxLayoutAlign="start startr"
+          fxLayoutAlign.xs="start center"
+        >
+        <div *ngIf="status==='Accepted'" class='verification-done'>{{ status }} </div>
+
+          <div *ngIf="status==='Rejected'" class='verification-failed'>{{ status }} </div>
+          <div class="profile-component-detail">Status
+          </div>
+          <a color="primary"  *ngIf="status==='Rejected'" style="text-decoration: none;color: teal;cursor: pointer; font-size: 1.2rem;"(click)="showReason(review)">Reason?</a>
+        </div>
+        <div
+          class="profile-element document-no"
+          fxLayout="column"
+          fxLayoutAlign="start end"
+          fxLayoutAlign.xs="start center"
+        >
+        <button mat-stroked-button color="primary" (click)="viewDocument()">
+          View Document
+        </button>
+        </div>
+      </div>
+
+        <!--New-->
+
+        <!-- <div
           class="profile-content-row address-container"
           fxLayout="row wrap"
           fxLayoutAlign="center center"
@@ -149,7 +184,7 @@
               View Document
             </button>
           </div>
-        </div>
+        </div> -->
 
         <div
           class="profile-content-row address-container"
@@ -165,6 +200,7 @@
             <br />
           <div fxLayout="row" fxLayoutAlign="start center"><b>Question : &nbsp; </b><div class="profile-component-detail"> {{liveliness.question}}</div>
           </div>
+
           </div>
 
 
@@ -186,36 +222,5 @@
       </mat-card-content>
     </div>
 
-    <div style="width: 100%" fxLayout="row" fxLayoutAlign="center center">
-      <div
-        class="verification-done"
-        *ngIf="status === 'Accepted'"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-      >
-        <mat-icon aria-label="i">check_circle_outline</mat-icon>
-        &nbsp;
-        <div class="verification-text">Verified</div>
-      </div>
-      <div
-        class="verification-failed"
-        *ngIf="status === 'Rejected'"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-      >
-        <mat-icon aria-label="i">cancel</mat-icon>
-        <div class="verification-text">Rejected</div>
-      </div>
-
-      <div
-        class="verification-registered"
-        *ngIf="status === 'Registered'"
-        fxLayout="row"
-        fxLayoutAlign="start center"
-      >
-        <mat-icon aria-label="i">how_to_reg</mat-icon>
-        <div class="verification-text">Registered</div>
-      </div>
-    </div>
   </mat-card>
 </div>

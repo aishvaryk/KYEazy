@@ -14,6 +14,8 @@ import { Liveliness } from 'src/app/models/liveliness.model';
 import { Selfie } from 'src/app/models/selfie.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { ModalComponent } from '../modal/modal.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ReasonComponent } from '../reason/reason.component';
 
 @Component({
   selector: 'app-profile',
@@ -29,13 +31,14 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   @Input() employee!: Details;
   @Input() status!: string;
   @Input() employeeId!:number;
+  @Input() review!:string;
 
   @ViewChild('image') image!: any;
   @ViewChild('video') video!: any;
 
   documentURL: any;
 
-  constructor(private dialog: MatDialog,private adminService:AdminService) {
+  constructor(private dialog: MatDialog,private adminService:AdminService,public matBottomSheet:MatBottomSheet) {
 
   }
 
@@ -62,7 +65,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.documentURL = url;
 
   }
-
+showReason(reason:string)
+{
+this.matBottomSheet.open(ReasonComponent, {
+  data: reason,
+});
+}
   viewDocument() {
     window.open(this.documentURL);
   }
