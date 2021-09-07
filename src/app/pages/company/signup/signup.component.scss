@@ -20,6 +20,7 @@ textarea {
 }
 
 .card {
+  height: 100%;
   background: white;
   border-radius: 1.2rem;
   margin-top: 1rem;
@@ -27,6 +28,7 @@ textarea {
 
   padding-bottom: 2rem;
   margin-bottom: 2rem;
+  overflow-y:scroll;
 }
 .signup-image-container{
   background-color: white;
