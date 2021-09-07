@@ -1,5 +1,11 @@
 <div (scroll)="onScroll()" class="home">
-  <div id="top" #top class="full-size" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    id="top"
+    #top
+    class="full-size"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
     <div fxFlex="10"></div>
     <div
       class="left"
@@ -81,30 +87,33 @@
         fxFlex="86"
       >
         <div [ngClass.gt-xs]="'card'" (click)="scrollToServices()">
-          <div style='width: 100%; height: 80%;'>
-            <img style="height: 100%;width: 100%;object-fit: contain;"src="/assets/images/services.gif">
+          <div style="width: 100%; height: 80%">
+            <img
+              style="height: 100%; width: 100%; object-fit: contain"
+              src="/assets/images/services.gif"
+            />
           </div>
-          <div style="margin-top: 1.5rem;">
-            Our Services
-          </div>
+          <div style="margin-top: 1.5rem">Our Services</div>
         </div>
 
         <div [ngClass.gt-xs]="'card'" (click)="scrollToProduct()">
-          <div style='width: 100%; height: 80%;'>
-            <img style="height: 100%;width: 100%;object-fit: contain;"src="/assets/images/product.gif">
+          <div style="width: 100%; height: 80%">
+            <img
+              style="height: 100%; width: 100%; object-fit: contain"
+              src="/assets/images/product.gif"
+            />
           </div>
-          <div style="margin-top: 1.5rem;">
-            Our Product
-          </div>
-          </div>
+          <div style="margin-top: 1.5rem">Our Product</div>
+        </div>
 
         <div [ngClass.gt-xs]="'card'" (click)="scrollToSolutions()">
-          <div style='width: 100%; height: 80%;'>
-            <img style="height: 100%;width: 100%;object-fit: contain;"src="/assets/images/solutions.gif">
+          <div style="width: 100%; height: 80%">
+            <img
+              style="height: 100%; width: 100%; object-fit: contain"
+              src="/assets/images/solutions.gif"
+            />
           </div>
-          <div style="margin-top: 1.5rem;">
-            Our Solutions
-          </div>
+          <div style="margin-top: 1.5rem">Our Solutions</div>
         </div>
       </div>
       <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
@@ -128,145 +137,251 @@
   </div>
 
   <div id="service" #services class="service">
-    <div [ngClass]="'service-heading'">
-      Our Services
-    </div>
+    <div [ngClass]="'service-heading'">Our Services</div>
     <div class="full-size">
       <app-carousel name="service">
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Serivce 1</div>
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Service 2</div>
-        <div style="background-color: #F6F9FC;height: 100%;border-radius: 1rem;" *carousel-slide>Think of Service 3</div>
+        <div
+          fxLayout="row"
+          style="background-color: #f6f9fc; height: 100%; border-radius: 1rem"
+          *carousel-slide
+        >
+          <div fxFlex="40">
+            <img
+              style="width: 100%; height: 100%; object-fit: cover"
+              src="/assets/images/mobile.gif"
+            />
+          </div>
+          <div fxFlex="5"></div>
+          <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
+            <div
+              style="font-size: 3.5rem; line-height: 4.5rem; color: #789de6"
+              class="producnt-title"
+            >
+              Mobile Friendly Candidate hub
+            </div>
+            <br />
+            <div
+              style="
+                color: #789de6;
+                font-size: 1.5rem;
+                line-height: 2rem;
+                text-align: justify;
+              "
+              class="prduct-body"
+            >
+              Today's applicants, particularly millenials and digital
+              natives, expects a high-touch, transparent hiring and employment
+              background check screening process.
+            </div>
+            <br />
+          </div>
+          <div fxFlex="5"></div>
+        </div>
+
+        <div
+          fxLayout="row"
+          style="background-color: #f6f9fc; height: 100%; border-radius: 1rem"
+          *carousel-slide
+        >
+          <div fxFlex="5"></div>
+          <div fxLayout="column" fxLayoutAlign="center start  " fxFlex="50">
+            <div
+              style="font-size: 3.5rem; line-height: 4.5rem"
+              class="producnt-title"
+            >
+              Post Hire Monitoring Solution
+            </div>
+            <br />
+            <div
+              style="font-size: 1.5rem; line-height: 2rem; text-align: justify"
+              class="prduct-body"
+            >
+              It is often difficult to effectively manage the risk of new hires
+              without dedicated supporting technology. KYEasy enabels companies
+              to better protect their brands, workplaces, relationship from risk
+              by giving them power to report an Employee
+            </div>
+            <br />
+          </div>
+          <div fxFlex="5"></div>
+          <div fxFlex="40">
+            <img
+              style="width: 100%; height: 100%; object-fit: cover"
+              src="/assets/images/analytics.gif"
+            />
+          </div>
+        </div>
       </app-carousel>
     </div>
   </div>
 
   <div id="product" #product class="product">
-    <div [ngClass]="'product-heading'">
-      Our Product
-    </div>
+    <div [ngClass]="'product-heading'">Our Product</div>
 
-
-    <div fxLayout="row" style="height: 80%;" fxLayoutAlign="center center" >
+    <div fxLayout="row" style="height: 80%" fxLayoutAlign="center center">
       <div fxFlex="7"></div>
 
       <div fxFlex="45" fxLayout="column" fxLayoutAlign="space-around start">
-        <div style="font-size:3.5rem;line-height: 4.5rem;" class="producnt-title">
-           We Make KYC Easy for you
+        <div
+          style="font-size: 3.5rem; line-height: 4.5rem"
+          class="producnt-title"
+        >
+          We Make KYC Easy for you
         </div>
-        <br/>
-        <div style="font-size:1.5rem;line-height: 2rem;text-align: justify;" class="prduct-body">
-          Employers need much more than just raw data to operate a successful employment screening program,
-          we are committed to provide easy KYC solutions for employees and support companies for identifying their employees,
+        <br />
+        <div
+          style="font-size: 1.5rem; line-height: 2rem; text-align: justify"
+          class="prduct-body"
+        >
+          Employers need much more than just raw data to operate a successful
+          employment screening program, we are committed to provide easy KYC
+          solutions for employees and support companies for identifying their
+          employees,
         </div>
-        <br/>
+        <br />
         <div>
-          <button mat-stroked-button style="border: 1px solid white; text-decoration: none;"  routerLink="/company/signup"> Start Now </button>
+          <button
+            mat-stroked-button
+            style="border: 1px solid white; text-decoration: none"
+            routerLink="/company/signup"
+          >
+            Start Now
+          </button>
         </div>
-        <br/>
-        <div style="font-size:2rem">
-          Sign Up & and get <b> 200  </b>  Coins Free
+        <br />
+        <div style="font-size: 2rem">
+          Sign Up & and get <b> 200 </b> Coins Free
         </div>
       </div>
 
       <div fxFlex="6"></div>
 
-
-      <div fxFlex="35" style="height: 80%;width: 100%;" fxLayout="column" fxLayoutAlign="center center">
-        <iframe style="width:100%;height: 100%;" src="https://www.youtube.com/embed/hPXzbxB6Tjc">
+      <div
+        fxFlex="35"
+        style="height: 80%; width: 100%"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <iframe
+          style="width: 100%; height: 100%"
+          src="https://www.youtube.com/embed/hPXzbxB6Tjc"
+        >
         </iframe>
       </div>
 
       <div fxFlex="7"></div>
     </div>
-
-
-
-
   </div>
 
   <div id="solution" #solutions class="solution">
-    <div [ngClass]="'solution-heading'">
-      Our Solutions
-    </div>
+    <div [ngClass]="'solution-heading'">Our Solutions</div>
 
-    <div [ngClass.lt-sm]="'hide'" style="height: 100%;" [ngClass.gt-xs]="'show'">
-      <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'card-container'" fxFlex="7"></div>
+    <div [ngClass.lt-sm]="'hide'" style="height: 100%" [ngClass.gt-xs]="'show'">
+      <div
+        [ngClass.lt-sm]="'hide'"
+        [ngClass.gt-xs]="'card-container'"
+        fxFlex="7"
+      ></div>
 
       <div
-        style="background-color:#F6F9FC;padding: 1rem;border-radius: 1rem;"
+        style="background-color: #f6f9fc; padding: 1rem; border-radius: 1rem"
         [ngClass.lt-sm]="'hide'"
         [ngClass.gt-xs]="'card-container'"
         fxFlex="86"
       >
-        <div style="width: 25%;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div style="width: 25%">
+          <div
+            style="border-right: 1.5px solid teal"
+            fxLayout="column"
+            fxLayoutAlign="space-between center"
+          >
+            <div style="height: 30%; width: 30%">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
-              src="/assets/images/global.png">
+                style="object-fit: contain; height: 100%; width: 100%"
+                src="/assets/images/global.png"
+              />
             </div>
+            <br />
             <div fxFlex>
-              International<br/>
+              International<br />
               &gt; &nbsp; 10000 KYE
             </div>
-            <br/>
+            <br />
+            <br />
             <div>
-              <button mat-stroked-button> Learn More </button>
+              <button mat-stroked-button>Learn More</button>
             </div>
           </div>
         </div>
 
-        <div style="width: 25%;text-align: center;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div style="width: 25%; text-align: center">
+          <div
+            style="border-right: 1.5px solid teal"
+            fxLayout="column"
+            fxLayoutAlign="space-between center"
+          >
+            <div style="height: 30%; width: 30%">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
-              src="/assets/images/enterprise.png">
+                style="object-fit: contain; height: 100%; width: 100%"
+                src="/assets/images/enterprise.png"
+              />
             </div>
+            <br />
             <div fxFlex>
-              Enterprise <br/>
+              Enterprise <br />
               5000 - 10000 KYE
             </div>
-            <br/>
+            <br />
+            <br />
             <div>
-              <button mat-stroked-button> Learn More </button>
+              <button mat-stroked-button>Learn More</button>
             </div>
           </div>
         </div>
 
-        <div style="width: 25%; text-align: center;">
-          <div style="border-right: 1.5px solid teal;" fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+        <div style="width: 25%; text-align: center">
+          <div
+            style="border-right: 1.5px solid teal"
+            fxLayout="column"
+            fxLayoutAlign="space-between center"
+          >
+            <div style="height: 30%; width: 30%">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
-              src="/assets/images/mid-market.png">
+                style="object-fit: contain; height: 100%; width: 100%"
+                src="/assets/images/mid-market.png"
+              />
             </div>
+            <br />
             <div fxFlex>
               Mid Market <br />
               1000 - 5000 KYE
             </div>
-            <br/>
+            <br />
+            <br />
             <div>
-              <button mat-stroked-button> Learn More </button>
+              <button mat-stroked-button>Learn More</button>
             </div>
           </div>
         </div>
 
-        <div style="width: 25%;text-align: center;">
+        <div style="width: 25%; text-align: center">
           <div fxLayout="column" fxLayoutAlign="space-between center">
-            <div style="height: 30%;width: 30%;">
+            <div style="height: 30%; width: 30%">
               <img
-              style="object-fit: contain;height:100%;width:100%;"
-              src="/assets/images/small-business.gif">
+                style="object-fit: contain; height: 100%; width: 100%"
+                src="/assets/images/small-business.gif"
+              />
             </div>
+            <br />
             <div>
-              Small Business <br/>
+              Small Business <br />
               &lt; &nbsp; 1000 KYE
             </div>
           </div>
-          <br/>
+          <br />
+          <br />
           <div>
-            <button mat-stroked-button> Learn More </button>
+            <button mat-stroked-button>Learn More</button>
           </div>
         </div>
       </div>
@@ -284,12 +399,15 @@
     </div>
   </div>
 
-  <button class="scroll-to-top" [ngClass]="{'show':showScrollToTop,'hide':!showScrollToTop}" (click)="onScrollToTop()" >
+  <button
+    class="scroll-to-top"
+    [ngClass]="{ show: showScrollToTop, hide: !showScrollToTop }"
+    (click)="onScrollToTop()"
+  >
     <mat-icon> arrow_upward </mat-icon>
   </button>
 
   <div #footer class="home-footer">
     <app-footer></app-footer>
   </div>
-
 </div>
