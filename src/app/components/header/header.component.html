@@ -18,8 +18,8 @@
       </div>
     </div>
 
-    <div class="buttons">
-      <div class="large-header-buttons" *ngIf="!deviceSmall">
+    <div class="buttons" fxLayout="row" fxLayoutAlign="start center">
+      <div class="large-header-buttons" *ngIf="!deviceSmall" fxLayout="row" fxLayoutAlign="start center">
         <button mat-button (click)="scrollToAbout()" *ngIf="isHome">
           About
         </button>
