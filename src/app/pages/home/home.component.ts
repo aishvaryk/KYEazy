@@ -1,3 +1,4 @@
+import { LearnMoreComponent } from './../../components/learn-more/learn-more.component';
 import {
   AfterViewInit,
   Component,
@@ -12,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { LoginService } from 'src/app/services/login/login.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     public observer: MediaObserver,
     public dialog: MatDialog,
     public store: Store<{ breakpoint: Breakpoint }>,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public bottomSheet: MatBottomSheet
   ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs || breakpoint.isSm) {
@@ -129,4 +132,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       inline: 'center',
     });
   }
+
+ openLearnMore(companyType: string) {
+  this.bottomSheet.open(LearnMoreComponent, {
+    data: {companyType: companyType}
+  });
+ }
 }

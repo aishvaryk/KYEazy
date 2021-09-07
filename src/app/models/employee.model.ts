@@ -20,4 +20,5 @@ export interface Employee {
   gender: string;
   employeeVideo: string;
   question:String;
+  review:string
 }
