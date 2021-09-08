@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   public top: any;
   @ViewChild('scrollToTop')
   public scrollToTop: any;
-
   public showScrollToTop: any;
   public isSmall: any;
   public flexDirection: any;

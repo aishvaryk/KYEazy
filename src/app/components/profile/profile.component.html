@@ -149,9 +149,16 @@
           fxLayoutAlign="start startr"
           fxLayoutAlign.xs="start center"
         >
-        <div *ngIf="status==='Accepted'" class='verification-done'>{{ status }} </div>
+          <div *ngIf="status==='Accepted'" class='verification-done'>{{ status }} </div>
 
           <div *ngIf="status==='Rejected'" class='verification-failed'>{{ status }} </div>
+
+          <div *ngIf="status==='Pending'" class='verification-pending'>{{ status }} </div>
+
+          <div *ngIf="status==='Reported'" class='verification-reported'>{{ status }} </div>
+
+          <div *ngIf="status==='Registered'" class='verification-registered'>{{ status }} </div>
+
           <div class="profile-component-detail">Status
           </div>
           <a color="primary"  *ngIf="status==='Rejected'" class="reason" (click)="showReason(review)">Reason?</a>

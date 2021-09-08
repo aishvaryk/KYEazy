@@ -32,7 +32,10 @@
 }
 
 .pie-chart-legend-mobile {
+  display: none;
   ::ng-deep .advanced-pie-legend {
+
+     display: none;
     margin-left: -7.5rem;
     .total-value {
       height: 3rem;
@@ -43,6 +46,7 @@
     }
 
     .legend-items {
+      display: none;
       overflow: visible !important;
       // background-color: yellow;
       font-family: Montserrat;

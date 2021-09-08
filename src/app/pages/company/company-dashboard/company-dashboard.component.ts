@@ -56,14 +56,16 @@ export class CompanyDashboardComponent implements OnInit {
       } else {
         this.zeroEmployees = false;
       }
-      pieChartData[0].value =
-        this.company.numberOfTotalEmployees -
-        this.company.numberOfAcceptedEmployees -
-        this.company.numberOfRejectedEmployees -
-        this.company.numberOfPendingEmployees;
+      pieChartData[0].value =this.company.numberOfRegisteredEmployees;
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
+      pieChartData[4].value =
+      this.company.numberOfTotalEmployees -
+      this.company.numberOfAcceptedEmployees -
+      this.company.numberOfRejectedEmployees -
+      this.company.numberOfPendingEmployees-
+      this.company.numberOfRegisteredEmployees
             Object.assign(this, { pieChartData });
     });
   }

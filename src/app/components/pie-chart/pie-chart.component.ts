@@ -19,19 +19,22 @@ export class PieChartComponent implements OnInit {
   showLabels: boolean = true;
   isDoughnut: boolean = false;
   breakpoint$: Observable<Breakpoint>;
+  isSmall!:boolean;
 
   legendPosition: any = 'below';
   colorScheme: any = {
-    domain: ['slategrey', 'green', 'red', '#FC9A1D'],
+    domain: ['slategrey', 'green', 'red', '#FC9A1D', '#FF8C67'],
   };
 
   constructor(store: Store<{ breakpoint: Breakpoint }>) {
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isXs) {
+        this.isSmall=true;
         this.chartView = [340, 300];
         this.legendView = [280, 300];
       } else {
+        this.isSmall=false
         this.chartView = [400, 300];
         this.legendView = [500, 300];
       }

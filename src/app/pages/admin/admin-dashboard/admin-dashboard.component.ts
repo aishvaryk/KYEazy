@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Company } from 'src/app/models/company.model';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { pieChartData } from 'src/app/models/pie-chart-data.model';
+import { barChartData } from 'src/app/models/barChartData.model';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -21,13 +22,14 @@ export class AdminDashboardComponent implements OnInit {
   public pieChartData: any;
   public zeroEmployees: any;
   public zeroCompanies: any;
+  public totalNoOfEmployees!: number;
+  public barChartData:any;
 
   loading!: boolean;
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
-    adminService: AdminService,
+    adminService: AdminService
   ) {
-
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -44,20 +46,43 @@ export class AdminDashboardComponent implements OnInit {
       } else {
         this.zeroEmployees = false;
       }
+      this.totalNoOfEmployees = response;
     });
     this.adminService
       .getNoOfRegisteredEmployees()
-      .subscribe((response: number) => (pieChartData[0].value = response));
-    this.adminService
-      .getNoOfAcceptedEmployees()
-      .subscribe((response: number) => (pieChartData[1].value = response));
-    this.adminService
-      .getNoOfRejectedEmployees()
-      .subscribe((response: number) => (pieChartData[2].value = response));
-    this.adminService
-      .getNoOfPendingEmployees()
-      .subscribe((response: number) => (pieChartData[3].value = response));
-    Object.assign(this, { pieChartData });
+      .subscribe((response: number) => {
+        pieChartData[0].value = response;
+        this.adminService
+          .getNoOfAcceptedEmployees()
+          .subscribe((response: number) => {
+            pieChartData[1].value = response;
+            this.adminService
+              .getNoOfRejectedEmployees()
+              .subscribe((response: number) => {
+                pieChartData[2].value = response;
+
+                this.adminService
+                  .getNoOfPendingEmployees()
+                  .subscribe((response: number) => {
+                    pieChartData[3].value = response;
+                    Object.assign(this, { pieChartData });
+                  });
+              });
+          });
+      });
+
+    this.adminService.getTopPerformer().subscribe((companies:Company[])=>
+    {
+      for(let i=0; i<companies.length; i++) {
+        barChartData[i].name= companies[i].name;
+        barChartData[i].series[0].value = companies[i].numberOfRegisteredEmployees;
+        barChartData[i].series[1].value = companies[i].numberOfAcceptedEmployees;
+        barChartData[i].series[2].value = companies[i].numberOfRejectedEmployees;
+        barChartData[i].series[3].value = companies[i].numberOfPendingEmployees;
+      }
+      Object.assign(this, { pieChartData });
+    }
+    );
   }
 
   onViewEmployees(companyId: number) {
@@ -77,5 +102,4 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
-
 }

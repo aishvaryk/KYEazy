@@ -72,10 +72,18 @@
   align-items: center;
   height: 80%;
   width: 100%;
+
 }
+
+
+@keyframes pop-in {0% { opacity: 0; transform: scale(0.5); }100% { opacity: 1; transform: scale(1); }}
+
+
 
 .card {
   background-color: #f6f9fc;
+
+  animation:pop-in 5s;
   border-radius: 1rem;
   display: inline-block;
   padding: 1rem;
