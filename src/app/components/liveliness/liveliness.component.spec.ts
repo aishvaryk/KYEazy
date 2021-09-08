@@ -17,7 +17,7 @@ fdescribe('LivelinessComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LivelinessComponent],
-      imports : [
+      imports: [
         MaterialModule,
         StoreModule.forRoot({
           breakpoint: breakpointReducer,
@@ -28,7 +28,7 @@ fdescribe('LivelinessComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

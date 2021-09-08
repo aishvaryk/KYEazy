@@ -1,7 +1,5 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import {
-  FormControl,
-} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { Paginator } from 'src/app/models/paginator.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {  EventEmitter } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-employees',
@@ -33,14 +31,13 @@ export class EmployeesComponent implements OnInit {
   searchText: string;
   currentUser!: string;
 
-  @ViewChild('matPaginator') matPaginator!: MatPaginator
+  @ViewChild('matPaginator') matPaginator!: MatPaginator;
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint; route: string }>,
     companyService: CompanyService,
     public activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar,
-
+    private snackBar: MatSnackBar
   ) {
     this.isSmall = false;
     this.searchText = '';
@@ -51,15 +48,13 @@ export class EmployeesComponent implements OnInit {
     this.companyId = 0;
     this.company = {} as Company;
     this.paginator = {} as Paginator;
-    this.paginator.pageSizeOptions = [ 1,2,5,10,15,20,25];
+    this.paginator.pageSizeOptions = [1, 2, 5, 10, 15, 20, 25];
     this.paginator.currentPageIndex = 0;
     this.paginator.currentPageSize = 5;
-
   }
 
   ngOnInit(): void {
-
-    this.companyService.reportedSubject.subscribe((response)=>{
+    this.companyService.reportedSubject.subscribe((response) => {
       this.companyService.getEmployees(
         this.companyId,
 
@@ -68,16 +63,13 @@ export class EmployeesComponent implements OnInit {
         this.sortBy,
         this.filter
       );
-
-    })
+    });
     this.activatedRoute.params.subscribe((params) => {
       this.companyId = params.companyId;
-      if(params.companyId == undefined)
-      {
-        let k=localStorage.getItem("Id");
-        if (k!=null) this.companyId= parseInt(k)
+      if (params.companyId == undefined) {
+        let k = localStorage.getItem('Id');
+        if (k != null) this.companyId = parseInt(k);
       }
-
     });
 
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
@@ -93,21 +85,29 @@ export class EmployeesComponent implements OnInit {
       else this.currentUser = 'admin';
     });
 
-    this.companyService.getEmployees(this.companyId, 5, 1,this.sortBy,this.filter);
+    this.companyService.getEmployees(
+      this.companyId,
+      5,
+      1,
+      this.sortBy,
+      this.filter
+    );
     this.companyService.employeesSubject.subscribe((employees) => {
       if (this.searchText) {
         if (employees.length == 0) {
-          this.snackBar.open('No Employees Found', "Retry");
+          this.snackBar.open('No Employees Found', 'Retry');
           return;
         }
-        this.companyService.getSearchedEmployeesSize(
-          this.companyId,
-          this.searchText,
-          this.sortBy,
-          this.filter,
-          ).subscribe((res: any) => {
-          this.matPaginator.length = res;
-        })
+        this.companyService
+          .getSearchedEmployeesSize(
+            this.companyId,
+            this.searchText,
+            this.sortBy,
+            this.filter
+          )
+          .subscribe((res: any) => {
+            this.matPaginator.length = res;
+          });
       }
       this.employees = employees;
     });
@@ -123,34 +123,31 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
-rekyc(s:any)
-{
-  this.companyService.reKyc(s).subscribe((response:any)=>{
-  this.companyService.getCompanyDetails(response.companyId);
-  this.companyService.getEmployees(
-    this.companyId,
-    this.paginator.currentPageSize,
-    this.paginator.currentPageIndex + 1,
-    this.sortBy,
-    this.filter
-  )});
-
-}
-
-
-  OnPageChange(event: any) {
-    this.paginator.currentPageIndex = event.pageIndex;
-    this.paginator.currentPageSize = event.pageSize;
-    if(this.searchText.trim().length === 0 ) {
+  rekyc(s: any) {
+    this.companyService.reKyc(s).subscribe((response: any) => {
+      this.companyService.getCompanyDetails(response.companyId);
       this.companyService.getEmployees(
         this.companyId,
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex + 1,
         this.sortBy,
-        this.filter,
+        this.filter
       );
-    }
-    else {
+    });
+  }
+
+  OnPageChange(event: any) {
+    this.paginator.currentPageIndex = event.pageIndex;
+    this.paginator.currentPageSize = event.pageSize;
+    if (this.searchText.trim().length === 0) {
+      this.companyService.getEmployees(
+        this.companyId,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1,
+        this.sortBy,
+        this.filter
+      );
+    } else {
       this.companyService.getEmployeesByName(
         this.companyId,
         this.searchText,
@@ -175,7 +172,7 @@ rekyc(s:any)
         5,
         1,
         this.sortBy,
-        this.filter,
+        this.filter
       );
     } else {
       this.matPaginator.pageIndex = 0;
@@ -192,15 +189,15 @@ rekyc(s:any)
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
-      this.matPaginator.pageIndex = 0;
-      this.matPaginator.length = this.company.numberOfTotalEmployees;
-      this.companyService.getEmployees(
-        this.companyId,
-        5,
-        1,
-        this.sortBy,
-        this.filter,
-      );
+    this.matPaginator.pageIndex = 0;
+    this.matPaginator.length = this.company.numberOfTotalEmployees;
+    this.companyService.getEmployees(
+      this.companyId,
+      5,
+      1,
+      this.sortBy,
+      this.filter
+    );
   }
 
   OnFilterSelect(event: any) {
@@ -212,7 +209,7 @@ rekyc(s:any)
       5,
       1,
       this.sortBy,
-      this.filter,
+      this.filter
     );
   }
 }

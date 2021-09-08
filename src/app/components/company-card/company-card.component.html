@@ -14,8 +14,16 @@
     fxLayout="row"
     fxLayoutAlign="start center"
   >
-    <img *ngIf="company.icon === null" mat-card-avatar src="assets/images/company-avatar.png"/>
-    <img *ngIf="company.icon !== null" mat-card-avatar [src]="'data:image/jpeg;base64,'+company.icon"/>
+    <img
+      *ngIf="company.icon === null"
+      mat-card-avatar
+      src="assets/images/company-avatar.png"
+    />
+    <img
+      *ngIf="company.icon !== null"
+      mat-card-avatar
+      [src]="'data:image/jpeg;base64,' + company.icon"
+    />
     <div
       fxLayout="column"
       fxLayoutAlign="center"

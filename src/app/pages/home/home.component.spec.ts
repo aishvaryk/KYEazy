@@ -22,8 +22,8 @@ fdescribe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent,FooterComponent],
-      imports:[
+      declarations: [HomeComponent, FooterComponent],
+      imports: [
         MaterialModule,
         HttpClientModule,
         RouterTestingModule,
@@ -38,7 +38,7 @@ fdescribe('HomeComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

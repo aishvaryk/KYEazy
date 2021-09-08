@@ -11,7 +11,7 @@ import { menuReducer } from 'src/app/redux/reducers/menu.reducer';
 import { selfieReducer } from 'src/app/redux/reducers/selfie.reducer';
 import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { RouterTestingModule } from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MaterialModule } from 'src/app/app-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +39,7 @@ fdescribe('LoginComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

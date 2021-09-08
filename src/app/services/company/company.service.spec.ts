@@ -10,11 +10,7 @@ fdescribe('CompanyService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
-        HttpClientModule,
-        RouterTestingModule,
-        MaterialModule,
-      ]
+      imports: [HttpClientModule, RouterTestingModule, MaterialModule],
     });
     service = TestBed.inject(CompanyService);
   });

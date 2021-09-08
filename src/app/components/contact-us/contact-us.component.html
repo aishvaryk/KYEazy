@@ -35,7 +35,9 @@
         required
       />
       <mat-error
-        *ngIf="!messageForm.get('email')?.valid && messageForm.get('email')?.touched"
+        *ngIf="
+          !messageForm.get('email')?.valid && messageForm.get('email')?.touched
+        "
       >
         Invalid
       </mat-error>
@@ -61,12 +63,7 @@
     </mat-form-field>
 
     <br />
-    <button
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="btn-width"
-    >
+    <button mat-flat-button color="primary" type="submit" class="btn-width">
       Submit
     </button>
 

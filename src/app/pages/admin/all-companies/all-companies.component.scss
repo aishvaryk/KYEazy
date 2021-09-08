@@ -43,14 +43,13 @@
 .container-card-mobile {
   width: 100%;
   margin-top: 0.5%;
-  padding: .8rem;
+  padding: 0.8rem;
   background-color: rgb(253, 253, 253);
 }
 
 .company-paginator {
   width: 95%;
 }
-
 
 ::ng-deep .mat-paginator {
   background-color: rgba($color: #ffffff, $alpha: 0);

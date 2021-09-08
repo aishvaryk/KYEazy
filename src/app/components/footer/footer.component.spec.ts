@@ -8,9 +8,7 @@ fdescribe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[
-        MaterialModule,
-      ],
+      imports: [MaterialModule],
       declarations: [FooterComponent],
     }).compileComponents();
   });

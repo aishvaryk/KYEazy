@@ -29,9 +29,7 @@
     [ngClass.lt-sm]="'container-card-mobile'"
     *ngIf="!zeroEmployees"
   >
-    <app-bar-chart
-    class="full-width"
-    ></app-bar-chart>
+    <app-bar-chart class="full-width"></app-bar-chart>
   </mat-card>
 
   <!-- recently added company starts -->
@@ -50,7 +48,6 @@
       style="margin: auto"
       *ngIf="!zeroCompanies"
     >
-
       <div
         *ngFor="let company of companies"
         class="full-width"
@@ -72,7 +69,6 @@
           View More <mat-icon aria-label="i"> expand_more </mat-icon>
         </button>
       </div>
-
     </div>
   </mat-card>
   <!-- recently added company ends -->
@@ -83,5 +79,4 @@
     [page]="'admin'"
     *ngIf="zeroCompanies"
   ></app-empty>
-
 </div>

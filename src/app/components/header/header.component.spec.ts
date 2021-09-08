@@ -19,7 +19,7 @@ fdescribe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports : [
+      imports: [
         MaterialModule,
         StoreModule.forRoot({
           breakpoint: breakpointReducer,
@@ -32,7 +32,7 @@ fdescribe('HeaderComponent', () => {
         }),
         HttpClientModule,
         RouterTestingModule,
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -22,10 +22,10 @@ export class HeaderComponent implements OnInit {
   isHome: any;
   backendURL = environment.backendURL;
   isAdminLogin: any;
-  isCompany:boolean=false;
-  isCompanySignup!:boolean;
-  coins:any;
-  showCoins!:boolean;
+  isCompany: boolean = false;
+  isCompanySignup!: boolean;
+  coins: any;
+  showCoins!: boolean;
 
   breakpoint$: Observable<Breakpoint>;
 
@@ -35,13 +35,12 @@ export class HeaderComponent implements OnInit {
       menu: boolean;
       route: string;
     }>,
-    private companyService :CompanyService,
+    private companyService: CompanyService,
     public bottomSheet: MatBottomSheet,
     loginService: LoginService,
 
     private ngZone: NgZone
   ) {
-
     this.breakpoint$ = store.select('breakpoint');
     this.breakpoint$.subscribe((breakpoint) => {
       if (breakpoint.isSm || breakpoint.isXs) {
@@ -58,31 +57,23 @@ export class HeaderComponent implements OnInit {
     this.store.select('route').subscribe((route) => {
       if (route === '/') this.isHome = true;
       else if (route === '/admin/login') this.isAdminLogin = true;
-      else if (route === '/company/signup') this.isCompanySignup=true;
+      else if (route === '/company/signup') this.isCompanySignup = true;
       else {
-      this.isHome = false;
-      this.isAdminLogin = false;
-      this.isCompanySignup=false;
+        this.isHome = false;
+        this.isAdminLogin = false;
+        this.isCompanySignup = false;
       }
-      if(route.substring(1,4)==="com" && route !== '/company/signup') {
-        this.showCoins=true;
+      if (route.substring(1, 4) === 'com' && route !== '/company/signup') {
+        this.showCoins = true;
+      } else {
+        this.showCoins = false;
       }
-      else{
-        this.showCoins=false;
-      }
-
-
     });
   }
   ngOnInit(): void {
-
-    this.companyService.coinSubject.subscribe((coins)=>
-    {
-
-      this.ngZone.run(()=>
-      this.coins=coins);
-    })
-
+    this.companyService.coinSubject.subscribe((coins) => {
+      this.ngZone.run(() => (this.coins = coins));
+    });
   }
 
   toggleMenu() {
@@ -94,9 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   scrollToAbout() {
-    document
-    .getElementById("about")
-    ?.scrollIntoView({
+    document.getElementById('about')?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',

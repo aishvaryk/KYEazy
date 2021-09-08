@@ -11,7 +11,6 @@ import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +25,7 @@ export class CompanyService {
   public registrationStatus: ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
   public reportedSubject: Subject<Boolean>;
-  public coinSubject:Subject<number>;
+  public coinSubject: Subject<number>;
 
   constructor(
     private loginService: LoginService,
@@ -42,8 +41,8 @@ export class CompanyService {
     this.companySubject = new Subject();
     this.company = {} as Company;
     this.APIResponse = {} as ActionDTO | exceptionDTO;
-    this.reportedSubject=new Subject();
-    this.coinSubject=new Subject();
+    this.reportedSubject = new Subject();
+    this.coinSubject = new Subject();
   }
 
   login(credentials: any): any {
@@ -65,7 +64,7 @@ export class CompanyService {
     pageNumber: number,
     sort: string,
     filter: string
-    ): void {
+  ): void {
     this.httpClient
       .get(
         `${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
@@ -83,7 +82,7 @@ export class CompanyService {
     pageSize: number,
     pageNumber: number,
     sort: string,
-    filter: string,
+    filter: string
   ): void {
     this.httpClient
       .get(
@@ -112,22 +111,22 @@ export class CompanyService {
         newEmployee
       )
       .pipe(map((response) => response as ActionDTO))
-      .subscribe((results: ActionDTO) => {
-        this.registrationStatus = results;
-        this.actionDTOSubject.next(results);
-      },
-      (error:any)=>{
-        this.snackbar.open('Not Enough Coins ! Please purchase');
-      })
-
-      ;
+      .subscribe(
+        (results: ActionDTO) => {
+          this.registrationStatus = results;
+          this.actionDTOSubject.next(results);
+        },
+        (error: any) => {
+          this.snackbar.open('Not Enough Coins ! Please purchase');
+        }
+      );
   }
   getCompanyDetails(id: number) {
     return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)
       .pipe(map((response) => response as Company))
       .subscribe((results: Company) => {
-        this.coinSubject.next(results.coins)
+        this.coinSubject.next(results.coins);
         this.companySubject.next(results);
       });
   }
@@ -158,14 +157,15 @@ export class CompanyService {
         `${environment.backendURL}/company/report-employee/${employeeId}`,
         message
       )
-       .subscribe((data:any) => {
-         this.reportedSubject.next(data.success);
-       });
+      .subscribe((data: any) => {
+        this.reportedSubject.next(data.success);
+      });
   }
-  reKyc( employeeId: number): any {
-    return this.httpClient.get(`${environment.backendURL}/company/re-kyc/${employeeId}`);
-}
-
+  reKyc(employeeId: number): any {
+    return this.httpClient.get(
+      `${environment.backendURL}/company/re-kyc/${employeeId}`
+    );
+  }
 
   getEmployeesSize(id: any, filter: any) {
     return this.httpClient.get(
@@ -173,10 +173,9 @@ export class CompanyService {
     );
   }
 
-  getSearchedEmployeesSize(id: any,name: string, sort: any, filter: any) {
+  getSearchedEmployeesSize(id: any, name: string, sort: any, filter: any) {
     return this.httpClient.get(
       `${environment.backendURL}/company/get-searched-employees-size/${id}/${name}?sort=${sort}&filter=${filter}`
     );
   }
-
 }

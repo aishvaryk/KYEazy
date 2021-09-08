@@ -1,4 +1,4 @@
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,7 +21,7 @@ fdescribe('EmployeesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EmployeesComponent],
-      imports:[
+      imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         MaterialModule,
@@ -35,7 +35,7 @@ fdescribe('EmployeesComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -19,7 +19,7 @@ fdescribe('PieChartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PieChartComponent],
-      imports:[
+      imports: [
         NgxChartsModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({
@@ -31,7 +31,7 @@ fdescribe('PieChartComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

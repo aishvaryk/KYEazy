@@ -12,7 +12,6 @@ import { AddCoinsComponent } from 'src/app/components/add-coins/add-coins.compon
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
-
   rzp: any;
   pack!: string;
   amount!: string;
@@ -45,16 +44,14 @@ export class SubscriptionComponent implements OnInit {
 
     this.companyService.getCompanyDetails(this.companyId);
     this.companyService.companySubject.subscribe((company) => {
-    this.ngZone.run(()=>this.coinBalance=company.coins);
-    this.paymentService.getOrderHistory(this.companyId);
-    this.paymentService.orderHistory.subscribe((p) => {
-      this.ngZone.run(()=>this.orderHistory=p);
+      this.ngZone.run(() => (this.coinBalance = company.coins));
+      this.paymentService.getOrderHistory(this.companyId);
+      this.paymentService.orderHistory.subscribe((p) => {
+        this.ngZone.run(() => (this.orderHistory = p));
+      });
     });
-    });
-
   }
-  openBottomSheet(){
+  openBottomSheet() {
     this._bottomSheet.open(AddCoinsComponent);
   }
-
 }

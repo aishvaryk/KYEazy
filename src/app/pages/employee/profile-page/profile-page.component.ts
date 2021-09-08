@@ -23,7 +23,7 @@ export class ProfilePageComponent implements OnInit {
   public company: any;
   public liveliness: Liveliness;
   public selfie: Selfie;
-  public message!:string
+  public message!: string;
 
   public employeeLoading: any;
   public companyLoading: any;
@@ -60,14 +60,12 @@ export class ProfilePageComponent implements OnInit {
       this.employeeId = params.employeeId;
       this.employeeLoading = true;
       this.adminService.viewEmployeeDetails(this.employeeId);
-
     });
-
 
     this.adminService.employeeSubject.subscribe((employee) => {
       this.employeeLoading = false;
       this.employee = employee;
-      this.message=employee.review;
+      this.message = employee.review;
       this.details.addressLine1 = employee.address.streetNumber;
       this.details.addressLine2 = employee.address.street;
       this.details.city = employee.address.city;
@@ -81,7 +79,7 @@ export class ProfilePageComponent implements OnInit {
       // Parsing Documents Details
       this.documents.documentNumber = employee.documentNumber;
       this.documents.documentType = employee.documentType;
-      this.liveliness.question=employee.question;
+      this.liveliness.question = employee.question;
       // Parsing Image
       this.imageLoading = true;
       fetch('data:image/png;base64,' + this.employee.capturedImage)
@@ -112,7 +110,6 @@ export class ProfilePageComponent implements OnInit {
       this.videoLoading = false;
       // Parsing Video
       this.liveliness.video = video;
-
     });
   }
 }

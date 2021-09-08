@@ -20,7 +20,7 @@ describe('AllCompaniesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AllCompaniesComponent],
-      imports:[
+      imports: [
         HttpClientModule,
         RouterTestingModule,
         MaterialModule,
@@ -33,8 +33,7 @@ describe('AllCompaniesComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-
-      ]
+      ],
     }).compileComponents();
   });
 

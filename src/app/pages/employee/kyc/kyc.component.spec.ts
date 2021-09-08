@@ -17,7 +17,7 @@ import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { menuReducer } from 'src/app/redux/reducers/menu.reducer';
 import { routeReducer } from 'src/app/redux/reducers/route.reducer';
 import { selfieReducer } from 'src/app/redux/reducers/selfie.reducer';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { KycComponent } from './kyc.component';
 
 fdescribe('KycComponent', () => {
@@ -26,10 +26,15 @@ fdescribe('KycComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [KycComponent,DetailsComponent,DocumentsComponent,SelfieComponent,LivelinessComponent,
+      declarations: [
+        KycComponent,
+        DetailsComponent,
+        DocumentsComponent,
+        SelfieComponent,
+        LivelinessComponent,
         ReviewComponent,
       ],
-      imports:[
+      imports: [
         MaterialModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
@@ -46,7 +51,7 @@ fdescribe('KycComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

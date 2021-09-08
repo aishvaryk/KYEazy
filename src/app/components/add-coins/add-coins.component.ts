@@ -1,31 +1,35 @@
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
-
 
 @Component({
   selector: 'app-add-coins',
   templateUrl: './add-coins.component.html',
-  styleUrls: ['./add-coins.component.scss']
+  styleUrls: ['./add-coins.component.scss'],
 })
 export class AddCoinsComponent implements OnInit {
-
-  amount:number=0;
-  companyId!:number;
+  amount: number = 0;
+  companyId!: number;
   form!: FormGroup;
-  planToActivate:any;
-  coinsToAdd:number=0;
-  invalidForm!:boolean;
-  rzp:any;
-  employeesAddable:number=0;
-  perEmployeePrice:number=0;
-  numberOfEmployees=0;
+  planToActivate: any;
+  coinsToAdd: number = 0;
+  invalidForm!: boolean;
+  rzp: any;
+  employeesAddable: number = 0;
+  perEmployeePrice: number = 0;
+  numberOfEmployees = 0;
 
-  constructor(private companyService:CompanyService, private paymentService:PaymentService,
-    public bottomSheet:MatBottomSheetRef<AddCoinsComponent>) {
+  constructor(
+    private companyService: CompanyService,
+    private paymentService: PaymentService,
+    public bottomSheet: MatBottomSheetRef<AddCoinsComponent>
+  ) {
     this.form = new FormGroup({
       coinsCount: new FormControl(null, [
         Validators.required,
@@ -35,7 +39,6 @@ export class AddCoinsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     let k = localStorage.getItem('Id');
     if (k != null) {
       this.companyId = parseInt(k);
@@ -43,20 +46,20 @@ export class AddCoinsComponent implements OnInit {
 
       this.companyService.companySubject.subscribe((company) => {
         this.options.prefill.name = company.name;
-        this.numberOfEmployees=company.numberOfTotalEmployees;
-        if(company.numberOfTotalEmployees>10000) this.planToActivate=10;
-        if(company.numberOfTotalEmployees>100 && company.numberOfTotalEmployees<=1000) this.planToActivate=8;
-        if(company.numberOfTotalEmployees>1000) this.planToActivate=6;
-        if(company.numberOfTotalEmployees<100) this.planToActivate=4;
-
+        this.numberOfEmployees = company.numberOfTotalEmployees;
+        if (company.numberOfTotalEmployees > 10000) this.planToActivate = 10;
+        if (
+          company.numberOfTotalEmployees > 100 &&
+          company.numberOfTotalEmployees <= 1000
+        )
+          this.planToActivate = 8;
+        if (company.numberOfTotalEmployees > 1000) this.planToActivate = 6;
+        if (company.numberOfTotalEmployees < 100) this.planToActivate = 4;
       });
-
     }
   }
 
-
   options = {
-
     key: 'rzp_test_51mlvZBHt5Cbjq',
     amount: '',
     currency: 'INR',
@@ -76,17 +79,15 @@ export class AddCoinsComponent implements OnInit {
           this.amount
         )
         .subscribe((response: any) => {
-
           this.companyService.getCompanyDetails(this.companyId);
           this.paymentService.getOrderHistory(this.companyId);
         });
-
     },
 
     prefill: {
       name: '',
       email: '',
-      contact: ""
+      contact: '',
     },
     notes: {
       address: 'Razorpay Corporate Office',
@@ -97,14 +98,12 @@ export class AddCoinsComponent implements OnInit {
   };
 
   onKey(event: any) {
-
     if (this.form.status === 'VALID') {
       this.coinsToAdd = Math.floor(event.target.value);
       this.employeesAddable = this.numberOfEmployees;
-      this.amount = this.planToActivate * this.coinsToAdd ;
+      this.amount = this.planToActivate * this.coinsToAdd;
       this.invalidForm = false;
-    }
-    else {
+    } else {
       this.invalidForm = true;
       this.coinsToAdd = 0;
     }
@@ -123,11 +122,7 @@ export class AddCoinsComponent implements OnInit {
       this.rzp = new this.paymentService.nativeWindow.Razorpay(this.options);
       this.rzp.open();
 
-    this.bottomSheet.dismiss();
-
+      this.bottomSheet.dismiss();
     });
-
-
   }
-
 }

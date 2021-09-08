@@ -4,60 +4,50 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-
-function _window()
-{
-  return window
+function _window() {
+  return window;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentService {
-
-orderId!:any
-orderSubject:Subject<any>=new Subject();
-orders=[]
-orderHistory:Subject<any>=new Subject();
-  get nativeWindow():any
-  {
-    return _window()
+  orderId!: any;
+  orderSubject: Subject<any> = new Subject();
+  orders = [];
+  orderHistory: Subject<any> = new Subject();
+  get nativeWindow(): any {
+    return _window();
   }
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getOrderId(amount:string)
-  {
-
+  getOrderId(amount: string) {
     this.httpClient
-      .get(
-        `${environment.backendURL}/payment/create-order/${amount}`
-      ).
-      subscribe((response:any)=>{
-        this.orderId=response.orderId;
-        this.orderSubject.next(this.orderId)
-      })
+      .get(`${environment.backendURL}/payment/create-order/${amount}`)
+      .subscribe((response: any) => {
+        this.orderId = response.orderId;
+        this.orderSubject.next(this.orderId);
+      });
+  }
+
+  paymentSuccess(
+    companyId: number,
+    coins: number,
+    orderId: string,
+    paymentId: string,
+    amount: number
+  ) {
+    return this.httpClient.get(
+      `${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}/${amount}`
+    );
+  }
+
+  getOrderHistory(id: number) {
+    this.httpClient
+      .get(`${environment.backendURL}/payment/payment-history/${id}`)
+      .subscribe((response: any) => {
+        this.orders = response;
+        this.orderHistory.next(this.orders);
+      });
+  }
 }
-
-paymentSuccess(companyId:number,coins:number,orderId:string,paymentId:string,amount:number)
-{
- return this.httpClient.get(`${environment.backendURL}/payment/payment-success/${companyId}/${coins}/${orderId}/${paymentId}/${amount}`);
-}
-
-getOrderHistory(id:number)
-{
-
-  this.httpClient
-    .get(
-      `${environment.backendURL}/payment/payment-history/${id}`
-    ).
-    subscribe((response:any)=>{
-      this.orders=response;
-      this.orderHistory.next(this.orders);
-
-    })
-}
-
-
-}
-
-

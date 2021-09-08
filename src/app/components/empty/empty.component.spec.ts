@@ -9,9 +9,7 @@ fdescribe('EmptyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EmptyComponent],
-      imports:[
-        MaterialModule
-      ]
+      imports: [MaterialModule],
     }).compileComponents();
   });
 

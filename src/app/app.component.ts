@@ -91,10 +91,9 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.store.dispatch(update(breakpoint));
       });
-
   }
 
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.mediaSubscriber.unsubscribe();
   }
 }

@@ -19,7 +19,7 @@ fdescribe('DocumentsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DocumentsComponent],
-      imports : [
+      imports: [
         ReactiveFormsModule,
         FormsModule,
         BrowserAnimationsModule,
@@ -33,7 +33,7 @@ fdescribe('DocumentsComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -8,10 +8,7 @@
   </div>
 
   <div fxFlex="86" [ngClass]="'carousel-horizontal-scroll'">
-    <div
-      class="full-size"
-      *ngFor="let slide of slides; let i = index"
-    >
+    <div class="full-size" *ngFor="let slide of slides; let i = index">
       <div [id]="name + i" class="full-size">
         <ng-template #template [ngTemplateOutlet]="slide.template">
         </ng-template>
@@ -20,6 +17,6 @@
   </div>
 
   <div fxFlex="7" class="center">
-      <mat-icon (click)="onNextClick()">arrow_forward_ios</mat-icon>
+    <mat-icon (click)="onNextClick()">arrow_forward_ios</mat-icon>
   </div>
 </div>

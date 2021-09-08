@@ -24,7 +24,6 @@ export class SelfieComponent {
   @ViewChild('video')
   public video: any;
   @ViewChild('canvas')
-
   public canvas: any;
   public stream: any;
   public captured: boolean;
@@ -93,7 +92,7 @@ export class SelfieComponent {
 
   async save() {
     const response = await fetch(this.image);
-    const blob =  await response.blob();
+    const blob = await response.blob();
     const imageFile = new File([blob], 'name.png', { type: 'image/png' });
     let selfie = {} as Selfie;
     selfie.image = imageFile;
@@ -103,7 +102,9 @@ export class SelfieComponent {
   }
 
   draw(image: any) {
-    this.canvas.nativeElement.getContext('2d').drawImage(image, 0, 0, this.width, this.height);
+    this.canvas.nativeElement
+      .getContext('2d')
+      .drawImage(image, 0, 0, this.width, this.height);
     this.image = this.canvas.nativeElement.toDataURL('image/png');
   }
 

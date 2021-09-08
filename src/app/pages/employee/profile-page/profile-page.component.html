@@ -11,12 +11,10 @@
   fxLayout="column"
   *ngIf="!employeeLoading && !videoLoading && !companyLoading && !imageLoading"
   fxLayoutAlign="center center"
-
-
 >
   <app-profile
     class="full-width"
-    style="margin-top:10rem"
+    style="margin-top: 10rem"
     [employee]="details"
     [document]="documents"
     [liveliness]="liveliness"

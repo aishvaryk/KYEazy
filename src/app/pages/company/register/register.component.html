@@ -18,7 +18,7 @@
     [ngClass.lt-sm]="'container-card-mobile'"
   >
     <mat-tab-group
-    class="full-width"
+      class="full-width"
       dynamicHeight="true"
       mat-align-tabs="center"
     >
@@ -143,9 +143,7 @@
               Register Multiple Employees
             </div>
 
-            <form
-            class="full-width"
-            (ngSubmit)="onSave()" [formGroup]="form">
+            <form class="full-width" (ngSubmit)="onSave()" [formGroup]="form">
               <div
                 fxLayout="row wrap"
                 fxLayout.xs="column"

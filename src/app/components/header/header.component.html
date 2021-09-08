@@ -5,7 +5,7 @@
         mat-icon-button
         color="primary"
         (click)="toggleMenu()"
-        *ngIf="deviceSmall && !isHome && !isAdminLogin !isCompanySignup"
+        *ngIf="deviceSmall && !isHome && !isAdminLogin!; isCompanySignup"
         class="menu-button"
       >
         <mat-icon>menu</mat-icon>
@@ -19,15 +19,24 @@
     </div>
 
     <div class="buttons" fxLayout="row" fxLayoutAlign="start center">
-      <div class="large-header-buttons" *ngIf="!deviceSmall" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-button (click)="scrollToAbout()" *ngIf="isHome" >
+      <div
+        class="large-header-buttons"
+        *ngIf="!deviceSmall"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+      >
+        <button mat-button (click)="scrollToAbout()" *ngIf="isHome">
           About
         </button>
         <button mat-button (click)="openBottomSheet()" *ngIf="isHome">
           Contact Us
         </button>
-        <button mat-button href="/company/wallet" *ngIf="showCoins"
-        routerLink="/company/wallet">
+        <button
+          mat-button
+          href="/company/wallet"
+          *ngIf="showCoins"
+          routerLink="/company/wallet"
+        >
           <div class="coins" fxLayout="row" fxLayoutAlign="center center">
             {{ coins }}<mat-icon style="color: gold">paid</mat-icon>
           </div>

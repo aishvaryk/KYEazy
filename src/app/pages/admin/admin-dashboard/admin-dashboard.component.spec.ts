@@ -10,7 +10,7 @@ import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/app-material.module';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 fdescribe('AdminDashboardComponent', () => {
   let component: AdminDashboardComponent;
@@ -19,7 +19,7 @@ fdescribe('AdminDashboardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminDashboardComponent],
-      imports:[
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialModule,
@@ -31,8 +31,8 @@ fdescribe('AdminDashboardComponent', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     }).compileComponents();
   });
 

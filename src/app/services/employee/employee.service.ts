@@ -22,7 +22,6 @@ export class EmployeeService {
   public videoSubject = new Subject<void>();
   public imageSubject = new Subject<void>();
 
-
   constructor(
     private loginService: LoginService,
     private httpClient: HttpClient
@@ -43,14 +42,11 @@ export class EmployeeService {
     return this.loginService.doLogin(credentials);
   }
 
-  getEmployee(employeeId:number)
-  {
-    return this.httpClient
-      .get<Employee>(
-        `${environment.backendURL}/employee/${employeeId}`,
-    )
+  getEmployee(employeeId: number) {
+    return this.httpClient.get<Employee>(
+      `${environment.backendURL}/employee/${employeeId}`
+    );
   }
-
 
   updateProfile(newEmployee: Employee): void {
     this.httpClient
@@ -67,14 +63,14 @@ export class EmployeeService {
   updateEmployeeStatus(newEmployee: Employee): void {
     this.httpClient
       .get<ActionDTO>(
-        `${environment.backendURL}/employee/update-status/${newEmployee.employeeId}`,
+        `${environment.backendURL}/employee/update-status/${newEmployee.employeeId}`
       )
       .pipe(map((response) => response as ActionDTO))
       .subscribe((results: ActionDTO) => {
         this.updateStatus = results;
         this.statusSubject.next();
       });
-}
+  }
 
   updateEmployeeImage(id: number, image: FormData): void {
     this.httpClient

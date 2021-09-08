@@ -34,8 +34,7 @@
 .pie-chart-legend-mobile {
   display: none;
   ::ng-deep .advanced-pie-legend {
-
-     display: none;
+    display: none;
     margin-left: -7.5rem;
     .total-value {
       height: 3rem;
@@ -54,7 +53,7 @@
 
       .legend-item {
         height: 100%;
-        margin-right: .9rem !important;
+        margin-right: 0.9rem !important;
         cursor: unset !important;
         .item-value {
           font-size: 1.4rem !important;

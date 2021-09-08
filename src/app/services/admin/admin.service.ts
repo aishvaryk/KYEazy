@@ -35,7 +35,7 @@ export class AdminService {
     this.companiesSubject = new Subject();
     this.companySubject = new Subject();
     this.employeeVideoSubject = new Subject();
-    this.statusSubject= new Subject();
+    this.statusSubject = new Subject();
   }
 
   login(credentials: any): any {

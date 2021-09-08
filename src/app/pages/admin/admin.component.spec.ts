@@ -20,7 +20,7 @@ describe('AdminComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminComponent, SidebarComponent],
-      imports:[
+      imports: [
         MaterialModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({
@@ -32,7 +32,7 @@ describe('AdminComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -52,30 +52,34 @@ export class CompanyDashboardComponent implements OnInit {
       this.company = company;
       if (this.company.numberOfTotalEmployees === 0) {
         this.zeroEmployees = true;
-
       } else {
         this.zeroEmployees = false;
       }
-      pieChartData[0].value =this.company.numberOfRegisteredEmployees;
+      pieChartData[0].value = this.company.numberOfRegisteredEmployees;
       pieChartData[1].value = this.company.numberOfAcceptedEmployees;
       pieChartData[2].value = this.company.numberOfRejectedEmployees;
       pieChartData[3].value = this.company.numberOfPendingEmployees;
       pieChartData[4].value =
-      this.company.numberOfTotalEmployees -
-      this.company.numberOfAcceptedEmployees -
-      this.company.numberOfRejectedEmployees -
-      this.company.numberOfPendingEmployees-
-      this.company.numberOfRegisteredEmployees
-            Object.assign(this, { pieChartData });
+        this.company.numberOfTotalEmployees -
+        this.company.numberOfAcceptedEmployees -
+        this.company.numberOfRejectedEmployees -
+        this.company.numberOfPendingEmployees -
+        this.company.numberOfRegisteredEmployees;
+      Object.assign(this, { pieChartData });
     });
   }
 
   ngOnInit(): void {
-
     let k = localStorage.getItem('Id');
     if (k != null) {
       this.loading = true;
-      this.companyService.getEmployees(parseInt(k), 2, 1,"dateTimeOfApplication","all");
+      this.companyService.getEmployees(
+        parseInt(k),
+        2,
+        1,
+        'dateTimeOfApplication',
+        'all'
+      );
       this.loading = false;
     }
     this.companyService.employeesSubject.subscribe((employees) => {

@@ -30,63 +30,59 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   @Input() document!: Documents;
   @Input() employee!: Details;
   @Input() status!: string;
-  @Input() employeeId!:number;
-  @Input() review!:string;
+  @Input() employeeId!: number;
+  @Input() review!: string;
 
   @ViewChild('image') image!: any;
   @ViewChild('video') video!: any;
 
   documentURL: any;
 
-  constructor(private dialog: MatDialog,private adminService:AdminService,public matBottomSheet:MatBottomSheet) {
-
-  }
+  constructor(
+    private dialog: MatDialog,
+    private adminService: AdminService,
+    public matBottomSheet: MatBottomSheet
+  ) {}
 
   ngOnInit(): void {
-    this.adminService.statusSubject.subscribe((response)=>{
-      this.status=response;
-    })
-}
+    this.adminService.statusSubject.subscribe((response) => {
+      this.status = response;
+    });
+  }
 
   ngAfterViewInit() {
     // Prase Image
-    let blob = new Blob([this.selfie.image], { type:"image/png"});
+    let blob = new Blob([this.selfie.image], { type: 'image/png' });
     let url = window.URL.createObjectURL(blob);
-    this.image.nativeElement.src = url
+    this.image.nativeElement.src = url;
 
     // Parse Video
-    blob = new Blob([this.liveliness.video], { type:"video/mp4"});
+    blob = new Blob([this.liveliness.video], { type: 'video/mp4' });
     url = window.URL.createObjectURL(blob);
-    this.video.nativeElement.src = url
+    this.video.nativeElement.src = url;
 
     // Parse Document
-    blob = new Blob([this.document.document], {type: 'application/pdf'});
+    blob = new Blob([this.document.document], { type: 'application/pdf' });
     url = URL.createObjectURL(blob);
     this.documentURL = url;
-
   }
-showReason(reason:string)
-{
-this.matBottomSheet.open(ReasonComponent, {
-  data: reason,
-});
-}
+  showReason(reason: string) {
+    this.matBottomSheet.open(ReasonComponent, {
+      data: reason,
+    });
+  }
   viewDocument() {
     window.open(this.documentURL);
   }
-  acceptEmployee()
-  {
+  acceptEmployee() {
     this.adminService.acceptEmployee(this.employeeId);
-
   }
-  rejectEmployee()
-  {
+  rejectEmployee() {
     this.dialog.open(ModalComponent, {
       data: {
         type: 'REJECT',
-        employeeId: this.employeeId
+        employeeId: this.employeeId,
       },
     });
-
   }
 }

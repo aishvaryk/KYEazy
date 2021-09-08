@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -18,8 +25,7 @@ import Validation from 'src/app/validators/passoword-matcher.validator';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
-  passwordMatch=false
+  passwordMatch = false;
   companyName: string = '';
   userName: string = '';
   hide: boolean = true;
@@ -32,20 +38,19 @@ export class SignupComponent implements OnInit {
   fileName: string;
   companyId!: number;
   file!: any;
-  isSmall!:boolean;
+  isSmall!: boolean;
 
   constructor(
     companyService: CompanyService,
     private snackbar: MatSnackBar,
     public router: Router,
     public dialog: MatDialog,
-    public store:Store<{breakpoint:Breakpoint}>
+    public store: Store<{ breakpoint: Breakpoint }>
   ) {
-
     this.newCompany = {} as Company;
     this.companyAddress = {} as Address;
     this.companyService = companyService;
-    this.fileName = "No File Choosen"
+    this.fileName = 'No File Choosen';
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.isSmall = true;
@@ -53,37 +58,44 @@ export class SignupComponent implements OnInit {
         this.isSmall = false;
       }
     });
-
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       companyName: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
-      password: new FormControl(null,[Validators.required,Validators.minLength(8)]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
       companyDescription: new FormControl(null, Validators.required),
-      cin: new FormControl(null,[ Validators.required,Validators.minLength(21),Validators.maxLength(21)]),
+      cin: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(21),
+        Validators.maxLength(21),
+      ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       icon: new FormControl(null, [Validators.required]),
       address: new FormControl(null, Validators.required),
       address2: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       state: new FormControl(null, Validators.required),
-      postalCode: new FormControl(null, [Validators.required,Validators.minLength(6),Validators.minLength(6)]),
+      postalCode: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.minLength(6),
+      ]),
       country: new FormControl(null, Validators.required),
-    },
-    );
+    });
   }
 
-
- onChange(event: any) {
+  onChange(event: any) {
     this.file = event.target.files[0];
     this.fileName = this.file.name;
     this.form.patchValue({
       icon: this.file,
     });
   }
-
 
   onSubmit() {
     if (this.form.status === 'INVALID') return;
@@ -119,5 +131,4 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
 }

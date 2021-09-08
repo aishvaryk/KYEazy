@@ -20,7 +20,7 @@ fdescribe('ReviewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ReviewComponent],
-      imports:[
+      imports: [
         MatSnackBarModule,
         HttpClientModule,
         RouterTestingModule,
@@ -34,7 +34,7 @@ fdescribe('ReviewComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -21,8 +21,8 @@ describe('CompanyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CompanyComponent,SidebarComponent,ReviewComponent],
-      imports:[
+      declarations: [CompanyComponent, SidebarComponent, ReviewComponent],
+      imports: [
         MaterialModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
@@ -35,7 +35,7 @@ describe('CompanyComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

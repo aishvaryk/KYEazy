@@ -12,19 +12,19 @@
 }
 
 .company-card-header {
-  .company-name{
+  .company-name {
     margin-bottom: 1rem;
   }
-  .company-cin{
+  .company-cin {
     margin-bottom: 0;
   }
 }
 
 .company-card-header-mobile {
-  .company-name{
+  .company-name {
     margin-bottom: 1rem;
   }
-  .company-cin{
+  .company-cin {
     margin-bottom: 0;
   }
 }
@@ -33,21 +33,21 @@
   font-size: 1.6rem;
   margin-bottom: 0;
   cursor: default;
-.total {
-  font-size: 1.8rem;
-}
-.accepted {
-  color: green;
-}
-.rejected {
-  color: red;
-}
-.pending {
-  color: sandybrown;
-}
-.registered {
-  color: #677e9a;
-}
+  .total {
+    font-size: 1.8rem;
+  }
+  .accepted {
+    color: green;
+  }
+  .rejected {
+    color: red;
+  }
+  .pending {
+    color: sandybrown;
+  }
+  .registered {
+    color: #677e9a;
+  }
 }
 
 .status-container-mobile {
@@ -55,34 +55,30 @@
   font-size: 1rem;
   margin-bottom: 0;
   cursor: default;
-.total {
-
-  font-size: 1.6rem;
-}
-.accepted {
-  mat-icon {
-    color: green;
+  .total {
+    font-size: 1.6rem;
   }
-
-}
-.rejected {
-  mat-icon {
-    color: red;
+  .accepted {
+    mat-icon {
+      color: green;
+    }
   }
-}
-.pending {
-  mat-icon {
-    color: sandybrown;
+  .rejected {
+    mat-icon {
+      color: red;
+    }
   }
-
-}
-.registered {
-  mat-icon {
-    color: #677e9a;
+  .pending {
+    mat-icon {
+      color: sandybrown;
+    }
+  }
+  .registered {
+    mat-icon {
+      color: #677e9a;
+    }
   }
 }
-}
-
 
 .status-container-mobile > div {
   margin-bottom: 1rem;

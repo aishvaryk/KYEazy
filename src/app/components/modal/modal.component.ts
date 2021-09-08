@@ -16,11 +16,9 @@ export class ModalComponent implements OnInit {
     public dialog: MatDialogRef<ModalComponent>
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onClose(): void {
     this.dialog?.close();
   }
-
 }

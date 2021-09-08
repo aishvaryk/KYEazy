@@ -14,13 +14,12 @@ import { routeReducer } from 'src/app/redux/reducers/route.reducer';
 import { selfieReducer } from 'src/app/redux/reducers/selfie.reducer';
 import { CompanyGuard } from './company.guard';
 
-
 fdescribe('AuthGuard', () => {
   let guard: CompanyGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         MaterialModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -34,8 +33,8 @@ fdescribe('AuthGuard', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     });
     guard = TestBed.inject(CompanyGuard);
   });

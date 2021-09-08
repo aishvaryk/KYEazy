@@ -18,9 +18,11 @@ export class EmployeeCardComponent implements OnInit {
 
   @Output() rekyc = new EventEmitter<number>();
 
-
-
-  constructor(public companyService:CompanyService,public store:Store<{breakpoint:Breakpoint}>,public dialog:MatDialog) {
+  constructor(
+    public companyService: CompanyService,
+    public store: Store<{ breakpoint: Breakpoint }>,
+    public dialog: MatDialog
+  ) {
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.isSmall = true;
@@ -30,11 +32,7 @@ export class EmployeeCardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-
-
-  }
+  ngOnInit(): void {}
 
   formatImage(img: any): any {
     if (img == null) {
@@ -47,14 +45,12 @@ export class EmployeeCardComponent implements OnInit {
     this.dialog.open(ModalComponent, {
       data: {
         type: 'REPORT',
-        employeeId: this.employee.employeeId
+        employeeId: this.employee.employeeId,
       },
     });
-    }
+  }
 
-    onReKyc()
-    {
-      this.rekyc.emit(this.employee.employeeId);
-    }
-
+  onReKyc() {
+    this.rekyc.emit(this.employee.employeeId);
+  }
 }

@@ -23,7 +23,7 @@ fdescribe('ProfilePageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProfilePageComponent],
-      imports:[
+      imports: [
         RouterTestingModule,
         HttpClientModule,
         MaterialModule,
@@ -39,8 +39,7 @@ fdescribe('ProfilePageComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-
-      ]
+      ],
     }).compileComponents();
   });
 

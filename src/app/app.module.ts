@@ -51,9 +51,7 @@ import {
   CarouselComponent,
   CarouselSlide,
 } from './components/carousel/carousel.component';
-import {
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { ProfilePageComponent } from './pages/employee/profile-page/profile-page.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
@@ -147,7 +145,7 @@ import { ReasonComponent } from './components/reason/reason.component';
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 5000 }
+      useValue: { duration: 5000 },
     },
   ],
   bootstrap: [AppComponent],

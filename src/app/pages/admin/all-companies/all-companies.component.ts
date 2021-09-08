@@ -24,17 +24,17 @@ export class AllCompaniesComponent implements OnInit {
   public companyId: number = 0;
   public companyRoute: any;
   public searchText: any = '';
-  public companiesLoading: boolean
+  public companiesLoading: boolean;
   public numberOfCompaniesLoading: boolean;
   public zeroCompanies: any;
   public totalC: any;
 
-  @ViewChild('matPaginator') matPaginator!: MatPaginator
+  @ViewChild('matPaginator') matPaginator!: MatPaginator;
 
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {
     this.companiesLoading = false;
     this.numberOfCompaniesLoading = false;
@@ -52,7 +52,6 @@ export class AllCompaniesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.adminService.getCompanies(5, 1);
 
     this.store.select('breakpoint').subscribe((breakpoint) => {
@@ -65,17 +64,17 @@ export class AllCompaniesComponent implements OnInit {
 
     //this.companiesLoading = true;
     this.adminService.companiesSubject.subscribe((companies) => {
-
       if (this.searchText) {
         if (companies.length == 0) {
-          this.snackBar.open('No Companies Found', "Retry");
+          this.snackBar.open('No Companies Found', 'Retry');
           return;
         }
-        this.adminService.getSearchedCompaniesSize(this.searchText).subscribe((res: any) => {
-          this.matPaginator.length = res;
-        })
+        this.adminService
+          .getSearchedCompaniesSize(this.searchText)
+          .subscribe((res: any) => {
+            this.matPaginator.length = res;
+          });
       }
-
 
       this.companies = companies;
       if (companies.length === 0) {
@@ -83,7 +82,6 @@ export class AllCompaniesComponent implements OnInit {
       } else {
         this.zeroCompanies = false;
       }
-
     });
 
     // this.numberOfCompaniesLoading = true;
@@ -92,15 +90,23 @@ export class AllCompaniesComponent implements OnInit {
       this.totalC = res;
       // this.numberOfCompaniesLoading = false;
     });
-
   }
 
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
     //this.companiesLoading = true;
-    if (this.searchText.length === 0) this.adminService.getCompanies(this.paginator.currentPageSize, this.paginator.currentPageIndex + 1);
-    else this.adminService.getAllCompaniesByName(this.searchText, this.paginator.currentPageSize, this.paginator.currentPageIndex + 1)
+    if (this.searchText.length === 0)
+      this.adminService.getCompanies(
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
+    else
+      this.adminService.getAllCompaniesByName(
+        this.searchText,
+        this.paginator.currentPageSize,
+        this.paginator.currentPageIndex + 1
+      );
   }
 
   onSearchText(event: any) {
@@ -117,5 +123,4 @@ export class AllCompaniesComponent implements OnInit {
       this.adminService.getAllCompaniesByName(this.searchText, 5, 1);
     }
   }
-
 }

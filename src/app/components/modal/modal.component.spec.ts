@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule } from 'src/app/app-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './modal.component';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
@@ -18,7 +18,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 fdescribe('ModalComponent', () => {
   let component: ModalComponent;
   let fixture: ComponentFixture<ModalComponent>;
@@ -27,12 +26,10 @@ fdescribe('ModalComponent', () => {
     await TestBed.configureTestingModule({
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} }
-    ],
-      declarations: [ModalComponent,
-      LoginComponent,
+        { provide: MatDialogRef, useValue: {} },
       ],
-      imports : [
+      declarations: [ModalComponent, LoginComponent],
+      imports: [
         MaterialModule,
         BrowserAnimationsModule,
         MatSnackBarModule,
@@ -48,7 +45,7 @@ fdescribe('ModalComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

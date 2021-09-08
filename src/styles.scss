@@ -34,7 +34,7 @@ body {
 }
 
 .full-height {
-  height: 100%
+  height: 100%;
 }
 
 .full-size {
@@ -74,7 +74,6 @@ $my-theme: mat.define-light-theme(
 @include mat.icon-theme($my-theme);
 @include mat.progress-spinner-theme($my-theme);
 
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -90,7 +89,7 @@ $my-theme: mat.define-light-theme(
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background:lightblue;
+  background: lightblue;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline {

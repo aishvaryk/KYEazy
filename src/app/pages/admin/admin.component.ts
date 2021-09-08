@@ -8,22 +8,20 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-
   loginService: LoginService;
-  constructor(private router:Router, loginService:LoginService) {
-    this.loginService=loginService;
+  constructor(private router: Router, loginService: LoginService) {
+    this.loginService = loginService;
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem("userType"));
-    if(this.loginService.isLoggedIn() && localStorage.getItem("userType")==="ADMIN"){
+    console.log(localStorage.getItem('userType'));
+    if (
+      this.loginService.isLoggedIn() &&
+      localStorage.getItem('userType') === 'ADMIN'
+    ) {
       this.router.navigate(['/admin/dashboard']);
-    }
-    else {
+    } else {
       this.router.navigate(['/admin/login']);
     }
-
   }
-
-
 }

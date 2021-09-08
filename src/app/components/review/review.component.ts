@@ -26,7 +26,7 @@ import { setSelfie } from 'src/app/redux/actions/selfie.actions';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
 })
-export class ReviewComponent implements OnInit,OnDestroy {
+export class ReviewComponent implements OnInit, OnDestroy {
   @Input() stepper!: MatStepper;
   public employee: Employee;
   public address: Address;
@@ -34,7 +34,7 @@ export class ReviewComponent implements OnInit,OnDestroy {
   public documents: Documents;
   public selfie: Selfie;
   public liveliness: Liveliness;
-  public company!:string;
+  public company!: string;
 
   public employeeLoading: any;
   public companyLoading: any;
@@ -42,13 +42,12 @@ export class ReviewComponent implements OnInit,OnDestroy {
   public imageLoading: any;
   public documentLoading: any;
 
-
   constructor(
-    public companyService:CompanyService,
+    public companyService: CompanyService,
     public snackbar: MatSnackBar,
     public loginService: LoginService,
     private employeeService: EmployeeService,
-    private router:Router,
+    private router: Router,
     public store: Store<{
       details: Details;
       documents: Documents;
@@ -67,7 +66,6 @@ export class ReviewComponent implements OnInit,OnDestroy {
     this.documentLoading = false;
     this.employee = {} as Employee;
     this.address = {} as Address;
-
   }
 
   ngOnDestroy(): void {
@@ -78,18 +76,14 @@ export class ReviewComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-
-    let k=localStorage.getItem("Id")
-    if(k!=null){
-    this.employeeService.getEmployee(parseInt(k)).subscribe((employee)=>
-    {
-      this.companyService.getCompanyDetails(employee.companyId);
-      this.companyService.companySubject.subscribe((company)=>{
-        this.company=company.name;
-      })
-
-
-    });
+    let k = localStorage.getItem('Id');
+    if (k != null) {
+      this.employeeService.getEmployee(parseInt(k)).subscribe((employee) => {
+        this.companyService.getCompanyDetails(employee.companyId);
+        this.companyService.companySubject.subscribe((company) => {
+          this.company = company.name;
+        });
+      });
     }
     this.employeeLoading = true;
     this.store.select('details').subscribe((details) => {
@@ -121,7 +115,6 @@ export class ReviewComponent implements OnInit,OnDestroy {
   }
 
   submitKYC() {
-
     let k = localStorage.getItem('Id');
     if (k != null) {
       this.employee.employeeId = parseInt(k);
@@ -145,7 +138,7 @@ export class ReviewComponent implements OnInit,OnDestroy {
     this.employee.address = this.address;
     this.employee.documentNumber = this.documents.documentNumber;
     this.employee.documentType = this.documents.documentType;
-    this.employee.question=this.liveliness.question;
+    this.employee.question = this.liveliness.question;
 
     console.log(this.employee);
 
@@ -159,30 +152,26 @@ export class ReviewComponent implements OnInit,OnDestroy {
     const videoData = new FormData();
     videoData.append('employeeVideo', this.liveliness.video);
 
-
     this.employeeService.updateProfile(this.employee);
     this.employeeService.detailsSubject.subscribe(() => {
       this.employeeService.updateEmployeeImage(id, imageData);
-    })
+    });
 
     this.employeeService.imageSubject.subscribe(() => {
       this.employeeService.updateEmployeeDocument(id, documentData);
-    })
+    });
 
     this.employeeService.documentSubject.subscribe(() => {
       this.employeeService.updateEmployeeVideo(id, videoData);
-    })
+    });
 
     this.employeeService.videoSubject.subscribe(() => {
       this.employeeService.updateEmployeeStatus(this.employee);
     });
 
-    this.employeeService.statusSubject.subscribe(()=> {
+    this.employeeService.statusSubject.subscribe(() => {
       this.snackbar.open('Sucessfully Submitted', 'Okay');
       this.loginService.logout();
-    })
-
+    });
   }
 }
-
-

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule } from 'src/app/app-material.module';
 import { EmployeeCardComponent } from './employee-card.component';
-import {Employee} from "src/app/models/employee.model"
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { Employee } from 'src/app/models/employee.model';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { breakpointReducer } from 'src/app/redux/reducers/breakpoint.reducer';
@@ -20,7 +20,7 @@ fdescribe('EmployeeCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EmployeeCardComponent],
-      imports:[
+      imports: [
         MaterialModule,
         HttpClientTestingModule,
         RouterTestingModule,
@@ -32,16 +32,16 @@ fdescribe('EmployeeCardComponent', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EmployeeCardComponent);
     component = fixture.componentInstance;
-    const NewEmployee :Employee={ } as Employee;
-    component.employee= NewEmployee;
+    const NewEmployee: Employee = {} as Employee;
+    component.employee = NewEmployee;
     fixture.detectChanges();
   });
 

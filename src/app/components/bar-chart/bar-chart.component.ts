@@ -9,10 +9,8 @@ import { Breakpoint } from 'src/app/models/breakpoint.model';
   styleUrls: ['./bar-chart.component.scss'],
 })
 export class BarChartComponent implements OnInit {
-
   barChartData!: any[];
   view: any = [900, 400];
-
 
   // options
   showXAxis: boolean = true;
@@ -24,53 +22,48 @@ export class BarChartComponent implements OnInit {
   showYAxisLabel: boolean = true;
   yAxisLabel: string = 'Employees';
   legendTitle: string = 'Status';
-  showDataLabel:boolean = false;
-  legendPosition:any="right";
-  isSmall:boolean=false;
+  showDataLabel: boolean = false;
+  legendPosition: any = 'right';
+  isSmall: boolean = false;
   schemeType: any = 'ordinal';
 
-  colorScheme:any = {
+  colorScheme: any = {
     domain: ['slategrey', 'green', 'red', '#FC9A1D'],
   };
 
-  constructor( public store: Store<{ breakpoint: Breakpoint}>) {
+  constructor(public store: Store<{ breakpoint: Breakpoint }>) {
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
-        this.legendPosition="below";
-        this.view = [330,300];
-        this.showYAxisLabel=false;
-        this.isSmall=true;
-      } else if (change.isSm){
-        this.view = [600,300];
-        this.legendPosition="below";
-        this.showYAxisLabel=true;
-        this.isSmall=false;
-      }
-      else if (change.isMd){
-        this.view = [700,400];
-        this.legendPosition="right";
-        this.showYAxisLabel=true;
-        this.isSmall=false;
-      }
-      else {
-        this.view = [900,400];
-        this.legendPosition="right";
-        this.showYAxisLabel=true;
-        this.isSmall=false;
+        this.legendPosition = 'below';
+        this.view = [330, 300];
+        this.showYAxisLabel = false;
+        this.isSmall = true;
+      } else if (change.isSm) {
+        this.view = [600, 300];
+        this.legendPosition = 'below';
+        this.showYAxisLabel = true;
+        this.isSmall = false;
+      } else if (change.isMd) {
+        this.view = [700, 400];
+        this.legendPosition = 'right';
+        this.showYAxisLabel = true;
+        this.isSmall = false;
+      } else {
+        this.view = [900, 400];
+        this.legendPosition = 'right';
+        this.showYAxisLabel = true;
+        this.isSmall = false;
       }
     });
 
     Object.assign(this, { barChartData });
   }
 
-  onSelect(data:any): void {
-  }
+  onSelect(data: any): void {}
 
-  onActivate(data:any): void {
-  }
+  onActivate(data: any): void {}
 
-  onDeactivate(data:any): void {
-  }
+  onDeactivate(data: any): void {}
 
   ngOnInit(): void {}
 }

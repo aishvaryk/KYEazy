@@ -60,7 +60,9 @@
             <mat-label>Sort By</mat-label>
             <mat-select (selectionChange)="OnSortSelect($event)">
               <mat-option value="firstName"> Name </mat-option>
-              <mat-option value="dateTimeOfApplication"> Date of Registration </mat-option>
+              <mat-option value="dateTimeOfApplication">
+                Date of Registration
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -109,7 +111,7 @@
             [employee]="employee"
             [isSmall]="isSmall"
             (rekyc)="rekyc($event)"
-            ></app-employee-card>
+          ></app-employee-card>
         </div>
       </div>
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">

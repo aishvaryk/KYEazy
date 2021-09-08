@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,7 +8,7 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
-import {  MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +16,9 @@ import {  MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginService:LoginService;
-  durationInSeconds=5;
-  loading!:boolean;
+  loginService: LoginService;
+  durationInSeconds = 5;
+  loading!: boolean;
   @Input()
   public type: any;
 
@@ -62,36 +58,37 @@ export class LoginComponent implements OnInit {
 
     if (this.form.status === 'INVALID') return;
 
-    if(this.type == "EMPLOYEE_LOGIN") {
-      this.credentials.role="EMPLOYEE";
-      localStorage.setItem('userType',"EMPLOYEE")
-      this.loading=true;
+    if (this.type == 'EMPLOYEE_LOGIN') {
+      this.credentials.role = 'EMPLOYEE';
+      localStorage.setItem('userType', 'EMPLOYEE');
+      this.loading = true;
       this.employeeService.login(this.credentials).subscribe(
-        (response:any)=>{
-         this.loginService.loginUser(response.token,response.id)
-         //this.loginService.setUserId(response.id)
-         this.router.navigate(['/employee/kyc'])
-         this.loading=false;
+        (response: any) => {
+          this.loginService.loginUser(response.token, response.id);
+          //this.loginService.setUserId(response.id)
+          this.router.navigate(['/employee/kyc']);
+          this.loading = false;
         },
-        (error:any)=>{
-          this.openSnackBar("Invalid Employee Credentials","Retry");
-          this.loading=false;
-        })
+        (error: any) => {
+          this.openSnackBar('Invalid Employee Credentials', 'Retry');
+          this.loading = false;
+        }
+      );
     }
 
-    if(this.type == "ADMIN_LOGIN") {
-      this.credentials.role="ADMIN";
-      localStorage.setItem('userType',"ADMIN")
-      this.loading=true;
+    if (this.type == 'ADMIN_LOGIN') {
+      this.credentials.role = 'ADMIN';
+      localStorage.setItem('userType', 'ADMIN');
+      this.loading = true;
       this.adminService.login(this.credentials).subscribe(
-        (response:any)=>{
-         this.loginService.loginUser(response.token,"")
-         this.router.navigate(['/admin/dashboard'])
-         this.loading=false;
+        (response: any) => {
+          this.loginService.loginUser(response.token, '');
+          this.router.navigate(['/admin/dashboard']);
+          this.loading = false;
         },
-        (error:any)=>{
-          this.loading=false;
-          this.errorDialog.open(ModalComponent,{
+        (error: any) => {
+          this.loading = false;
+          this.errorDialog.open(ModalComponent, {
             data: {
               type: 'INFORMATION_PROMPTS',
             },
@@ -100,21 +97,21 @@ export class LoginComponent implements OnInit {
       );
     }
 
-
-    if(this.type == "COMPANY_LOGIN") {
-      this.credentials.role="COMPANY";
-      localStorage.setItem('userType',"COMPANY")
-      this.loading=true;
+    if (this.type == 'COMPANY_LOGIN') {
+      this.credentials.role = 'COMPANY';
+      localStorage.setItem('userType', 'COMPANY');
+      this.loading = true;
       this.companyService.login(this.credentials).subscribe(
-        (response:any)=>{
-         this.loginService.loginUser(response.token,response.id)
-         this.router.navigate(['/company/dashboard']);
-         this.loading=false;
+        (response: any) => {
+          this.loginService.loginUser(response.token, response.id);
+          this.router.navigate(['/company/dashboard']);
+          this.loading = false;
         },
-        (error:any)=>{
-          this.openSnackBar("Invalid Company Credentials","Retry");
-          this.loading=false;
-        })
+        (error: any) => {
+          this.openSnackBar('Invalid Company Credentials', 'Retry');
+          this.loading = false;
+        }
+      );
     }
 
     this.dialog.close();

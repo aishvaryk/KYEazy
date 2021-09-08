@@ -23,7 +23,7 @@ export class AdminDashboardComponent implements OnInit {
   public zeroEmployees: any;
   public zeroCompanies: any;
   public totalNoOfEmployees!: number;
-  public barChartData:any;
+  public barChartData: any;
 
   loading!: boolean;
   constructor(
@@ -71,18 +71,19 @@ export class AdminDashboardComponent implements OnInit {
           });
       });
 
-    this.adminService.getTopPerformer().subscribe((companies:Company[])=>
-    {
-      for(let i=0; i<companies.length; i++) {
-        barChartData[i].name= companies[i].name;
-        barChartData[i].series[0].value = companies[i].numberOfRegisteredEmployees;
-        barChartData[i].series[1].value = companies[i].numberOfAcceptedEmployees;
-        barChartData[i].series[2].value = companies[i].numberOfRejectedEmployees;
+    this.adminService.getTopPerformer().subscribe((companies: Company[]) => {
+      for (let i = 0; i < companies.length; i++) {
+        barChartData[i].name = companies[i].name;
+        barChartData[i].series[0].value =
+          companies[i].numberOfRegisteredEmployees;
+        barChartData[i].series[1].value =
+          companies[i].numberOfAcceptedEmployees;
+        barChartData[i].series[2].value =
+          companies[i].numberOfRejectedEmployees;
         barChartData[i].series[3].value = companies[i].numberOfPendingEmployees;
       }
       Object.assign(this, { pieChartData });
-    }
-    );
+    });
   }
 
   onViewEmployees(companyId: number) {

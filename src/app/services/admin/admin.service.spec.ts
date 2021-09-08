@@ -9,11 +9,7 @@ describe('AdminService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
-        HttpClientModule,
-        RouterTestingModule,
-      ]
-
+      imports: [HttpClientModule, RouterTestingModule],
     });
     service = TestBed.inject(AdminService);
   });

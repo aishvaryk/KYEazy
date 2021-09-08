@@ -9,7 +9,7 @@ import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { menuReducer } from 'src/app/redux/reducers/menu.reducer';
 import { routeReducer } from 'src/app/redux/reducers/route.reducer';
 import { selfieReducer } from 'src/app/redux/reducers/selfie.reducer';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CompanyDashboardComponent } from './company-dashboard.component';
 
 fdescribe('CompanyDashboardComponent', () => {
@@ -19,7 +19,7 @@ fdescribe('CompanyDashboardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CompanyDashboardComponent],
-      imports:[
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialModule,
@@ -32,7 +32,7 @@ fdescribe('CompanyDashboardComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

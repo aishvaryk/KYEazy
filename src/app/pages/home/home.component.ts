@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     public dialog: MatDialog,
     public store: Store<{ breakpoint: Breakpoint }>,
     public loginService: LoginService,
-    private router:Router,
+    private router: Router,
     public bottomSheet: MatBottomSheet
   ) {
     this.store.select('breakpoint').subscribe((breakpoint) => {
@@ -51,12 +51,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if(this.loginService.isLoggedIn())
-    {
-      if(localStorage.getItem("userType")==="ADMIN") this.router.navigate(["admin/dashboard"])
-      if(localStorage.getItem("userType")==="COMPANY") this.router.navigate(["company/dashboard"])
-      if(localStorage.getItem("userType")==="EMPLOYEE") this.router.navigate(["employee/dashboard"])
-
+    if (this.loginService.isLoggedIn()) {
+      if (localStorage.getItem('userType') === 'ADMIN')
+        this.router.navigate(['admin/dashboard']);
+      if (localStorage.getItem('userType') === 'COMPANY')
+        this.router.navigate(['company/dashboard']);
+      if (localStorage.getItem('userType') === 'EMPLOYEE')
+        this.router.navigate(['employee/dashboard']);
     }
   }
 
@@ -98,20 +99,21 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getViewportSize() {
     let w = window;
-    if (w.innerWidth != null) return {
-      w: w.innerWidth,
-      h: w.innerHeight
-    };
+    if (w.innerWidth != null)
+      return {
+        w: w.innerWidth,
+        h: w.innerHeight,
+      };
     var d = w.document;
     if (document.compatMode == 'CSS1Compat') {
       return {
         w: d.documentElement.clientWidth,
-        h: d.documentElement.clientHeight
+        h: d.documentElement.clientHeight,
       };
     }
     return {
       w: d.body.clientWidth,
-      h: d.body.clientWidth
+      h: d.body.clientWidth,
     };
   }
 
@@ -142,9 +144,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
- openLearnMore(companyType: string) {
-  this.bottomSheet.open(LearnMoreComponent, {
-    data: {companyType: companyType}
-  });
- }
+  openLearnMore(companyType: string) {
+    this.bottomSheet.open(LearnMoreComponent, {
+      data: { companyType: companyType },
+    });
+  }
 }

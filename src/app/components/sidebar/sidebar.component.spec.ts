@@ -17,7 +17,7 @@ fdescribe('SidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[
+      imports: [
         MaterialModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({

@@ -8,9 +8,8 @@ describe('AddCoinsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddCoinsComponent ]
-    })
-    .compileComponents();
+      declarations: [AddCoinsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

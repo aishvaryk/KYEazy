@@ -10,7 +10,6 @@ import { livelinessReducer } from 'src/app/redux/reducers/liveliness.reducer';
 import { SelfieComponent } from './selfie.component';
 import { MaterialModule } from 'src/app/app-material.module';
 
-
 fdescribe('SelfieComponent', () => {
   let component: SelfieComponent;
   let fixture: ComponentFixture<SelfieComponent>;
@@ -18,7 +17,7 @@ fdescribe('SelfieComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SelfieComponent],
-      imports:[
+      imports: [
         MaterialModule,
         StoreModule.forRoot({
           breakpoint: breakpointReducer,
@@ -29,7 +28,7 @@ fdescribe('SelfieComponent', () => {
           selfie: selfieReducer,
           liveliness: livelinessReducer,
         }),
-      ]
+      ],
     }).compileComponents();
   });
 

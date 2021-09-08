@@ -13,16 +13,15 @@
   fxLayoutAlign="center center"
   [ngClass.gt-xs]="'form-container'"
   [ngClass.xs]="'form-container-mobile'"
-
 >
-
- <form class="reportForm" fxLayout="column" fxLayoutAlign="space-around center"
+  <form
+    class="reportForm"
+    fxLayout="column"
+    fxLayoutAlign="space-around center"
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
-    <mat-form-field class="form-field"
-      appearance="outline"
-    >
+    <mat-form-field class="form-field" appearance="outline">
       <mat-label>Reason</mat-label>
       <textarea
         draggable="false"
@@ -38,8 +37,21 @@
         Message is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <button *ngIf="type==='REPORT'" mat-raised-button color="warn" type="submit">REPORT</button>
-    <button *ngIf="type==='REJECT'" mat-raised-button color="warn" type="submit">REJECT</button>
+    <button
+      *ngIf="type === 'REPORT'"
+      mat-raised-button
+      color="warn"
+      type="submit"
+    >
+      REPORT
+    </button>
+    <button
+      *ngIf="type === 'REJECT'"
+      mat-raised-button
+      color="warn"
+      type="submit"
+    >
+      REJECT
+    </button>
   </form>
-
 </div>

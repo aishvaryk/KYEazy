@@ -21,7 +21,8 @@ fdescribe('DetailsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DetailsComponent],
-      imports:[HttpClientModule,
+      imports: [
+        HttpClientModule,
         RouterTestingModule,
         StoreModule.forRoot({
           breakpoint: breakpointReducer,
@@ -35,7 +36,7 @@ fdescribe('DetailsComponent', () => {
         ReactiveFormsModule,
         MaterialModule,
         BrowserAnimationsModule,
-      ]
+      ],
     }).compileComponents();
   });
 

@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   public registrationStatus: ActionDTO;
   public actionDTOSubject: Subject<ActionDTO>;
   loading!: boolean;
-  coins=0;
+  coins = 0;
 
   constructor(
     companyService: CompanyService,
@@ -48,20 +48,17 @@ export class RegisterComponent implements OnInit {
       lastName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       contactNumber: new FormControl(null, [Validators.required]),
-
     });
     let k = localStorage.getItem('Id');
     if (k != null) this.companyService.getCompanyDetails(parseInt(k));
-    this.companyService.coinSubject.subscribe((coins)=>{
-      this.coins=coins;
-    })
-
+    this.companyService.coinSubject.subscribe((coins) => {
+      this.coins = coins;
+    });
   }
 
   onSubmit() {
     if (this.employeeForm.status === 'INVALID') return;
-    if(this.coins<50)
-    {
+    if (this.coins < 50) {
       this.snackbar.open('Not Enough Coins ! Please purchase');
       return;
       //snackbar
@@ -117,13 +114,12 @@ export class RegisterComponent implements OnInit {
     const formData = new FormData();
     formData.append('employeeCSV', this.form.get('document').value);
 
-     let k = localStorage.getItem('Id');
+    let k = localStorage.getItem('Id');
 
     if (k != null) {
       this.loading = true;
       this.companyService.registerEmployees(formData, parseInt(k));
       this.loading = false;
-
     }
   }
 }

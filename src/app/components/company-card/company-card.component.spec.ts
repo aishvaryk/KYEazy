@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyCardComponent } from './company-card.component';
-import {Company} from 'src/app/models/company.model'
+import { Company } from 'src/app/models/company.model';
 import { MaterialModule } from 'src/app/app-material.module';
 import { StoreModule } from '@ngrx/store';
 import { breakpointReducer } from 'src/app/redux/reducers/breakpoint.reducer';
@@ -19,7 +19,8 @@ fdescribe('CompanyCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CompanyCardComponent],
-      imports:[ReactiveFormsModule,
+      imports: [
+        ReactiveFormsModule,
         MaterialModule,
         StoreModule.forRoot({
           breakpoint: breakpointReducer,
@@ -29,15 +30,15 @@ fdescribe('CompanyCardComponent', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CompanyCardComponent);
     component = fixture.componentInstance;
-    const newCompany : Company = {} as Company;
+    const newCompany: Company = {} as Company;
     component.company = newCompany;
     fixture.detectChanges();
   });

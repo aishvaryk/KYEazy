@@ -19,7 +19,7 @@ fdescribe('AdminGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         MaterialModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -33,8 +33,8 @@ fdescribe('AdminGuard', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     });
     guard = TestBed.inject(AdminGuard);
   });

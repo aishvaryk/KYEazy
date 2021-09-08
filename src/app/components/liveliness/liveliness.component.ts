@@ -27,7 +27,7 @@ export class LivelinessComponent implements OnInit {
   public toCapture: any;
   @ViewChild('toPlay')
   public toPlay: any;
-  loading!:boolean;
+  loading!: boolean;
   public camera: boolean;
   public captured: boolean;
   public timeleft: number;
@@ -43,8 +43,9 @@ export class LivelinessComponent implements OnInit {
   public height!: number;
   public width!: number;
 
-
-  constructor(public store: Store<{ documents: Liveliness,breakpoint: Breakpoint }>) {
+  constructor(
+    public store: Store<{ documents: Liveliness; breakpoint: Breakpoint }>
+  ) {
     this.camera = false;
     this.captured = false;
     this.chunks = [];
@@ -87,12 +88,9 @@ export class LivelinessComponent implements OnInit {
         this.width = 300;
       }
     });
-
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {}
 
@@ -144,9 +142,16 @@ export class LivelinessComponent implements OnInit {
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        const videoStream = await navigator.mediaDevices.getUserMedia(this.videoConstraints);
-        const audioStream = await navigator.mediaDevices.getUserMedia(this.audioConstraints);
-        this.stream = new MediaStream([...videoStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
+        const videoStream = await navigator.mediaDevices.getUserMedia(
+          this.videoConstraints
+        );
+        const audioStream = await navigator.mediaDevices.getUserMedia(
+          this.audioConstraints
+        );
+        this.stream = new MediaStream([
+          ...videoStream.getVideoTracks(),
+          ...audioStream.getAudioTracks(),
+        ]);
         this.toCapture.nativeElement.srcObject = this.stream;
         this.toCapture.nativeElement.muted = true;
         this.toCapture.nativeElement.play();

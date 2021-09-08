@@ -19,7 +19,7 @@ fdescribe('EmployeeGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         MaterialModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
@@ -33,8 +33,8 @@ fdescribe('EmployeeGuard', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     });
     guard = TestBed.inject(EmployeeGuard);
   });

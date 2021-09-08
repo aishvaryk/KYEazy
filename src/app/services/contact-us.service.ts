@@ -6,18 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactUsService {
-
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
 
   post(contactUs: ContactUs): any {
     return this.httpClient
-      .post<ActionDTO>(
-        `${environment.backendURL}/contact-us`,
-        contactUs
-      )
+      .post<ActionDTO>(`${environment.backendURL}/contact-us`, contactUs)
       .pipe(map((response) => response as ActionDTO));
   }
 }

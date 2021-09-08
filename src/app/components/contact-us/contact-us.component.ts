@@ -8,17 +8,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.scss']
+  styleUrls: ['./contact-us.component.scss'],
 })
 export class ContactUsComponent implements OnInit {
-
   messageForm: any;
   loading!: boolean;
   isSubmitted: boolean = false;
   contactUs: any;
 
-
-  constructor(public contactUsService: ContactUsService, public snackBar: MatSnackBar) {
+  constructor(
+    public contactUsService: ContactUsService,
+    public snackBar: MatSnackBar
+  ) {
     this.contactUs = {} as ContactUs;
   }
 
@@ -26,24 +27,22 @@ export class ContactUsComponent implements OnInit {
     this.messageForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      message: new FormControl(null, Validators.required)
+      message: new FormControl(null, Validators.required),
     });
   }
 
   onSubmit() {
     if (this.messageForm.status === 'INVALID') return;
-   
+
     this.isSubmitted = true;
     this.contactUs.name = this.messageForm.value.name;
     this.contactUs.message = this.messageForm.value.message;
     this.contactUs.email = this.messageForm.value.email;
 
-
     this.loading = true;
 
     this.contactUsService.post(this.contactUs).subscribe((data: ActionDTO) => {
       this.snackBar.open(data.message, 'OK');
-    })
+    });
   }
-
 }

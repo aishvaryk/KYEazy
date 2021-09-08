@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/app-material.module';
 import { AdminService } from 'src/app/services/admin/admin.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AdminAllEmployeesComponent } from './admin-all-employees.component';
 import { StoreModule } from '@ngrx/store';
@@ -18,12 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 fdescribe('AdminAllEmployeesComponent', () => {
   let component: AdminAllEmployeesComponent;
   let fixture: ComponentFixture<AdminAllEmployeesComponent>;
-  let spy:any;
+  let spy: any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AdminAllEmployeesComponent],
-      imports:[
+      imports: [
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialModule,
@@ -36,8 +36,8 @@ fdescribe('AdminAllEmployeesComponent', () => {
           menu: menuReducer,
           selfie: selfieReducer,
           liveliness: livelinessReducer,
-        })
-      ]
+        }),
+      ],
     }).compileComponents();
   });
 
@@ -59,8 +59,4 @@ fdescribe('AdminAllEmployeesComponent', () => {
   //   spy=spyOn(adminService,'getAllEmployeesByName').and.returnValue();
   //   expect(spy).toHaveBeenCalled();
   // });
-
 });
-
-
-
