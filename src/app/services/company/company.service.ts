@@ -97,15 +97,15 @@ export class CompanyService {
 
   registerEmployee(newEmployee: Employee, companyId: number) {
     return this.httpClient
-      .post<ActionDTO >(
+      .post<Employee>(
         `${environment.backendURL}/company/register-employee/${companyId}`,
         newEmployee
       )
-      .pipe(map((response) => response as ActionDTO));
+      .pipe(map((response) => response as Employee));
   }
 
-  registerEmployees(newEmployee: FormData, companyId: number): void {
-    this.httpClient
+  registerEmployees(newEmployee: FormData, companyId: number) {
+    return this.httpClient
       .post<ActionDTO>(
         `${environment.backendURL}/company/register-employees/${companyId}`,
         newEmployee
@@ -113,14 +113,15 @@ export class CompanyService {
       .pipe(map((response) => response as ActionDTO))
       .subscribe(
         (results: ActionDTO) => {
-          this.registrationStatus = results;
-          this.actionDTOSubject.next(results);
+          this.getCompanyDetails(companyId);
+          this.snackbar.open('Successfully registered', 'Okay');
         },
         (error) => {
           this.snackbar.open('Not Enough Coins ! Please purchase');
         }
       );
   }
+
   getCompanyDetails(id: number) {
     return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)

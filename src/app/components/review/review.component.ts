@@ -123,6 +123,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     this.address.streetNumber = this.details.addressLine1;
     this.address.street = this.details.addressLine2;
+    this.address.state = this.details.state;
+    this.address.city = this.details.city;
     this.address.country = this.details.country;
     this.employee.firstName = this.details.firstName;
     this.employee.lastName = this.details.lastName;

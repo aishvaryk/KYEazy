@@ -72,9 +72,12 @@ export class RegisterComponent implements OnInit {
     this.companyService
       .registerEmployee(this.newEmployee, parseInt(k))
       .subscribe(
-        (data: ActionDTO) => {
-          this.registrationStatus = data;
-          this.actionDTOSubject.next(data);
+        (data: Employee) => {
+          console.log('-----------------------');
+          console.log("Username",data.username);
+          console.log("Password",data.password);
+          console.log('-----------------------');
+          if(k != null) this.companyService.getCompanyDetails(parseInt(k));
           this.snackbar.open('Successfully registered', 'Okay');
           this.loading = false;
         },
@@ -116,9 +119,7 @@ export class RegisterComponent implements OnInit {
     let k = localStorage.getItem('Id');
 
     if (k != null) {
-      this.loading = true;
       this.companyService.registerEmployees(formData, parseInt(k));
-      this.loading = false;
     }
   }
 }

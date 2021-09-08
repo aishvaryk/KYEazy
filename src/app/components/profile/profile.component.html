@@ -175,7 +175,7 @@
             <div class="profile-component-detail">Status</div>
             <a
               color="primary"
-              *ngIf="status === 'Rejected'"
+              *ngIf="status === 'Rejected' || 'Reported'"
               class="reason"
               (click)="showReason(review)"
               >Reason?</a

@@ -73,7 +73,7 @@ export class SignupComponent implements OnInit {
       postalCode: new FormControl(null, [
         Validators.required,
         Validators.minLength(6),
-        Validators.minLength(6),
+        Validators.maxLength(6),
       ]),
       country: new FormControl(null, Validators.required),
     });

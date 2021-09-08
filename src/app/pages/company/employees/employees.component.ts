@@ -64,6 +64,7 @@ export class EmployeesComponent implements OnInit {
         this.filter
       );
     });
+
     this.activatedRoute.params.subscribe((params) => {
       this.companyId = params.companyId;
       if (params.companyId == undefined) {
@@ -92,6 +93,7 @@ export class EmployeesComponent implements OnInit {
       this.sortBy,
       this.filter
     );
+
     this.companyService.employeesSubject.subscribe((employees) => {
       if (this.searchText) {
         if (employees.length == 0) {
@@ -123,6 +125,7 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
+
   rekyc(employeeId: number) {
     this.companyService.reKyc(employeeId).subscribe((response: Employee) => {
       this.companyService.getCompanyDetails(response.companyId);
@@ -204,6 +207,9 @@ export class EmployeesComponent implements OnInit {
     this.filter = event.value;
     this.matPaginator.pageIndex = 0;
     this.matPaginator.length = this.company.numberOfTotalEmployees;
+    // this.companyService.getEmployeesSize().subscribe((response) => {
+
+    // })
     this.companyService.getEmployees(
       this.companyId,
       5,

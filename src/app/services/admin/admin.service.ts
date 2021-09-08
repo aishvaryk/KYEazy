@@ -108,6 +108,7 @@ export class AdminService {
         this.companyService.getCompanyDetails(results.companyId);
       });
   }
+
   getAllEmployeesByName(
     name: string,
     pageSize: number,
@@ -169,13 +170,13 @@ export class AdminService {
   getEmployeesSize(status: string) {
     return this.httpClient.get(
       `${environment.backendURL}/admin/get-employees-size/${status}`
-    );
+    ).pipe(map((response) => response as number));
   }
 
   getSearchedEmployeesSize(name: string, status: string) {
     return this.httpClient.get(
-      `${environment.backendURL}/admin/get-searched-employees/${name}/${status}`
-    );
+      `${environment.backendURL}/admin/get-searched-employees-size/${name}/${status}`
+    ).pipe(map((response) => response as number));
   }
 
   getNoOfEmployees() {
