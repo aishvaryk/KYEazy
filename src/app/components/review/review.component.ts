@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Address } from 'src/app/models/address.model';
@@ -16,13 +16,17 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Company } from 'src/app/models/company.model';
+import { setDocuments } from 'src/app/redux/actions/documents.actions';
+import { setLiveliness } from 'src/app/redux/actions/liveliness.actions';
+import { setDetails } from 'src/app/redux/actions/details.action';
+import { setSelfie } from 'src/app/redux/actions/selfie.actions';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
 })
-export class ReviewComponent implements OnInit {
+export class ReviewComponent implements OnInit,OnDestroy {
   @Input() stepper!: MatStepper;
   public employee: Employee;
   public address: Address;
@@ -64,6 +68,13 @@ export class ReviewComponent implements OnInit {
     this.employee = {} as Employee;
     this.address = {} as Address;
 
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(setDocuments({} as Documents));
+    this.store.dispatch(setLiveliness({} as Liveliness));
+    this.store.dispatch(setDetails({} as Details));
+    this.store.dispatch(setSelfie({} as Selfie));
   }
 
   ngOnInit(): void {
@@ -116,7 +127,6 @@ export class ReviewComponent implements OnInit {
       this.employee.employeeId = parseInt(k);
     }
 
-    // Parsing Address
     this.address.streetNumber = this.details.addressLine1;
     this.address.street = this.details.addressLine2;
     this.address.country = this.details.country;
@@ -131,7 +141,6 @@ export class ReviewComponent implements OnInit {
       this.employee.gender = 'Female';
     }
 
-
     this.employee.emailID = this.details.email;
     this.employee.address = this.address;
     this.employee.documentNumber = this.documents.documentNumber;
@@ -143,20 +152,37 @@ export class ReviewComponent implements OnInit {
     let id = parseInt(localStorage.getItem('Id')!);
     const documentData = new FormData();
     documentData.append('employeeDocument', this.documents.document);
-    this.employeeService.updateEmployeeDocument(id, documentData);
-    this.employeeService.updateProfile(this.employee);
 
     const imageData = new FormData();
     imageData.append('profilePicture', this.selfie.image);
-    this.employeeService.updateEmployeeImage(id, imageData);
 
     const videoData = new FormData();
     videoData.append('employeeVideo', this.liveliness.video);
-    this.employeeService.updateEmployeeVideo(id, videoData);
 
-    this.employeeService.updateEmployeeStatus(this.employee);
 
-    this.snackbar.open('Sucessfully Submitted', 'Okay');
-    this.loginService.logout();
+    this.employeeService.updateProfile(this.employee);
+    this.employeeService.detailsSubject.subscribe(() => {
+      this.employeeService.updateEmployeeImage(id, imageData);
+    })
+
+    this.employeeService.imageSubject.subscribe(() => {
+      this.employeeService.updateEmployeeDocument(id, documentData);
+    })
+
+    this.employeeService.documentSubject.subscribe(() => {
+      this.employeeService.updateEmployeeVideo(id, videoData);
+    })
+
+    this.employeeService.videoSubject.subscribe(() => {
+      this.employeeService.updateEmployeeStatus(this.employee);
+    });
+
+    this.employeeService.statusSubject.subscribe(()=> {
+      this.snackbar.open('Sucessfully Submitted', 'Okay');
+      this.loginService.logout();
+    })
+
   }
 }
+
+
