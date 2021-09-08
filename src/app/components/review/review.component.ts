@@ -36,6 +36,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   public liveliness: Liveliness;
   public company!: string;
 
+
   public employeeLoading: any;
   public companyLoading: any;
   public videoLoading: any;

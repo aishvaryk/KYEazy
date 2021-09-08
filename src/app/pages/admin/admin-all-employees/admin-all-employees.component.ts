@@ -23,7 +23,7 @@ export class AdminAllEmployeesComponent implements OnInit {
   public search: string;
   public employees: Employee[];
   public loading!: boolean;
-  public zeroEmployees: any;
+  public zeroEmployees!: boolean;
   public searchText: string;
 
   constructor(

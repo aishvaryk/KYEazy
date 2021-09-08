@@ -12,16 +12,16 @@ import { barChartData } from 'src/app/models/barChartData.model';
   styleUrls: ['./admin-dashboard.component.scss'],
 })
 export class AdminDashboardComponent implements OnInit {
-  public isSmall: any;
+  public isSmall!: boolean;
   public companies: Company[];
   public adminService: AdminService;
-  public numOfPendingEmployees: number = 0;
-  public numOfAcceptedEmployees: number = 0;
-  public companyId: number = 0;
-  public companyRoute: any;
+  public numOfPendingEmployees!: number;
+  public numOfAcceptedEmployees!: number;
+  public companyId!: number;
+  public companyRoute!: string;
   public pieChartData: any;
-  public zeroEmployees: any;
-  public zeroCompanies: any;
+  public zeroEmployees!: boolean;
+  public zeroCompanies!: boolean;
   public totalNoOfEmployees!: number;
   public barChartData: any;
 
@@ -65,6 +65,7 @@ export class AdminDashboardComponent implements OnInit {
                   .getNoOfPendingEmployees()
                   .subscribe((response: number) => {
                     pieChartData[3].value = response;
+                    pieChartData[4].value=this.totalNoOfEmployees-pieChartData[0].value-pieChartData[1].value-pieChartData[2].value;
                     Object.assign(this, { pieChartData });
                   });
               });

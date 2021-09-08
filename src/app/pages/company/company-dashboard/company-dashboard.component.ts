@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Color, NgxChartsModule } from '@swimlane/ngx-charts';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -19,8 +16,8 @@ export class CompanyDashboardComponent implements OnInit {
   public companyService: CompanyService;
   public employees: Employee[];
   public company: Company;
-  public isSmall: any;
-  public zeroEmployees: any;
+  public isSmall!: boolean;
+  public zeroEmployees!: boolean;
   loading!: boolean;
 
   breakpoint$: Observable<Breakpoint>;
@@ -42,7 +39,24 @@ export class CompanyDashboardComponent implements OnInit {
     this.companyService = companyService;
     this.employees = [{}] as Employee[];
     this.company = {} as Company;
+  }
+
+  ngOnInit(): void {
     let k = localStorage.getItem('Id');
+    if (k != null) {
+      this.loading = true;
+      this.companyService.getEmployees(
+        parseInt(k),
+        2,
+        1,
+        'dateTimeOfApplication',
+        'all'
+      );
+      this.loading = false;
+    }
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+    });
     if (k != null) {
       this.loading = true;
       this.companyService.getCompanyDetails(parseInt(k));
@@ -69,28 +83,4 @@ export class CompanyDashboardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    let k = localStorage.getItem('Id');
-    if (k != null) {
-      this.loading = true;
-      this.companyService.getEmployees(
-        parseInt(k),
-        2,
-        1,
-        'dateTimeOfApplication',
-        'all'
-      );
-      this.loading = false;
-    }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-    });
-  }
-
-  formatImage(img: any): any {
-    if (img == null) {
-      return null;
-    }
-    return 'data:image/jpeg;base64,' + img;
-  }
 }

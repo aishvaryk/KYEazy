@@ -9,6 +9,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Credentials} from 'src/app/models/credentials.model';
 
 @Component({
   selector: 'app-login',
@@ -16,20 +17,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginService: LoginService;
   durationInSeconds = 5;
   loading!: boolean;
   @Input()
   public type: any;
-
   @Input()
   public dialog: any;
   public form;
-  credentials = {
-    username: '',
-    password: '',
-    role: '',
-  };
+  public credentials: Credentials;
 
   constructor(
     public snackbar: MatSnackBar,
@@ -38,7 +33,7 @@ export class LoginComponent implements OnInit {
     private companyService: CompanyService,
     private employeeService: EmployeeService,
     private adminService: AdminService,
-    loginService: LoginService,
+    private loginService: LoginService,
     public errorDialog: MatDialog
   ) {
     this.form = new FormGroup({
@@ -46,6 +41,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
     });
     this.loginService = loginService;
+    this.credentials = {} as Credentials;
   }
 
   ngOnInit(): void {}
@@ -64,12 +60,13 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.employeeService.login(this.credentials).subscribe(
         (response: any) => {
+
           this.loginService.loginUser(response.token, response.id);
-          //this.loginService.setUserId(response.id)
           this.router.navigate(['/employee/kyc']);
           this.loading = false;
+
         },
-        (error: any) => {
+        (error) => {
           this.openSnackBar('Invalid Employee Credentials', 'Retry');
           this.loading = false;
         }

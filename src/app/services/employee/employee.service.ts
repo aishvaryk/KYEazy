@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
+import { Credentials } from 'src/app/models/credentials.model';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class EmployeeService {
     this.imageSubject = new Subject<void>();
   }
 
-  login(credentials: any): any {
+  login(credentials: Credentials) {
     return this.loginService.doLogin(credentials);
   }
 

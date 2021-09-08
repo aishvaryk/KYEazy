@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { ActionDTO } from 'src/app/models/action.model';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -14,9 +13,9 @@ import { CompanyService } from 'src/app/services/company/company.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  firstName: string = '';
-  lastName: string = '';
-  isSubmitted: boolean = false;
+  firstName!: string;
+  lastName!: string;
+  isSubmitted: boolean;
   employeeForm: any;
   newEmployee: Employee;
   companyService: CompanyService;
@@ -25,13 +24,14 @@ export class RegisterComponent implements OnInit {
   public registrationStatus: ActionDTO;
   public actionDTOSubject: Subject<ActionDTO>;
   loading!: boolean;
-  coins = 0;
+  coins!: number;
 
   constructor(
     companyService: CompanyService,
     dialog: MatDialog,
     public snackbar: MatSnackBar
   ) {
+    this.isSubmitted = false;
     this.newEmployee = {} as Employee;
     this.companyService = companyService;
     this.form = new FormGroup({
@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
     if (this.coins < 50) {
       this.snackbar.open('Not Enough Coins ! Please purchase');
       return;
-      //snackbar
     }
     this.newEmployee.contactNumber = this.employeeForm.value.contactNumber;
     this.newEmployee.firstName = this.employeeForm.value.firstName;
@@ -73,7 +72,7 @@ export class RegisterComponent implements OnInit {
     this.companyService
       .registerEmployee(this.newEmployee, parseInt(k))
       .subscribe(
-        (data: any) => {
+        (data: ActionDTO) => {
           this.registrationStatus = data;
           this.actionDTOSubject.next(data);
           this.snackbar.open('Successfully registered', 'Okay');

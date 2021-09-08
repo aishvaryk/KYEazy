@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { Employee } from 'src/app/models/employee.model';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { Paginator } from 'src/app/models/paginator.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-employees',
@@ -17,6 +17,7 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./employees.component.scss'],
 })
 export class EmployeesComponent implements OnInit {
+
   emailFormControl = new FormControl('');
   public paginator: Paginator;
   public isSmall: boolean;
@@ -24,9 +25,9 @@ export class EmployeesComponent implements OnInit {
   public filter: string;
   public sortBy: string;
   public employees: Employee[];
-  public companyId: any;
+  public companyId: number;
   public company: Company;
-  public zeroEmployees: any;
+  public zeroEmployees!: boolean;
   public loading!: boolean;
   searchText: string;
   currentUser!: string;
@@ -48,7 +49,7 @@ export class EmployeesComponent implements OnInit {
     this.companyId = 0;
     this.company = {} as Company;
     this.paginator = {} as Paginator;
-    this.paginator.pageSizeOptions = [1, 2, 5, 10, 15, 20, 25];
+    this.paginator.pageSizeOptions = [ 5, 10, 15, 20, 25];
     this.paginator.currentPageIndex = 0;
     this.paginator.currentPageSize = 5;
   }
@@ -57,7 +58,6 @@ export class EmployeesComponent implements OnInit {
     this.companyService.reportedSubject.subscribe((response) => {
       this.companyService.getEmployees(
         this.companyId,
-
         this.paginator.currentPageSize,
         this.paginator.currentPageIndex + 1,
         this.sortBy,
@@ -105,8 +105,8 @@ export class EmployeesComponent implements OnInit {
             this.sortBy,
             this.filter
           )
-          .subscribe((res: any) => {
-            this.matPaginator.length = res;
+          .subscribe((response: number) => {
+            this.matPaginator.length = response;
           });
       }
       this.employees = employees;
@@ -123,8 +123,8 @@ export class EmployeesComponent implements OnInit {
       }
     });
   }
-  rekyc(s: any) {
-    this.companyService.reKyc(s).subscribe((response: any) => {
+  rekyc(employeeId: number) {
+    this.companyService.reKyc(employeeId).subscribe((response: Employee) => {
       this.companyService.getCompanyDetails(response.companyId);
       this.companyService.getEmployees(
         this.companyId,
