@@ -69,7 +69,10 @@
     <div fxFlex="5"></div>
   </div>
 
-  <div id="about" #about class="about">
+  <div id="about"
+  #about
+  [ngClass.lt-sm]="'hide'"
+  class="about">
     <div
       [ngClass.xs]="'about-heading'"
       [ngClass.sm]="'about-heading'"
@@ -87,87 +90,67 @@
         fxFlex="86"
       >
         <div [ngClass.gt-xs]="'card'" (click)="scrollToServices()">
-          <div style="width: 100%; height: 80%">
+          <div class="card-image-div">
             <img
-              style="height: 100%; width: 100%; object-fit: contain"
+              class = "card-image"
               src="/assets/images/services.gif"
             />
           </div>
-          <div style="margin-top: 1.5rem">Our Services</div>
+          <div class="card-bottom"> Our Services</div>
         </div>
-
         <div [ngClass.gt-xs]="'card'" (click)="scrollToProduct()">
-          <div style="width: 100%; height: 80%">
+          <div class="card-image-div">
             <img
-              style="height: 100%; width: 100%; object-fit: contain"
+            class = "card-image"
               src="/assets/images/product.gif"
             />
           </div>
-          <div style="margin-top: 1.5rem">Our Product</div>
+          <div class="card-bottom">Our Product</div>
         </div>
-
         <div [ngClass.gt-xs]="'card'" (click)="scrollToSolutions()">
-          <div style="width: 100%; height: 80%">
+          <div class="card-image-div">
             <img
-              style="height: 100%; width: 100%; object-fit: contain"
+              class="card-image"
               src="/assets/images/solutions.gif"
             />
           </div>
-          <div style="margin-top: 1.5rem">Our Solutions</div>
+          <div class="card-bottom">Our Solutions</div>
         </div>
       </div>
       <div [ngClass.lt-sm]="'hide'" [ngClass.gt-xs]="'show'" fxFlex="7"></div>
     </div>
-
-    <div [ngClass.gt-xs]="'hide'" [ngClass.lt-sm]="'show'" class="full-size">
-      <app-carousel name="about">
-        <div class="full-size" *carousel-slide>
-          <div class="full-size" (click)="scrollToProduct()">Our Product</div>
-        </div>
-        <div class="full-size" *carousel-slide>
-          <div class="full-size" (click)="scrollToServices()">Our Services</div>
-        </div>
-        <div class="full-size" *carousel-slide>
-          <div class="full-size" (click)="scrollToSolutions()">
-            Our Solutions
-          </div>
-        </div>
-      </app-carousel>
-    </div>
   </div>
 
-  <div id="service" #services class="service">
+  <div
+    id="service"
+    #services
+    class="service"
+    [ngClass.lt-sm]="'hide'"
+    >
     <div [ngClass]="'service-heading'">Our Services</div>
     <div class="full-size">
       <app-carousel name="service">
         <div
           fxLayout="row"
-          style="background-color: #f6f9fc; height: 100%; border-radius: 1rem"
+          class="carousel-div"
           *carousel-slide
         >
           <div fxFlex="40">
             <img
-              style="width: 100%; height: 100%; object-fit: cover"
-              src="/assets/images/mobile.gif"
+              class="c-image"
+              src="/assets/images/mobile-1.gif"
             />
           </div>
           <div fxFlex="5"></div>
           <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
             <div
-              style="font-size: 3.5rem; line-height: 4.5rem; color: #789de6"
-              class="producnt-title"
+              class="c-title-1"
             >
               Mobile Friendly Candidate hub
             </div>
             <br />
             <div
-              style="
-                color: #789de6;
-                font-size: 1.5rem;
-                line-height: 2rem;
-                text-align: justify;
-              "
-              class="prduct-body"
+              class="c-body-1"
             >
               Today's applicants, particularly millenials and digital
               natives, expects a high-touch, transparent hiring and employment
@@ -177,27 +160,24 @@
           </div>
           <div fxFlex="5"></div>
         </div>
-
         <div
           fxLayout="row"
-          style="background-color: #f6f9fc; height: 100%; border-radius: 1rem"
+          class = "carousel-div"
           *carousel-slide
         >
           <div fxFlex="5"></div>
           <div fxLayout="column" fxLayoutAlign="center start  " fxFlex="50">
             <div
-              style="font-size: 3.5rem; line-height: 4.5rem"
-              class="producnt-title"
+              class = "c-title-2"
             >
               Post Hire Monitoring Solution
             </div>
             <br />
             <div
-              style="font-size: 1.5rem; line-height: 2rem; text-align: justify"
-              class="prduct-body"
+              class= "c-body-2"
             >
               It is often difficult to effectively manage the risk of new hires
-              without dedicated supporting technology. KYEasy enabels companies
+              without dedicated supporting technology. KYEasy enables companies
               to better protect their brands, workplaces, relationship from risk
               by giving them power to report an Employee
             </div>
@@ -206,21 +186,53 @@
           <div fxFlex="5"></div>
           <div fxFlex="40">
             <img
-              style="width: 100%; height: 100%; object-fit: cover"
+              class="c-image"
+              src="/assets/images/monitor.gif"
+            />
+          </div>
+        </div>
+        <div
+          fxLayout="row"
+          class="carousel-div"
+          *carousel-slide
+        >
+          <div fxFlex="40">
+            <img
+              class="c-image"
               src="/assets/images/analytics.gif"
             />
           </div>
+          <div fxFlex="5"></div>
+          <div fxLayout="column" fxLayoutAlign="center end" fxFlex="50">
+            <div
+              class="c-title-1"
+            >
+              Hire Faster, Onboard Smarter
+            </div>
+            <br />
+            <div
+              class="c-body-1"
+            >
+            Our pre-employment services can help inform your hiring decisions without taking up valuable HR time.
+            We verify your candidate's details, documents and liveliness, then we present the results to you in a simple boolean form.
+            </div>
+            <br />
+          </div>
+          <div fxFlex="5"></div>
         </div>
       </app-carousel>
     </div>
   </div>
 
-  <div id="product" #product class="product">
+  <div
+    id="product"
+    #product
+    [ngClass.lt-sm]="'hide'"
+    class="product"
+    >
     <div [ngClass]="'product-heading'">Our Product</div>
-
     <div fxLayout="row" style="height: 80%" fxLayoutAlign="center center">
       <div fxFlex="7"></div>
-
       <div fxFlex="45" fxLayout="column" fxLayoutAlign="space-around start">
         <div class="product-title">
            We Make KYC Easy for you
@@ -239,23 +251,21 @@
           Sign Up & and get <b> 200 </b> Coins Free
         </div>
       </div>
-
       <div fxFlex="6"></div>
-
-
       <div fxFlex="35" class="full-width" style="height: 80%;" fxLayout="column" fxLayoutAlign="center center">
         <iframe class="full-size" src="https://www.youtube.com/embed/hPXzbxB6Tjc">
         </iframe>
       </div>
-
       <div fxFlex="7"></div>
     </div>
   </div>
 
-  <div id="solution" #solutions class="solution">
-    <div [ngClass]="'solution-heading'">Our Solutions</div>
+  <div id="solution" #solutions
+    [ngClass.lt-sm]="'hide'"
+    class="solution">
+    <div [ngClass]="'solution-heading'">Our Prices</div>
 
-    <div [ngClass.lt-sm]="'hide'" style="height: 100%" [ngClass.gt-xs]="'show'">
+    <div [ngClass.lt-sm]="'hide'" class="full-height" [ngClass.gt-xs]="'show'">
       <div
         [ngClass.lt-sm]="'hide'"
         [ngClass.gt-xs]="'card-container'"
@@ -263,7 +273,7 @@
       ></div>
 
       <div
-        style="background-color: #f6f9fc; padding: 1rem; border-radius: 1rem"
+        class="price-container"
         [ngClass.lt-sm]="'hide'"
         [ngClass.gt-xs]="'card-container'"
         fxFlex="86"
@@ -296,7 +306,7 @@
             <br />
             <div fxFlex>
               Enterprise <br />
-              5000 - 10000 KYE
+              1000 - 10000 KYE
             </div>
             <br />
             <br />
@@ -315,7 +325,7 @@
             <br />
             <div fxFlex>
               Mid Market <br />
-              1000 - 5000 KYE
+              100 - 1000 KYE
             </div>
             <br />
             <br />
@@ -334,7 +344,7 @@
             <br />
             <div>
               Small Business <br />
-              &lt; &nbsp; 1000 KYE
+              &lt; &nbsp; 100 KYE
             </div>
           </div>
           <br />
@@ -366,7 +376,8 @@
     <mat-icon> arrow_upward </mat-icon>
   </button>
 
-  <div #footer class="home-footer">
+  <div #footer [ngClass.lt-sm]="'home-footer-mobile'" class="home-footer">
     <app-footer></app-footer>
   </div>
+
 </div>

@@ -23,7 +23,6 @@ export class AddCoinsComponent implements OnInit {
   employeesAddable:number=0;
   perEmployeePrice:number=0;
   numberOfEmployees=0;
-  // @Output() paymentSuccess:EventEmitter<boolean>=new EventEmitter();
 
   constructor(private companyService:CompanyService, private paymentService:PaymentService,
     public bottomSheet:MatBottomSheetRef<AddCoinsComponent>) {

@@ -80,7 +80,6 @@ export class ReviewComponent implements OnInit {
 
     });
     }
-    //this.company=
     this.employeeLoading = true;
     this.store.select('details').subscribe((details) => {
       if (JSON.stringify(details) === '{}') return;
@@ -111,6 +110,7 @@ export class ReviewComponent implements OnInit {
   }
 
   submitKYC() {
+
     let k = localStorage.getItem('Id');
     if (k != null) {
       this.employee.employeeId = parseInt(k);
@@ -131,11 +131,14 @@ export class ReviewComponent implements OnInit {
       this.employee.gender = 'Female';
     }
 
+
     this.employee.emailID = this.details.email;
     this.employee.address = this.address;
     this.employee.documentNumber = this.documents.documentNumber;
     this.employee.documentType = this.documents.documentType;
     this.employee.question=this.liveliness.question;
+
+    console.log(this.employee);
 
     let id = parseInt(localStorage.getItem('Id')!);
     const documentData = new FormData();
