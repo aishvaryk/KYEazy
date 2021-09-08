@@ -1,14 +1,11 @@
 import { AdminService } from './../../../services/admin/admin.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormControl,
-} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Employee } from 'src/app/models/employee.model';
 import { Store } from '@ngrx/store';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Paginator } from 'src/app/models/paginator.model';
 import { MatPaginator } from '@angular/material/paginator';
-
 
 @Component({
   selector: 'app-admin-all-employees',
@@ -16,8 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./admin-all-employees.component.scss'],
 })
 export class AdminAllEmployeesComponent implements OnInit {
-
-  @ViewChild('matPaginator') matPaginator!: MatPaginator
+  @ViewChild('matPaginator') matPaginator!: MatPaginator;
   public emailFormControl = new FormControl('');
   public isSmall: boolean;
   public paginator!: Paginator;
@@ -27,13 +23,13 @@ export class AdminAllEmployeesComponent implements OnInit {
   public search: string;
   public employees: Employee[];
   public loading!: boolean;
-  public zeroEmployees: any;
+  public zeroEmployees!: boolean;
   public searchText: string;
 
   constructor(
     adminService: AdminService,
-    public store: Store<{breakpoint: Breakpoint}>
-    ) {
+    public store: Store<{ breakpoint: Breakpoint }>
+  ) {
     this.isSmall = false;
     this.searchText = '';
     this.filter = 'all';
@@ -45,18 +41,11 @@ export class AdminAllEmployeesComponent implements OnInit {
     this.paginator.currentPageIndex = 0;
     this.paginator.currentPageSize = 5;
     this.paginator.pageSizeOptions = [1, 2, 5, 10, 15, 20, 25];
-
   }
-
 
   ngOnInit(): void {
     //this.loading = true;
-    this.adminService.viewAllApplications(
-      5,
-      1,
-      this.sortBy,
-      this.filter,
-      );
+    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
 
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
@@ -78,7 +67,6 @@ export class AdminAllEmployeesComponent implements OnInit {
         this.zeroEmployees = false;
       }
     });
-
   }
 
   formatImage(img: any): any {
@@ -102,12 +90,7 @@ export class AdminAllEmployeesComponent implements OnInit {
     if (this.searchText.trim().length === 0) {
       this.matPaginator.pageIndex = 0;
       // this.matPaginator.length = this.company.numberOfTotalEmployees;
-      this.adminService.viewAllApplications(
-        5,
-        1,
-        this.sortBy,
-        this.filter,
-      );
+      this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
     } else {
       this.matPaginator.pageIndex = 0;
       // this.matPaginator.length = this.company.numberOfTotalEmployees;
@@ -124,24 +107,13 @@ export class AdminAllEmployeesComponent implements OnInit {
   OnSortSelect(event: any) {
     this.matPaginator.pageIndex = 0;
     // this.matPaginator.length = this.company.numberOfTotalEmployees;
-    this.adminService.viewAllApplications(
-      5,
-      1,
-      this.sortBy,
-      this.filter
-    );
+    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
   }
 
   OnFilterSelect(event: any) {
     this.filter = event.value;
     this.matPaginator.pageIndex = 0;
     // this.matPaginator.length = this.company.numberOfTotalEmployees;
-    this.adminService.viewAllApplications(
-      5,
-      1,
-      this.sortBy,
-      this.filter,
-    );
+    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
   }
-
 }

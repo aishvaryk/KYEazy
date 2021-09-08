@@ -2,7 +2,7 @@ import { ActionDTO } from 'src/app/models/action.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ContactUs } from './../../models/contact-us.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ContactUsService } from './../../services/contact-us.service';
+import { ContactUsService } from '../../services/contact-us/contact-us.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -32,7 +32,7 @@ export class ContactUsComponent implements OnInit {
 
   onSubmit() {
     if (this.messageForm.status === 'INVALID') return;
-   
+
     this.isSubmitted = true;
     this.contactUs.name = this.messageForm.value.name;
     this.contactUs.message = this.messageForm.value.message;

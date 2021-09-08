@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Credentials } from 'src/app/models/credentials.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  doLogin(credentials: any) {
+  doLogin(credentials: Credentials) {
     return this.httpClient.post(`${environment.backendURL}/token`, credentials);
   }
 

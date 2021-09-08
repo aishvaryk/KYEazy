@@ -32,6 +32,7 @@ export class ReviewComponent implements OnInit {
   public liveliness: Liveliness;
   public company!:string;
 
+
   public employeeLoading: any;
   public companyLoading: any;
   public videoLoading: any;

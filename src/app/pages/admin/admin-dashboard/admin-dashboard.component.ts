@@ -11,12 +11,12 @@ import { pieChartData } from 'src/app/models/pie-chart-data.model';
   styleUrls: ['./admin-dashboard.component.scss'],
 })
 export class AdminDashboardComponent implements OnInit {
-  public isSmall: any;
+  public isSmall!: boolean;
   public companies: Company[];
   public adminService: AdminService;
-  public numOfPendingEmployees: number = 0;
-  public numOfAcceptedEmployees: number = 0;
-  public companyId: number = 0;
+  public numOfPendingEmployees!: number;
+  public numOfAcceptedEmployees!: number;
+  public companyId!: number;
   public companyRoute: any;
   public pieChartData: any;
   public zeroEmployees: any;
@@ -25,9 +25,8 @@ export class AdminDashboardComponent implements OnInit {
   loading!: boolean;
   constructor(
     public store: Store<{ breakpoint: Breakpoint }>,
-    adminService: AdminService,
+    adminService: AdminService
   ) {
-
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -77,5 +76,4 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
-
 }

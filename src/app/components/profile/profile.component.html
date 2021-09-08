@@ -149,6 +149,8 @@
           fxLayoutAlign="start startr"
           fxLayoutAlign.xs="start center"
         >
+        <div *ngIf="status==='Registered'" >{{ status }} </div>
+
         <div *ngIf="status==='Accepted'" class='verification-done'>{{ status }} </div>
 
           <div *ngIf="status==='Rejected'" class='verification-failed'>{{ status }} </div>

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { ActionDTO } from 'src/app/models/action.model';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
@@ -10,7 +9,7 @@ import { exceptionDTO } from 'src/app/models/exceptionDTO.model';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Credentials } from 'src/app/models/credentials.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,14 +25,14 @@ export class CompanyService {
   public registrationStatus: ActionDTO;
   public APIResponse: ActionDTO | exceptionDTO;
   public reportedSubject: Subject<Boolean>;
-  public coinSubject:Subject<number>;
+  public coinSubject: Subject<number>;
 
   constructor(
     private loginService: LoginService,
     private httpClient: HttpClient,
     public snackbar: MatSnackBar
   ) {
-    this.employees = [];
+    this.employees =  [];
     this.registrationStatus = {} as ActionDTO;
     this.employee = {} as Employee;
     this.employeesSubject = new Subject();
@@ -42,21 +41,21 @@ export class CompanyService {
     this.companySubject = new Subject();
     this.company = {} as Company;
     this.APIResponse = {} as ActionDTO | exceptionDTO;
-    this.reportedSubject=new Subject();
-    this.coinSubject=new Subject();
+    this.reportedSubject = new Subject();
+    this.coinSubject = new Subject();
   }
 
-  login(credentials: any): any {
+  login(credentials: Credentials) {
     return this.loginService.doLogin(credentials);
   }
 
-  register(newCompany: Company): any {
+  register(newCompany: Company) {
     return this.httpClient
-      .post<ActionDTO | exceptionDTO>(
+      .post<Company>(
         `${environment.backendURL}/company/register`,
         newCompany
       )
-      .pipe(map((response) => response as Company | exceptionDTO));
+      .pipe(map((response) => response as Company));
   }
 
   getEmployees(
@@ -65,7 +64,7 @@ export class CompanyService {
     pageNumber: number,
     sort: string,
     filter: string
-    ): void {
+  ): void {
     this.httpClient
       .get(
         `${environment.backendURL}/company/employees/${id}?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
@@ -83,7 +82,7 @@ export class CompanyService {
     pageSize: number,
     pageNumber: number,
     sort: string,
-    filter: string,
+    filter: string
   ): void {
     this.httpClient
       .get(
@@ -96,9 +95,9 @@ export class CompanyService {
       });
   }
 
-  registerEmployee(newEmployee: Employee, companyId: number): any {
+  registerEmployee(newEmployee: Employee, companyId: number) {
     return this.httpClient
-      .post<ActionDTO | exceptionDTO>(
+      .post<ActionDTO >(
         `${environment.backendURL}/company/register-employee/${companyId}`,
         newEmployee
       )
@@ -112,22 +111,22 @@ export class CompanyService {
         newEmployee
       )
       .pipe(map((response) => response as ActionDTO))
-      .subscribe((results: ActionDTO) => {
-        this.registrationStatus = results;
-        this.actionDTOSubject.next(results);
-      },
-      (error:any)=>{
-        this.snackbar.open('Not Enough Coins ! Please purchase');
-      })
-
-      ;
+      .subscribe(
+        (results: ActionDTO) => {
+          this.registrationStatus = results;
+          this.actionDTOSubject.next(results);
+        },
+        (error) => {
+          this.snackbar.open('Not Enough Coins ! Please purchase');
+        }
+      );
   }
   getCompanyDetails(id: number) {
     return this.httpClient
       .get(`${environment.backendURL}/company/get-company-details/${id}`)
       .pipe(map((response) => response as Company))
       .subscribe((results: Company) => {
-        this.coinSubject.next(results.coins)
+        this.coinSubject.next(results.coins);
         this.companySubject.next(results);
       });
   }
@@ -154,29 +153,35 @@ export class CompanyService {
 
   reportEmployee(message: string, employeeId: number): void {
     this.httpClient
-      .post<Employee[]>(
+      .post<ActionDTO>(
         `${environment.backendURL}/company/report-employee/${employeeId}`,
         message
       )
-       .subscribe((data:any) => {
-         this.reportedSubject.next(data.success);
-       });
+      .pipe(map((response) => response as ActionDTO))
+      .subscribe((data: ActionDTO) => {
+        this.reportedSubject.next(data.success);
+      });
   }
-  reKyc( employeeId: number): any {
-    return this.httpClient.get(`${environment.backendURL}/company/re-kyc/${employeeId}`);
-}
+  reKyc(employeeId: number) {
+    return this.httpClient.get(
+      `${environment.backendURL}/company/re-kyc/${employeeId}`
+    ).pipe(map(response=>response as Employee));
+  }
 
-
-  getEmployeesSize(id: any, filter: any) {
+  getEmployeesSize(id: number, filter: string) {
     return this.httpClient.get(
       `${environment.backendURL}/company/get-employees-size/${id}/${filter}`
     );
   }
 
-  getSearchedEmployeesSize(id: any,name: string, sort: any, filter: any) {
-    return this.httpClient.get(
+  getSearchedEmployeesSize(
+    id: number,
+    name: string,
+    sort: string,
+    filter: string
+  ) {
+    return this.httpClient.get<number>(
       `${environment.backendURL}/company/get-searched-employees-size/${id}/${name}?sort=${sort}&filter=${filter}`
-    );
+    ).pipe(map (response=>response as number));
   }
-
 }

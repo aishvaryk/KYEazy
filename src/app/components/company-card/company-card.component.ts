@@ -13,7 +13,7 @@ export class CompanyCardComponent implements OnInit {
   @Input() company!: Company;
 
   breakpoint$: Observable<Breakpoint>;
-  isSmall:any;
+  isSmall!:boolean;
   noOfRegisteredEmployees:any;
 
   constructor(public store: Store<{ breakpoint: Breakpoint }>) {

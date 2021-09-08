@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { id } from '@swimlane/ngx-charts';
 import { ActionDTO } from 'src/app/models/action.model';
 import { Address } from 'src/app/models/address.model';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { Company } from 'src/app/models/company.model';
 import { CompanyService } from 'src/app/services/company/company.service';
-import Validation from 'src/app/validators/passoword-matcher.validator';
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +29,7 @@ export class SignupComponent implements OnInit {
   companyService: CompanyService;
   fileName: string;
   companyId!: number;
-  file!: any;
+  file!: File;
   isSmall!:boolean;
 
   constructor(
@@ -41,11 +39,10 @@ export class SignupComponent implements OnInit {
     public dialog: MatDialog,
     public store:Store<{breakpoint:Breakpoint}>
   ) {
-
     this.newCompany = {} as Company;
     this.companyAddress = {} as Address;
     this.companyService = companyService;
-    this.fileName = "No File Choosen"
+    this.fileName = "No File Choosen";
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.isSmall = true;
@@ -77,7 +74,7 @@ export class SignupComponent implements OnInit {
 
 
  onChange(event: any) {
-    this.file = event.target.files[0];
+   this.file = event.target.files[0];
     this.fileName = this.file.name;
     this.form.patchValue({
       icon: this.file,
@@ -99,11 +96,10 @@ export class SignupComponent implements OnInit {
     this.companyAddress.streetNumber = this.form.value.address;
     this.companyAddress.street = this.form.value.address2;
     this.newCompany.address = this.companyAddress;
-
     this.loading = true;
 
     this.companyService.register(this.newCompany).subscribe(
-      (data: any) => {
+      (data:Company) => {
         this.companyId = data.companyId;
         const imageData = new FormData();
         imageData.append('companyIcon', this.file);
@@ -113,7 +109,7 @@ export class SignupComponent implements OnInit {
           this.snackbar.open('Sucessfully Submitted', 'Okay');
         });
       },
-      (error: any) => {
+      (error) => {
         this.snackbar.open('Company Already Exists', 'Okay');
         this.loading = false;
       }

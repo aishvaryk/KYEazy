@@ -2,13 +2,12 @@ import { LearnMoreComponent } from './../../components/learn-more/learn-more.com
 import {
   AfterViewInit,
   Component,
-  HostListener,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {  MediaObserver } from '@angular/flex-layout';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
@@ -24,13 +23,13 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('top')
   public top: any;
+
   @ViewChild('scrollToTop')
   public scrollToTop: any;
 
-  public showScrollToTop: any;
-  public isSmall: any;
-  public flexDirection: any;
-  public user: any;
+  public showScrollToTop!:boolean;
+  public isSmall!:boolean;
+  public flexDirection!: string;
 
   constructor(
     public observer: MediaObserver,

@@ -1,4 +1,4 @@
-export var pieChartData: any = [
+export var pieChartData = [
   {
     name: 'Registered',
     value: 0,

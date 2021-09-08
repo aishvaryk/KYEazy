@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   adminPage: any;
   employeePage: any;
   companyRegisterPage: any;
-  currentRoute: any;
+  currentRoute!: string;
 
   constructor(
     public store: Store<{

@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
+import { Credentials } from 'src/app/models/credentials.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,16 +27,14 @@ export class EmployeeService {
     this.employeeSubject = new Subject();
   }
 
-  login(credentials: any): any {
+  login(credentials: Credentials) {
     return this.loginService.doLogin(credentials);
   }
-  getEmployee(employeeId:number)
-  {
-    return this.httpClient
-      .get<Employee>(
-        `${environment.backendURL}/employee/${employeeId}`,
-    )
 
+  getEmployee(employeeId: number) {
+    return this.httpClient.get<Employee>(
+      `${environment.backendURL}/employee/${employeeId}`
+    );
   }
 
   updateProfile(newEmployee: Employee): void {
@@ -49,20 +48,20 @@ export class EmployeeService {
         this.updateStatus = results;
         this.actionDTOSubject.next(results);
       });
-
   }
+
   updateEmployeeStatus(newEmployee: Employee): void {
     this.httpClient
       .get<ActionDTO>(
-        `${environment.backendURL}/employee/update-status/${newEmployee.employeeId}`,
-
+        `${environment.backendURL}/employee/update-status/${newEmployee.employeeId}`
       )
       .pipe(map((response) => response as ActionDTO))
       .subscribe((results: ActionDTO) => {
         this.updateStatus = results;
         this.actionDTOSubject.next(results);
       });
-}
+  }
+
   updateEmployeeImage(id: number, image: FormData): void {
     this.httpClient
       .patch<ActionDTO>(

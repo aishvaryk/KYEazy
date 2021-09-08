@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Employee } from 'src/app/models/employee.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Company } from 'src/app/models/company.model';
 import { LoginService } from '../login/login.service';
 import { environment } from 'src/environments/environment';
 import { CompanyService } from '../company/company.service';
+import { Credentials } from 'src/app/models/credentials.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +36,10 @@ export class AdminService {
     this.companiesSubject = new Subject();
     this.companySubject = new Subject();
     this.employeeVideoSubject = new Subject();
-    this.statusSubject= new Subject();
+    this.statusSubject = new Subject();
   }
 
-  login(credentials: any): any {
+  login(credentials: Credentials) {
     return this.loginService.doLogin(credentials);
   }
 
@@ -47,7 +48,7 @@ export class AdminService {
     pageNumber: number,
     sort: string,
     filter: string
-  ): void {
+    ): void {
     this.httpClient
       .get(
         `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
@@ -69,22 +70,22 @@ export class AdminService {
       });
   }
 
-  getEmployeeVideo(username: string) {
+  getEmployeeVideo(username: string): void {
     this.httpClient
       .get(`${environment.backendURL}/admin/get-video/${username}`, {
         responseType: 'arraybuffer',
       })
-      .subscribe((results: any) => {
+      .subscribe((results: ArrayBuffer) => {
         this.employeeVideoSubject.next(results);
       });
   }
 
-  getEmployeeDocument(username: string) {
+  getEmployeeDocument(username: string): void {
     this.httpClient
       .get(`${environment.backendURL}/admin/get-document/${username}`, {
         responseType: 'arraybuffer',
       })
-      .subscribe((results: any) => {
+      .subscribe((results: ArrayBuffer) => {
         this.employeeVideoSubject.next(results);
       });
   }
@@ -98,10 +99,11 @@ export class AdminService {
         this.companyService.getCompanyDetails(results.companyId);
       });
   }
-  rejectEmployee(reason: string, employeeId: number): any {
-    return this.httpClient
+  rejectEmployee(reason: string, employeeId: number): void {
+    this.httpClient
       .patch(`${environment.backendURL}/admin/reject/${employeeId}`, reason)
-      .subscribe((results: any) => {
+      .pipe(map((response) => response as Employee))
+      .subscribe((results: Employee) => {
         this.statusSubject.next('Rejected');
         this.companyService.getCompanyDetails(results.companyId);
       });
@@ -176,31 +178,31 @@ export class AdminService {
     );
   }
 
-  getNoOfEmployees(): any {
+  getNoOfEmployees() {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-employees`)
       .pipe(map((response) => response as number));
   }
 
-  getNoOfAcceptedEmployees(): any {
+  getNoOfAcceptedEmployees() {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-accepted-employees`)
       .pipe(map((response) => response as number));
   }
 
-  getNoOfRejectedEmployees(): any {
+  getNoOfRejectedEmployees() {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-rejected-employees`)
       .pipe(map((response) => response as number));
   }
 
-  getNoOfPendingEmployees(): any {
+  getNoOfPendingEmployees() {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-pending-employees`)
       .pipe(map((response) => response as number));
   }
 
-  getNoOfRegisteredEmployees(): any {
+  getNoOfRegisteredEmployees() {
     return this.httpClient
       .get(`${environment.backendURL}/admin/get-number-of-registered-employees`)
       .pipe(map((response) => response as number));

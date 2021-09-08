@@ -14,9 +14,9 @@ import { CompanyService } from 'src/app/services/company/company.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  firstName: string = '';
-  lastName: string = '';
-  isSubmitted: boolean = false;
+  firstName!: string;
+  lastName!: string;
+  isSubmitted: boolean;
   employeeForm: any;
   newEmployee: Employee;
   companyService: CompanyService;
@@ -25,13 +25,14 @@ export class RegisterComponent implements OnInit {
   public registrationStatus: ActionDTO;
   public actionDTOSubject: Subject<ActionDTO>;
   loading!: boolean;
-  coins=0;
+  coins!: number;
 
   constructor(
     companyService: CompanyService,
     dialog: MatDialog,
     public snackbar: MatSnackBar
   ) {
+    this.isSubmitted = false;
     this.newEmployee = {} as Employee;
     this.companyService = companyService;
     this.form = new FormGroup({
@@ -48,23 +49,19 @@ export class RegisterComponent implements OnInit {
       lastName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       contactNumber: new FormControl(null, [Validators.required]),
-
     });
     let k = localStorage.getItem('Id');
     if (k != null) this.companyService.getCompanyDetails(parseInt(k));
-    this.companyService.coinSubject.subscribe((coins)=>{
-      this.coins=coins;
-    })
-
+    this.companyService.coinSubject.subscribe((coins) => {
+      this.coins = coins;
+    });
   }
 
   onSubmit() {
     if (this.employeeForm.status === 'INVALID') return;
-    if(this.coins<50)
-    {
+    if (this.coins < 50) {
       this.snackbar.open('Not Enough Coins ! Please purchase');
       return;
-      //snackbar
     }
     this.newEmployee.contactNumber = this.employeeForm.value.contactNumber;
     this.newEmployee.firstName = this.employeeForm.value.firstName;
@@ -76,7 +73,7 @@ export class RegisterComponent implements OnInit {
     this.companyService
       .registerEmployee(this.newEmployee, parseInt(k))
       .subscribe(
-        (data: any) => {
+        (data: ActionDTO) => {
           this.registrationStatus = data;
           this.actionDTOSubject.next(data);
           this.snackbar.open('Successfully registered', 'Okay');
@@ -117,13 +114,12 @@ export class RegisterComponent implements OnInit {
     const formData = new FormData();
     formData.append('employeeCSV', this.form.get('document').value);
 
-     let k = localStorage.getItem('Id');
+    let k = localStorage.getItem('Id');
 
     if (k != null) {
       this.loading = true;
       this.companyService.registerEmployees(formData, parseInt(k));
       this.loading = false;
-
     }
   }
 }
