@@ -1,3 +1,5 @@
+// home
+
 .home {
   overflow-y: auto;
   overflow-x: hidden;
@@ -57,10 +59,12 @@
   }
 }
 
-  .link {
-    text-decoration: none;
-    color: teal;
-  }
+.link {
+  text-decoration: none;
+  color: teal;
+}
+
+// card
 
 .card-container {
   display: flex;
@@ -71,7 +75,7 @@
 }
 
 .card {
-  background: white;
+  background-color: #f6f9fc;
   border-radius: 1rem;
   display: inline-block;
   padding: 1rem;
@@ -85,10 +89,25 @@
     transition: all 0.5s ease-in-out;
   }
 
+  .card-image-div {
+    width: 100%;
+    height: 80%
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .card-bottom {
+    margin-top: 1.5rem;
+  }
+
 }
 
 .card-tablet {
-  background: white;
+  background-color: #f6f9fc;
   border-radius: 1rem;
   display: inline-block;
   padding: 1rem;
@@ -117,37 +136,34 @@
 
 }
 
+// about
 
 .about {
   height: 80%;
   width: 100%;
-  //background-image: linear-gradient(180deg,lightblue, teal);
   background-color: #789de6;
   color: white;
   transform: rotate(-5deg) skew(-5deg) translateY(3rem);
-
   & > * {
     transform: rotate(5deg) skew(5deg) translateY(3rem);
   }
-
   .about-heading {
     display: flex;
     justify-content: flex-end;
     margin-right: 7%;
     font-size: 2rem;
     transform: rotate(5deg) skew(5deg) translateY(2rem) !important;
-
   }
 }
+
+// service
 
 .service {
   height: 80%;
   width: 100%;
   background-color: white;
   color: teal;
-  //background-image: linear-gradient(180deg, lightblue, teal);
   transform: translateY(12rem);
-
   .service-heading {
     display: flex;
     justify-content: flex-end;
@@ -158,6 +174,45 @@
     transform: translateY(-5rem) !important;
   }
 }
+
+.price-container {
+  background-color: #f6f9fc;
+  padding: 1rem;
+  border-radius: 1rem
+}
+
+.carousel-div {
+  background-color: #f6f9fc;
+  height: 100%;
+  border-radius: 1rem;
+  .c-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .c-title-1{
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+    color: #789de6;
+  }
+  .c-body-1 {
+    color: #789de6;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: justify;
+  }
+  .c-title-2{
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+  }
+  .c-body-2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: justify;
+  }
+}
+
+// product
 
 .product {
   height: 80%;
@@ -177,12 +232,12 @@
     font-size: 2rem;
   }
 
-  .product-body{
-    font-size:1.5rem;line-height: 2rem;text-align: justify;
-  }
-
   .product-title{
     font-size:3.5rem;line-height: 4.5rem;
+  }
+
+  .product-body{
+    font-size:1.5rem;line-height: 2rem;text-align: justify;
   }
 
   button{
@@ -232,6 +287,10 @@
 
 .home-footer {
   transform: translateY(25rem);
+}
+
+.home-footer-mobile {
+  transform: translateY(1rem);
 }
 
 .scroll-to-top {
