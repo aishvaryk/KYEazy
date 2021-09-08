@@ -4,19 +4,19 @@ export var barChartData = [
     "series": [
       {
         "name": "Registered",
-        "value": 7300000
+        "value": 0
       },
       {
         "name": "Accpeted",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Rejected",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Pending",
-        "value": 894000
+        "value": 0
       }
     ]
   },
@@ -26,19 +26,19 @@ export var barChartData = [
     "series": [
       {
         "name": "Registered",
-        "value": 7300000
+        "value": 0
       },
       {
         "name": "Accpeted",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Rejected",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Pending",
-        "value": 894000
+        "value": 0
       }
     ]
   },
@@ -48,19 +48,19 @@ export var barChartData = [
     "series": [
       {
         "name": "Registered",
-        "value": 7300000
+        "value": 0
       },
       {
         "name": "Accpeted",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Rejected",
-        "value": 8940000
+        "value": 0
       },
       {
         "name": "Pending",
-        "value": 894000
+        "value": 0
       }
     ]
   }

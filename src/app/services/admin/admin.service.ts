@@ -205,4 +205,10 @@ export class AdminService {
       .get(`${environment.backendURL}/admin/get-number-of-registered-employees`)
       .pipe(map((response) => response as number));
   }
+
+  getTopPerformer(): any {
+    return this.httpClient
+      .get(`${environment.backendURL}/admin/get-top-performer`)
+      .pipe(map((response) => response as Company[]));
+  }
 }

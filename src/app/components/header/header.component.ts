@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
@@ -23,7 +23,9 @@ export class HeaderComponent implements OnInit {
   backendURL = environment.backendURL;
   isAdminLogin: any;
   isCompany:boolean=false;
-  coins=0;
+  isCompanySignup!:boolean;
+  coins:any;
+  showCoins!:boolean;
 
   breakpoint$: Observable<Breakpoint>;
 
@@ -35,7 +37,9 @@ export class HeaderComponent implements OnInit {
     }>,
     private companyService :CompanyService,
     public bottomSheet: MatBottomSheet,
-    loginService: LoginService
+    loginService: LoginService,
+
+    private ngZone: NgZone
   ) {
 
     this.breakpoint$ = store.select('breakpoint');
@@ -50,18 +54,34 @@ export class HeaderComponent implements OnInit {
     });
     this.store.select('menu').subscribe((menu) => (this.isOpen = menu));
     this.loginService = loginService;
-    if(this.loginService.isLoggedIn() && localStorage.getItem("userType")==="COMPANY") this.isCompany=true;
-    else this.isCompany=false;
 
     this.store.select('route').subscribe((route) => {
       if (route === '/') this.isHome = true;
       else if (route === '/admin/login') this.isAdminLogin = true;
-      else this.isHome = false;
+      else if (route === '/company/signup') this.isCompanySignup=true;
+      else {
+      this.isHome = false;
       this.isAdminLogin = false;
+      this.isCompanySignup=false;
+      }
+      if(route.substring(1,4)==="com" && route !== '/company/signup') {
+        this.showCoins=true;
+      }
+      else{
+        this.showCoins=false;
+      }
+
+
     });
   }
   ngOnInit(): void {
-    this.companyService.coinSubject.subscribe((coins)=>{this.coins=coins})
+
+    this.companyService.coinSubject.subscribe((coins)=>
+    {
+
+      this.ngZone.run(()=>
+      this.coins=coins);
+    })
 
   }
 

@@ -15,4 +15,8 @@ export var pieChartData: any = [
     name: 'Pending',
     value: 0,
   },
+  {
+    name: 'Reported',
+    value: 0,
+  },
 ];

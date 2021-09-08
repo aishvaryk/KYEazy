@@ -34,6 +34,7 @@
       [scheme]="colorScheme"
       [results]="pieChartData"
       [label]="'Total Employees'"
+      *ngIf="!isSmall"
     >
     </ngx-charts-advanced-pie-chart>
   </div>

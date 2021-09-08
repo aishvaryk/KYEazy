@@ -11,7 +11,8 @@
   fxLayout="column"
   *ngIf="!loading"
   fxLayoutAlign="center center"
-  class="form-container"
+  [ngClass.gt-xs]="'form-container'"
+  [ngClass.xs]="'form-container-mobile'"
 
 >
 
@@ -29,6 +30,7 @@
         placeholder="Please describe your resons to report"
         formControlName="reason"
         required
+        rows="4"
       ></textarea>
       <mat-error
         *ngIf="!form.get('username')?.valid && form.get('username')?.touched"
