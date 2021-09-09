@@ -21,6 +21,7 @@ export class SubscriptionComponent implements OnInit {
   orderHistory: PaymentHistory[];
   displayedColumns: string[];
   rzp: any;
+  loading: boolean;
 
   constructor(
     private paymentService: PaymentService,
@@ -29,6 +30,7 @@ export class SubscriptionComponent implements OnInit {
     private ngZone: NgZone
   ) {
     this.invalidForm = true;
+    this.loading = false;
     this.orderHistory = [{}] as PaymentHistory[];
     this.displayedColumns = [];
   }
@@ -41,19 +43,25 @@ export class SubscriptionComponent implements OnInit {
       'amount',
     ];
     let k = localStorage.getItem('Id');
+
     if (k != null) {
       this.companyId = parseInt(k);
     }
 
+    this.loading = true;
     this.companyService.getCompanyDetails(this.companyId);
+
     this.companyService.companySubject.subscribe((company) => {
+      this.loading = true;
       this.ngZone.run(() => (this.coinBalance = company.coins));
       this.paymentService.getOrderHistory(this.companyId);
       this.paymentService.orderHistory.subscribe((p) => {
         this.ngZone.run(() => (this.orderHistory = p));
+        this.loading = false;
       });
     });
   }
+
   openBottomSheet() {
     this._bottomSheet.open(AddCoinsComponent);
   }

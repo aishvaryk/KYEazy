@@ -32,7 +32,7 @@ export class CompanyService {
     private httpClient: HttpClient,
     public snackbar: MatSnackBar
   ) {
-    this.employees =  [];
+    this.employees = [];
     this.registrationStatus = {} as ActionDTO;
     this.employee = {} as Employee;
     this.employeesSubject = new Subject();
@@ -51,10 +51,7 @@ export class CompanyService {
 
   register(newCompany: Company) {
     return this.httpClient
-      .post<Company>(
-        `${environment.backendURL}/company/register`,
-        newCompany
-      )
+      .post<Company>(`${environment.backendURL}/company/register`, newCompany)
       .pipe(map((response) => response as Company));
   }
 
@@ -163,26 +160,26 @@ export class CompanyService {
         this.reportedSubject.next(data.success);
       });
   }
+
   reKyc(employeeId: number) {
-    return this.httpClient.get(
-      `${environment.backendURL}/company/re-kyc/${employeeId}`
-    ).pipe(map(response=>response as Employee));
+    return this.httpClient
+      .get(`${environment.backendURL}/company/re-kyc/${employeeId}`)
+      .pipe(map((response) => response as Employee));
   }
 
   getEmployeesSize(id: number, filter: string) {
-    return this.httpClient.get(
-      `${environment.backendURL}/company/get-employees-size/${id}/${filter}`
-    );
+    return this.httpClient
+      .get(
+        `${environment.backendURL}/company/get-employees-size/${id}/${filter}`
+      )
+      .pipe(map((response) => response as number));
   }
 
-  getSearchedEmployeesSize(
-    id: number,
-    name: string,
-    sort: string,
-    filter: string
-  ) {
-    return this.httpClient.get<number>(
-      `${environment.backendURL}/company/get-searched-employees-size/${id}/${name}?sort=${sort}&filter=${filter}`
-    ).pipe(map (response=>response as number));
+  getSearchedEmployeesSize(id: number, name: string, filter: string) {
+    return this.httpClient
+      .get<number>(
+        `${environment.backendURL}/company/get-searched-employees-size/${id}/${name}/${filter}`
+      )
+      .pipe(map((response) => response as number));
   }
 }

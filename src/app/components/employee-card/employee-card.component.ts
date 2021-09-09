@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Breakpoint } from 'src/app/models/breakpoint.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -15,14 +17,17 @@ export class EmployeeCardComponent implements OnInit {
   @Input() employee: any;
   @Input() isSmall: any;
   @Input() user: any;
-
+  public isDisable: boolean;
   @Output() rekyc = new EventEmitter<number>();
 
   constructor(
     public companyService: CompanyService,
     public store: Store<{ breakpoint: Breakpoint }>,
+    public snackbar: MatSnackBar,
+    public router: Router,
     public dialog: MatDialog
   ) {
+    this.isDisable = false;
     this.store.select('breakpoint').subscribe((change: Breakpoint) => {
       if (change.isXs) {
         this.isSmall = true;
@@ -42,12 +47,26 @@ export class EmployeeCardComponent implements OnInit {
   }
 
   OnReport() {
+    if (this.employee.status === 'Registered') {
+      this.snackbar.open('Please Wait for Employee To Register.', 'Retry');
+      return;
+    }
     this.dialog.open(ModalComponent, {
       data: {
         type: 'REPORT',
         employeeId: this.employee.employeeId,
       },
     });
+  }
+
+  viewProfile() {
+    if (this.employee.status === 'Registered') {
+      this.snackbar.open('Please Wait for Employee To Register.', 'Retry');
+    } else {
+      this.router.navigate([
+        `/${this.user}/employee/profile/${this.employee.employeeId}`,
+      ]);
+    }
   }
 
   onReKyc() {

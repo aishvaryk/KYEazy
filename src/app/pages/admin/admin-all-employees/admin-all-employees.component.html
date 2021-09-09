@@ -58,7 +58,8 @@
             <mat-label>Sort By</mat-label>
             <mat-select (selectionChange)="OnSortSelect($event)">
               <mat-option value="displayName">Name</mat-option>
-              <mat-option value="dateTimeOfApplication">Date of Registration</mat-option
+              <mat-option value="dateTimeOfApplication"
+                >Date of Registration</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -98,6 +99,7 @@
       </div>
 
       <div
+        *ngIf="!loading"
         [ngClass.gt-xs]="'employee-cards-container'"
         [ngClass.xs]="'employee-cards-container-mobile'"
         fxLayout="column"
@@ -110,6 +112,17 @@
           ></app-employee-card>
         </div>
       </div>
+
+      <div
+        *ngIf="loading"
+        [ngClass.gt-xs]="'employee-cards-container'"
+        [ngClass.xs]="'employee-cards-container-mobile'"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <mat-spinner></mat-spinner>
+      </div>
+
       <div fxLayout="row" fxLayoutAlign="end" class="employee-paginator">
         <mat-paginator
           #matPaginator

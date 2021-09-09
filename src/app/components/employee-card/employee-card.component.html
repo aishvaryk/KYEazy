@@ -155,10 +155,9 @@
         <button
           mat-raised-button
           color="primary"
-          routerLink="/{{ user }}/employee/profile/{{ employee.employeeId }}"
           [ngClass.xs]="'employee-buttons-mobile'"
           [ngClass.gt-xs]="'employee-buttons'"
-          [disabled]="employee.status === 'Registered'"
+          (click)="viewProfile()"
         >
           View Profile
         </button>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
   fileName: string;
   companyId!: number;
   file!: File;
-  isSmall!:boolean;
+  isSmall!: boolean;
 
   constructor(
     companyService: CompanyService,
@@ -104,7 +104,7 @@ export class SignupComponent implements OnInit {
     this.loading = true;
 
     this.companyService.register(this.newCompany).subscribe(
-      (data:Company) => {
+      (data: Company) => {
         this.companyId = data.companyId;
         const imageData = new FormData();
         imageData.append('companyIcon', this.file);

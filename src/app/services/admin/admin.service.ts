@@ -48,7 +48,7 @@ export class AdminService {
     pageNumber: number,
     sort: string,
     filter: string
-    ): void {
+  ): void {
     this.httpClient
       .get(
         `${environment.backendURL}/admin/view-all-applications?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}&filter=${filter}`
@@ -156,27 +156,31 @@ export class AdminService {
   }
 
   getSearchedCompaniesSize(name: string) {
-    return this.httpClient.get(
-      `${environment.backendURL}/admin/get-searched-companies-size/${name}`
-    );
+    return this.httpClient
+      .get(
+        `${environment.backendURL}/admin/get-searched-companies-size/${name}`
+      )
+      .pipe(map((response) => response as number));
   }
 
   getCompaniesSize() {
-    return this.httpClient.get(
-      `${environment.backendURL}/admin/get-total-number-of-companies`
-    );
+    return this.httpClient
+      .get(`${environment.backendURL}/admin/get-total-number-of-companies`)
+      .pipe(map((response) => response as number));
   }
 
   getEmployeesSize(status: string) {
-    return this.httpClient.get(
-      `${environment.backendURL}/admin/get-employees-size/${status}`
-    ).pipe(map((response) => response as number));
+    return this.httpClient
+      .get(`${environment.backendURL}/admin/get-employees-size/${status}`)
+      .pipe(map((response) => response as number));
   }
 
   getSearchedEmployeesSize(name: string, status: string) {
-    return this.httpClient.get(
-      `${environment.backendURL}/admin/get-searched-employees-size/${name}/${status}`
-    ).pipe(map((response) => response as number));
+    return this.httpClient
+      .get(
+        `${environment.backendURL}/admin/get-searched-employees-size/${name}/${status}`
+      )
+      .pipe(map((response) => response as number));
   }
 
   getNoOfEmployees() {

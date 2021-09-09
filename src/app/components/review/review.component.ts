@@ -36,7 +36,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
   public liveliness: Liveliness;
   public company!: string;
 
-
   public employeeLoading: any;
   public companyLoading: any;
   public videoLoading: any;
@@ -142,8 +141,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.employee.documentNumber = this.documents.documentNumber;
     this.employee.documentType = this.documents.documentType;
     this.employee.question = this.liveliness.question;
-
-    console.log(this.employee);
 
     let id = parseInt(localStorage.getItem('Id')!);
     const documentData = new FormData();

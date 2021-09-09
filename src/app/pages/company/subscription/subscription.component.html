@@ -31,6 +31,7 @@
       </div>
       <div
         fxFlex="40"
+        *ngIf="!loading"
         class="coin-balance"
         fxLayout="column"
         fxLayoutAlign="center center"
@@ -53,7 +54,7 @@
   </mat-card>
 
   <mat-card
-    *ngIf="orderHistory.length != 0"
+    *ngIf="orderHistory.length != 0 && !loading"
     [ngClass.gt-xs]="'container-card'"
     [ngClass.lt-sm]="'container-card-mobile'"
     fxLayout.xs="column"
@@ -101,4 +102,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </mat-card>
+  <div fxLayout="row" fxLayoutAlign="center center" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

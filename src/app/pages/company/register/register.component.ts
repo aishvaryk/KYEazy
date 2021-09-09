@@ -74,10 +74,10 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (data: Employee) => {
           console.log('-----------------------');
-          console.log("Username",data.username);
-          console.log("Password",data.password);
+          console.log('Username', data.username);
+          console.log('Password', data.password);
           console.log('-----------------------');
-          if(k != null) this.companyService.getCompanyDetails(parseInt(k));
+          if (k != null) this.companyService.getCompanyDetails(parseInt(k));
           this.snackbar.open('Successfully registered', 'Okay');
           this.loading = false;
         },

@@ -14,7 +14,6 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('userType'));
     if (
       this.loginService.isLoggedIn() &&
       localStorage.getItem('userType') === 'ADMIN'

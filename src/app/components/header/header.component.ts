@@ -56,9 +56,13 @@ export class HeaderComponent implements OnInit {
 
     this.store.select('route').subscribe((route) => {
       if (route === '/') this.isHome = true;
-      else if (route === '/admin/login') this.isAdminLogin = true;
-      else if (route === '/company/signup') this.isCompanySignup = true;
-      else {
+      else if (route === '/admin/login') {
+        this.isAdminLogin = true;
+        this.isHome = false;
+      } else if (route === '/company/signup') {
+        this.isCompanySignup = true;
+        this.isHome = false;
+      } else {
         this.isHome = false;
         this.isAdminLogin = false;
         this.isCompanySignup = false;

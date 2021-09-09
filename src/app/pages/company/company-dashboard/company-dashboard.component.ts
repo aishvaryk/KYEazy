@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company.model';
 import { Employee } from 'src/app/models/employee.model';
 import { CompanyService } from 'src/app/services/company/company.service';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   templateUrl: './company-dashboard.component.html',
   styleUrls: ['./company-dashboard.component.scss'],
 })
-export class CompanyDashboardComponent implements OnInit {
+export class CompanyDashboardComponent implements OnInit, OnDestroy {
   public companyService: CompanyService;
   public employees: Employee[];
   public company: Company;
@@ -43,25 +43,12 @@ export class CompanyDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     let k = localStorage.getItem('Id');
-    if (k != null) {
-      this.loading = true;
-      this.companyService.getEmployees(
-        parseInt(k),
-        2,
-        1,
-        'dateTimeOfApplication',
-        'all'
-      );
-      this.loading = false;
-    }
-    this.companyService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-    });
+
     if (k != null) {
       this.loading = true;
       this.companyService.getCompanyDetails(parseInt(k));
-      this.loading = false;
     }
+
     this.companyService.companySubject.subscribe((company) => {
       this.company = company;
       if (this.company.numberOfTotalEmployees === 0) {
@@ -80,7 +67,23 @@ export class CompanyDashboardComponent implements OnInit {
         this.company.numberOfPendingEmployees -
         this.company.numberOfRegisteredEmployees;
       Object.assign(this, { pieChartData });
+      if (k != null) {
+        this.loading = true;
+        this.companyService.getEmployees(
+          parseInt(k),
+          5,
+          1,
+          'dateTimeOfApplication',
+          'all'
+        );
+      }
+    });
+
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+      this.loading = false;
     });
   }
 
+  ngOnDestroy() {}
 }

@@ -10,14 +10,12 @@ import { Paginator } from 'src/app/models/paginator.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss'],
 })
 export class EmployeesComponent implements OnInit {
-
   emailFormControl = new FormControl('');
   public paginator: Paginator;
   public isSmall: boolean;
@@ -40,6 +38,7 @@ export class EmployeesComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {
+    this.loading = false;
     this.isSmall = false;
     this.searchText = '';
     this.filter = 'all';
@@ -49,22 +48,12 @@ export class EmployeesComponent implements OnInit {
     this.companyId = 0;
     this.company = {} as Company;
     this.paginator = {} as Paginator;
-    this.paginator.pageSizeOptions = [ 5, 10, 15, 20, 25];
+    this.paginator.pageSizeOptions = [5, 10, 15, 20, 25];
     this.paginator.currentPageIndex = 0;
     this.paginator.currentPageSize = 5;
   }
 
   ngOnInit(): void {
-    this.companyService.reportedSubject.subscribe((response) => {
-      this.companyService.getEmployees(
-        this.companyId,
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1,
-        this.sortBy,
-        this.filter
-      );
-    });
-
     this.activatedRoute.params.subscribe((params) => {
       this.companyId = params.companyId;
       if (params.companyId == undefined) {
@@ -86,49 +75,8 @@ export class EmployeesComponent implements OnInit {
       else this.currentUser = 'admin';
     });
 
-    this.companyService.getEmployees(
-      this.companyId,
-      5,
-      1,
-      this.sortBy,
-      this.filter
-    );
-
-    this.companyService.employeesSubject.subscribe((employees) => {
-      if (this.searchText) {
-        if (employees.length == 0) {
-          this.snackBar.open('No Employees Found', 'Retry');
-          return;
-        }
-        this.companyService
-          .getSearchedEmployeesSize(
-            this.companyId,
-            this.searchText,
-            this.sortBy,
-            this.filter
-          )
-          .subscribe((response: number) => {
-            this.matPaginator.length = response;
-          });
-      }
-      this.employees = employees;
-    });
-
-    this.companyService.getCompanyDetails(this.companyId);
-    this.companyService.companySubject.subscribe((company) => {
-      this.company = company;
-      this.paginator.length = company.numberOfTotalEmployees;
-      if (company.numberOfTotalEmployees === 0) {
-        this.zeroEmployees = true;
-      } else {
-        this.zeroEmployees = false;
-      }
-    });
-  }
-
-  rekyc(employeeId: number) {
-    this.companyService.reKyc(employeeId).subscribe((response: Employee) => {
-      this.companyService.getCompanyDetails(response.companyId);
+    this.companyService.reportedSubject.subscribe((response) => {
+      this.loading = true;
       this.companyService.getEmployees(
         this.companyId,
         this.paginator.currentPageSize,
@@ -137,12 +85,57 @@ export class EmployeesComponent implements OnInit {
         this.filter
       );
     });
+
+    this.companyService.employeesSubject.subscribe((employees) => {
+      this.loading = false;
+      if (this.searchText) {
+        if (employees.length == 0) {
+          this.snackBar.open('No Employees Found', 'Retry');
+          return;
+        }
+      }
+      this.employees = employees;
+    });
+
+    this.loading = true;
+    this.companyService.getCompanyDetails(this.companyId);
+    this.companyService.companySubject.subscribe((company) => {
+      this.company = company;
+      if (company.numberOfTotalEmployees === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+      this.matPaginator.length = company.numberOfTotalEmployees;
+      this.companyService.getEmployees(
+        this.companyId,
+        5,
+        1,
+        this.sortBy,
+        this.filter
+      );
+    });
+  }
+
+  rekyc(employeeId: number) {
+    this.companyService.reKyc(employeeId).subscribe((response: Employee) => {
+      this.loading = true;
+      this.companyService.getCompanyDetails(response.companyId);
+      // this.companyService.getEmployees(
+      //   this.companyId,
+      //   this.paginator.currentPageSize,
+      //   this.paginator.currentPageIndex + 1,
+      //   this.sortBy,
+      //   this.filter
+      // );
+    });
   }
 
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
     if (this.searchText.trim().length === 0) {
+      this.loading = true;
       this.companyService.getEmployees(
         this.companyId,
         this.paginator.currentPageSize,
@@ -151,6 +144,7 @@ export class EmployeesComponent implements OnInit {
         this.filter
       );
     } else {
+      this.loading = true;
       this.companyService.getEmployeesByName(
         this.companyId,
         this.searchText,
@@ -170,52 +164,71 @@ export class EmployeesComponent implements OnInit {
     if (this.searchText.trim().length === 0) {
       this.matPaginator.pageIndex = 0;
       this.matPaginator.length = this.company.numberOfTotalEmployees;
-      this.companyService.getEmployees(
-        this.companyId,
-        5,
-        1,
-        this.sortBy,
-        this.filter
-      );
+      this.loading = true;
+      this.companyService
+        .getEmployeesSize(this.companyId, this.filter)
+        .subscribe((response) => {
+          this.matPaginator.length = response;
+          this.companyService.getEmployees(
+            this.companyId,
+            5,
+            1,
+            this.sortBy,
+            this.filter
+          );
+        });
     } else {
       this.matPaginator.pageIndex = 0;
-      this.companyService.getEmployeesByName(
-        this.companyId,
-        this.searchText,
-        5,
-        1,
-        this.sortBy,
-        this.filter
-      );
+      this.loading = true;
+      this.companyService
+        .getSearchedEmployeesSize(this.companyId, this.searchText, this.filter)
+        .subscribe((response) => {
+          this.matPaginator.length = response;
+          this.companyService.getEmployeesByName(
+            this.companyId,
+            this.searchText,
+            5,
+            1,
+            this.sortBy,
+            this.filter
+          );
+        });
     }
   }
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
     this.matPaginator.pageIndex = 0;
-    this.matPaginator.length = this.company.numberOfTotalEmployees;
-    this.companyService.getEmployees(
-      this.companyId,
-      5,
-      1,
-      this.sortBy,
-      this.filter
-    );
+    this.loading = true;
+    this.companyService
+      .getEmployeesSize(this.companyId, this.filter)
+      .subscribe((response) => {
+        this.matPaginator.length = response;
+        this.companyService.getEmployees(
+          this.companyId,
+          5,
+          1,
+          this.sortBy,
+          this.filter
+        );
+      });
   }
 
   OnFilterSelect(event: any) {
     this.filter = event.value;
     this.matPaginator.pageIndex = 0;
-    this.matPaginator.length = this.company.numberOfTotalEmployees;
-    // this.companyService.getEmployeesSize().subscribe((response) => {
-
-    // })
-    this.companyService.getEmployees(
-      this.companyId,
-      5,
-      1,
-      this.sortBy,
-      this.filter
-    );
+    this.loading = true;
+    this.companyService
+      .getEmployeesSize(this.companyId, this.filter)
+      .subscribe((response) => {
+        this.matPaginator.length = response;
+        this.companyService.getEmployees(
+          this.companyId,
+          5,
+          1,
+          this.sortBy,
+          this.filter
+        );
+      });
   }
 }

@@ -9,7 +9,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { ModalComponent } from '../modal/modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Credentials} from 'src/app/models/credentials.model';
+import { Credentials } from 'src/app/models/credentials.model';
 
 @Component({
   selector: 'app-login',
@@ -60,11 +60,9 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.employeeService.login(this.credentials).subscribe(
         (response: any) => {
-
           this.loginService.loginUser(response.token, response.id);
           this.router.navigate(['/employee/kyc']);
           this.loading = false;
-
         },
         (error) => {
           this.openSnackBar('Invalid Employee Credentials', 'Retry');
@@ -85,11 +83,7 @@ export class LoginComponent implements OnInit {
         },
         (error: any) => {
           this.loading = false;
-          this.errorDialog.open(ModalComponent, {
-            data: {
-              type: 'INFORMATION_PROMPTS',
-            },
-          });
+          this.snackbar.open('Invalid Admin Credentials', 'Retry');
         }
       );
     }
@@ -111,6 +105,6 @@ export class LoginComponent implements OnInit {
       );
     }
 
-    this.dialog.close();
+    this.dialog?.close();
   }
 }

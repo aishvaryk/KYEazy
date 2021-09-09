@@ -1,18 +1,13 @@
-<div
+<!-- <div
   fxLayout="column"
   *ngIf="loading"
   fxLayoutAlign="center center"
   class="loader"
 >
   <mat-spinner></mat-spinner>
-</div>
+</div> -->
 
-<div
-  fxLayout="column"
-  *ngIf="!loading"
-  fxLayoutAlign="start center"
-  class="full-height"
->
+<div fxLayout="column" fxLayoutAlign="start center" class="full-height">
   <mat-card
     *ngIf="!zeroEmployees"
     [ngClass.gt-xs]="'container-card'"
@@ -99,7 +94,9 @@
           </button>
         </div>
       </div>
+
       <div
+        *ngIf="!loading"
         [ngClass.gt-xs]="'employee-cards-container'"
         [ngClass.xs]="'employee-cards-container-mobile'"
         fxLayout="column"
@@ -114,6 +111,10 @@
           ></app-employee-card>
         </div>
       </div>
+      <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+      </div>
+
       <div fxLayout="row" fxLayoutAlign="start" class="employee-paginator">
         <mat-paginator
           #matPaginator

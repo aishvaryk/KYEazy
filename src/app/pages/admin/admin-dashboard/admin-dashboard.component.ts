@@ -30,6 +30,7 @@ export class AdminDashboardComponent implements OnInit {
     public store: Store<{ breakpoint: Breakpoint }>,
     adminService: AdminService
   ) {
+    this.loading = false;
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -40,51 +41,6 @@ export class AdminDashboardComponent implements OnInit {
 
     this.companies = [{}] as Company[];
     this.adminService = adminService;
-    this.adminService.getNoOfEmployees().subscribe((response: number) => {
-      if (response === 0) {
-        this.zeroEmployees = true;
-      } else {
-        this.zeroEmployees = false;
-      }
-      this.totalNoOfEmployees = response;
-    });
-    this.adminService
-      .getNoOfRegisteredEmployees()
-      .subscribe((response: number) => {
-        pieChartData[0].value = response;
-        this.adminService
-          .getNoOfAcceptedEmployees()
-          .subscribe((response: number) => {
-            pieChartData[1].value = response;
-            this.adminService
-              .getNoOfRejectedEmployees()
-              .subscribe((response: number) => {
-                pieChartData[2].value = response;
-
-                this.adminService
-                  .getNoOfPendingEmployees()
-                  .subscribe((response: number) => {
-                    pieChartData[3].value = response;
-                    pieChartData[4].value=this.totalNoOfEmployees-pieChartData[0].value-pieChartData[1].value-pieChartData[2].value;
-                    Object.assign(this, { pieChartData });
-                  });
-              });
-          });
-      });
-
-    this.adminService.getTopPerformer().subscribe((companies: Company[]) => {
-      for (let i = 0; i < companies.length; i++) {
-        barChartData[i].name = companies[i].name;
-        barChartData[i].series[0].value =
-          companies[i].numberOfRegisteredEmployees;
-        barChartData[i].series[1].value =
-          companies[i].numberOfAcceptedEmployees;
-        barChartData[i].series[2].value =
-          companies[i].numberOfRejectedEmployees;
-        barChartData[i].series[3].value = companies[i].numberOfPendingEmployees;
-      }
-      Object.assign(this, { pieChartData });
-    });
   }
 
   onViewEmployees(companyId: number) {
@@ -93,10 +49,62 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.adminService.getCompanies(2, 1);
+    this.adminService.getNoOfEmployees().subscribe((response: number) => {
+      if (response === 0) {
+        this.zeroEmployees = true;
+      } else {
+        this.zeroEmployees = false;
+      }
+      this.totalNoOfEmployees = response;
+      this.adminService
+        .getNoOfRegisteredEmployees()
+        .subscribe((response: number) => {
+          pieChartData[0].value = response;
+          this.adminService
+            .getNoOfAcceptedEmployees()
+            .subscribe((response: number) => {
+              pieChartData[1].value = response;
+              this.adminService
+                .getNoOfRejectedEmployees()
+                .subscribe((response: number) => {
+                  pieChartData[2].value = response;
+                  this.adminService
+                    .getNoOfPendingEmployees()
+                    .subscribe((response: number) => {
+                      pieChartData[3].value = response;
+                      pieChartData[4].value =
+                        this.totalNoOfEmployees -
+                        (pieChartData[0].value +
+                          pieChartData[1].value +
+                          pieChartData[2].value +
+                          pieChartData[3].value);
+                      Object.assign(this, { pieChartData });
+                      this.adminService
+                        .getTopPerformer()
+                        .subscribe((companies: Company[]) => {
+                          for (let i = 0; i < companies.length; i++) {
+                            barChartData[i].name = companies[i].name;
+                            barChartData[i].series[0].value =
+                              companies[i].numberOfRegisteredEmployees;
+                            barChartData[i].series[1].value =
+                              companies[i].numberOfAcceptedEmployees;
+                            barChartData[i].series[2].value =
+                              companies[i].numberOfRejectedEmployees;
+                            barChartData[i].series[3].value =
+                              companies[i].numberOfPendingEmployees;
+                          }
+                          Object.assign(this, { pieChartData });
+                          this.adminService.getCompanies(2, 1);
+                        });
+                    });
+                });
+            });
+        });
+    });
+
     this.adminService.companiesSubject.subscribe((companies) => {
-      this.companies = companies;
       this.loading = false;
+      this.companies = companies;
       if (companies.length === 0) {
         this.zeroCompanies = true;
       } else {

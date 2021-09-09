@@ -44,9 +44,6 @@ export class AdminAllEmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.loading = true;
-    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
-
     this.store.select('breakpoint').subscribe((breakpoint) => {
       if (breakpoint.isXs) {
         this.isSmall = true;
@@ -55,18 +52,20 @@ export class AdminAllEmployeesComponent implements OnInit {
       }
     });
 
-    this.adminService.employeesSubject.subscribe((employees) => {
-      this.employees = employees;
-      console.log(employees);
-    });
-
+    this.loading = true;
     this.adminService.getNoOfEmployees().subscribe((response: number) => {
       this.paginator.length = response;
+      this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
       if (response === 0) {
         this.zeroEmployees = true;
       } else {
         this.zeroEmployees = false;
       }
+    });
+
+    this.adminService.employeesSubject.subscribe((employees) => {
+      this.employees = employees;
+      this.loading = false;
     });
   }
 
@@ -80,27 +79,31 @@ export class AdminAllEmployeesComponent implements OnInit {
   OnPageChange(event: any) {
     this.paginator.currentPageIndex = event.pageIndex;
     this.paginator.currentPageSize = event.pageSize;
-    if(this.searchText.trim().length == 0) {
+    if (this.searchText.trim().length == 0) {
+      this.loading = true;
       this.adminService.getEmployeesSize(this.filter).subscribe((response) => {
         this.matPaginator.length = response;
-      })
-      this.adminService.viewAllApplications(
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1,
-        this.sortBy,
-        this.filter
-      );
-    } else {
-      this.adminService.getSearchedEmployeesSize(this.searchText,this.filter).subscribe((response) => {
-        this.matPaginator.length = response;
+        this.adminService.viewAllApplications(
+          this.paginator.currentPageSize,
+          this.paginator.currentPageIndex + 1,
+          this.sortBy,
+          this.filter
+        );
       });
-      this.adminService.getAllEmployeesByName(
-        this.searchText,
-        this.paginator.currentPageSize,
-        this.paginator.currentPageIndex + 1,
-        this.sortBy,
-        this.filter,
-      );
+    } else {
+      this.loading = true;
+      this.adminService
+        .getSearchedEmployeesSize(this.searchText, this.filter)
+        .subscribe((response) => {
+          this.matPaginator.length = response;
+          this.adminService.getAllEmployeesByName(
+            this.searchText,
+            this.paginator.currentPageSize,
+            this.paginator.currentPageIndex + 1,
+            this.sortBy,
+            this.filter
+          );
+        });
     }
   }
 
@@ -111,35 +114,46 @@ export class AdminAllEmployeesComponent implements OnInit {
   OnSearchSelect() {
     if (this.searchText.trim().length === 0) {
       this.matPaginator.pageIndex = 0;
+      this.loading = true;
       this.adminService.getEmployeesSize(this.filter).subscribe((response) => {
         this.matPaginator.length = response;
-      })
-      this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+        this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+      });
     } else {
       this.matPaginator.pageIndex = 0;
-      this.adminService.getSearchedEmployeesSize(this.searchText,this.filter).subscribe((response) => {
-        this.matPaginator.length = response;
-      });
-      this.adminService.getAllEmployeesByName(this.searchText,5,1,this.sortBy,this.filter);
+      this.loading = true;
+      this.adminService
+        .getSearchedEmployeesSize(this.searchText, this.filter)
+        .subscribe((response) => {
+          this.matPaginator.length = response;
+          this.adminService.getAllEmployeesByName(
+            this.searchText,
+            5,
+            1,
+            this.sortBy,
+            this.filter
+          );
+        });
     }
   }
 
   OnSortSelect(event: any) {
     this.sortBy = event.value;
     this.matPaginator.pageIndex = 0;
+    this.loading = true;
     this.adminService.getEmployeesSize(this.filter).subscribe((response) => {
       this.matPaginator.length = response;
-    })
-    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+      this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+    });
   }
 
   OnFilterSelect(event: any) {
     this.filter = event.value;
     this.matPaginator.pageIndex = 0;
+    this.loading = true;
     this.adminService.getEmployeesSize(this.filter).subscribe((response) => {
       this.matPaginator.length = response;
-    })
-    this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+      this.adminService.viewAllApplications(5, 1, this.sortBy, this.filter);
+    });
   }
-
 }

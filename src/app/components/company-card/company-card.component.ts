@@ -13,8 +13,8 @@ export class CompanyCardComponent implements OnInit {
   @Input() company!: Company;
 
   breakpoint$: Observable<Breakpoint>;
-  isSmall!:boolean;
-  noOfRegisteredEmployees:any;
+  isSmall!: boolean;
+  noOfRegisteredEmployees: any;
 
   constructor(public store: Store<{ breakpoint: Breakpoint }>) {
     this.breakpoint$ = store.select('breakpoint');
