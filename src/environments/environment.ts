@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendURL: 'http://localhost:8080',
+  backendURL: 'https://kyeazy-backend-spring.herokuapp.com',
 };
 
 /*git a
