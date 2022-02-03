@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendURL: 'http://localhost:8085',
+  backendURL: 'http://localhost:8080',
 };
 
 /*git a

@@ -55,7 +55,7 @@
       <button
         mat-menu-item
         (click)="onReKyc()"
-        *ngIf="employee.status === 'Existed'"
+        *ngIf="employee.status === 'Existed' || employee.status === 'Reported' || employee.status === 'Rejected'"
       >
         <mat-icon color="primary" style="margin-right: 0.3rem"
           >restart_alt</mat-icon
