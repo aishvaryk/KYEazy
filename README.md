@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Project Deployed Link
 
-https://kyeazy-945b9.web.app/
+https://ky-eazy.vercel.app/
 
 ## Development server
 
