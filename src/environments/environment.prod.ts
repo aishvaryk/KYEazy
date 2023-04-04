@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendURL: 'https://kyeazy-backend-spring.herokuapp.com',
+  backendURL: 'https://kyeazy-backend.onrender.com',
 };
